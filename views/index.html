@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Desafio Pokemon</title>
+    <!-- <link rel="shortcut icon" type="image/png" href="https://d17riqmt8yes2m.cloudfront.net/images/34796/599317500841.png"> -->
+    <link rel="stylesheet" type="text/css" href="styles.css">
+    <link rel="stylesheet" type="text/css" href="">
+</head>
+<script type="text/javascript" src="script.js"></script>
+
+<body onload="funcionesDeInicio()">
+    <div id="contenedor">
+        <button id="botonRestart" class="boton" onclick="reload()"></button>
+        <div id="iconoMusicaDeBatalla">
+            <img id="musicaDeBatallaImg" src="../../assets/images/audio on.png" type="image/png" onclick="cambiarEstadoMusicaDeBatalla()">
+        </div>
+        <audio id="musicaDeBatalla" src="../../assets/audio/Musica de fondo cep largo.wav"> </audio>
+        <div id="cartelDesafio">
+            <img type="image/png" src="../../assets/images/cartel desafio.png">
+        </div>
+        <div id="personajes">
+            <div id="personajeIzquierdo" class="personaje">
+                <div id="iconoDesmayoIzquierdo" class="iconoDesmayo">
+                    <img type="image/png" src="../../assets/images/pokemon desmayado.png">
+                </div>
+                <img type="image/png" src="../../assets/images/bolbasaur.png">
+                <span class="bordeBarraVitalidad">
+                    <div id="barraVitalidadPersonajeIzquierdo" class="barraVitalidad">
+                        <img type="image/png" src="../../assets/images/corazon verde.png">
+                    </div>
+                    <div id="valorVitalidadPersonajeIzquierdo" class="barraVitalidad">
+                    </div>
+                </span>
+                <span class="bordeBarraEnergia">
+                    <div id="barraEnergiaPersonajeIzquierdo" class="barraVitalidad">
+                        <img type="image/png" src="../../assets/images/rayo azul.png">
+                    </div>
+                    <div id="valorEnergiaPersonajeIzquierdo" class="barraVitalidad"></div>
+                </span>
+                <div id="estadisticasPersonajeIzquierdo" class="recuadroEstadisticasPersonajes">
+                </div>
+                <div id="luzDeRecuperacionDeEnergiaIzquierda" class="luzDeRecuperacionDeEnergia">
+                    <img type="image/png" src="../../assets/images/aura energia.png">
+                </div>
+            </div>
+            <div id="botoneraIzquierda" class="botonera">
+                <button onclick="atacarAlDerecho()" id="botonIzquierdoAtacar" class="boton">
+                    ATACAR
+                </button>
+                <button onclick="recuperarEnergiaIzquierdo()" id="botonIzquierdoRecuperar" class="boton">
+                    RECUPERAR ENERGIA
+                </button>
+            </div>
+            <div id="personajeDerecho" class="personaje">
+                <div id="iconoDesmayoDerecho" class="iconoDesmayo">
+                    <img type="image/png" src="../../assets/images/pokemon desmayado.png">
+                </div>
+                <img type="image/png" src="../../assets/images/charmander.png">
+                <span class="bordeBarraVitalidad">
+                    <div id="barraVitalidadPersonajeDerecho" class="barraVitalidad">
+                        <img type="image/png" src="../../assets/images/corazon verde.png">
+                    </div>
+                    <div id="valorVitalidadPersonajeDerecho" class="barraVitalidad">
+                    </div>
+                </span>
+                <span class="bordeBarraEnergia">
+                    <div id="barraEnergiaPersonajeDerecho" class="barraVitalidad">
+                        <img type="image/png" src="../../assets/images/rayo azul.png">
+                    </div>
+                    <div id="valorEnergiaPersonajeDerecho" class="barraVitalidad"></div>
+                </span>
+                <div id="luzDeRecuperacionDeEnergiaDerecho" class="luzDeRecuperacionDeEnergia">
+                    <img type="image/png" src="../../assets/images/aura energia.png">
+                </div>
+                <div id="estadisticasPersonajeDerecho" class="recuadroEstadisticasPersonajes">
+                </div>
+            </div>
+            <div id="botoneraDerecha" class="botonera">
+                <button onclick="atacarAlIzquierdo()" id="botonDerechoAtacar" class="boton">
+                    ATACAR
+                </button>
+                <button onclick="recuperarEnergiaDerecho()" id="botonDerechoRecuperar" class="boton">
+                    RECUPERAR ENERGIA
+                </button>
+            </div>
+            <div id="anuncios"></div>
+        </div>
+</body>
+
+</html>
