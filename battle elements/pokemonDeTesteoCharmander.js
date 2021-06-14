@@ -8,7 +8,7 @@ const config = require('./config')
 	nombre:'charmander',
 	tipoDePokemon,
 	evolucion:1,
-	vida:500,// hacer pruebas para ver porque rompe por condicion de ataque cuando cambio por otros valores
+	vida:100,// hacer pruebas para ver porque rompe por condicion de ataque cuando cambio por otros valores
 	energia:1500,
 	fuerza:1000,
 	defensa:1000,
