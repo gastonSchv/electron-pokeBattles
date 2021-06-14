@@ -1,12 +1,12 @@
 const _ = require('lodash')
 const { ipcRenderer } = require('electron')
-const personajeIzquierdo = require('../battle elements/pokemonDeTesteoBolbasaur')
+const personajeIzquierdo = require('../../battle elements/pokemonDeTesteoBolbasaur')
 const personajeIzquierdoInicial = _.cloneDeep(personajeIzquierdo)
 personajeIzquierdo.inicial = personajeIzquierdoInicial
-const personajeDerecho = require('../battle elements/pokemonDeTesteoCharmander')
+const personajeDerecho = require('../../battle elements/pokemonDeTesteoCharmander')
 const personajeDerechoInicial = _.cloneDeep(personajeDerecho)
 personajeDerecho.inicial = personajeDerechoInicial;
-const juezDeBatalla = require('../battle elements/juezDeBatalla')
+const juezDeBatalla = require('../../battle elements/juezDeBatalla')
 
 let largoInicialDeBarraEnergia = 150;
 let largoInicialDeBarraVitalidad = 150;
@@ -47,7 +47,7 @@ function funcionesDeInicio(){
     actualizarValoresBarraEnergia()
 }
 function prenderMusicaBatalla(){
-  musicaDeBatalla.play()
+//  musicaDeBatalla.play()
 }
 function cambiarEstadoMusicaDeBatalla(){
   if(musicaDeBatallaPrendida){
