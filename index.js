@@ -32,21 +32,5 @@ app.on('ready',() => {
   ipcMain.on('buttonClick:restart',(event,data) => {
     mainScreen.reload()
   })
-  ipcMain.on('event:ganadorDeBatalla',(event,data) => {
-      const winnerScreen =  new BrowserWindow({
-          webPreferences,
-          title:'   Ganador de la batalla',
-          width:400,
-          height: 247,
-          autoHideMenuBar:true,
-          maximizable:false,
-          minimizable:false
-      })
-      winnerScreen.loadURL(url.format({
-        pathname:path.join(__dirname,'views','winnerScreen/index.html'),
-        protocol:'file',
-        slashes:true
-      }))  
-  })
 })
 
