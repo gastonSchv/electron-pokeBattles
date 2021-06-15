@@ -3,7 +3,6 @@
 
 <head>
     <title>Desafio Pokemon</title>
-    <!-- <link rel="shortcut icon" type="image/png" href="https://d17riqmt8yes2m.cloudfront.net/images/34796/599317500841.png"> -->
     <link rel="stylesheet" type="text/css" href="styles.css">
     <link rel="stylesheet" type="text/css" href="">
 </head>
@@ -11,13 +10,20 @@
 
 <body onload="funcionesDeInicio()">
     <div id="contenedor">
-        <button id="botonRestart" class="boton" onclick="reload()"></button>
+        <button id="botonRestartGlobal" class="boton" onclick="reload()"></button>
         <div id="iconoMusicaDeBatalla">
             <img id="musicaDeBatallaImg" src="../../../assets/images/audio on.png" type="image/png" onclick="cambiarEstadoMusicaDeBatalla()">
         </div>
         <audio id="musicaDeBatalla" src="../../../assets/audio/Musica de fondo cep largo.wav"> </audio>
         <div id="cartelDesafio">
             <img type="image/png" src="../../../assets/images/cartel desafio.png">
+        </div>
+        <div>
+            <div id="cartelGanadorBackground" class="cartelGanador"></div>
+            <div class="cartelGanador">
+                <h1 id="textoGanador"></h1>
+                <button id="botonRestartGanador" class="boton" onclick="reload()">RESTART!</button>
+            </div>
         </div>
         <div id="personajes">
             <div id="personajeIzquierdo" class="personaje">

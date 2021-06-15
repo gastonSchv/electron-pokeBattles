@@ -162,14 +162,13 @@ function editarDeshabilitacionDeBotones(personaje,estado){
    document.getElementById(personaje.componentesHtml.botonAtacar).disabled = estado
    document.getElementById(personaje.componentesHtml.botonRecuperarEnergia).disabled = estado		
 }
-function mostrarGanadorSiExiste(){
-	var ganadorDeBatalla = juezDeBatalla.definirGanador(personajeIzquierdo,personajeDerecho)
-	if(ganadorDeBatalla){
-		ipcRenderer.send('event:ganadorDeBatalla',{
-        nombre:ganadorDeBatalla.nombre,
-        vitalidad: ganadorDeBatalla.vitalidad()
-    })
-	}
+function cambioCartelGanador(ganador){
+  document.getElementById('cartelDesafio').style.opacity = 0
+	document.getElementById('cartelGanadorBackground').style.opacity = 0.5
+  document.getElementById('botonRestartGanador').style.opacity = 1
+  const textoGanador = document.getElementById('textoGanador')
+  textoGanador.style.opacity = 1
+  textoGanador.innerHTML=`${_.upperCase(ganador.nombre)} ES EL GANADOR!`
 }
 function recuperarEnergia(personajeRecuperado,otroPersonaje){
   var fotoEnergia = document.getElementById(personajeRecuperado.componentesHtml.fotoEnergia);
@@ -192,7 +191,8 @@ function atacar(personajeAtacado,personajeAtacante,posicionInicialAtacado){
   editarDeshabilitacionDeBotones(personajeAtacante,true)
   actualizarElementosDeBatalla();
   editarDeshabilitacionDeBotones(personajeAtacado,false)
-  mostrarGanadorSiExiste()
+  const ganador = juezDeBatalla.definirGanador(personajeAtacante,personajeAtacado)
+  ganador? cambioCartelGanador(ganador):'';
 }
 function atacarAlDerecho(){
   atacar(personajeDerecho,personajeIzquierdo,410)

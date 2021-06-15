@@ -24,7 +24,8 @@ body {
   height: 150px;
   top:80px;
   left:410px;
-  width: 370px
+  width: 370px;
+  opacity: 1
 }
 #cartelDesafio img {
   display: block;
@@ -268,4 +269,32 @@ body {
   top:70px;
   width:50%;
   height: 25%;
+}
+.cartelGanador{
+  position: absolute;
+  /*border: 2px solid;*/
+  border-color: purple;
+  margin-left: auto;
+  margin-right: auto;
+  height: 200px;
+  top:60px;
+  left:418px;
+  width: 373px; 
+}
+#cartelGanadorBackground{
+  opacity: 0;
+  background-color: black;
+}
+#botonRestartGanador{
+  position: absolute;
+  width:120px;
+  top:130px;
+  left: 130px;
+  opacity: 0
+}
+#textoGanador{
+ font-weight: 10;
+ color:#F5FFFA;
+ text-align: center;
+ opacity: 0; 
 }
