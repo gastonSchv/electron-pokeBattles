@@ -117,7 +117,7 @@ class juezDeBatalla  {
 			return unPokemon.vitalidad() > 0 && otroPokemon.vitalidad() > 0
 	}
 	ganadorDeBatalla(unPokemon,otroPokemon){
-		return _.maxBy([unPokemon,otroPokemon],'vitalidad')
+		return _.maxBy([unPokemon,otroPokemon], pokemon => pokemon.vitalidad())
 	}
 	hayGanador(unPokemon,otroPokemon){
 		return !this.ambosPokemonsVivos(unPokemon,otroPokemon)
