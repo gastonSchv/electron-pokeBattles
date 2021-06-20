@@ -12,6 +12,7 @@ let largoInicialDeBarraEnergia = 150;
 let largoInicialDeBarraVitalidad = 150;
 let musicaDeBatallaPrendida = true;
 
+
 personajeDerecho.componentesHtml = {
   fotoEnergia : 'luzDeRecuperacionDeEnergiaDerecho',
   barraEnergia : 'barraEnergiaPersonajeDerecho',
@@ -22,7 +23,8 @@ personajeDerecho.componentesHtml = {
   bordeBarraVitalidad:'bordeBarraVitalidadDerecho',
   valorVitalidad:'valorVitalidadPersonajeDerecho',
   valorEnergia:'valorEnergiaPersonajeDerecho',
-  iconoDesmayo:'iconoDesmayoDerecho'
+  iconoDesmayo:'iconoDesmayoDerecho',
+  sonidoAtaque:'sonidoAtaqueDerecho'
 }
 personajeIzquierdo.componentesHtml = {
   fotoEnergia : 'luzDeRecuperacionDeEnergiaIzquierda',
@@ -34,12 +36,13 @@ personajeIzquierdo.componentesHtml = {
   bordeBarraVitalidad:'bordeBarraVitalidadIzquierdo',
   valorVitalidad:'valorVitalidadPersonajeIzquierdo',
   valorEnergia:'valorEnergiaPersonajeIzquierdo',
-  iconoDesmayo:'iconoDesmayoIzquierdo'
+  iconoDesmayo:'iconoDesmayoIzquierdo',
+  sonidoAtaque:'sonidoAtaqueIzquierdo'
 }
 
 function funcionesDeInicio(){
     let musicaDeBatalla =  document.getElementById("musicaDeBatalla");
-    musicaDeBatalla.volume = 0.5
+    musicaDeBatalla.volume = 0.9		
     musicaDeBatalla.loop = true
     let musicaDeBatallaImg = document.getElementById("musicaDeBatallaImg")
     prenderMusicaBatalla()
@@ -53,11 +56,11 @@ function cambiarEstadoMusicaDeBatalla(){
   if(musicaDeBatallaPrendida){
      musicaDeBatallaPrendida = false;
      musicaDeBatalla.pause()
-     musicaDeBatallaImg.src  = "../../assets/images/audio off.png" 
+     musicaDeBatallaImg.src  = "../../../assets/images/audio off.png" 
   }else{
     musicaDeBatalla.play()
     musicaDeBatallaPrendida = true;
-    musicaDeBatallaImg.src  = "../../assets/images/audio on.png"
+    musicaDeBatallaImg.src  = "../../../assets/images/audio on.png"
   }
 }
 function reload(){
@@ -74,6 +77,9 @@ function largoDeBarraVitalidad(personaje){
 }
 function desmayarse(personajeAtacante){
   var iconoDesmayo = document.getElementById(personajeAtacante.componentesHtml.iconoDesmayo)
+  var sonidoDesmayo = document.getElementById("sonidoDesmayo")
+  sonidoDesmayo.volume = 0.5
+  sonidoDesmayo.play()
   aparecerYDesvanecer(iconoDesmayo,0.1)
 }
 function desplazarse(enemyXPosition,personajeAtacanteImg) {
@@ -180,13 +186,18 @@ function recuperarEnergia(personajeRecuperado,otroPersonaje){
   editarDeshabilitacionDeBotones(personajeRecuperado,true)
   editarDeshabilitacionDeBotones(otroPersonaje,false)
 }
+function efectosAtacar(posicionInicialAtacado,personajeAtacanteImg,sonidoAtaque){
+	desplazarse(posicionInicialAtacado,personajeAtacanteImg)
+	sonidoAtaque.volume = 0.2
+  	sonidoAtaque.play()
+}
 function atacar(personajeAtacado,personajeAtacante,posicionInicialAtacado){
   var personajeAtacanteImg = document.getElementById(personajeAtacante.componentesHtml.personaje);
   var botonAtacarAtacante = document.getElementById(personajeAtacante.componentesHtml.botonAtacar);
   var botonAtacarAtacado = document.getElementById(personajeAtacado.componentesHtml.botonAtacar)
+  var sonidoAtaque = document.getElementById(personajeAtacante.componentesHtml.sonidoAtaque)
   
-
-  personajeAtacante.energiaSuficiente('fuerte')?desplazarse(posicionInicialAtacado,personajeAtacanteImg):desmayarse(personajeAtacante);
+  personajeAtacante.energiaSuficiente('fuerte')?efectosAtacar(posicionInicialAtacado,personajeAtacanteImg,sonidoAtaque):desmayarse(personajeAtacante);
   personajeAtacante.atacar(personajeAtacado,'fuerte');//buscar la manera de plantear los distintos tipos de ataque
   editarDeshabilitacionDeBotones(personajeAtacante,true)
   actualizarElementosDeBatalla();
