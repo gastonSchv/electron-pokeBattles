@@ -26,7 +26,7 @@ function cambiarEstadoMusicaDeBatalla(){
 }
 
 function abrirPantallaDeBatalla(){
-  cambiarEstadoMusicaDeBatalla()
+  //cambiarEstadoMusicaDeBatalla()
   ipcRenderer.send('screens:battleScreen',{
 
   })
