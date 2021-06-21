@@ -1,15 +1,52 @@
+
 #container {
+    /*border: 1px solid;*/
     border-color: black;
+    background-color: #B0C4DE;
     display: flex;
     height: 100vh;
 }
-
-#botonGuardar {
-    border: 1px solid;
-    height: 50px;
-    border-color: black;
-    margin-top: auto;
-    margin-bottom: 10px;
+#elementos{
+    /*border: 5px solid;*/
+    border-color: purple;
+    width: 600px;
     margin-right: auto;
     margin-left: auto;
+
+}
+#botones{
+    /*border: 4px solid;*/
+    display: flex;
+    margin-top: 100px;
+}
+#botonGuardar {
+    /*border: 1px solid;*/
+    height: 50px;
+    width: 180px;
+    border-color: black;
+    margin-top: auto;
+    margin-bottom: auto;
+    margin-right: auto;
+    margin-left: 15px;
+}
+#botonGuardar button{
+    width: 180px;
+}
+#botonAtras{
+    height: 50px;
+    margin-right: 15px;
+    margin-left: auto;
+    margin-top: auto;
+    margin-bottom: auto;
+}
+#formRutaPokemon{
+    /*border: 1px solid;*/
+    height: 40px;
+    width:550px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 130px;
+}
+#inputRuta{
+    width: 550px;
 }
