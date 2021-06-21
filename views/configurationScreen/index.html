@@ -8,10 +8,20 @@
 </head>
 <script type="text/javascript" src="script.js"></script>
 
-<body>
+<body onload="functionesDeInicio()">
     <div id="container">
-        <div id="botonGuardar">
-            <button type="button" class="btn btn-success"> GUARDAR</button>
+        <div id="elementos">
+            <div id="formRutaPokemon" class="form-group">
+                <input id="inputRuta" type="text">
+            </div>
+            <div id="botones">
+                <div id="botonAtras">
+                    <button type="button" class="btn btn-info" onclick="ocultarConfiguracion()"> ATRAS</button>
+                </div>
+                <div id="botonGuardar">
+                    <button type="button" class="btn btn-success" onclick="guardarRutaPokemon()"> GUARDAR</button>
+                </div>
+            </div>
         </div>
     </div>
 </body>
