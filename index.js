@@ -4,6 +4,7 @@ const path = require('path')
 const _ = require('lodash')
 const reload = require('electron-reload')
 
+let battleScreen = {}
 const webPreferences = {
     nodeIntegration: true,
     contextIsolation: false
@@ -15,46 +16,68 @@ if (process.env.NODE_ENV !== 'production') {
     })
 }
 
+function newBattleScreen() {
+    battleScreen = new BrowserWindow({
+        show: false,
+        webPreferences
+    })
+    battleScreen.loadURL(url.format({
+        pathname: path.join(__dirname, 'views', 'battleScreen/index.html'),
+        protocol: 'file',
+        slashes: true
+    }))
+}
 app.on('ready', () => {
 
     landingScreen = new BrowserWindow({
-      webPreferences
+        webPreferences
     })
     landingScreen.loadURL(url.format({
-      pathname: path.join(__dirname,'views','landingScreen/index.html'),
-      protocol:'file',
-      slashes:true
+        pathname: path.join(__dirname, 'views', 'landingScreen/index.html'),
+        protocol: 'file',
+        slashes: true
     }))
     landingScreen.maximize()
     landingScreen.once('ready-to-show', () => { landingScreen.show() })
-    ipcMain.on('screens:battleScreen', (event, data) => {
-        battleScreen = new BrowserWindow({
-            show: false,
-            webPreferences
-        })
-        battleScreen.loadURL(url.format({
-            pathname: path.join(__dirname, 'views', 'battleScreen/index.html'),
-            protocol: 'file',
-            slashes: true
-        }))
-        battleScreen.maximize()
-        battleScreen.once('ready-to-show', () => { battleScreen.show() })
-        ipcMain.on('buttonClick:restart', (event, data) => {
-            battleScreen.reload()
-        })
-    })
-    ipcMain.on('screens:configurationScreen',(event,data) => {
-        configurationScreen = new BrowserWindow({
-            webPreferences,
-            width:400,
-            height:247,
-            frame:false      
-        })
-        configurationScreen.loadURL(url.format({
-            pathname:path.join(__dirname,'views','configurationScreen/index.html'),
-            protocol:'file',
-            slashes:true
-        }))
-    })
 
+    configurationScreen = new BrowserWindow({
+        show: false,
+        webPreferences,
+        width: 600,
+        height: 370,
+        frame: false
+    })
+    newBattleScreen()
+    configurationScreen.loadURL(url.format({
+        pathname: path.join(__dirname, 'views', 'configurationScreen/index.html'),
+        protocol: 'file',
+        slashes: true
+    }))
+    ipcMain.on('buttonClick:restart', (event, data) => {
+        console.log('se apreto restart')
+        battleScreen.reload()
+        battleScreen.once('ready-to-show', () => {
+            configurationScreen.webContents.send('config:ruta', data)
+        })
+    })
+    ipcMain.on('config:ruta', (event, data) => {
+        console.log('llego ruta', data)
+        battleScreen.webContents.send('config:ruta', data)
+    })
+    ipcMain.on('screens:battleScreen', (event, data) => {
+        newBattleScreen()
+        battleScreen.maximize()
+        battleScreen.show()
+        configurationScreen.webContents.send('config:ruta', data)
+    })
+    ipcMain.on('screens:configurationScreen', (event, data) => {
+        configurationScreen.show()
+    })
+    ipcMain.on('screens:configurationScreenHide', (event, data) => {
+        console.log('deberia ocultar configurationScreen')
+        configurationScreen.hide()
+    })
+    landingScreen.on('close', (event,data) => {
+        app.quit()
+    })
 })
