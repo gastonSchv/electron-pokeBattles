@@ -203,7 +203,11 @@ function atacar(personajeAtacado,personajeAtacante,posicionInicialAtacado){
   actualizarElementosDeBatalla();
   editarDeshabilitacionDeBotones(personajeAtacado,false)
   const ganador = juezDeBatalla.definirGanador(personajeAtacante,personajeAtacado)
-  ganador? cambioCartelGanador(ganador):'';
+  if(ganador){
+  	cambioCartelGanador(ganador);
+  	editarDeshabilitacionDeBotones(personajeAtacante,true)
+  	editarDeshabilitacionDeBotones(personajeAtacado,true)
+  }
 }
 function atacarAlDerecho(){
   atacar(personajeDerecho,personajeIzquierdo,410)
