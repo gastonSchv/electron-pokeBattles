@@ -1,19 +1,15 @@
 const _ = require('lodash')
 const { ipcRenderer } = require('electron')
-const personajeIzquierdo = require('../../battle elements/pokemonDeTesteoBolbasaur')
-const personajeIzquierdoInicial = _.cloneDeep(personajeIzquierdo)
-personajeIzquierdo.inicial = personajeIzquierdoInicial
 const personajeDerecho = require('../../battle elements/pokemonDeTesteoCharmander')
 const personajeDerechoInicial = _.cloneDeep(personajeDerecho)
 personajeDerecho.inicial = personajeDerechoInicial;
+personajeIzquierdo = personajeDerechoInicial
 const juezDeBatalla = require('../../battle elements/juezDeBatalla')
-
 let largoInicialDeBarraEnergia = 150;
 let largoInicialDeBarraVitalidad = 150;
 let musicaDeBatallaPrendida = true;
 
-
-personajeDerecho.componentesHtml = {
+const componentesHtmlDerecho = {
   fotoEnergia : 'luzDeRecuperacionDeEnergiaDerecho',
   barraEnergia : 'barraEnergiaPersonajeDerecho',
   barraVitalidad : 'barraVitalidadPersonajeDerecho',
@@ -26,7 +22,8 @@ personajeDerecho.componentesHtml = {
   iconoDesmayo:'iconoDesmayoDerecho',
   sonidoAtaque:'sonidoAtaqueDerecho'
 }
-personajeIzquierdo.componentesHtml = {
+
+const componentesHtmlIzquierdo = {
   fotoEnergia : 'luzDeRecuperacionDeEnergiaIzquierda',
   barraEnergia : 'barraEnergiaPersonajeIzquierdo',
   barraVitalidad : 'barraVitalidadPersonajeIzquierdo',
@@ -39,6 +36,23 @@ personajeIzquierdo.componentesHtml = {
   iconoDesmayo:'iconoDesmayoIzquierdo',
   sonidoAtaque:'sonidoAtaqueIzquierdo'
 }
+
+function asignarComponentesHtml(personaje,componentesHtml){
+  _.assign(personaje,{componentesHtml})
+}
+
+asignarComponentesHtml(personajeDerecho,componentesHtmlDerecho)
+asignarComponentesHtml(personajeIzquierdo,componentesHtmlIzquierdo)
+
+ipcRenderer.on('config:ruta',(event,data) => {
+  console.log('llego ruta',data) 
+  personajeIzquierdo = require(`${data.ruta}`)
+  const personajeIzquierdoInicial = _.cloneDeep(personajeIzquierdo)
+  personajeIzquierdo.inicial = personajeIzquierdoInicial
+  asignarComponentesHtml(personajeIzquierdo,componentesHtmlIzquierdo)
+  actualizarValoresBarraVitalidad()
+  actualizarValoresBarraEnergia()
+})
 
 function funcionesDeInicio(){
     let musicaDeBatalla =  document.getElementById("musicaDeBatalla");
@@ -210,6 +224,7 @@ function atacar(personajeAtacado,personajeAtacante,posicionInicialAtacado){
   }
 }
 function atacarAlDerecho(){
+  console.log(personajeIzquierdo,personajeDerecho)
   atacar(personajeDerecho,personajeIzquierdo,410)
 }
 function atacarAlIzquierdo(){
