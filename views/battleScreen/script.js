@@ -201,9 +201,9 @@ function recuperarEnergia(personajeRecuperado,otroPersonaje){
   editarDeshabilitacionDeBotones(otroPersonaje,false)
 }
 function efectosAtacar(posicionInicialAtacado,personajeAtacanteImg,sonidoAtaque){
-	desplazarse(posicionInicialAtacado,personajeAtacanteImg)
 	sonidoAtaque.volume = 0.2
   	sonidoAtaque.play()
+	desplazarse(posicionInicialAtacado,personajeAtacanteImg)
 }
 function atacar(personajeAtacado,personajeAtacante,posicionInicialAtacado){
   var personajeAtacanteImg = document.getElementById(personajeAtacante.componentesHtml.personaje);

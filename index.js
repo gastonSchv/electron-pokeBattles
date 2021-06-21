@@ -9,6 +9,10 @@ const webPreferences = {
     nodeIntegration: true,
     contextIsolation: false
 }
+const defaultBrowserWindowSetting = {
+	webPreferences,
+	icon: 'C:/Users/Producteca/Desktop/Gaston/Programming learning/Electron/electron-pokeBattles/assets/icons/win/Bolbasaur.ico'
+}
 
 if (process.env.NODE_ENV !== 'production') {
     reload(__dirname, {
@@ -19,7 +23,7 @@ if (process.env.NODE_ENV !== 'production') {
 function newBattleScreen() {
     battleScreen = new BrowserWindow({
         show: false,
-        webPreferences
+        ...defaultBrowserWindowSetting
     })
     battleScreen.loadURL(url.format({
         pathname: path.join(__dirname, 'views', 'battleScreen/index.html'),
@@ -30,7 +34,7 @@ function newBattleScreen() {
 app.on('ready', () => {
 
     landingScreen = new BrowserWindow({
-        webPreferences
+        ...defaultBrowserWindowSetting
     })
     landingScreen.loadURL(url.format({
         pathname: path.join(__dirname, 'views', 'landingScreen/index.html'),
@@ -42,10 +46,10 @@ app.on('ready', () => {
 
     configurationScreen = new BrowserWindow({
         show: false,
-        webPreferences,
         width: 600,
         height: 370,
-        frame: false
+        frame: false,
+        ...defaultBrowserWindowSetting
     })
     newBattleScreen()
     configurationScreen.loadURL(url.format({
