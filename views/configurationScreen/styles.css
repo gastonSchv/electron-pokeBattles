@@ -1,0 +1,15 @@
+#container {
+    border-color: black;
+    display: flex;
+    height: 100vh;
+}
+
+#botonGuardar {
+    border: 1px solid;
+    height: 50px;
+    border-color: black;
+    margin-top: auto;
+    margin-bottom: 10px;
+    margin-right: auto;
+    margin-left: auto;
+}
