@@ -11,6 +11,10 @@ function guardarRutaPokemon() {
 
 function functionesDeInicio() {
     actualizarPlaceHolder();
+    notificarAltaDeScreenHaciaLanding()
+}
+function notificarAltaDeScreenHaciaLanding(){
+    ipcRenderer.send('altaDeScreen:configuracion',{})
 }
 
 function actualizarPlaceHolder() {
@@ -41,4 +45,3 @@ function ocultarConfiguracion(){
 ipcRenderer.on('config:ruta', (event, data) => {
     notificarRutaPokemon()
 })
-
