@@ -64,7 +64,7 @@ function funcionesDeInicio(){
     actualizarValoresBarraEnergia()
 }
 function prenderMusicaBatalla(){
-//  musicaDeBatalla.play()
+  musicaDeBatalla.play()
 }
 function cambiarEstadoMusicaDeBatalla(){
   if(musicaDeBatallaPrendida){

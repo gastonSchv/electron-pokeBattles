@@ -11,21 +11,17 @@ function guardarRutaPokemon() {
 
 function functionesDeInicio() {
     actualizarPlaceHolder();
-    notificarRutaPokemon();
 }
 
 function actualizarPlaceHolder() {
     let inputRuta = document.getElementById('inputRuta')
     let formRutaPokemon = document.getElementById('formRutaPokemon')
     const ruta = store.get('ruta').inputRuta
-
-    if (ruta) {
-        placeholder = '';
-        inputRuta.value = ruta
-        ipcRenderer.send('config:ruta', { ruta })
-    } else {
+    if (!ruta) {
         placeholder = '.../miPokemon.js'
-        formRutaPokemon.innerHTML = `<input id="inputRuta" type="text" placeholder="${placeholder}">`
+        formRutaPokemon.innerHTML = `<input id="inputRuta" type="text" placeholder="${placeholder}">`  
+    } else {
+        inputRuta.value = ruta
     }
 }
 
