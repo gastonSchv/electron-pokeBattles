@@ -51,7 +51,6 @@ app.on('ready', () => {
         frame: false,
         ...defaultBrowserWindowSetting
     })
-    newBattleScreen()
     configurationScreen.loadURL(url.format({
         pathname: path.join(__dirname, 'views', 'configurationScreen/index.html'),
         protocol: 'file',
