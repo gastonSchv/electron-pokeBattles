@@ -1,38 +1,42 @@
-const {ipcRenderer} = require('electron')
+const { ipcRenderer } = require('electron')
 
-	
+
 let musicaDeBatallaPrendida = true;
 
-function funcionesDeInicio(){
-	let musicaDeBatalla =  document.getElementById("musicaDeBatalla");
-    musicaDeBatalla.volume = 0.9		
+function funcionesDeInicio() {
+    let musicaDeBatalla = document.getElementById("musicaDeBatalla");
+    musicaDeBatalla.volume = 0.9
     musicaDeBatalla.loop = true
-    prenderMusicaBatalla()
-}
-function prenderMusicaBatalla(){
-	//musicaDeBatalla.play()
+    prenderMusica()
 }
 
-function cambiarEstadoMusicaDeBatalla(){
-  if(musicaDeBatallaPrendida){
-     musicaDeBatallaPrendida = false;
-     musicaDeBatalla.pause()
-     musicaDeBatallaImg.src  = "../../../assets/images/audio off.png" 
-  }else{
+function prenderMusica() {
     musicaDeBatalla.play()
     musicaDeBatallaPrendida = true;
-    musicaDeBatallaImg.src  = "../../../assets/images/audio on.png"
-  }
+    musicaDeBatallaImg.src = "../../../assets/images/audio on.png"
 }
 
-function abrirPantallaDeBatalla(){
-  //cambiarEstadoMusicaDeBatalla()
-  ipcRenderer.send('screens:battleScreen',{
-
-  })
+function apagarMusica() {
+    musicaDeBatallaPrendida = false;
+    musicaDeBatalla.pause()
+    musicaDeBatallaImg.src = "../../../assets/images/audio off.png"
 }
-function abrirModalConfiguracion(){
-  ipcRenderer.send('screens:configurationScreen',{
-    
-  })
+
+function cambiarEstadoMusicaDeBatalla() {
+    if (musicaDeBatallaPrendida) {
+        apagarMusica()
+    } else {
+        prenderMusica()
+    }
+}
+
+function abrirPantallaDeBatalla() {
+    apagarMusica()
+    ipcRenderer.send('screens:battleScreen', {})
+}
+
+function abrirModalConfiguracion() {
+    ipcRenderer.send('screens:configurationScreen', {
+
+    })
 }
