@@ -80,6 +80,9 @@ app.on('ready', () => {
         console.log('deberia ocultar configurationScreen')
         configurationScreen.hide()
     })
+    ipcMain.on('altaDeScreen:configuracion',(event,data) => {
+        landingScreen.webContents.send('altaDeScreen:configuracion',{})
+    })
     landingScreen.on('close', (event,data) => {
         app.quit()
     })
