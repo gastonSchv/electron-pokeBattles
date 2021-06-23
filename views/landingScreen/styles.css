@@ -19,20 +19,21 @@ body {
     margin-bottom: auto;
     width: 222px
 }
-#botonConfiguracion {
+
+#botonConfiguracionDiv {
     /*border: 2px solid;*/
-    width: 222px;
+    width: 220px;
     border-color: gold;
     margin-left: auto;
     margin-right: auto;
 }
 
-#botonConfiguracion button {    
+#botonConfiguracionDiv button{    
     width: 220px;
-    margin-top: 15px
+    margin-top: 15px;
 }
 
-#botonBatalla {
+#botonBatallaDiv{
     /*border: 2px solid;*/
     width: 222px;
     border-color: orange;
@@ -40,7 +41,7 @@ body {
     margin-right: auto;
 }
 
-#botonBatalla button {
+#botonBatallaDiv button {
     width: 220px;
     margin-top: 20px
 }

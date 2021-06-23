@@ -5,6 +5,10 @@ let musicaDeBatallaPrendida = true;
 
 function funcionesDeInicio() {
     let musicaDeBatalla = document.getElementById("musicaDeBatalla");
+    const botonDeBatalla = document.getElementById('botonBatalla');
+    const botonConfiguracion = document.getElementById('botonConfiguracion')
+    botonConfiguracion.disabled = true
+    botonBatalla.disabled = true
     musicaDeBatalla.volume = 0.9
     musicaDeBatalla.loop = true
     prenderMusica()
@@ -40,3 +44,7 @@ function abrirModalConfiguracion() {
 
     })
 }
+ipcRenderer.on('altaDeScreen:configuracion',(event,data) => {
+  botonBatalla.disabled = false
+  botonConfiguracion.disabled = false
+})
