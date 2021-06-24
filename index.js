@@ -59,18 +59,17 @@ app.on('ready', () => {
     ipcMain.on('buttonClick:restart', (event, data) => {
         console.log('se apreto restart')
         battleScreen.reload()
-        battleScreen.once('ready-to-show', () => {
-            configurationScreen.webContents.send('config:ruta', data)
-        })
     })
     ipcMain.on('config:ruta', (event, data) => {
-        console.log('llego ruta', data)
+        console.log('llego ruta a main', data)
         battleScreen.webContents.send('config:ruta', data)
     })
     ipcMain.on('screens:battleScreen', (event, data) => {
         newBattleScreen()
         battleScreen.maximize()
         battleScreen.show()
+    })
+    ipcMain.on('config:pedidoRuta',(event,data) => {
         configurationScreen.webContents.send('config:ruta', data)
     })
     ipcMain.on('screens:configurationScreen', (event, data) => {
