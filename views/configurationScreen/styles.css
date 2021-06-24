@@ -2,7 +2,7 @@
 #container {
     /*border: 1px solid;*/
     border-color: black;
-    background-color: #B0C4DE;
+    background-color: grey;
     display: flex;
     height: 100vh;
 }
@@ -49,4 +49,19 @@
 }
 #inputRuta{
     width: 550px;
+}
+#tickGuardadoCorrecto{
+    /*border: 1px solid;*/
+    position: absolute;
+    height: 50px;
+    width: 50px;
+    right: 45px;
+    top: 270px;
+    opacity: 0;
+}
+#tickGuardadoCorrecto img{
+    /*border: 1px solid;*/
+    border-color: yellow;
+    height: 100%;
+    width: 100%;
 }
