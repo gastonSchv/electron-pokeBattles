@@ -74,6 +74,9 @@ class Pokemon {
 	desmayarse(){
 		this.energia += _.min([this.energia+750,this.energiaLimite]);
 	}
+	esAtaqueMortal(pokemonOponente,tipoDeAtaque){
+		return pokemonOponente.vitalidad() <= pokemonOponente.dañoARecibir(this.dañoDeAtaque(tipoDeAtaque))
+	}
 }
 
 module.exports = Pokemon

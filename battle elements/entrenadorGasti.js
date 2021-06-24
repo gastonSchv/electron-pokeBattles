@@ -5,11 +5,8 @@ const _ = require('lodash')
 
 gasti.ejecutarEstrategia = (miPokemon,pokemonOponente) => {
   const ataqueVencedor = () => {
-    const __hayAtaqueVencedor = tipoDeAtaque =>{
-      return pokemonOponente.vitalidad() <= pokemonOponente.dañoARecibir(miPokemon.dañoDeAtaque(tipoDeAtaque))
-    }
     return _.find(tiposDeAtaque, tipoDeAtaque => {
-      return  __hayAtaqueVencedor(tipoDeAtaque) && miPokemon.energiaSuficiente(tipoDeAtaque)
+      return  miPokemon.esAtaqueMortal(pokemonOponente,tipoDeAtaque) && miPokemon.energiaSuficiente(tipoDeAtaque)
       }
     )
   }
