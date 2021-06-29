@@ -1,0 +1,15 @@
+body{
+}
+#contenedor{
+	border: 1px solid;
+	background-color: white;
+	height: 96vh
+}
+#imagenDeFondo img{
+	height: 45%;
+	width: 45%;
+}
+#imagenDeFondo{
+	border: 1px solid;
+	background-color: #F0F8FF
+}
