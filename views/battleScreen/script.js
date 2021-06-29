@@ -66,7 +66,7 @@ function pedirRutaConfig() {
 
 function funcionesDeInicio() {
     let musicaDeBatalla = document.getElementById("musicaDeBatalla");
-    musicaDeBatalla.volume = 0.5
+    musicaDeBatalla.volume = 1
     musicaDeBatalla.loop = true
     let musicaDeBatallaImg = document.getElementById("musicaDeBatallaImg")
     pedirRutaConfig()

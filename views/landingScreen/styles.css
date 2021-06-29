@@ -13,10 +13,13 @@ body {
 #botonesCentrales {
     /*border: 2px solid;*/
     border-color: black;
-    margin-right: auto;
+    position: absolute;
+    left: 140px;
+    top:80px;
+    /*margin-right: auto;
     margin-left: auto;
     margin-top: auto;
-    margin-bottom: auto;
+    margin-bottom: auto;*/
     width: 222px
 }
 
@@ -45,10 +48,22 @@ body {
     width: 220px;
     margin-top: 20px
 }
+#botonJuezDeBatallaDiv{
+    /*border: 2px solid;*/
+    width: 222px;
+    border-color: orange;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+#botonJuezDeBatallaDiv button {
+    width: 220px;
+    margin-top: 20px
+}
 #iconoMusicaDeBatalla img{
   position: absolute;
-  top:2px;
-  left: 2px;
+  top:10px;
+  left: 15px;
   height:8%;
   width: 5%;
   opacity: 100%;

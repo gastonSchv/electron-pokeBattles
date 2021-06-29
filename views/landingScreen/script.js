@@ -9,7 +9,7 @@ function funcionesDeInicio() {
     const botonConfiguracion = document.getElementById('botonConfiguracion')
     botonConfiguracion.disabled = true
     botonBatalla.disabled = true
-    musicaDeBatalla.volume = 0.9
+    musicaDeBatalla.volume = 1
     musicaDeBatalla.loop = true
     prenderMusica()
 }
@@ -40,9 +40,11 @@ function abrirPantallaDeBatalla() {
 }
 
 function abrirModalConfiguracion() {
-    ipcRenderer.send('screens:configurationScreen', {
-
-    })
+    ipcRenderer.send('screens:configurationScreen', {})
+}
+function abrirModalDeJuezDeBatalla(){
+    console.log('mando juezDeBatallaScreen')
+    ipcRenderer.send('screens:juezDeBatallaScreen', {})
 }
 ipcRenderer.on('altaDeScreen:configuracion',(event,data) => {
   botonBatalla.disabled = false
