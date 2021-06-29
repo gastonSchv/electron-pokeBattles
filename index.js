@@ -13,49 +13,49 @@ const defaultBrowserWindowSetting = {
 	webPreferences,
 	icon: 'C:/Users/Producteca/Desktop/Gaston/Programming learning/Electron/electron-pokeBattles/assets/icons/win/Bolbasaur.ico'
 }
-
+function pathFromViewsDir(pathName){
+    return path.join(__dirname, 'views',pathName)
+}
 if (process.env.NODE_ENV !== 'production') {
     reload(__dirname, {
         electron: path.join(__dirname, '../node-modules', '.bin', 'electron')
     })
 }
 
+function newScreen(browserWindowSettings,pathname){
+    const screen = new BrowserWindow({
+        ...browserWindowSettings,
+        ...defaultBrowserWindowSetting
+    })
+    screen.loadURL(url.format({
+        pathname,
+        protocol:'file'
+    }))
+    return screen
+}
 function newBattleScreen() {
     battleScreen = new BrowserWindow({
         show: false,
         ...defaultBrowserWindowSetting
     })
     battleScreen.loadURL(url.format({
-        pathname: path.join(__dirname, 'views', 'battleScreen/index.html'),
-        protocol: 'file',
-        slashes: true
+        pathname: pathFromViewsDir('battleScreen/index.html'),
+        protocol: 'file'
     }))
 }
 app.on('ready', () => {
 
-    landingScreen = new BrowserWindow({
-        ...defaultBrowserWindowSetting
-    })
-    landingScreen.loadURL(url.format({
-        pathname: path.join(__dirname, 'views', 'landingScreen/index.html'),
-        protocol: 'file',
-        slashes: true
-    }))
+    landingScreen = newScreen({},pathFromViewsDir('landingScreen/index.html'))
     landingScreen.maximize()
     landingScreen.once('ready-to-show', () => { landingScreen.show() })
 
-    configurationScreen = new BrowserWindow({
+    configurationScreen = newScreen({
         show: false,
-        width: 600,
-        height: 370,
-        frame: false,
-        ...defaultBrowserWindowSetting
-    })
-    configurationScreen.loadURL(url.format({
-        pathname: path.join(__dirname, 'views', 'configurationScreen/index.html'),
-        protocol: 'file',
-        slashes: true
-    }))
+         width: 600,
+         height: 370,
+         frame: false},
+         pathFromViewsDir('configurationScreen/index.html')
+    )
     ipcMain.on('buttonClick:restart', (event, data) => {
         console.log('se apreto restart')
         battleScreen.reload()
@@ -74,6 +74,11 @@ app.on('ready', () => {
     })
     ipcMain.on('screens:configurationScreen', (event, data) => {
         configurationScreen.show()
+    })
+    ipcMain.on('screens:juezDeBatallaScreen',(event,data) => {
+        console.log('llego juezDeBatallaScreen')
+        juezDeBatallaScreen = newScreen({frame: false},pathFromViewsDir('juezDeBatallaScreen/index.html'))
+        juezDeBatallaScreen.setPosition(250,60)
     })
     ipcMain.on('screens:configurationScreenHide', (event, data) => {
         console.log('deberia ocultar configurationScreen')
