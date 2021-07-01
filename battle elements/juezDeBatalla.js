@@ -16,8 +16,7 @@ class juezDeBatalla  {
 			return _.sumBy(config.atributosDePokemon, atributo => __sumaSinMultiplicadores(atributo))
 		}
 		if(__sumarPuntajes(pokemonDeVerificacion) > config.puntajeMaximoPermitido() ){
-			relator.anunciarExcesoDePuntaje(pokemonDeVerificacion,__sumarPuntajes(pokemonDeVerificacion))
-			throw {messageRelator: relator.mensajeFinDeBatalla,messageError:''}
+			throw {message: relator.anunciarExcesoDePuntaje(pokemonDeVerificacion,__sumarPuntajes(pokemonDeVerificacion))}
 		}
 	}
 	verificarEstadoPokemones(unosPokemones){
