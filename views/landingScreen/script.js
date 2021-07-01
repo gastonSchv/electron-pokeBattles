@@ -9,13 +9,14 @@ function funcionesDeInicio() {
     const botonConfiguracion = document.getElementById('botonConfiguracion')
     botonConfiguracion.disabled = true
     botonBatalla.disabled = true
+    botonJuezDeBatalla.disabled = true
     musicaDeBatalla.volume = 1
     musicaDeBatalla.loop = true
     prenderMusica()
 }
 
 function prenderMusica() {
-    musicaDeBatalla.play()
+    //  musicaDeBatalla.play()
     musicaDeBatallaPrendida = true;
     musicaDeBatallaImg.src = "../../../assets/images/audio on.png"
 }
@@ -49,4 +50,5 @@ function abrirModalDeJuezDeBatalla(){
 ipcRenderer.on('altaDeScreen:configuracion',(event,data) => {
   botonBatalla.disabled = false
   botonConfiguracion.disabled = false
+  botonJuezDeBatalla.disabled = false
 })
