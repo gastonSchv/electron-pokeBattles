@@ -5,7 +5,7 @@ class Relator {
 		this.mensajeFinDeBatalla = 'Fin de Batalla Pokemon';
 	}
 	anunciarFalta(unPokemon,condicion){
-		console.log(` \nEl pokemon ${unPokemon.nombre} no ha verificado : ${condicion}`)
+		return ` \nEl pokemon ${unPokemon.nombre} no ha verificado : ${condicion}`
 	}
 	anunciarDesmayoPokemon(unPokemon){
 		console.log(` \nEl pokemon ${unPokemon.nombre} se ha desmayado`)	
@@ -29,7 +29,7 @@ class Relator {
 		this.anunciarFalta(unPokemon,`Condicion de entrenamiento ${tipoDeAtaque}`)	
 	}
 	anunciarExcesoDePuntaje(unPokemon,puntajeDelPokemon){
-		this.anunciarFalta(unPokemon,`Exceso de asignacion de puntaje (puntaje : ${puntajeDelPokemon})`)
+		return this.anunciarFalta(unPokemon,`Exceso de asignacion de puntaje (puntaje : ${puntajeDelPokemon})`)
 	}
 	anunciarGanador(unPokemon,otroPokemon,ronda){
 		const pokemonGanador = _.find([unPokemon,otroPokemon], pokemon => pokemon.vida > pokemon.dañoRecibido)
