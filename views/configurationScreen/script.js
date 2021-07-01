@@ -30,9 +30,9 @@ function aparecerYDesvanecer(htmlComponent, pace = 0.1) {
 }
 function functionesDeInicio() {
     actualizarPlaceHolder();
-    notificarAltaDeScreenHaciaLanding()
+    notificarAltaDeScreenHaciaMain()
 }
-function notificarAltaDeScreenHaciaLanding(){
+function notificarAltaDeScreenHaciaMain(){
     ipcRenderer.send('altaDeScreen:configuracion',{})
 }
 
