@@ -60,8 +60,7 @@ ipcRenderer.on('config:ruta', (event, data) => {
 })
 
 function pedirRutaConfig() {
-    console.log('envio pedido de ruta desde BattleScreen')
-    ipcRenderer.send('config:pedidoRuta', {})
+    ipcRenderer.send('config:pedidoRutaBattleScreen', {})
 }
 
 function funcionesDeInicio() {
