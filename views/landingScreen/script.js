@@ -16,7 +16,7 @@ function funcionesDeInicio() {
 }
 
 function prenderMusica() {
-    //  musicaDeBatalla.play()
+    musicaDeBatalla.play()
     musicaDeBatallaPrendida = true;
     musicaDeBatallaImg.src = "../../../assets/images/audio on.png"
 }
@@ -44,6 +44,7 @@ function abrirModalConfiguracion() {
     ipcRenderer.send('screens:configurationScreen', {})
 }
 function abrirModalDeJuezDeBatalla(){
+    apagarMusica()
     console.log('mando juezDeBatallaScreen')
     ipcRenderer.send('screens:juezDeBatallaScreen', {})
 }
