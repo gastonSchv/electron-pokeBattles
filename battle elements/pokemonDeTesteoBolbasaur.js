@@ -7,7 +7,7 @@ const gasti = require('./entrenadorGasti')
 	nombre:'bolbasaur',
 	tipoDePokemon,
 	evolucion:1,
-	vida:1000,
+	vida:10000,
 	energia:1000,
 	fuerza:1000,
 	defensa:1000,

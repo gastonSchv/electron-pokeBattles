@@ -4,20 +4,26 @@ const { ipcRenderer } = require('electron')
 function funcionesDeInicio() {
     const contenedorEvaluaciones = document.getElementById('contenedorEvaluaciones');
     pedirRutaConfig()
+    prenderPitidoArbitro()
 }
 
 function pedirRutaConfig() {
     ipcRenderer.send('config:pedidoRutaJuezDeBatallaScreen', {})
 }
+function prenderPitidoArbitro(){
+    const pitidoArbitro = document.getElementById('pitidoArbitro')
+    pitidoArbitro.volume = 0.5
+    pitidoArbitro.play()
+}
 
-function agregarEvaluacion(tipoDeEvaluacion, mensajeDeError = '') {
-    console.log(tipoDeEvaluacion,'4')
-	
-	const tick = 'tick verde';
+function mensajeEvaluacionCorrecta(tipoDeEvaluacion){
+    return `LA EVALUACION ${tipoDeEvaluacion} A SIDO EXITOSA!`
+}
+function agregarEvaluacion(tipoDeEvaluacion, mensaje = '',tick) {
      contenedorEvaluaciones.innerHTML += `
     <div class="contenedorEvaluacion">
         <div id="${tipoDeEvaluacion}" class="evaluaciones">
-        ${mensajeDeError}
+        ${mensaje}
         </div>
         <div class="resultadoEvaluacion">
             <img src="../../../assets/images/${tick}.png">
@@ -26,23 +32,19 @@ function agregarEvaluacion(tipoDeEvaluacion, mensajeDeError = '') {
 }
 
 function evaluar(tipoDeEvaluacion, pokemon, evaluacionDeJuez) {
-    console.log(pokemon.nombre,'3')
-    
     try {
         evaluacionDeJuez(pokemon);
-        agregarEvaluacion(tipoDeEvaluacion)
+        agregarEvaluacion(tipoDeEvaluacion, mensajeEvaluacionCorrecta(tipoDeEvaluacion),'tick verde')
     } catch (err) {
-        agregarEvaluacion(tipoDeEvaluacion, err.message)
+        agregarEvaluacion(tipoDeEvaluacion, err.message,'tick rojo')
     }
 }
 
 function evaluarEstadoPokemon(pokemon) {
-    console.log(pokemon.nombre,'2')
     evaluar('evaluacionEstado', pokemon, juezDeBatalla.verificarEstadoPokemon)
 }
 
 ipcRenderer.on('config:ruta', (event, data) => {
     const pokemon = require(`${data.ruta}`)
-    console.log(pokemon.nombre,'1')
     evaluarEstadoPokemon(pokemon)
 })

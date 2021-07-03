@@ -2,7 +2,7 @@ body{
 	background-color: black
 }
 #contenedorScreen{
-	border: 1px solid;
+	/*border: 1px solid;*/
 	background-color: black;
 	height: 96vh;
 }
@@ -11,11 +11,11 @@ body{
 	width: 45%;
 }
 #imagenDeFondo{
-	border: 1px solid;
+	/*border: 1px solid;*/
 	background-color: #F0F8FF;
 }
 #contenedorEvaluaciones{
-	border: 1px solid;
+	/*border: 1px solid;*/
 	border-color: #F5F5DC;
 	height: 368px;
 	background-color: #F5F5DC
@@ -27,24 +27,24 @@ body{
 	background-color: white
 }
 .contenedorEvaluacion{
-	border:1px solid;
+	/*border:1px solid;*/
 	display: flex;
 	height: 70px
 }
 .evaluaciones{
-	border: 1px solid;
+	/*border: 1px solid;*/
 	margin: auto;
 	height: 50px;
 	width: 70%;
 	background-color: #9ca0a6
 }
 .resultadoEvaluacion{
-	border: 1px solid;
+	/*border: 1px solid;*/
 	margin: auto;
 	height: 50px;
 	width: 10%;
 }
 .resultadoEvaluacion img{
 	height: 100%;
-	width: 100%
+	width: 85%
 }
