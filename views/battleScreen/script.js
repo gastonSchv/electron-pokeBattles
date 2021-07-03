@@ -69,7 +69,7 @@ function funcionesDeInicio() {
     musicaDeBatalla.loop = true
     let musicaDeBatallaImg = document.getElementById("musicaDeBatallaImg")
     pedirRutaConfig()
-    musicaDeBatalla.play()
+    prenderMusicaBatalla()
     actualizarValoresBarraVitalidad()
     actualizarValoresBarraEnergia()
 }
@@ -87,7 +87,7 @@ function apagarMusicaBatalla() {
 }
 
 function prenderMusicaBatalla() {
-    musicaDeBatalla.play()
+    //musicaDeBatalla.play()
     musicaDeBatallaPrendida = true;
     musicaDeBatallaImg.src = "../../../assets/images/audio on.png"
 }

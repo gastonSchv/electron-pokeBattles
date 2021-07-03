@@ -183,9 +183,12 @@ body {
   color: black;
 }
 #botonDerechoAtacar{
+  margin-bottom: 10px;
   right: 90px;
 }
 #botonIzquierdoAtacar{
+  height: 20%;
+  margin-bottom: 10px;
   left: 100px;
 }
 .luzDeRecuperacionDeEnergia{
@@ -209,11 +212,9 @@ body {
   height: 250px
 }
 #botonIzquierdoRecuperar{
-  position: absolute;
   top:40px;
 }
 #botonDerechoRecuperar{
- position: absolute;
   top:40px; 
 }
 #iconoMusicaDeBatalla img{

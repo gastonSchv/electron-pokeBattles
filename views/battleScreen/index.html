@@ -4,6 +4,7 @@
 <head>
     <title>Desafio Pokemon</title>
     <link rel="stylesheet" type="text/css" href="styles.css">
+    <link rel="stylesheet" href="https://bootswatch.com/5/lumen/bootstrap.min.css">
 </head>
 <script type="text/javascript" src="script.js"></script>
 
@@ -23,7 +24,7 @@
             <div id="cartelGanadorBackground" class="cartelGanador"></div>
             <div class="cartelGanador">
                 <h1 id="textoGanador"></h1>
-                <button id="botonRestartGanador" class="boton" onclick="reload()">RESTART!</button>
+                <button id="botonRestartGanador" class="btn btn-success" onclick="reload()">RESTART!</button>
             </div>
         </div>
         <div id="personajes">
@@ -54,10 +55,10 @@
                 </div>
             </div>
             <div id="botoneraIzquierda" class="botonera">
-                <button onclick="atacarAlDerecho()" id="botonIzquierdoAtacar" class="boton">
+                <button onclick="atacarAlDerecho()" id="botonIzquierdoAtacar" class="btn btn-warning">
                     ATACAR
                 </button>
-                <button onclick="recuperarEnergiaIzquierdo()" id="botonIzquierdoRecuperar" class="boton">
+                <button onclick="recuperarEnergiaIzquierdo()" id="botonIzquierdoRecuperar" class="btn btn-info">
                     RECUPERAR ENERGIA
                 </button>
             </div>
@@ -87,10 +88,10 @@
                 </div>
             </div>
             <div id="botoneraDerecha" class="botonera">
-                <button onclick="atacarAlIzquierdo()" id="botonDerechoAtacar" class="boton">
+                <button onclick="atacarAlIzquierdo()" id="botonDerechoAtacar" class="btn btn-warning">
                     ATACAR
                 </button>
-                <button onclick="recuperarEnergiaDerecho()" id="botonDerechoRecuperar" class="boton">
+                <button onclick="recuperarEnergiaDerecho()" id="botonDerechoRecuperar" class="btn btn-info">
                     RECUPERAR ENERGIA
                 </button>
             </div>
