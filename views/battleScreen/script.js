@@ -70,8 +70,6 @@ function funcionesDeInicio() {
     let musicaDeBatallaImg = document.getElementById("musicaDeBatallaImg")
     pedirRutaConfig()
     prenderMusicaBatalla()
-    actualizarValoresBarraVitalidad()
-    actualizarValoresBarraEnergia()
 }
 
 function prenderSonidoVictoria() {
