@@ -5,9 +5,7 @@ const { ipcRenderer } = require('electron')
 function guardarRutaPokemon() {
     const tickGuardadoCorrecto = document.getElementById('tickGuardadoCorrecto')
     const valorInputRuta = inputRuta.value
-    if (valorInputRuta) {
-        store.set('ruta', { inputRuta: valorInputRuta })
-    }
+    store.set('ruta', { inputRuta: valorInputRuta })
  	aparecerYDesvanecer(tickGuardadoCorrecto)	   
 }
 function aparecerYDesvanecer(htmlComponent, pace = 0.1) {
@@ -49,9 +47,6 @@ function actualizarPlaceHolder() {
 }
 
 function notificarRutaPokemon() {
-    console.log('Envio ruta pokemon', {
-        ruta: inputRuta.value
-    })
     ipcRenderer.send('config:ruta', {
         ruta: inputRuta.value
     })
