@@ -7,6 +7,9 @@ class Relator {
 	anunciarFalta(unPokemon,condicion){
 		return ` \nEl pokemon ${unPokemon.nombre} no ha verificado : ${condicion}`
 	}
+	anunciarValidacionCorrecta(unPokemon,condicion){
+		return ` \nEl pokemon ${unPokemon.nombre} ha verificado ${condicion} con exito!`
+	}
 	anunciarDesmayoPokemon(unPokemon){
 		console.log(` \nEl pokemon ${unPokemon.nombre} se ha desmayado`)	
 	}
@@ -23,13 +26,19 @@ class Relator {
 		this.anunciarFalta(unPokemon,`Condicion de ataque ${tipoDeAtaque}`)
 	}
 	anunciarVerificaciónDeDañoFallida(unPokemon,tipoDeAtaque){
-		this.anunciarFalta(unPokemon,`Condicion de daño ${tipoDeAtaque}`)
+		return this.anunciarFalta(unPokemon,`Condicion de daño ${tipoDeAtaque}`)
 	}
 	anunciarEntrenamientoFaltante(unPokemon,tipoDeAtaque){
 		this.anunciarFalta(unPokemon,`Condicion de entrenamiento ${tipoDeAtaque}`)	
 	}
 	anunciarExcesoDePuntaje(unPokemon,puntajeDelPokemon){
 		return this.anunciarFalta(unPokemon,`Exceso de asignacion de puntaje (puntaje : ${puntajeDelPokemon})`)
+	}
+	anunciarMetodoNoDeclarado(unPokemon,metodo){
+		return this.anunciarFalta(unPokemon,`${metodo} no declarado`)
+	}
+	anunciarEvaluacionCorrecta(unPokemon,tipoDeEvaluacion){
+		return this.anunciarValidacionCorrecta(unPokemon,tipoDeEvaluacion)
 	}
 	anunciarGanador(unPokemon,otroPokemon,ronda){
 		const pokemonGanador = _.find([unPokemon,otroPokemon], pokemon => pokemon.vida > pokemon.dañoRecibido)
