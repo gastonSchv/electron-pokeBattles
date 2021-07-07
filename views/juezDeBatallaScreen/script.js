@@ -1,5 +1,6 @@
 const juezDeBatalla = require('../../battle elements/juezDeBatalla')
 const { ipcRenderer } = require('electron')
+const relator = require('../../battle elements/Relator')
 
 function funcionesDeInicio() {
     const contenedorEvaluaciones = document.getElementById('contenedorEvaluaciones');
@@ -15,10 +16,6 @@ function prenderPitidoArbitro(){
     pitidoArbitro.volume = 0.5
     pitidoArbitro.play()
 }
-
-function mensajeEvaluacionCorrecta(tipoDeEvaluacion){
-    return `LA EVALUACION ${tipoDeEvaluacion} A SIDO EXITOSA!`
-}
 function agregarEvaluacion(tipoDeEvaluacion, mensaje = '',tick) {
      contenedorEvaluaciones.innerHTML += `
     <div class="contenedorEvaluacion">
@@ -31,20 +28,24 @@ function agregarEvaluacion(tipoDeEvaluacion, mensaje = '',tick) {
 	</div>`
 }
 
-function evaluar(tipoDeEvaluacion, pokemon, evaluacionDeJuez) {
+function evaluar(tipoDeEvaluacion, unPokemon, evaluacionDeJuez) {
     try {
-        evaluacionDeJuez(pokemon);
-        agregarEvaluacion(tipoDeEvaluacion, mensajeEvaluacionCorrecta(tipoDeEvaluacion),'tick verde')
+        evaluacionDeJuez(unPokemon);
+        agregarEvaluacion(tipoDeEvaluacion, relator.anunciarEvaluacionCorrecta(unPokemon,tipoDeEvaluacion),'tick verde')
     } catch (err) {
         agregarEvaluacion(tipoDeEvaluacion, err.message,'tick rojo')
     }
 }
 
-function evaluarEstadoPokemon(pokemon) {
-    evaluar('evaluacionEstado', pokemon, juezDeBatalla.verificarEstadoPokemon)
+function evaluarEstadoPokemon(unPokemon) {
+    evaluar('evaluacionEstado', unPokemon, () => juezDeBatalla.verificarEstadoPokemon(unPokemon))
+}
+function evaluarAtaqueBasico(unPokemon){
+	evaluar('evaluacionAtaqueBasico',unPokemon,() => juezDeBatalla.verificarAtaqueBasico(unPokemon))
 }
 
 ipcRenderer.on('config:ruta', (event, data) => {
-    const pokemon = require(`${data.ruta}`)
-    evaluarEstadoPokemon(pokemon)
+    const unPokemon = require(`${data.ruta}`)
+    evaluarEstadoPokemon(unPokemon)
+    evaluarAtaqueBasico(unPokemon)
 })
