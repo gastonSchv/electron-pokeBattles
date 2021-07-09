@@ -31,31 +31,27 @@ function functionesDeInicio() {
     notificarAltaDeScreenHaciaMain()
 }
 function notificarAltaDeScreenHaciaMain(){
-    ipcRenderer.send('altaDeScreen:configuracion',{})
+    const ruta = store.get('ruta').inputRuta
+    ipcRenderer.send('altaDeScreen:configuracion',{ruta})
 }
 
 function actualizarPlaceHolder() {
-    let inputRuta = document.getElementById('inputRuta')
+    let input = document.getElementById('inputRuta')
     let formRutaPokemon = document.getElementById('formRutaPokemon')
     const ruta = store.get('ruta').inputRuta
     if (!ruta) {
         placeholder = '.../miPokemon.js'
         formRutaPokemon.innerHTML = `<input id="inputRuta" type="text" placeholder="${placeholder}">`  
     } else {
-        inputRuta.value = ruta
+        input.value = ruta
     }
 }
 
-function notificarRutaPokemon() {
-    ipcRenderer.send('config:ruta', {
-        ruta: inputRuta.value
-    })
-}
 function ocultarConfiguracion(){
     console.log('envio ocultacion')
     ipcRenderer.send('screens:configurationScreenHide',{})
 }
 
 ipcRenderer.on('config:ruta', (event, data) => {
-    notificarRutaPokemon()
+    ipcRenderer.send('config:ruta', {ruta: inputRuta.value})
 })

@@ -49,7 +49,7 @@ function asignarComponentesDefault(personaje,componentes){
 }
 asignarComponentesDefault(personajeDerecho, componentesDefaultDerecho)
 
-ipcRenderer.on('config:ruta', (event, data) => {
+ipcRenderer.on('config:pedidoRutaBattleScreen', (event, data) => {
     console.log('llego ruta a battleScreen', data)
     personajeIzquierdo = require(`${data.ruta}`)
     const personajeIzquierdoInicial = _.cloneDeep(personajeIzquierdo)

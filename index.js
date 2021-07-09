@@ -6,6 +6,7 @@ const reload = require('electron-reload')
 
 let battleScreen = {}
 let juezDeBatallaScreen = {}
+let ruta = ''
 const webPreferences = {
     nodeIntegration: true,
     contextIsolation: false
@@ -23,15 +24,6 @@ if (process.env.NODE_ENV !== 'production') {
         electron: path.join(__dirname, '../node-modules', '.bin', 'electron')
     })
 }
-
-function ifUpSendConfigRuta(browserWindows,data) {
-    _.forEach(browserWindows, browserWindow => {
-        if (!_.isEmpty(browserWindow)) {
-            browserWindow.webContents.send('config:ruta', data)
-        }
-    })
-}
-
 function newScreen(browserWindowSettings, pathname) {
     const screen = new BrowserWindow({
         ...browserWindowSettings,
@@ -71,19 +63,16 @@ app.on('ready', () => {
     ipcMain.on('buttonClick:restart', (event, data) => {
         battleScreen.reload()
     })
-    ipcMain.on('config:ruta', (event, data) => {
-        ifUpSendConfigRuta([battleScreen, juezDeBatallaScreen],data)
-    })
     ipcMain.on('screens:battleScreen', (event, data) => {
         newBattleScreen()
         battleScreen.maximize()
         battleScreen.show()
     })
     ipcMain.on('config:pedidoRutaBattleScreen', (event, data) => {
-        configurationScreen.webContents.send('config:ruta', data)
+        battleScreen.webContents.send('config:pedidoRutaBattleScreen',{ruta})
     })
     ipcMain.on('config:pedidoRutaJuezDeBatallaScreen', (event, data) => {
-        configurationScreen.webContents.send('config:ruta', data)
+         juezDeBatallaScreen.webContents.send('config:config:pedidoRutaJuezDeBatallaScreen',{ruta})
     })
     ipcMain.on('screens:configurationScreen', (event, data) => {
         configurationScreen.show()
@@ -96,6 +85,7 @@ app.on('ready', () => {
         configurationScreen.hide()
     })
     ipcMain.on('altaDeScreen:configuracion', (event, data) => {
+        ruta = data.ruta
         landingScreen.webContents.send('altaDeScreen:configuracion', {})
     })
     landingScreen.on('close', (event, data) => {
