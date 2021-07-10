@@ -47,7 +47,7 @@ function evaluarDanoDeAtaquesDisponibles(unPokemon){
 	evaluar('evaluacionDanoDeAtaquesDisponibles',unPokemon,() => juezDeBatalla.verificarDanoDeAtaquesDisponibles(unPokemon))
 }
 
-ipcRenderer.on('config:config:pedidoRutaJuezDeBatallaScreen', (event, data) => {
+ipcRenderer.on('config:pedidoRutaJuezDeBatallaScreen', (event, data) => {
     const unPokemon = require(`${data.ruta}`)
     evaluarEstadoPokemon(unPokemon)
     evaluarAtaqueBasico(unPokemon)
