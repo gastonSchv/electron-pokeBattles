@@ -25,7 +25,7 @@ class Relator {
 	anunciarCondicionesDeAtaqueFaltante(unPokemon,tipoDeAtaque){
 		this.anunciarFalta(unPokemon,`Condicion de ataque ${tipoDeAtaque}`)
 	}
-	anunciarVerificaciónDeDañoFallida(unPokemon,tipoDeAtaque){
+	anunciarVerificaciónDeDanoFallida(unPokemon,tipoDeAtaque){
 		return this.anunciarFalta(unPokemon,`Condicion de daño ${tipoDeAtaque}`)
 	}
 	anunciarEntrenamientoFaltante(unPokemon,tipoDeAtaque){
