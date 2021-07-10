@@ -86,7 +86,7 @@ app.on('ready', () => {
     })
     ipcMain.on('altaDeScreen:configuracion', (event, data) => {
         ruta = data.ruta
-        landingScreen.webContents.send('altaDeScreen:configuracion', {})
+        landingScreen.webContents.send('altaDeScreen:configuracion', data)
     })
     landingScreen.on('close', (event, data) => {
         app.quit()
