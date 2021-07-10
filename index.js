@@ -6,6 +6,7 @@ const reload = require('electron-reload')
 
 let battleScreen = {}
 let juezDeBatallaScreen = {}
+let miPokemonScreen = {}
 let ruta = ''
 const webPreferences = {
     nodeIntegration: true,
@@ -80,6 +81,10 @@ app.on('ready', () => {
     ipcMain.on('screens:juezDeBatallaScreen', (event, data) => {
         juezDeBatallaScreen = newScreen({ frame: false }, pathFromViewsDir('juezDeBatallaScreen/index.html'))
         juezDeBatallaScreen.setPosition(250, 60)
+    })
+    ipcMain.on('screens:miPokemonScreen',(event,data) => {
+        miPokemonScreen = newScreen({frame:false},pathFromViewsDir('miPokemonScreen/index.html'))
+        miPokemonScreen.setPosition(250, 60)      
     })
     ipcMain.on('screens:configurationScreenHide', (event, data) => {
         configurationScreen.hide()
