@@ -11,7 +11,7 @@ function funcionesDeInicio() {
     botonConfiguracion.disabled = true
     botonBatalla.disabled = true
     botonJuezDeBatalla.disabled = true
-//    botonMiPokemon.disabled = true
+	 botonMiPokemon.disabled = true
     musicaDeBatalla.volume = 1
     musicaDeBatalla.loop = true
     //prenderMusica()
@@ -55,14 +55,13 @@ function abrirModalDeJuezDeBatalla() {
 }
 ipcRenderer.on('altaDeScreen:configuracion', (event, data) => {
     botonConfiguracion.disabled = false
-    console.log(data.ruta)
     if (data.ruta) {
         botonBatalla.disabled = false
         botonJuezDeBatalla.disabled = false
-  //      botonMiPokemon.disabled = false
+  		botonMiPokemon.disabled = false
     }else{
         botonBatalla.disabled = true
         botonJuezDeBatalla.disabled = true
-    //    botonMiPokemon.disabled = true
+    	botonMiPokemon.disabled = true
     }
 })
