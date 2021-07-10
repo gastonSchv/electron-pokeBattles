@@ -85,7 +85,7 @@ function apagarMusicaBatalla() {
 }
 
 function prenderMusicaBatalla() {
-    //musicaDeBatalla.play()
+    musicaDeBatalla.play()
     musicaDeBatallaPrendida = true;
     musicaDeBatallaImg.src = "../../../assets/images/audio on.png"
 }
