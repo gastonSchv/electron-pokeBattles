@@ -16,9 +16,6 @@ class Pokemon {
 		this.velocidad = velocidad * tipoDePokemon.multiplicadorDeAtributo('velocidad');
 		this.dañoRecibido = 0;
 	}
-	entrenarAtaqueBasico(){
-		return 'testeando funcionalidad'		
-	}
 	factorDeEvolución(){
 		return Math.sqrt(this.evolucion)
 	}
@@ -45,10 +42,10 @@ class Pokemon {
 		
 	}
 	entrenarAtaqueFuerte(){
-		return 'testeando funcionalidad'
+		return 'Entrenamiento ataque fuerte completado'
 	}
 	entrenarAtaqueMaximo(){
-		return 'testeando funcionalidad'
+		return 'Entrenamiento ataque maximo completado'
 	}
 	deTipo(propertyPath){
 		return _.get(this.tipoDePokemon,propertyPath)
