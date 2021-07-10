@@ -1,19 +1,27 @@
 #conteneder{
-	/*border: 1px solid;*/
+	border: 1px solid;
 	color:blue;
 	height: 100vh;
 	background-color:#F0F8FF; 
 }
 #infoPokemon{
-	border: 2px solid;
-	color:black;
-	height: 260px;
+/*	border: 2px solid;*/
+	color:#44546A;
+	height: 262px;
+	margin-top: 15px;
 	display: flex;
 }
 #estadisticas{
-	border: 2px solid;
+/*	border: 2px solid;*/
+	margin-top:20px;
 	color:#44546A;
-	height: 338px
+	height: 270px
+}
+.separador{
+	height: 2px;
+	margin-top: 4px;
+	margin-bottom: 3px;
+	background-color: black
 }
 #pokemonImgDiv{
 	/*border: 2px solid;*/
@@ -92,4 +100,51 @@
 	display: flex;
 	justify-content: center;
 	align-items: center;	
+}
+.marcoEstadistica{
+/*	border:2px solid blue;*/
+	height: 40px;
+	margin-top: 10px;
+	display: flex;
+	align-items: center
+}
+.barraEstadistica{
+	border: 1px solid #44546A;
+	width: 600px;
+	height: 20px;
+	margin-left: 40px;
+	display: flex;
+	border-radius:15px;
+}
+.nombreDeEstadistica{
+/*	border: 1px solid purple;*/
+	margin-left: 40px;
+	width: 70px;
+	color: #44546A;
+	font-family: arial;
+	font-size: 16px;
+	font-weight:550 ;
+	display: flex;
+	justify-content: left;
+	align-items: center
+
+}
+.estadisticaInicial{
+	/*border: 4px solid yellow;*/
+	width: 300px;
+	height: 101%;
+	margin-top: -0.1px;
+	margin-left: -0.4px;
+	background-color: green;
+	border-top-left-radius: 15px;
+	border-bottom-left-radius: 15px;
+}
+.estadisiticaPorEntrenamiento{
+	/*border: 1px solid red;*/
+	background-color: #1150DC;
+	width:60px;
+	height: 101%;
+	margin-top: -0.1px;
+	border-top-right-radius: 15px;
+	border-bottom-right-radius: 15px; 	
 }
