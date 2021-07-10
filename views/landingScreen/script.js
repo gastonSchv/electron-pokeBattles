@@ -7,9 +7,11 @@ function funcionesDeInicio() {
     let musicaDeBatalla = document.getElementById("musicaDeBatalla");
     const botonDeBatalla = document.getElementById('botonBatalla');
     const botonConfiguracion = document.getElementById('botonConfiguracion')
+    const botonMiPokemon = document.getElementById('botonMiPokemon')
     botonConfiguracion.disabled = true
     botonBatalla.disabled = true
     botonJuezDeBatalla.disabled = true
+//    botonMiPokemon.disabled = true
     musicaDeBatalla.volume = 1
     musicaDeBatalla.loop = true
     //prenderMusica()
@@ -43,7 +45,9 @@ function abrirPantallaDeBatalla() {
 function abrirModalConfiguracion() {
     ipcRenderer.send('screens:configurationScreen', {})
 }
-
+function abrirModalMiPokemon(){
+    ipcRenderer.send('screens:miPokemonScreen',{})
+}
 function abrirModalDeJuezDeBatalla() {
     apagarMusica()
     console.log('mando juezDeBatallaScreen')
@@ -55,8 +59,10 @@ ipcRenderer.on('altaDeScreen:configuracion', (event, data) => {
     if (data.ruta) {
         botonBatalla.disabled = false
         botonJuezDeBatalla.disabled = false
+  //      botonMiPokemon.disabled = false
     }else{
         botonBatalla.disabled = true
         botonJuezDeBatalla.disabled = true
+    //    botonMiPokemon.disabled = true
     }
 })

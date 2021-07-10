@@ -1,10 +1,11 @@
 body {
-	background: url("../../../assets/images/pokemons principales.png");
+    background: url("../../../assets/images/pokemons principales.png");
     background-repeat: no-repeat;
     background-size: 100%;
 }
+
 #contenedor {
-    /*border: 2px solid;*/
+   /* border: 2px solid;*/
     border-color: purple;
     height: 100vh;
     display: flex
@@ -12,59 +13,28 @@ body {
 
 #botonesCentrales {
     /*border: 2px solid;*/
-    border-color: black;
+    border-color: white;
     position: absolute;
+    height: 230px;
     left: 140px;
-    top:80px;
-    /*margin-right: auto;
-    margin-left: auto;
-    margin-top: auto;
-    margin-bottom: auto;*/
+    top: 80px;
     width: 222px
 }
 
-#botonConfiguracionDiv {
-    /*border: 2px solid;*/
+.divDeBoton{
+   /* border: 2px solid;*/
     width: 220px;
     border-color: gold;
     margin-left: auto;
     margin-right: auto;
+    margin-top: auto;
+    margin-bottom: 15px;
 }
-
-#botonConfiguracionDiv button{    
-    width: 220px;
-    margin-top: 15px;
-}
-
-#botonBatallaDiv{
-    /*border: 2px solid;*/
-    width: 222px;
-    border-color: orange;
-    margin-left: auto;
-    margin-right: auto;
-}
-
-#botonBatallaDiv button {
-    width: 220px;
-    margin-top: 20px
-}
-#botonJuezDeBatallaDiv{
-    /*border: 2px solid;*/
-    width: 222px;
-    border-color: orange;
-    margin-left: auto;
-    margin-right: auto;
-}
-
-#botonJuezDeBatallaDiv button {
-    width: 220px;
-    margin-top: 20px
-}
-#iconoMusicaDeBatalla img{
-  position: absolute;
-  top:10px;
-  left: 15px;
-  height:8%;
-  width: 5%;
-  opacity: 100%;
+#iconoMusicaDeBatalla img {
+    position: absolute;
+    top: 10px;
+    left: 15px;
+    height: 8%;
+    width: 5%;
+    opacity: 100%;
 }
