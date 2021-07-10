@@ -6,7 +6,8 @@ function guardarRutaPokemon() {
     const tickGuardadoCorrecto = document.getElementById('tickGuardadoCorrecto')
     const valorInputRuta = inputRuta.value
     store.set('ruta', { inputRuta: valorInputRuta })
- 	aparecerYDesvanecer(tickGuardadoCorrecto)	   
+ 	aparecerYDesvanecer(tickGuardadoCorrecto)
+    ipcRenderer.send('altaDeScreen:configuracion',{ruta:valorInputRuta})	   
 }
 function aparecerYDesvanecer(htmlComponent, pace = 0.1) {
     var opacity = 0;
