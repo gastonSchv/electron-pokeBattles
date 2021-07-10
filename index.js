@@ -73,7 +73,7 @@ app.on('ready', () => {
         battleScreen.webContents.send('config:pedidoRutaBattleScreen',{ruta})
     })
     ipcMain.on('config:pedidoRutaJuezDeBatallaScreen', (event, data) => {
-         juezDeBatallaScreen.webContents.send('config:config:pedidoRutaJuezDeBatallaScreen',{ruta})
+         juezDeBatallaScreen.webContents.send('config:pedidoRutaJuezDeBatallaScreen',{ruta})
     })
     ipcMain.on('screens:configurationScreen', (event, data) => {
         configurationScreen.show()
@@ -92,6 +92,10 @@ app.on('ready', () => {
     ipcMain.on('altaDeScreen:configuracion', (event, data) => {
         ruta = data.ruta
         landingScreen.webContents.send('altaDeScreen:configuracion', data)
+    })
+
+    ipcMain.on('config:pedidoRutaMiPokemon',(event,data) => {
+        miPokemonScreen.webContents.send('config:pedidoRutaMiPokemon',{ruta})
     })
     landingScreen.on('close', (event, data) => {
         app.quit()
