@@ -1,5 +1,5 @@
 const { ipcRenderer } = require('electron')
-
+const _ = require('lodash')
 
 let musicaDeBatallaPrendida = true;
 
@@ -12,7 +12,7 @@ function funcionesDeInicio() {
     botonJuezDeBatalla.disabled = true
     musicaDeBatalla.volume = 1
     musicaDeBatalla.loop = true
-    prenderMusica()
+    //prenderMusica()
 }
 
 function prenderMusica() {
@@ -43,13 +43,20 @@ function abrirPantallaDeBatalla() {
 function abrirModalConfiguracion() {
     ipcRenderer.send('screens:configurationScreen', {})
 }
-function abrirModalDeJuezDeBatalla(){
+
+function abrirModalDeJuezDeBatalla() {
     apagarMusica()
     console.log('mando juezDeBatallaScreen')
     ipcRenderer.send('screens:juezDeBatallaScreen', {})
 }
-ipcRenderer.on('altaDeScreen:configuracion',(event,data) => {
-  botonBatalla.disabled = false
-  botonConfiguracion.disabled = false
-  botonJuezDeBatalla.disabled = false
+ipcRenderer.on('altaDeScreen:configuracion', (event, data) => {
+    botonConfiguracion.disabled = false
+    console.log(data.ruta)
+    if (data.ruta) {
+        botonBatalla.disabled = false
+        botonJuezDeBatalla.disabled = false
+    }else{
+        botonBatalla.disabled = true
+        botonJuezDeBatalla.disabled = true
+    }
 })
