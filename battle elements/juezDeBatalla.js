@@ -2,6 +2,7 @@ const config = require('./config')
 const _ = require('lodash')
 const relator = require('./Relator')
 const Promise = require('bluebird')
+const centroDeEntrenamiento = require('./centroDeEntrenamiento')
 
 class juezDeBatalla {
     constructor(nombre) {
@@ -22,91 +23,77 @@ class juezDeBatalla {
     verificarEstadoPokemones(unosPokemones) {
         _.forEach(unosPokemones, pokemon => this.verificarEstadoPokemon(pokemon))
     }
-    verificarComportamientoPokemon(unPokemon) {
-        this.verificarDañoEfectuadoPor(unPokemon, config.ataquesVerificables)
-        this.verificarEnergiaConsumidaPor(unPokemon)
+    existeAtaque(unPokemon,unAtaque){
+        const pokemonDummy = _.cloneDeep(unPokemon)
+        try{
+            unPokemon.atacar(pokemonDummy,unAtaque)
+            return true
+        }catch(err){
+            return false
+        }
     }
-    verificarComportamientoPokemones(unosPokemones) {
-        _.forEach(unosPokemones, pokemon => this.verificarComportamientoPokemon(pokemon))
+    ataquesExistentes(unPokemon) {
+        return _(config.ataquesVerificables)
+        .filter(ataque => this.existeAtaque(unPokemon,ataque))
+        .value()
     }
-    verificarAtaquesDisponibles(unPokemon) {
-        const pokemonDeVerificacion = _.cloneDeep(unPokemon)
-        this.verificarAtaqueBasico(pokemonDeVerificacion)
-        //this.__verificarEntrenamientos(pokemonDeVerificacion,config.ataquesVerificables)
+    constatarEntrenamiento(unPokemon,ataqueExistente){
+        return centroDeEntrenamiento.constatarEntrenamiento(unPokemon,ataqueExistente)
     }
-    __errorDeMetodoNoDeclarado(err) {
-        return _.includes(err.message, 'is not a function')
+    ataquesDisponibles(unPokemon){
+        return _(this.ataquesExistentes(unPokemon))
+        .filter(ataqueExistente => this.constatarEntrenamiento(unPokemon,ataqueExistente))
+        .value()
     }
-    __errorSiNoEsMetodoNoDeclarado(err, message) {
-        if (!this.__errorDeMetodoNoDeclarado(err)) {
-            throw { message }
+    __errorDeMetodoNoDeclarado(errMessage) {
+        return _.includes(errMessage, 'is not a function')
+    }
+    traducirErrorDeMetodoNoDeclarado(errMessage,unPokemon) {
+        if (this.__errorDeMetodoNoDeclarado(errMessage)) {
+            throw { message: relator.anunciarMetodoNoDeclarado(unPokemon, 'ataque basico') }
+        } else {
+            throw { message: errMessage }
         }
     }
     verificarAtaqueBasico(unPokemon) {
-        const otroPokemon = _.cloneDeep(unPokemon)
-        try {
-            unPokemon.atacar(unPokemon, 'basico')
-            this.verificarDaño(otroPokemon, 'basico')
-        }catch(err){
-            if (this.__errorDeMetodoNoDeclarado(err)) {
-                throw { message: relator.anunciarMetodoNoDeclarado(unPokemon, 'ataque basico') }
-            } else {
-                throw { message: err.message }
-            }
-        }
-    }
-    __verificarEntrenamientos(unPokemon, tiposDeAtaque) {
-        const verificadoresDeEntrenamiento = {
-            fuerte: unPokemon => {
-                //pensarVerificacionesQueObliguenAAprender
-            },
-            maximo: unPokemon => {
-                //pensarVerificacionesQueObliguenAAprender
-            }
-        }
-        const verificarEntrenamiento = (unPokemon, tipoDeAtaque) => {
-            return _.get(verificadoresDeEntrenamiento, tipoDeAtaque)(unPokemon)
-        }
-        const __verificarEntrenamiento = (unPokemon, tipoDeAtaque) => {
-            try {
-                unPokemon.atacar(unPokemon, tipoDeAtaque)
-                verificarEntrenamiento(unPokemon, tipoDeAtaque)
-            } catch (err) {
-                this.__errorSiNoEsMetodoNoDeclarado(err, relator.anunciarEntrenamientoFaltante(unPokemon.nombre, tipoDeAtaque))
-                throw { messageRelator: relator.mensajeFinDeBatalla, messageError: err.message }
-            }
-        }
-        _.forEach(tiposDeAtaque, tipoDeAtaque => {
-            __verificarEntrenamiento(unPokemon, tipoDeAtaque)
-        })
-    }
-    verificarDaño = (unPokemon, tipoDeAtaque) => {
-		const pokemonsDummy = {};
-        pokemonsDummy[tipoDeAtaque] = _.cloneDeep(unPokemon);
-        const verificaDaño = (pokemonDummy, tipoDeAtaque) => {
-            const __dañoDeAtaque = unPokemon => {
-                return config.multiplicadorDeAtaque(tipoDeAtaque) * unPokemon.fuerza * unPokemon.factorDeEvolución()
-            }
-            const __defensaTotal = unPokemon => {
-                return unPokemon.defensa * unPokemon.factorDeEvolución()
-            }
-            console.log(pokemonDummy.dañoRecibido,__dañoDeAtaque(unPokemon),__defensaTotal(unPokemon))
-            return pokemonDummy.dañoRecibido == __dañoDeAtaque(unPokemon) - __defensaTotal(unPokemon)
-        }
+        const pokemonDummyAtacado = _.cloneDeep(unPokemon)
+        const pokemonDummyAtacante = _.cloneDeep(unPokemon)
 
         try {
-            unPokemon.atacar(pokemonsDummy[tipoDeAtaque], tipoDeAtaque);
-            if (!verificaDaño(pokemonsDummy[tipoDeAtaque], tipoDeAtaque)) {
-                throw { message: relator.anunciarVerificaciónDeDañoFallida(unPokemon, tipoDeAtaque) }
-            }
+            pokemonDummyAtacante.atacar(pokemonDummyAtacado, 'basico')
+            this.verificarDano(unPokemon, 'basico')
         } catch (err) {
-            this.__errorSiNoEsMetodoNoDeclarado(err, err.message)
-            throw { messageRelator: relator.mensajeFinDeBatalla, messageError: err.message }
+            console.log(err)
+            this.traducirErrorDeMetodoNoDeclarado(err.message,pokemonDummyAtacado)
         }
     }
-    verificarDañoEfectuadoPor(unPokemon, tiposDeAtaque) {
-        _.forEach(tiposDeAtaque, tipoDeAtaque => {
-            this.verificarDaño(unPokemon, tipoDeAtaque)
+    verificarDano = (unPokemon, tipoDeAtaque) => {
+        const pokemonDummyAtacado = _.cloneDeep(unPokemon);
+        const pokemonDummyAtacante = _.cloneDeep(unPokemon)
+
+        const verificaDano = (pokemonDummyAtacante,pokemonDummyAtacado, tipoDeAtaque) => {
+            const __danoDeAtaque = pokemonDummyAtacante => {
+                return config.multiplicadorDeAtaque(tipoDeAtaque) * pokemonDummyAtacante.fuerza * pokemonDummyAtacante.factorDeEvolución()
+            }
+            const __defensaTotal = pokemonDummyAtacado => {
+                return pokemonDummyAtacado.defensa * pokemonDummyAtacado.factorDeEvolución()
+            }
+            console.log(tipoDeAtaque    ,pokemonDummyAtacado.dañoRecibido , __danoDeAtaque(pokemonDummyAtacante) , __defensaTotal(pokemonDummyAtacado))
+            return pokemonDummyAtacado.dañoRecibido == __danoDeAtaque(pokemonDummyAtacante) - __defensaTotal(pokemonDummyAtacado)
+        }
+        try {
+            pokemonDummyAtacante.atacar(pokemonDummyAtacado, tipoDeAtaque);
+            if (!verificaDano(pokemonDummyAtacante,pokemonDummyAtacado, tipoDeAtaque)) {
+                throw { message: relator.anunciarVerificaciónDeDanoFallida(pokemonDummyAtacante, tipoDeAtaque) }
+            }
+        } catch (err) {
+            throw { message: err.message}
+        }
+    }
+    verificarDanoDeAtaquesDisponibles(unPokemon) {
+        const ataquesDisponibles = this.ataquesDisponibles(unPokemon)
+        _.forEach(ataquesDisponibles, tipoDeAtaque => {
+            this.verificarDano(unPokemon, tipoDeAtaque)
         })
     }
     verificarEnergiaConsumidaPor(unPokemon) {
@@ -132,7 +119,7 @@ class juezDeBatalla {
         }
         relator.anunciarGanador(unPokemon, otroPokemon, i - 1)
     }
-    oficiarRonda(unPokemon, otroPokemon, ronda) { // hay que comprobar que no se edite el estado el poquemon oponente salvo por el dañoRecibido.
+    oficiarRonda(unPokemon, otroPokemon, ronda) { // hay que comprobar que no se edite el estado el poquemon oponente salvo por el danoRecibido.
         const __ordenarTurno = (unPokemon, otroPokemon) => {
             return _.orderBy([unPokemon, otroPokemon], pokemon => 1 / pokemon.velocidadDeAtaque())
         }
