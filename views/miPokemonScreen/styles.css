@@ -1,0 +1,95 @@
+#conteneder{
+	/*border: 1px solid;*/
+	color:blue;
+	height: 100vh;
+	background-color:#F0F8FF; 
+}
+#infoPokemon{
+	border: 2px solid;
+	color:black;
+	height: 260px;
+	display: flex;
+}
+#estadisticas{
+	border: 2px solid;
+	color:#44546A;
+	height: 338px
+}
+#pokemonImgDiv{
+	/*border: 2px solid;*/
+	color:yellow;
+	width: 250px;
+	height:250px;
+	margin-left:10px;
+	margin-top: 30px;
+}
+#pokemonImgDiv img{
+	height: 90%;
+	width: 90%
+}
+#datosPokemon{
+/*	border: 5px solid;*/
+	color:red;
+	width: 525px;
+	margin-left: 15px;
+	margin-top: 20px;
+	display: flex;
+}
+#nombresDedatosPokemon{
+	/*border: 2px solid;*/
+	color:brown;
+}
+.datoPokemon{
+	border: 2px solid #7e1e9c;
+	background-color: white;
+	margin-top:15px;
+	width:200px;
+	height: 40px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+.textoNombreDatoPokemon{
+	border: 1px solid;
+	background-color: white;
+	border-color:#7030A0;
+	height: 30px;
+	color: #44546A;
+	font-family: arial;
+	font-size: 18px;
+	font-weight:bold ;
+	width: 190px;
+	display: flex;
+	justify-content: center;
+	align-items: center;	  
+}
+#valoresDeDatos{
+/*	border: 2px solid;*/
+	border-color: pink;
+	width: 100vw
+}
+.valorDatoPokemon{
+	border: 2px solid #00B0F0;
+	background-color: white;
+	margin-top:15px;
+	margin-left: 15px;
+	width: 300px;
+	height: 40px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+.textoDatoPokemon{
+	border: 1px solid;
+	background-color: white;
+	border-color:#00B0F0;
+	height: 30px;
+	color: #44546A;
+	font-family: arial;
+	font-size: 18px;
+	font-weight:bold ;
+	width: 290px;
+	display: flex;
+	justify-content: center;
+	align-items: center;	
+}
