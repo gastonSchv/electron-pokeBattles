@@ -1,42 +1,32 @@
 const { ipcRenderer } = require('electron')
 const _ = require('lodash')
+const util = require('../Utils/util')
 
-let musicaDeBatallaPrendida = true;
+
+
+let musicaDeBatallaPrendida = true
 
 function funcionesDeInicio() {
-    let musicaDeBatalla = document.getElementById("musicaDeBatalla");
-    const botonDeBatalla = document.getElementById('botonBatalla');
-    const botonConfiguracion = document.getElementById('botonConfiguracion')
-    const botonMiPokemon = document.getElementById('botonMiPokemon')
     botonConfiguracion.disabled = true
     botonBatalla.disabled = true
     botonJuezDeBatalla.disabled = true
-	 botonMiPokemon.disabled = true
+	botonMiPokemon.disabled = true
     musicaDeBatalla.volume = 1
     musicaDeBatalla.loop = true
-    //prenderMusica()
+    prenderMusica()
+}
+function apagarMusica() {
+    util.apagarMusica(musicaDeBatalla,musicaDeBatallaImg)   
 }
 
 function prenderMusica() {
-    musicaDeBatalla.play()
-    musicaDeBatallaPrendida = true;
-    musicaDeBatallaImg.src = "../../../assets/images/audio on.png"
-}
-
-function apagarMusica() {
-    musicaDeBatallaPrendida = false;
-    musicaDeBatalla.pause()
-    musicaDeBatallaImg.src = "../../../assets/images/audio off.png"
+    util.prenderMusica(musicaDeBatalla,musicaDeBatallaImg)
 }
 
 function cambiarEstadoMusicaDeBatalla() {
-    if (musicaDeBatallaPrendida) {
-        apagarMusica()
-    } else {
-        prenderMusica()
-    }
+    util.cambiarEstadoMusicaDeBatalla(musicaDeBatalla,musicaDeBatallaPrendida,musicaDeBatallaImg)
+    musicaDeBatallaPrendida? musicaDeBatallaPrendida=false:musicaDeBatallaPrendida=true
 }
-
 function abrirPantallaDeBatalla() {
     apagarMusica()
     ipcRenderer.send('screens:battleScreen', {})
@@ -50,7 +40,6 @@ function abrirModalMiPokemon(){
 }
 function abrirModalDeJuezDeBatalla() {
     apagarMusica()
-    console.log('mando juezDeBatallaScreen')
     ipcRenderer.send('screens:juezDeBatallaScreen', {})
 }
 ipcRenderer.on('altaDeScreen:configuracion', (event, data) => {

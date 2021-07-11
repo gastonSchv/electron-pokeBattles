@@ -8,6 +8,7 @@ const juezDeBatalla = require('../../battle elements/juezDeBatalla')
 let largoInicialDeBarraEnergia = 150;
 let largoInicialDeBarraVitalidad = 150;
 let musicaDeBatallaPrendida = true;
+const util = require('../Utils/util')
 
 const componentesHtmlDerecho = {
     fotoEnergia: 'luzDeRecuperacionDeEnergiaDerecho',
@@ -50,7 +51,6 @@ function asignarComponentesDefault(personaje,componentes){
 asignarComponentesDefault(personajeDerecho, componentesDefaultDerecho)
 
 ipcRenderer.on('config:pedidoRutaBattleScreen', (event, data) => {
-    console.log('llego ruta a battleScreen', data)
     personajeIzquierdo = require(`${data.ruta}`)
     const personajeIzquierdoInicial = _.cloneDeep(personajeIzquierdo)
     personajeIzquierdo.inicial = personajeIzquierdoInicial
@@ -69,7 +69,7 @@ function funcionesDeInicio() {
     musicaDeBatalla.loop = true
     let musicaDeBatallaImg = document.getElementById("musicaDeBatallaImg")
     pedirRutaConfig()
-    prenderMusicaBatalla()
+    prenderMusica()
 }
 
 function prenderSonidoVictoria() {
@@ -78,24 +78,17 @@ function prenderSonidoVictoria() {
     sonidoVictoria.play()
 }
 
-function apagarMusicaBatalla() {
-    musicaDeBatallaPrendida = false;
-    musicaDeBatalla.pause()
-    musicaDeBatallaImg.src = "../../../assets/images/audio off.png"
+function apagarMusica() {
+    util.apagarMusica(musicaDeBatalla,musicaDeBatallaImg)   
 }
 
-function prenderMusicaBatalla() {
-    musicaDeBatalla.play()
-    musicaDeBatallaPrendida = true;
-    musicaDeBatallaImg.src = "../../../assets/images/audio on.png"
+function prenderMusica() {
+    util.prenderMusica(musicaDeBatalla,musicaDeBatallaImg)
 }
 
 function cambiarEstadoMusicaDeBatalla() {
-    if (musicaDeBatallaPrendida) {
-        apagarMusicaBatalla()
-    } else {
-        prenderMusicaBatalla()
-    }
+    util.cambiarEstadoMusicaDeBatalla(musicaDeBatalla,musicaDeBatallaPrendida,musicaDeBatallaImg)
+    musicaDeBatallaPrendida? musicaDeBatallaPrendida=false:musicaDeBatallaPrendida=true
 }
 
 function reload() {
@@ -103,7 +96,7 @@ function reload() {
 }
 
 function largoDeBarra(largoInicial, cantidadInicial, cantidadFinal) {
-    return _.max([0, largoInicial * cantidadFinal / cantidadInicial])
+    return util.largoDeBarra(largoInicial, cantidadInicial, cantidadFinal)
 }
 
 function largoDeBarraEnergia(personaje) {
@@ -119,7 +112,7 @@ function desmayarse(personajeAtacante) {
     var sonidoDesmayo = document.getElementById("sonidoDesmayo")
     sonidoDesmayo.volume = 0.3
     sonidoDesmayo.play()
-    aparecerYDesvanecer(iconoDesmayo, 0.1)
+    util.aparecerYDesvanecer(iconoDesmayo, 0.1)
 }
 
 function desplazarse(enemyXPosition, personajeAtacanteImg) {
@@ -146,26 +139,6 @@ function desplazarse(enemyXPosition, personajeAtacanteImg) {
         }
     }, 1)
 }
-
-function aparecerYDesvanecer(htmlComponent, pace = 0.2) {
-    var opacity = 0;
-    var variationOpacityPace = pace;
-    var counter = 1;
-    var intervalId = setInterval(function() {
-        if (counter / 2 == 1 / variationOpacityPace) {
-            clearInterval(intervalId)
-        }
-        if (counter > 1 / variationOpacityPace) {
-            opacity -= variationOpacityPace
-            htmlComponent.style.opacity = opacity
-        } else {
-            opacity += variationOpacityPace
-            htmlComponent.style.opacity = opacity
-        }
-        counter++;
-    }, 70)
-}
-
 function editInnerHtml(elementId, value) {
     document.getElementById(elementId).innerHTML = value
 }
@@ -237,7 +210,7 @@ function recuperarEnergia(personajeRecuperado, otroPersonaje) {
 
     sonidoRecuperarEnergia.play()
     personajeRecuperado.recuperarEnergia()
-    aparecerYDesvanecer(fotoEnergia, 0.2);
+    util.aparecerYDesvanecer(fotoEnergia, 0.2);
     actualizarValoresBarraEnergia()
     actualizarLargosBarrasDeEnergia()
     editarDeshabilitacionDeBotones(personajeRecuperado, true)
@@ -272,23 +245,19 @@ function atacar(personajeAtacado, personajeAtacante) {
         editarDeshabilitacionDeBotones(personajeAtacante, true)
         editarDeshabilitacionDeBotones(personajeAtacado, true)
         prenderSonidoVictoria()
-        apagarMusicaBatalla()
+        apagarMusica()
     }
 }
 
 function atacarAlDerecho() {
-    console.log(personajeIzquierdo, personajeDerecho)
     atacar(personajeDerecho, personajeIzquierdo)
 }
-
 function atacarAlIzquierdo() {
     atacar(personajeIzquierdo, personajeDerecho)
 }
-
 function recuperarEnergiaIzquierdo() {
     recuperarEnergia(personajeIzquierdo, personajeDerecho)
 }
-
 function recuperarEnergiaDerecho() {
     recuperarEnergia(personajeDerecho, personajeIzquierdo)
 }

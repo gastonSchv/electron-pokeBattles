@@ -12,7 +12,6 @@ function pedirRutaConfig() {
     ipcRenderer.send('config:pedidoRutaJuezDeBatallaScreen', {})
 }
 function prenderPitidoArbitro(){
-    const pitidoArbitro = document.getElementById('pitidoArbitro')
     pitidoArbitro.volume = 0.5
     pitidoArbitro.play()
 }
