@@ -47,12 +47,7 @@ function newBattleScreen() {
         protocol: 'file'
     }))
 }
-app.on('ready', () => {
-
-    landingScreen = newScreen({}, pathFromViewsDir('landingScreen/index.html'))
-    landingScreen.maximize()
-    landingScreen.once('ready-to-show', () => { landingScreen.show() })
-
+function newConfigurationScreen(){
     configurationScreen = newScreen({
             show: false,
             width: 600,
@@ -61,6 +56,14 @@ app.on('ready', () => {
         },
         pathFromViewsDir('configurationScreen/index.html')
     )
+}
+app.on('ready', () => {
+
+    landingScreen = newScreen({}, pathFromViewsDir('landingScreen/index.html'))
+    landingScreen.maximize()
+    landingScreen.once('ready-to-show', () => { landingScreen.show() })
+
+    newConfigurationScreen()
     ipcMain.on('buttonClick:restart', (event, data) => {
         battleScreen.reload()
     })
@@ -93,7 +96,6 @@ app.on('ready', () => {
         ruta = data.ruta
         landingScreen.webContents.send('altaDeScreen:configuracion', data)
     })
-
     ipcMain.on('config:pedidoRutaMiPokemon',(event,data) => {
         miPokemonScreen.webContents.send('config:pedidoRutaMiPokemon',{ruta})
     })
