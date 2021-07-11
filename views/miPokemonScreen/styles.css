@@ -133,7 +133,6 @@
 }
 .estadisticaInicial{
 	/*border: 1px solid yellow;*/
-	width: 300px;
 	height: 101%;
 	margin-top: 0.2px;
 	margin-left: -0.4px;
@@ -144,7 +143,6 @@
 .estadisiticaPorEntrenamiento{
 	border: 1px solid green;
 	background-color: palegreen;
-	width:60px;
 	height: 101%;
 	margin-top: 0.2px;
 	border-top-right-radius: 15px;
