@@ -112,7 +112,7 @@
 }
 .barraEstadistica{
 	border: 1px solid #44546A;
-	width: 600px;
+	width: 550px;
 	height: 20px;
 	margin-left: 5px;
 	display: flex;
@@ -137,13 +137,13 @@
 	height: 101%;
 	margin-top: 0.2px;
 	margin-left: -0.4px;
-	background-color: green;
+	background-color: #006400;
 	border-top-left-radius: 15px;
 	border-bottom-left-radius: 15px;
 }
 .estadisiticaPorEntrenamiento{
 	border: 1px solid green;
-	background-color: #82E0AA;
+	background-color: palegreen;
 	width:60px;
 	height: 101%;
 	margin-top: 0.2px;
@@ -152,9 +152,11 @@
 }
 .valorNumericoEstadistica{
 /*	border: 1px solid black; */
-	width: 45px;
+	width: 65px;
 	margin-left: 10px;
+	margin-right: 10px;
+	text-align: right;
 	font-family: Lucida Console;
 	font-size: 16px;
-	font-weight:bold ;
+	font-weight:bold;
 }
