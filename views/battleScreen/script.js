@@ -1,14 +1,16 @@
 const _ = require('lodash')
 const { ipcRenderer } = require('electron')
-const personajeDerecho = require('../../battle elements/pokemonDeTesteoCharmander')
-const personajeDerechoInicial = _.cloneDeep(personajeDerecho)
-personajeDerecho.inicial = personajeDerechoInicial;
-personajeIzquierdo = personajeDerechoInicial
+const util = require('../utils/util')
 const juezDeBatalla = require('../../battle elements/juezDeBatalla')
 let largoInicialDeBarraEnergia = 150;
 let largoInicialDeBarraVitalidad = 150;
 let musicaDeBatallaPrendida = true;
-const util = require('../utils/util')
+
+const personajeDerecho = require('../../battle elements/pokemonDeTesteoCharmander')
+util.modificarEstadisticasPorEntrenamiento(personajeDerecho)
+
+personajeDerecho.inicial = _.cloneDeep(personajeDerecho);
+personajeIzquierdo = _.cloneDeep(personajeDerecho)
 
 const componentesHtmlDerecho = {
     fotoEnergia: 'luzDeRecuperacionDeEnergiaDerecho',
@@ -52,8 +54,8 @@ asignarComponentesDefault(personajeDerecho, componentesDefaultDerecho)
 
 ipcRenderer.on('config:pedidoRutaBattleScreen', (event, data) => {
     personajeIzquierdo = require(`${data.ruta}`)
-    const personajeIzquierdoInicial = _.cloneDeep(personajeIzquierdo)
-    personajeIzquierdo.inicial = personajeIzquierdoInicial
+    util.modificarEstadisticasPorEntrenamiento(personajeIzquierdo) 
+    personajeIzquierdo.inicial = _.cloneDeep(personajeIzquierdo)
     asignarComponentesDefault(personajeIzquierdo, componentesDefaultIzquierdo)
     actualizarValoresBarraVitalidad()
     actualizarValoresBarraEnergia()

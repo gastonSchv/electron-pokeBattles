@@ -1,3 +1,10 @@
+/*const Store = require('electron-store')
+const store = new Store()
+*/
+const _ = require('lodash')
+const modificacionesEstadisticas = require('../../battle elements/modificacionesEstadisticas')
+const config = require('../../battle elements/config')
+
 class Util {
     constructor() {
 
@@ -10,7 +17,7 @@ class Util {
         }
     }
     prenderMusica(musicaDeBatalla, musicaDeBatallaImg) {
-        musicaDeBatalla.play()
+        //musicaDeBatalla.play()
         musicaDeBatallaImg.src = "../../../assets/images/audio on.png"
     }
     apagarMusica(musicaDeBatalla, musicaDeBatallaImg) {
@@ -35,8 +42,24 @@ class Util {
             counter++;
         }, 70)
     }
-    largoDeBarra(largoInicial,cantidadInicial,cantidadFinal){
+    largoDeBarra(largoInicial, cantidadInicial, cantidadFinal) {
         return _.max([0, largoInicial * cantidadFinal / cantidadInicial])
+    }
+    __modificacionEstadisticas(unPokemon) {
+        return _.find(modificacionesEstadisticas, ({ nombrePokemon }) => _.isEqual(nombrePokemon, unPokemon.nombre))
+    }
+    valorModificacionAtributo = (atributoEvaluado, unPokemon) => {
+        if (this.__modificacionEstadisticas(unPokemon)) {
+            const atributoParaModificar = _.find(this.__modificacionEstadisticas(unPokemon).atributos, ({ atributo }) => _.isEqual(atributo, atributoEvaluado))
+            return atributoParaModificar?atributoParaModificar.valor : 0
+        }
+        return 0
+    }
+    modificarEstadisticasPorEntrenamiento(unPokemon) {
+        const __modificarEstadistica = (atributo, modificacion) => {
+            unPokemon[atributo] += modificacion
+        }
+        _.forEach(config.atributosDePokemon.concat('energiaLimite'), atributo => __modificarEstadistica(atributo, this.valorModificacionAtributo(atributo, unPokemon)))
     }
 }
 

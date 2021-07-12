@@ -23,9 +23,9 @@ function completarEstadoPokemon(unPokemon){
 	completarValoresDeDato(unPokemon)
 }
 
-function completarValorDeDato(div,campo,unPokemon){
-	if(_.get(unPokemon,`${campo}.nombre`)){campo = `${campo}.nombre`}   
-	div.innerHTML = `<span class="textoDatoPokemon">${_.get(unPokemon,campo)}</span>`
+function completarValorDeDato(div,atributo,unPokemon){
+	if(_.get(unPokemon,`${atributo}.nombre`)){atributo = `${atributo}.nombre`}   
+	div.innerHTML = `<span class="textoDatoPokemon">${_.get(unPokemon,atributo)}</span>`
 }
 function completarValoresDeDato(unPokemon){
 	completarValorDeDato(nombre,'nombre',unPokemon)
@@ -33,8 +33,8 @@ function completarValoresDeDato(unPokemon){
 	completarValorDeDato(tipoDePokemon,'tipoDePokemon',unPokemon)
 	completarValorDeDato(evolucion,'evolucion',unPokemon)
 }
-function completarValorDeEstadistica(div,campo,unPokemon){
-	div.innerHTML = _.get(unPokemon,campo)
+function completarValorDeEstadistica(div,atributo,unPokemon){
+	div.innerHTML = _.get(unPokemon,atributo) + util.valorModificacionAtributo(atributo,unPokemon)
 }
 function completarValoresDeEstadisticas(unPokemon){
 	completarValorDeEstadistica(valorVida,'vida',unPokemon)
@@ -43,12 +43,15 @@ function completarValoresDeEstadisticas(unPokemon){
 	completarValorDeEstadistica(valorDefensa,'defensa',unPokemon)
 	completarValorDeEstadistica(valorVelocidad,'velocidad',unPokemon)
 }
-function modificarLargoDeBarrasEstadistica(estadisticaIncial,estadisticaPorEntrenamiento,campo,unPokemon){
-	const max = campo == 'vida'?valorMaxVida:valorMaxOtrasEstadisticas;
-	estadisticaIncial.style.width = `${util.largoDeBarra(largoBarraEstadistica,max,_.get(unPokemon,campo))}px`
-	estadisticaPorEntrenamiento.style.width = `${_.random(50,150)}px`
+function largoDeBarra(atributo,valorAtributo){
+	const max = atributo == 'vida'?valorMaxVida:valorMaxOtrasEstadisticas;
+	return util.largoDeBarra(largoBarraEstadistica,max,valorAtributo)
 }
-function modificarLargoBarrasEstadisticas(unPokemon){
+function modificarLargoDeBarrasEstadistica(estadisticaIncial,estadisticaPorEntrenamiento,atributo,unPokemon){
+	estadisticaIncial.style.width = `${largoDeBarra(atributo,_.get(unPokemon,atributo))}px`
+	estadisticaPorEntrenamiento.style.width = `${largoDeBarra(atributo,util.valorModificacionAtributo(atributo,unPokemon))}px`
+}
+function modificarLargoBarrasEstadisticas(unPokemon){	
 	modificarLargoDeBarrasEstadistica(estadisticaVidaIncial,estadisticaVidaPorEntrenamiento,'vida',unPokemon)
 	modificarLargoDeBarrasEstadistica(estadisticaEnergiaIncial,estadisticaEnergiaPorEntrenamiento,'energia',unPokemon)
 	modificarLargoDeBarrasEstadistica(estadisticaFuerzaIncial,estadisticaFuerzaPorEntrenamiento,'fuerza',unPokemon)
