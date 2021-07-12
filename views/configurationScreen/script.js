@@ -7,16 +7,26 @@ function guardarRutaPokemon() {
     const tickGuardadoCorrecto = document.getElementById('tickGuardadoCorrecto')
     const valorInputRuta = inputRuta.value
     store.set('ruta', { inputRuta: valorInputRuta })
- 	util.aparecerYDesvanecer(tickGuardadoCorrecto,0.1)
-    ipcRenderer.send('altaDeScreen:configuracion',{ruta:valorInputRuta})	   
+    util.aparecerYDesvanecer(tickGuardadoCorrecto, 0.1)
+    ipcRenderer.send('altaDeScreen:configuracion', { ruta: valorInputRuta })
 }
+
 function funcionesDeInicio() {
-    actualizarPlaceHolder();
-    notificarAltaDeScreenHaciaMain()
+    if (store.get('ruta')) {
+        actualizarPlaceHolder();
+        notificarAltaDeScreenHaciaMain()
+    } else {
+        habilitarModalParaPirmerUso()
+    }
 }
-function notificarAltaDeScreenHaciaMain(){
+
+function habilitarModalParaPirmerUso() {
+    ipcRenderer.send('altaDeScreen:configuracionPrimeraApertura', {})
+}
+
+function notificarAltaDeScreenHaciaMain() {
     const ruta = store.get('ruta').inputRuta
-    ipcRenderer.send('altaDeScreen:configuracion',{ruta})
+    ipcRenderer.send('altaDeScreen:configuracion', { ruta })
 }
 
 function actualizarPlaceHolder() {
@@ -25,17 +35,17 @@ function actualizarPlaceHolder() {
     const ruta = store.get('ruta').inputRuta
     if (!ruta) {
         placeholder = '.../miPokemon.js'
-        formRutaPokemon.innerHTML = `<input id="inputRuta" type="text" placeholder="${placeholder}">`  
+        formRutaPokemon.innerHTML = `<input id="inputRuta" type="text" placeholder="${placeholder}">`
     } else {
         input.value = ruta
     }
 }
 
-function ocultarConfiguracion(){
+function ocultarConfiguracion() {
     console.log('envio ocultacion')
-    ipcRenderer.send('screens:configurationScreenHide',{})
+    ipcRenderer.send('screens:configurationScreenHide', {})
 }
 
 ipcRenderer.on('config:ruta', (event, data) => {
-    ipcRenderer.send('config:ruta', {ruta: inputRuta.value})
+    ipcRenderer.send('config:ruta', { ruta: inputRuta.value })
 })

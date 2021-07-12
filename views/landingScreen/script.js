@@ -42,6 +42,9 @@ function abrirModalDeJuezDeBatalla() {
     apagarMusica()
     ipcRenderer.send('screens:juezDeBatallaScreen', {})
 }
+ipcRenderer.on('altaDeScreen:configuracionPrimeraApertura',(event,data) => {
+    botonConfiguracion.disabled = false
+})
 ipcRenderer.on('altaDeScreen:configuracion', (event, data) => {
     botonConfiguracion.disabled = false
     if (data.ruta) {

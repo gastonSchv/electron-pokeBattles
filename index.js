@@ -96,6 +96,9 @@ app.on('ready', () => {
         ruta = data.ruta
         landingScreen.webContents.send('altaDeScreen:configuracion', data)
     })
+    ipcMain.on('altaDeScreen:configuracionPrimeraApertura',(event,data) => {
+    	landingScreen.webContents.send('altaDeScreen:configuracionPrimeraApertura',{})
+    })
     ipcMain.on('config:pedidoRutaMiPokemon',(event,data) => {
         miPokemonScreen.webContents.send('config:pedidoRutaMiPokemon',{ruta})
     })
