@@ -14,7 +14,7 @@ module.exports = [{
             },
             {
                 atributo: 'energiaLimite',
-                valor: 300
+                valor: 1000
             },
             {
                 atributo: 'defensa',
