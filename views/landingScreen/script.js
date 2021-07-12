@@ -1,6 +1,6 @@
 const { ipcRenderer } = require('electron')
 const _ = require('lodash')
-const util = require('../Utils/util')
+const util = require('../utils/util')
 
 
 

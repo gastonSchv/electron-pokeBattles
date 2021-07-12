@@ -1,7 +1,7 @@
 const Store = require('electron-store')
 const store = new Store()
 const { ipcRenderer } = require('electron')
-const util = require('../Utils/util')
+const util = require('../utils/util')
 
 function guardarRutaPokemon() {
     const tickGuardadoCorrecto = document.getElementById('tickGuardadoCorrecto')

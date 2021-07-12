@@ -3,7 +3,7 @@ const _ = require('lodash');
 const largoBarraEstadistica = 550;
 const valorMaxVida = 300000;
 const valorMaxOtrasEstadisticas = 10000;
-const util = require('../Utils/util')
+const util = require('../utils/util')
 
 function funcionesDeInicio(){
 	pedirRutaConfig()

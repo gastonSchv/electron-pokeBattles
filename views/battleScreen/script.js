@@ -8,7 +8,7 @@ const juezDeBatalla = require('../../battle elements/juezDeBatalla')
 let largoInicialDeBarraEnergia = 150;
 let largoInicialDeBarraVitalidad = 150;
 let musicaDeBatallaPrendida = true;
-const util = require('../Utils/util')
+const util = require('../utils/util')
 
 const componentesHtmlDerecho = {
     fotoEnergia: 'luzDeRecuperacionDeEnergiaDerecho',
