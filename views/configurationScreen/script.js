@@ -10,7 +10,7 @@ function guardarRutaPokemon() {
  	util.aparecerYDesvanecer(tickGuardadoCorrecto,0.1)
     ipcRenderer.send('altaDeScreen:configuracion',{ruta:valorInputRuta})	   
 }
-function functionesDeInicio() {
+function funcionesDeInicio() {
     actualizarPlaceHolder();
     notificarAltaDeScreenHaciaMain()
 }
