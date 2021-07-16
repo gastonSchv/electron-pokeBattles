@@ -2,23 +2,30 @@ const Store = require('electron-store')
 const store = new Store()
 const { ipcRenderer } = require('electron')
 const util = require('../utils/util')
+const _ = require('lodash')
 
 function guardarRutaPokemon() {
     const tickGuardadoCorrecto = document.getElementById('tickGuardadoCorrecto')
-    const valorInputRuta = inputRuta.value
+    const inputRuta = document.getElementById('inputRuta')
+    console.log(inputRuta.files)
+    const valorInputRuta = inputRuta.files[0].path
+    
     store.set('ruta', { inputRuta: valorInputRuta })
     util.aparecerYDesvanecer(tickGuardadoCorrecto, 0.1)
     ipcRenderer.send('altaDeScreen:configuracion', { ruta: valorInputRuta })
+    colocarPlaceHolder()
+    placeHolderLabel.style.color = 'black'
 }
 
 function funcionesDeInicio() {
-    if (store.get('ruta')) {
-        actualizarPlaceHolder();
+    const ruta = store.get('ruta')
+    if (ruta) {
+        colocarPlaceHolder();
         notificarAltaDeScreenHaciaMain()
     } else {
         habilitarModalParaPirmerUso()
     }
-}
+}   
 
 function habilitarModalParaPirmerUso() {
     ipcRenderer.send('altaDeScreen:configuracionPrimeraApertura', {})
@@ -28,17 +35,21 @@ function notificarAltaDeScreenHaciaMain() {
     const ruta = store.get('ruta').inputRuta
     ipcRenderer.send('altaDeScreen:configuracion', { ruta })
 }
-
-function actualizarPlaceHolder() {
-    let input = document.getElementById('inputRuta')
-    let formRutaPokemon = document.getElementById('formRutaPokemon')
-    const ruta = store.get('ruta').inputRuta
-    if (!ruta) {
-        placeholder = '.../miPokemon.js'
-        formRutaPokemon.innerHTML = `<input id="inputRuta" type="text" placeholder="${placeholder}">`
-    } else {
-        input.value = ruta
-    }
+function placeHolder(unPlaceHolder){
+    placeHolderLabel.innerHTML = unPlaceHolder
+}
+function obtenerExtension(path){
+    return _.last(_.split(path,'\\'))
+}
+function colocarPlaceHolder() {
+    const ruta = store.get('ruta')
+    const extensionDeRuta = obtenerExtension(ruta.inputRuta)
+    placeHolder(extensionDeRuta)
+}
+function colocarPlaceHolderPrevisional(){
+    const valorInputRuta = obtenerExtension(inputRuta.files[0].path)
+    placeHolder(valorInputRuta)
+    placeHolderLabel.style.color = 'blue'
 }
 
 function ocultarConfiguracion() {

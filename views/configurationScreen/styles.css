@@ -1,13 +1,12 @@
 
 #container {
-    /*border: 1px solid;*/
-    border-color: black;
-    background-color: grey;
+    border: 2px solid black;
+    background-color: #2773A1;
     display: flex;
     height: 100vh;
 }
 #elementos{
-    /*border: 5px solid;*/
+    /*border: 1px solid;*/
     border-color: purple;
     width: 600px;
     margin-right: auto;
@@ -17,13 +16,13 @@
 #botones{
     /*border: 4px solid;*/
     display: flex;
-    margin-top: 100px;
+    margin-top: 80px;
 }
 #botonGuardar {
     /*border: 1px solid;*/
     height: 50px;
     width: 180px;
-    border-color: black;
+    border-color: white;
     margin-top: auto;
     margin-bottom: auto;
     margin-right: auto;
@@ -40,12 +39,12 @@
     margin-bottom: auto;
 }
 #formRutaPokemon{
-    /*border: 1px solid;*/
+/*    border: 1px solid;*/
     height: 40px;
     width:550px;
     margin-left: auto;
     margin-right: auto;
-    margin-top: 130px;
+    margin-top: 160px;
 }
 #inputRuta{
     width: 550px;
@@ -64,4 +63,15 @@
     border-color: yellow;
     height: 100%;
     width: 100%;
+}
+#placeHolderLabel{
+    /*border: 5px solid;*/
+    background-color: white;
+    color:black;
+    position: absolute;
+    top:170px;
+    left: 190px;
+    height: 30px;
+    width: 300px;
+    z-index: 2;
 }
