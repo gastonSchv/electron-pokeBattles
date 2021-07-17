@@ -24,11 +24,11 @@ if (process.env.NODE_ENV !== 'production') {
     reload(__dirname, {
         electron: path.join(__dirname, '../node-modules', '.bin', 'electron')
     })
-}
+}            
 function newScreen(browserWindowSettings, pathname) {
     const screen = new BrowserWindow({
         ...browserWindowSettings,
-        ...defaultBrowserWindowSetting
+        ...defaultBrowserWindowSetting,
     })
     screen.loadURL(url.format({
         pathname,
@@ -36,7 +36,9 @@ function newScreen(browserWindowSettings, pathname) {
     }))
     return screen
 }
-
+function newModalScreen(browserWindowSettings,pathName){
+	return newScreen({...browserWindowSettings,parent: landingScreen,modal: true},pathName)
+}
 function newBattleScreen() {
     battleScreen = new BrowserWindow({
         show: false,
@@ -48,7 +50,7 @@ function newBattleScreen() {
     }))
 }
 function newConfigurationScreen(){
-    configurationScreen = newScreen({
+    configurationScreen = newModalScreen({
             show: false,
             width: 600,
             height: 370,
@@ -67,6 +69,9 @@ app.on('ready', () => {
     ipcMain.on('buttonClick:restart', (event, data) => {
         battleScreen.reload()
     })
+    ipcMain.on('screens:selectorDeEnemigoScreen',(event,data) => {
+
+    })
     ipcMain.on('screens:battleScreen', (event, data) => {
         newBattleScreen()
         battleScreen.maximize()
@@ -82,11 +87,11 @@ app.on('ready', () => {
         configurationScreen.show()
     })
     ipcMain.on('screens:juezDeBatallaScreen', (event, data) => {
-        juezDeBatallaScreen = newScreen({ frame: false }, pathFromViewsDir('juezDeBatallaScreen/index.html'))
+        juezDeBatallaScreen = newModalScreen({ frame: false }, pathFromViewsDir('juezDeBatallaScreen/index.html'))
         juezDeBatallaScreen.setPosition(250, 60)
     })
     ipcMain.on('screens:miPokemonScreen',(event,data) => {
-        miPokemonScreen = newScreen({frame:false},pathFromViewsDir('miPokemonScreen/index.html'))
+        miPokemonScreen = newModalScreen({frame:false},pathFromViewsDir('miPokemonScreen/index.html'))
         miPokemonScreen.setPosition(250, 60)      
     })
     ipcMain.on('screens:configurationScreenHide', (event, data) => {
