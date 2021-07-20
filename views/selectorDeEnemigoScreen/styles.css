@@ -1,0 +1,25 @@
+#tituloDeSelector{
+	height: 120px;
+}
+#enemigosGrid{
+	display: grid;
+	grid-template-columns: 25% 25% 25% 25%
+}
+
+.enemigo{
+	border: 1px solid orange;
+	background-color: white;
+	height: 117px;
+	margin:10px;
+	opacity: 1;
+	border-radius: 15px;
+}
+.enemigo:hover{
+	background-color: orange
+}
+.imagenEnemigo{
+	max-width:100px; 
+	max-height: 80px;
+	width: auto;
+	height: auto;
+}
