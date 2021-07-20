@@ -7,7 +7,9 @@ const reload = require('electron-reload')
 let battleScreen = {}
 let juezDeBatallaScreen = {}
 let miPokemonScreen = {}
+let enemigoSeleccionado = '';
 let ruta = ''
+
 const webPreferences = {
     nodeIntegration: true,
     contextIsolation: false
@@ -37,7 +39,7 @@ function newScreen(browserWindowSettings, pathname) {
     return screen
 }
 function newModalScreen(browserWindowSettings,pathName){
-	return newScreen({...browserWindowSettings,parent: landingScreen,modal: true},pathName)
+	return newScreen({width:820,height:580,...browserWindowSettings,parent: landingScreen,modal: true},pathName)
 }
 function newBattleScreen() {
     battleScreen = new BrowserWindow({
@@ -61,7 +63,7 @@ function newConfigurationScreen(){
 }
 app.on('ready', () => {
 
-    landingScreen = newScreen({}, pathFromViewsDir('landingScreen/index.html'))
+    landingScreen = newScreen({frame:false}, pathFromViewsDir('landingScreen/index.html'))
     landingScreen.maximize()
     landingScreen.once('ready-to-show', () => { landingScreen.show() })
 
@@ -69,13 +71,14 @@ app.on('ready', () => {
     ipcMain.on('buttonClick:restart', (event, data) => {
         battleScreen.reload()
     })
-    ipcMain.on('screens:selectorDeEnemigoScreen',(event,data) => {
-
-    })
     ipcMain.on('screens:battleScreen', (event, data) => {
+        enemigoSeleccionado = data.enemigoSeleccionado
         newBattleScreen()
         battleScreen.maximize()
         battleScreen.show()
+    })
+    ipcMain.on('altaDeScreen:battleScreen',(event,data) => {
+        battleScreen.webContents.send('enemigoSeleccionado',{enemigoSeleccionado})
     })
     ipcMain.on('config:pedidoRutaBattleScreen', (event, data) => {
         battleScreen.webContents.send('config:pedidoRutaBattleScreen',{ruta})
@@ -83,16 +86,21 @@ app.on('ready', () => {
     ipcMain.on('config:pedidoRutaJuezDeBatallaScreen', (event, data) => {
          juezDeBatallaScreen.webContents.send('config:pedidoRutaJuezDeBatallaScreen',{ruta})
     })
+    ipcMain.on('screens:selectorDeEnemigoScreen',(event,data) => {
+        selectorDeEnemigoScreen = newModalScreen({frame:false},pathFromViewsDir('selectorDeEnemigoScreen/index.html'))
+        selectorDeEnemigoScreen.setPosition(410, 78)
+    })
     ipcMain.on('screens:configurationScreen', (event, data) => {
         configurationScreen.show()
+        configurationScreen.setPosition(410, 78)
     })
     ipcMain.on('screens:juezDeBatallaScreen', (event, data) => {
         juezDeBatallaScreen = newModalScreen({ frame: false }, pathFromViewsDir('juezDeBatallaScreen/index.html'))
-        juezDeBatallaScreen.setPosition(250, 60)
+        juezDeBatallaScreen.setPosition(410, 78)
     })
     ipcMain.on('screens:miPokemonScreen',(event,data) => {
         miPokemonScreen = newModalScreen({frame:false},pathFromViewsDir('miPokemonScreen/index.html'))
-        miPokemonScreen.setPosition(250, 60)      
+        miPokemonScreen.setPosition(410, 78)      
     })
     ipcMain.on('screens:configurationScreenHide', (event, data) => {
         configurationScreen.hide()
