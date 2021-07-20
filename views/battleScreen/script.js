@@ -6,7 +6,7 @@ let largoInicialDeBarraEnergia = 150;
 let largoInicialDeBarraVitalidad = 150;
 let musicaDeBatallaPrendida = true;
 
-const personajeDerecho = require('../../battle elements/pokemonDeTesteoCharmander')
+let personajeDerecho = require('../../battle elements/Pokemons/charmander')
 util.modificarEstadisticasPorEntrenamiento(personajeDerecho)
 
 personajeDerecho.inicial = _.cloneDeep(personajeDerecho);
@@ -60,17 +60,27 @@ ipcRenderer.on('config:pedidoRutaBattleScreen', (event, data) => {
     actualizarValoresBarraVitalidad()
     actualizarValoresBarraEnergia()
 })
-
+ipcRenderer.on('enemigoSeleccionado',(event,data) => {
+    personajeDerecho = require(`../../battle elements/Pokemons/${data.enemigoSeleccionado}`)
+    util.modificarEstadisticasPorEntrenamiento(personajeDerecho) 
+    personajeDerecho.inicial = _.cloneDeep(personajeDerecho)
+    asignarComponentesDefault(personajeDerecho, componentesDefaultDerecho)
+    actualizarValoresBarraVitalidad()
+    actualizarValoresBarraEnergia()  
+})
 function pedirRutaConfig() {
     ipcRenderer.send('config:pedidoRutaBattleScreen', {})
 }
-
+function pedirPokemonEnemigo(){
+    ipcRenderer.send('altaDeScreen:battleScreen',{})
+}
 function funcionesDeInicio() {
     let musicaDeBatalla = document.getElementById("musicaDeBatalla");
     musicaDeBatalla.volume = 1
     musicaDeBatalla.loop = true
     let musicaDeBatallaImg = document.getElementById("musicaDeBatallaImg")
     pedirRutaConfig()
+    pedirPokemonEnemigo()
     prenderMusica()
 }
 
@@ -250,7 +260,6 @@ function atacar(personajeAtacado, personajeAtacante) {
         apagarMusica()
     }
 }
-
 function atacarAlDerecho() {
     atacar(personajeDerecho, personajeIzquierdo)
 }
