@@ -7,7 +7,6 @@ const _ = require('lodash')
 function guardarRutaPokemon() {
     const tickGuardadoCorrecto = document.getElementById('tickGuardadoCorrecto')
     const inputRuta = document.getElementById('inputRuta')
-    console.log(inputRuta.files)
     const valorInputRuta = inputRuta.files[0].path
     
     store.set('ruta', { inputRuta: valorInputRuta })
@@ -53,7 +52,6 @@ function colocarPlaceHolderPrevisional(){
 }
 
 function ocultarConfiguracion() {
-    console.log('envio ocultacion')
     ipcRenderer.send('screens:configurationScreenHide', {})
 }
 
