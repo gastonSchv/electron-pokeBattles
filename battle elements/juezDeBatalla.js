@@ -63,7 +63,6 @@ class juezDeBatalla {
             pokemonDummyAtacante.atacar(pokemonDummyAtacado, 'basico')
             this.verificarDano(unPokemon, 'basico')
         } catch (err) {
-            console.log(err)
             this.traducirErrorDeMetodoNoDeclarado(err.message,pokemonDummyAtacado)
         }
     }
@@ -78,7 +77,6 @@ class juezDeBatalla {
             const __defensaTotal = pokemonDummyAtacado => {
                 return pokemonDummyAtacado.defensa * pokemonDummyAtacado.factorDeEvolución()
             }
-            console.log(tipoDeAtaque    ,pokemonDummyAtacado.dañoRecibido , __danoDeAtaque(pokemonDummyAtacante) , __defensaTotal(pokemonDummyAtacado))
             return pokemonDummyAtacado.dañoRecibido == __danoDeAtaque(pokemonDummyAtacante) - __defensaTotal(pokemonDummyAtacado)
         }
         try {
