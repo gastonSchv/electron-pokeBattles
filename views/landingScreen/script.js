@@ -31,7 +31,10 @@ function abrirPantallaDeBatalla() {
     apagarMusica()
     ipcRenderer.send('screens:battleScreen', {})
 }
-
+function abrirModalSelectorDeEnemigo(){
+    apagarMusica()
+    ipcRenderer.send('screens:selectorDeEnemigoScreen',{})
+}
 function abrirModalConfiguracion() {
     ipcRenderer.send('screens:configurationScreen', {})
 }
