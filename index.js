@@ -44,6 +44,7 @@ function newModalScreen(browserWindowSettings,pathName){
 function newBattleScreen() {
     battleScreen = new BrowserWindow({
         show: false,
+        frame:false,
         ...defaultBrowserWindowSetting
     })
     battleScreen.loadURL(url.format({
