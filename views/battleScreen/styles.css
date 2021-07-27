@@ -4,299 +4,345 @@ body {
     background-position: center center;
     background-attachment: fixed;
     background-size: 100%;
+    height: 100%;
+    width: 100%;
 }
-#contenedor{
-  /*border: 1px solid;*/
-  border-color: purple;
-  flex-direction: row;
-  position: absolute;
-  top : 10px;
-  left: 35px;
-  height: 580px;
-  width: 1200px;
+
+#contenedor {
+    /*border: 1px solid;*/
+    border-color: purple;
+    flex-direction: row;
+    position: absolute;
+    height: 100%;
+    width: 100%;
 }
-#cartelDesafio{
-  /*border: 1px solid;*/
-  border-color: orange;
-  position: absolute;
-  margin-left: auto;
-  margin-right: auto;
-  height: 150px;
-  top:60px;
-  left:410px;
-  width: 370px;
-  opacity: 1
+
+#cartelDesafio {
+    /*border: 1px solid;*/
+    border-color: orange;
+    position: absolute;
+    margin-left: auto;
+    margin-right: auto;
+    height: 30%;
+    top: 13%;
+    left: 35.5%;
+    width: 29%;
+    opacity: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
+
 #cartelDesafio img {
-  display: block;
-  height: 150px;
-  margin-left: auto;
-  margin-right: auto;
+    display: block;
+    height: 80%;
+    margin-left: auto;
+    margin-right: auto;
 }
-#personajes{
-  /*border: 1px solid;*/
-  border-color: yellow;
-  position: absolute;
-  top: 220px;
-  height: 280px;
-  width: 1200px
+
+.cartelGanador {
+    position: absolute;
+    /*border: 2px solid;*/
+    border-color: purple;
+    margin-left: auto;
+    margin-right: auto;
+    height: 30%;
+    top: 13%;
+    left: 35.5%;
+    width: 29%;
 }
-.recuadroEstadisticasPersonajes{
-  /*border: 1px solid;*/
-  border-color: brown;
-  background-color: white;
-  position: absolute;
-  top:-10px;
-  width: 200px;
-  height: 80px;
-  z-index: 0 ;
-  opacity: 0.2
+
+#cartelGanadorBackground {
+    opacity: 0;
+    background-color: black;
 }
-#personajeIzquierdo{
-  /*border: 1px solid;*/
-  border-color: blue;
-  height: 280px;
-  width: 200px;
-  position: absolute;
-  bottom: 0px;
-  left: 0px;
+
+#personajes {
+    /*border: 1px solid;*/
+    border-color: yellow;
+    position: absolute;
+    top: 34%;
+    height: 45%;
+    width: 100%
+}
+
+.recuadroEstadisticasPersonajes {
+    /*border: 1px solid;*/
+    border-color: brown;
+    background-color: white;
+    position: absolute;
+    width: 200px;
+    height: 80px;
+    z-index: 0;
+    opacity: 0.2
+}
+
+.personaje {
+    margin-left: 200px;
+    height: 100%;
+    width: 16%;
+}
+
+#personajeIzquierdo {
+    /*border: 1px solid;*/
+    border-color: blue;
+    position: absolute;
+    left: 25px;
 
 }
+
 #personajeIzquierdo img {
-  height: 200px;
-  position: absolute;
-  bottom: 0px
+    height: 200px;
+    position: absolute;
+    bottom: 0px
 }
-#personajeDerecho{
-  /*border: 1px solid;*/
-  border-color: red;
-  height: 280px;
-  width: 200px;
-  position: absolute;
-  bottom: 0px;
-  left: 610px;
+
+#personajeDerecho {
+    /*border: 1px solid;*/
+    border-color: red;
+    position: absolute;
+    bottom: 0px;
+    left: 660px;
 }
+
 #personajeDerecho img {
-  height: 200px;
-  position: absolute;
-  bottom: 0px
+    height: 200px;
+    position: absolute;
+    bottom: 0px
 }
-.personaje{
-  margin-left: 200px;
-  margin-right: 200px;
+
+.bordeBarraVitalidad {
+    /*border: 2px solid;*/
+    border-color: black;
+    background-color: white;
+    position: absolute;
+    top: 22px;
+    left: 45px;
+    width: 150px;
+    height: 15px;
+    z-index: 1
 }
-.bordeBarraVitalidad{
-  /*border: 2px solid;*/
-  border-color: black;
-  background-color: white;
-  position: absolute;
-  top:22px;
-  left: 45px;
-  width: 150px;
-  height: 15px;
-  z-index: 1
+
+#barraVitalidadPersonajeIzquierdo {
+    background-color: green;
+    width: 150px;
+    height: 15px;
+    z-index: 1;
 }
-#barraVitalidadPersonajeIzquierdo{
-  background-color: green;
-  width: 150px;
-  height: 15px;
-  z-index: 1;
+
+#barraVitalidadPersonajeIzquierdo img {
+    position: absolute;
+    height: 30px;
+    top: -8px;
+    left: -51px;
 }
-#barraVitalidadPersonajeIzquierdo img{
-  position: absolute;
-  height: 30px;
-  top:-8px;
-  left:-51px;
+
+#barraVitalidadPersonajeDerecho {
+    background-color: green;
+    width: 150px;
+    height: 15px;
+    z-index: 1
 }
-#barraVitalidadPersonajeDerecho{
-  background-color: green;
-  width: 150px;
-  height: 15px;
-  z-index: 1
+
+#barraVitalidadPersonajeDerecho img {
+    position: absolute;
+    height: 30px;
+    top: -8px;
+    left: -51px;
 }
-#barraVitalidadPersonajeDerecho img{
-  position: absolute;
-  height: 30px;
-  top:-8px;
-  left:-51px;
+
+.bordeBarraEnergia {
+    /*border: 2px solid;*/
+    border-color: black;
+    background-color: white;
+    position: absolute;
+    top: 55px;
+    left: 45px;
+    width: 150px;
+    height: 10px;
+    z-index: 1
 }
-.bordeBarraEnergia{
-  /*border: 2px solid;*/
-  border-color: black;
-  background-color: white;
-  position: absolute;
-  top: 55px;
-  left: 45px;
-  width: 150px;
-  height: 10px;
-  z-index: 1 
+
+#barraEnergiaPersonajeIzquierdo {
+    background-color: #5b9aa0;
+    width: 150px;
+    height: 10px;
+    z-index: 1;
 }
-#barraEnergiaPersonajeIzquierdo{
-  background-color: #5b9aa0;
-  width: 150px;
-  height: 10px;
-  z-index: 1;
-}
+
 #barraEnergiaPersonajeIzquierdo img {
-  position: absolute;
-  height: 30px;
-  top:-8px;
-  left:-51px; 
+    position: absolute;
+    height: 30px;
+    top: -8px;
+    left: -51px;
 }
-#barraEnergiaPersonajeDerecho{
-  background-color: #5b9aa0;
-  width: 150px;
-  height: 10px;
-  z-index: 1
+
+#barraEnergiaPersonajeDerecho {
+    background-color: #5b9aa0;
+    width: 150px;
+    height: 10px;
+    z-index: 1
 }
+
 #barraEnergiaPersonajeDerecho img {
-  position: absolute;
-  height: 30px;
-  top:-8px;
-  left:-51px; 
+    position: absolute;
+    height: 30px;
+    top: -8px;
+    left: -51px;
 }
-.botonera{
-  /*border: 1px solid;*/
-  border-color: silver;
-  position: absolute;
-  height: 200px;
-  width: 180px;
-  top: 80px;
+
+.botonera {
+    /*border: 1px solid;*/
+    border-color: silver;
+    position: absolute;
+    height: 200px;
+    width: 180px;
+    top: 80px;
 }
-#botoneraIzquierda{
-  left: 0px;
+
+#botoneraIzquierda {
+    left: 20px;
 }
-#botoneraDerecha{
-  right: 0px;
+
+#botoneraDerecha {
+    right: 20px;
 }
-.boton{
-  background-color: #f2ae72 ;
-  height:30px;
-  color: black;
-  font-weight: 500;
-  position: absolute;
-  right: 0px; 
-  border-radius: 10px;
+
+.boton {
+    background-color: #f2ae72;
+    height: 30px;
+    color: black;
+    font-weight: 500;
+    position: absolute;
+    right: 0px;
+    border-radius: 10px;
 }
-.botonera button:hover{
-  background-color: #ffcc5c ;
-  color: black;
+
+.botonera button:hover {
+    background-color: #ffcc5c;
+    color: black;
 }
-#botonDerechoAtacar{
-  margin-bottom: 10px;
-  right: 90px;
-  height: 40px
+
+#botonDerechoAtacar {
+    margin-bottom: 10px;
+    right: 90px;
+    height: 40px
 }
-#botonIzquierdoAtacar{
-  height: 20%;
-  margin-bottom: 10px;
-  left: 100px;
+
+#botonIzquierdoAtacar {
+    height: 20%;
+    margin-bottom: 10px;
+    left: 100px;
 }
-.luzDeRecuperacionDeEnergia{
-  border-color: black;
-  position: absolute;
-  bottom:-50px;
-  opacity: 0;
+
+.luzDeRecuperacionDeEnergia {
+    border-color: black;
+    position: absolute;
+    bottom: -50px;
+    opacity: 0;
 }
-#luzDeRecuperacionDeEnergiaIzquierda{
-  left: -50px
+
+#luzDeRecuperacionDeEnergiaIzquierda {
+    left: -50px
 }
-#luzDeRecuperacionDeEnergiaIzquierda img{
-  width: 300px;
-  height: 250px
+
+#luzDeRecuperacionDeEnergiaIzquierda img {
+    width: 300px;
+    height: 250px
 }
-#luzDeRecuperacionDeEnergiaDerecho{
-  left: -100px
+
+#luzDeRecuperacionDeEnergiaDerecho {
+    left: -100px
 }
-#luzDeRecuperacionDeEnergiaDerecho img{
-  width: 300px;
-  height: 250px
+
+#luzDeRecuperacionDeEnergiaDerecho img {
+    width: 300px;
+    height: 250px
 }
-#botonIzquierdoRecuperar{
-  top:40px;
+
+#botonIzquierdoRecuperar {
+    top: 40px;
 }
-#botonDerechoRecuperar{
-  top:40px; 
+
+#botonDerechoRecuperar {
+    top: 40px;
 }
-#iconoMusicaDeBatalla img{
-  position: absolute;
-  top:0;
-  left: -20px;
-  height:8%;
-  width: 5%;
-  opacity: 100%;
+
+#iconoMusicaDeBatalla img {
+    position: absolute;
+    top: 0;
+    left: -20px;
+    height: 8%;
+    width: 5%;
+    opacity: 100%;
 }
-#valorVitalidadPersonajeIzquierdo{
-  position: absolute;
-  top:-2px;
-  left:3px;
-  font-size: 13px;
+
+#valorVitalidadPersonajeIzquierdo {
+    position: absolute;
+    top: -2px;
+    left: 3px;
+    font-size: 13px;
 
 }
-#valorVitalidadPersonajeDerecho{
-  position: absolute;
-  top:-2px;
-  left:3px;
-  font-size: 13px;
+
+#valorVitalidadPersonajeDerecho {
+    position: absolute;
+    top: -2px;
+    left: 3px;
+    font-size: 13px;
 
 }
-#valorEnergiaPersonajeIzquierdo{
-  position: absolute;
-  top:-2.5px;
-  left:3px;
-  font-size: 11px;
-  
+
+#valorEnergiaPersonajeIzquierdo {
+    position: absolute;
+    top: -2.5px;
+    left: 3px;
+    font-size: 11px;
+
 }
-#valorEnergiaPersonajeDerecho{
-  position: absolute;
-  top:-2.5px;
-  left:3px;
-  font-size: 11px;
+
+#valorEnergiaPersonajeDerecho {
+    position: absolute;
+    top: -2.5px;
+    left: 3px;
+    font-size: 11px;
 }
-.iconoDesmayo{
-  z-index: 2;
-  opacity: 0;
+
+.iconoDesmayo {
+    z-index: 2;
+    opacity: 0;
 }
-#iconoDesmayoIzquierdo img{
-  position: absolute;
-  left:160px;
-  top:70px;
-  width:50%;
-  height: 25%;
-  
+
+#iconoDesmayoIzquierdo img {
+    position: absolute;
+    left: 160px;
+    top: 70px;
+    width: 50%;
+    height: 25%;
+
 }
-#iconoDesmayoDerecho img{
-  position: absolute;
-  left:-60px;
-  top:70px;
-  width:50%;
-  height: 25%;
+
+#iconoDesmayoDerecho img {
+    position: absolute;
+    left: -60px;
+    top: 70px;
+    width: 50%;
+    height: 25%;
 }
-.cartelGanador{
-  position: absolute;
-  /*border: 2px solid;*/
-  border-color: purple;
-  margin-left: auto;
-  margin-right: auto;
-  height: 200px;
-  top:60px;
-  left:418px;
-  width: 373px; 
+
+#botonRestartGanador {
+    /*border: 1px solid pink;*/
+    position: absolute;
+    width: 120px;
+    top: 130px;
+    left: 130px;
+    opacity: 0;
+    z-index: 2
 }
-#cartelGanadorBackground{
-  opacity: 0;
-  background-color: black;
-}
-#botonRestartGanador{
-  position: absolute;
-  width:120px;
-  top:130px;
-  left: 130px;
-  opacity: 0
-}
-#textoGanador{
- font-weight: 10;
- color:#F5FFFA;
- text-align: center;
- opacity: 0; 
+
+#textoGanador {
+    font-weight: 10;
+    color: #F5FFFA;
+    text-align: center;
+    opacity: 0;
 }
