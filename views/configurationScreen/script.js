@@ -24,8 +24,11 @@ function funcionesDeInicio() {
     } else {
         habilitarModalParaPirmerUso()
     }
+    util.crearBotonCerradoConEstilo(contenedor)
 }   
-
+function cerrarPantalla(){
+    ipcRenderer.send('screens:configurationScreenHide', {})
+}
 function habilitarModalParaPirmerUso() {
     ipcRenderer.send('altaDeScreen:configuracionPrimeraApertura', {})
 }
@@ -50,11 +53,6 @@ function colocarPlaceHolderPrevisional(){
     placeHolder(valorInputRuta)
     placeHolderLabel.style.color = 'blue'
 }
-
-function ocultarConfiguracion() {
-    ipcRenderer.send('screens:configurationScreenHide', {})
-}
-
 ipcRenderer.on('config:ruta', (event, data) => {
     ipcRenderer.send('config:ruta', { ruta: inputRuta.value })
 })
