@@ -5,7 +5,7 @@ body {
 }
 
 #contenedor {
-   /* border: 2px solid;*/
+    /*border: 2px solid;*/
     border-color: purple;
     height: 100vh;
     display: flex
@@ -22,19 +22,11 @@ body {
 }
 
 .divDeBoton{
-   /* border: 2px solid;*/
+    /*border: 2px solid;*/
     width: 220px;
     border-color: gold;
     margin-left: auto;
     margin-right: auto;
     margin-top: auto;
     margin-bottom: 15px;
-}
-#iconoMusicaDeBatalla img {
-    position: absolute;
-    top: 10px;
-    left: 15px;
-    height: 8%;
-    width: 5%;
-    opacity: 100%;
 }

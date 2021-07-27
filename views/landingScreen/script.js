@@ -2,8 +2,6 @@ const { ipcRenderer } = require('electron')
 const _ = require('lodash')
 const util = require('../utils/util')
 
-
-
 let musicaDeBatallaPrendida = true
 
 function funcionesDeInicio() {
@@ -13,6 +11,7 @@ function funcionesDeInicio() {
 	botonMiPokemon.disabled = true
     musicaDeBatalla.volume = 1
     musicaDeBatalla.loop = true
+    util.crearBotonCerradoConEstilo(contenedor)
     prenderMusica()
 }
 function apagarMusica() {
@@ -44,6 +43,9 @@ function abrirModalMiPokemon(){
 function abrirModalDeJuezDeBatalla() {
     apagarMusica()
     ipcRenderer.send('screens:juezDeBatallaScreen', {})
+}
+function cerrarPantalla(){
+	window.close()
 }
 ipcRenderer.on('altaDeScreen:configuracionPrimeraApertura',(event,data) => {
     botonConfiguracion.disabled = false
