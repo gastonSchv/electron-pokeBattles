@@ -3,12 +3,17 @@ const fs = require('fs')
 const path = require('path')
 const _ = require('lodash')
 const carpetaPokemonsEnemigos = path.join(__dirname,'..','..','battle elements','Pokemons','Pokemons enemigos')
+const util = require('../utils/util')
 
 function getButton(button){
 	ipcRenderer.send('screens:battleScreen',{enemigoSeleccionado:button.id})	
 }
 function funcionesDeInicio(){
 	crearTodosLosBotonesEnemigos();
+	util.crearBotonCerradoConEstilo(contenedor)
+}
+function cerrarPantalla(){
+	window.close()
 }
 function crearBotonEnemigo(nombrePokemonEnemigo){
 	console.log(nombrePokemonEnemigo);
