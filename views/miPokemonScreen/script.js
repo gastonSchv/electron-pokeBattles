@@ -7,8 +7,11 @@ const util = require('../utils/util')
 
 function funcionesDeInicio(){
 	pedirRutaConfig()
+	util.crearBotonCerradoConEstilo(contenedor)
 }
-
+function cerrarPantalla(){
+	window.close()
+}
 function pedirRutaConfig(){
 	ipcRenderer.send('config:pedidoRutaMiPokemon',{})
 }
