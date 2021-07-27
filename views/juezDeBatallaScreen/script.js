@@ -1,13 +1,17 @@
 const juezDeBatalla = require('../../battle elements/juezDeBatalla')
 const { ipcRenderer } = require('electron')
 const relator = require('../../battle elements/Relator')
+const util = require('../utils/util')
 
 function funcionesDeInicio() {
     const contenedorEvaluaciones = document.getElementById('contenedorEvaluaciones');
     pedirRutaConfig()
     prenderPitidoArbitro()
+    util.crearBotonCerradoConEstilo(contenedor)
 }
-
+function cerrarPantalla(){
+    window.close()
+}
 function pedirRutaConfig() {
     ipcRenderer.send('config:pedidoRutaJuezDeBatallaScreen', {})
 }
