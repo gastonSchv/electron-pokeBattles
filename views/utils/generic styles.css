@@ -1,0 +1,22 @@
+#iconoMusicaDeBatalla img {
+    position: absolute;
+    top: 10px;
+    left: 15px;
+    height: 8%;
+    width: 5%;
+    opacity: 70%;
+}
+#iconoMusicaDeBatalla img:hover{
+	opacity: 100%
+}
+#botonCerrarVentana img{
+	height: 4%;
+	width: 3%;
+	position: absolute;
+	top:2px;
+	right: 2px;
+	opacity: 70%;
+}
+#botonCerrarVentana img:hover{
+	opacity: 100%;
+}

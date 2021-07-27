@@ -17,7 +17,7 @@ class Util {
         }
     }
     prenderMusica(musicaDeBatalla, musicaDeBatallaImg) {
-        //musicaDeBatalla.play()
+        musicaDeBatalla.play()
         musicaDeBatallaImg.src = "../../../assets/images/audio on.png"
     }
     apagarMusica(musicaDeBatalla, musicaDeBatallaImg) {
@@ -60,6 +60,11 @@ class Util {
             unPokemon[atributo] += modificacion
         }
         _.forEach(config.atributosDePokemon.concat('energiaLimite'), atributo => __modificarEstadistica(atributo, this.valorModificacionAtributo(atributo, unPokemon)))
+    }
+    crearBotonCerradoConEstilo(contenedor){
+        contenedor.innerHTML += `<div id="botonCerrarVentana">
+            <img src="../../../assets/images/cerrar ventana.png" onclick="cerrarPantalla()">
+        </div>`
     }
 }
 
