@@ -86,9 +86,12 @@ function funcionesDeInicio() {
     let musicaDeBatallaImg = document.getElementById("musicaDeBatallaImg")
     pedirRutaConfig()
     pedirPokemonEnemigo()
+    util.crearBotonCerradoConEstilo(contenedor)
     prenderMusica()
 }
-
+function cerrarPantalla(){
+    window.close()
+}
 function prenderSonidoVictoria() {
     const sonidoVictoria = document.getElementById('sonidoVictoria')
     sonidoVictoria.volume = 0.1
