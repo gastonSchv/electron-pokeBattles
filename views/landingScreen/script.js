@@ -9,6 +9,8 @@ function funcionesDeInicio() {
     botonBatalla.disabled = true
     botonJuezDeBatalla.disabled = true
 	botonMiPokemon.disabled = true
+	botonCentroDeEntrenamiento.disabled = true
+
     musicaDeBatalla.volume = 1
     musicaDeBatalla.loop = true
     util.crearBotonCerradoConEstilo(contenedor)
@@ -47,6 +49,9 @@ function abrirModalDeJuezDeBatalla() {
 function cerrarPantalla(){
 	window.close()
 }
+function abrirModalCentroDeEntrenamiento(){
+    ipcRenderer.send('screens:centroDeEntrenamientoScreen', {})    
+}
 ipcRenderer.on('altaDeScreen:configuracionPrimeraApertura',(event,data) => {
     botonConfiguracion.disabled = false
 })
@@ -56,9 +61,11 @@ ipcRenderer.on('altaDeScreen:configuracion', (event, data) => {
         botonBatalla.disabled = false
         botonJuezDeBatalla.disabled = false
   		botonMiPokemon.disabled = false
+  		botonCentroDeEntrenamiento.disabled = false
     }else{
         botonBatalla.disabled = true
         botonJuezDeBatalla.disabled = true
     	botonMiPokemon.disabled = true
+    	botonCentroDeEntrenamiento.disabled = true
     }
 })
