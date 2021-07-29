@@ -40,6 +40,9 @@ class Relator {
 	anunciarEvaluacionCorrecta(unPokemon,tipoDeEvaluacion){
 		return this.anunciarValidacionCorrecta(unPokemon,tipoDeEvaluacion)
 	}
+	anunciarEntrenamientoDesigual(resultadoEsperado,resultadoObtenido){
+		return `El entrenamiento no pudo completarse! \nResultado esperado: ${resultadoEsperado}\nResultado obtenido: ${resultadoObtenido}`
+	}
 	anunciarGanador(unPokemon,otroPokemon,ronda){
 		const pokemonGanador = _.find([unPokemon,otroPokemon], pokemon => pokemon.vida > pokemon.dañoRecibido)
 		const __estadoFinalPokemones = pokemones => {

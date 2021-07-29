@@ -13,6 +13,6 @@ const gasti = require('../../entrenadorGasti')
 	defensa:1000,
 	velocidad:1000
 })
-
+pokemon.miNombre = () => pokemon.nombre
 
 module.exports = pokemon

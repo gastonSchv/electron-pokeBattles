@@ -2,7 +2,7 @@ const config = require('./config')
 const _ = require('lodash')
 const relator = require('./Relator')
 const Promise = require('bluebird')
-const centroDeEntrenamiento = require('./centroDeEntrenamiento')
+const centroDeEntrenamiento = require('../training management/juezDeEntrenamiento')
 
 class juezDeBatalla {
     constructor(nombre) {
@@ -38,7 +38,7 @@ class juezDeBatalla {
         .value()
     }
     constatarEntrenamiento(unPokemon,ataqueExistente){
-        return centroDeEntrenamiento.constatarEntrenamiento(unPokemon,ataqueExistente)
+        return centroDeEntrenamiento.constatarEntrenamientoAtaques(unPokemon,ataqueExistente)
     }
     ataquesDisponibles(unPokemon){
         return _(this.ataquesExistentes(unPokemon))
