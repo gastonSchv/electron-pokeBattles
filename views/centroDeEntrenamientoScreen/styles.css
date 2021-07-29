@@ -1,0 +1,30 @@
+#contenedor{
+
+}
+
+#tituloDeSelector{
+	height: 120px;
+}
+#entrenamientosGrid{
+	border: 1px solid black;
+	display: grid;
+	height: 100%;
+	grid-template-columns: 33% 33% 33%;
+}
+.entrenamiento{
+	border: 1px solid orange;
+	background-color: white;
+	height: 200px;
+	margin:10px;
+	opacity: 1;
+	border-radius: 15px;
+}
+.entrenamiento:hover{
+	background-color: pink
+}
+.imagenEntrenamiento{
+	max-width:120px; 
+	max-height: 80px;
+	width: auto;
+	height: auto;
+}
