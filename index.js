@@ -4,9 +4,6 @@ const path = require('path')
 const _ = require('lodash')
 const reload = require('electron-reload')
 
-let battleScreen = {}
-let juezDeBatallaScreen = {}
-let miPokemonScreen = {}
 let enemigoSeleccionado = '';
 let ruta = ''
 
@@ -27,19 +24,25 @@ if (process.env.NODE_ENV !== 'production') {
         electron: path.join(__dirname, '../node-modules', '.bin', 'electron')
     })
 }            
-function newScreen(browserWindowSettings, pathname) {
+function newScreen(browserWindowSettings, pathName) {
     const screen = new BrowserWindow({
         ...browserWindowSettings,
         ...defaultBrowserWindowSetting,
     })
     screen.loadURL(url.format({
-        pathname,
+        pathname:pathFromViewsDir(pathName),
         protocol: 'file'
     }))
     return screen
 }
-function newModalScreen(browserWindowSettings,pathName){
-	return newScreen({width:820,height:580,...browserWindowSettings,parent: landingScreen,modal: true},pathName)
+function modalScreen(browserWindowSettings,pathName){
+	return newScreen({
+        width:820,
+        height:580,
+        ...browserWindowSettings,
+        parent: landingScreen,
+        modal: true},
+        pathName)
 }
 function newBattleScreen() {
     battleScreen = new BrowserWindow({
@@ -52,23 +55,23 @@ function newBattleScreen() {
         protocol: 'file'
     }))
 }
-function newConfigurationScreen(){
-    configurationScreen = newModalScreen({
+function configurationScreen(){
+    configurationScreen = modalScreen({
             show: false,
             width: 600,
             height: 370,
             frame: false
         },
-        pathFromViewsDir('configurationScreen/index.html')
+        'configurationScreen/index.html'
     )
 }
 app.on('ready', () => {
 
-    landingScreen = newScreen({frame:false}, pathFromViewsDir('landingScreen/index.html'))
+    landingScreen = newScreen({frame:false}, 'landingScreen/index.html')
     landingScreen.maximize()
     landingScreen.once('ready-to-show', () => { landingScreen.show() })
 
-    newConfigurationScreen()
+    configurationScreen()
     ipcMain.on('buttonClick:restart', (event, data) => {
         battleScreen.reload()
     })
@@ -88,7 +91,7 @@ app.on('ready', () => {
          juezDeBatallaScreen.webContents.send('config:pedidoRutaJuezDeBatallaScreen',{ruta})
     })
     ipcMain.on('screens:selectorDeEnemigoScreen',(event,data) => {
-        selectorDeEnemigoScreen = newModalScreen({frame:false},pathFromViewsDir('selectorDeEnemigoScreen/index.html'))
+        selectorDeEnemigoScreen = modalScreen({frame:false},'selectorDeEnemigoScreen/index.html')
         selectorDeEnemigoScreen.setPosition(410, 78)
     })
     ipcMain.on('screens:configurationScreen', (event, data) => {
@@ -96,15 +99,19 @@ app.on('ready', () => {
         configurationScreen.setPosition(410, 78)
     })
     ipcMain.on('screens:juezDeBatallaScreen', (event, data) => {
-        juezDeBatallaScreen = newModalScreen({ frame: false }, pathFromViewsDir('juezDeBatallaScreen/index.html'))
+        juezDeBatallaScreen = modalScreen({ frame: false }, 'juezDeBatallaScreen/index.html')
         juezDeBatallaScreen.setPosition(410, 78)
     })
     ipcMain.on('screens:miPokemonScreen',(event,data) => {
-        miPokemonScreen = newModalScreen({frame:false},pathFromViewsDir('miPokemonScreen/index.html'))
+        miPokemonScreen = modalScreen({frame:false},'miPokemonScreen/index.html')
         miPokemonScreen.setPosition(410, 78)      
     })
     ipcMain.on('screens:configurationScreenHide', (event, data) => {
         configurationScreen.hide()
+    })
+    ipcMain.on('screens:centroDeEntrenamientoScreen',(event,data) =>{
+        centroDeEntrenamientoScreen = modalScreen({frame:false},'centroDeEntrenamientoScreen/index.html')
+        centroDeEntrenamientoScreen.setPosition(410, 78)
     })
     ipcMain.on('altaDeScreen:configuracion', (event, data) => {
         ruta = data.ruta
