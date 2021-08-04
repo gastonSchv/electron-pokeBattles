@@ -6,15 +6,15 @@ const _ = require('lodash')
 
 function funcionesDeInicio() {
     util.crearBotonCerradoConEstilo(contenedor)
-    agregarEntrenamiento('dimeTuNombre')
+    agregarEntrenamientos();
+}
+
+function agregarEntrenamientos(){
+    _.forEach(entrenamientos,agregarEntrenamiento)
 }
 
 function cerrarPantalla() {
     window.close()
-}
-
-function obtenerEntrenamiento(entrenamientoId) {
-    return _.find(entrenamientos, { id: entrenamientoId })
 }
 
 function premioshtml(premios) {
@@ -32,9 +32,9 @@ function premioshtml(premios) {
     return _.map(premios,__premioEntrenamientoHtml).join("")
 }
 
-function agregarEntrenamiento(entrenamientoId) {
-    const { titulo, premios, descripcion } = obtenerEntrenamiento(entrenamientoId)
-    entrenamientosGrid.innerHTML += `<div id="${entrenamientoId}" class="entrenamiento">
+function agregarEntrenamiento(entrenamiento) {
+    const { titulo, premios, descripcion } = entrenamiento
+    entrenamientosGrid.innerHTML += `<div id="${entrenamiento.id}" class="entrenamiento">
                 <div class="tituloEntrenamientoDiv">
                     <p class="tituloEntrenamiento">${titulo}</p>
                 </div>
@@ -45,16 +45,16 @@ function agregarEntrenamiento(entrenamientoId) {
                     <p class="descripcionEntrenamiento">${descripcion}</p>
                 </div>
                 <div class="botonEntrenamientoDiv">
-                    <button onclick="constatarEntrenamiento('${entrenamientoId}')" class="btn btn-primary">
+                    <button onclick="constatarEntrenamiento('${entrenamiento.id}')" class="btn btn-primary">
                         Realizar entrenamiento
                     </button>
                 </div>
             </div>`
 }
 
-function constatarEntrenamiento(entrenamiento) {
+function constatarEntrenamiento(entrenamientoId) {
     try {
-        juezDeEntrenamiento.constatarEntrenamiento(pokemon, entrenamiento);
+        juezDeEntrenamiento.constatarEntrenamiento(pokemon, entrenamientoId);
         console.log('Entrenamiento completado con exíto')
         /*asignarPuntosDeHabilidades(pokemon,entrenamiento);
         mostrarResultadoExitoso(entrenamiento);*/
