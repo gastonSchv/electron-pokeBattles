@@ -32,7 +32,7 @@ class Relator {
 		this.anunciarFalta(unPokemon,`Condicion de entrenamiento ${tipoDeAtaque}`)	
 	}
 	anunciarExcesoDePuntaje(unPokemon,puntajeDelPokemon){
-		return this.anunciarFalta(unPokemon,`Exceso de asignacion de puntaje (puntaje : ${puntajeDelPokemon})`)
+		return this.anunciarFalta(unPokemon,`Exceso de asignacion de puntaje. Máximo permitido: 5000 - puntaje del pokemon: ${puntajeDelPokemon}`)
 	}
 	anunciarMetodoNoDeclarado(unPokemon,metodo){
 		return this.anunciarFalta(unPokemon,`${metodo} no declarado`)
