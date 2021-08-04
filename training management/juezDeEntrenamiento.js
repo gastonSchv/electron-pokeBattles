@@ -6,10 +6,10 @@ class JuezDeEntrenamiento {
 
     }
     traducirErrorDeSistema(err) {
-    	return `Error de sistema: ${err}`
+    	return `Error de sistema: ${JSON.stringify(err)}`
     }
     constatarEntrenamiento(unPokemon, entrenamiento) {
-        const entrenamientoSeleccionado = _.find(entrenamientos, { entrenamiento });
+        const entrenamientoSeleccionado = _.find(entrenamientos, { id:entrenamiento });
 
         try {
             if (!entrenamientoSeleccionado.resultadosIguales(unPokemon)) {
