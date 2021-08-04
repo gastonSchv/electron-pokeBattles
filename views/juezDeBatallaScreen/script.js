@@ -20,10 +20,13 @@ function prenderPitidoArbitro(){
     pitidoArbitro.play()
 }
 function agregarEvaluacion(tipoDeEvaluacion, mensaje = '',tick) {
+     const __substringSiHaceFalta = mensaje => {
+        return mensaje.length > 220? `${mensaje.substring(0,220)}...`:mensaje
+     }
      contenedorEvaluaciones.innerHTML += `
     <div class="contenedorEvaluacion">
         <div id="${tipoDeEvaluacion}" class="evaluaciones">
-        ${mensaje}
+        <p class="mensajeEvaluacion">${__substringSiHaceFalta(mensaje)}</p>
         </div>
         <div class="resultadoEvaluacion">
             <img src="../../../assets/images/${tick}.png">
