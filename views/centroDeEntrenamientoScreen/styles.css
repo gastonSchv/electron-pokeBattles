@@ -1,30 +1,116 @@
-#contenedor{
+#contenedor {}
 
+#tituloDeSelector {
+    height: 120px;
 }
 
-#tituloDeSelector{
-	height: 120px;
+#entrenamientosGrid {
+    /*border: 1px solid black;*/
+    display: grid;
+    height: 100%;
+    grid-template-columns: 33% 33% 33%;
 }
-#entrenamientosGrid{
-	border: 1px solid black;
-	display: grid;
-	height: 100%;
-	grid-template-columns: 33% 33% 33%;
+
+.entrenamiento {
+    border: 4px double purple;
+    background-color: white;
+    height: 400px;
+    margin: 10px;
+    opacity: 1;
+    border-radius: 15px;
+    justify-content: center;
 }
-.entrenamiento{
-	border: 1px solid orange;
-	background-color: white;
-	height: 200px;
-	margin:10px;
-	opacity: 1;
-	border-radius: 15px;
+
+.tituloEntrenamientoDiv {
+    /*border: 2px solid black;*/
+    height: 7%;
+    justify-content: center;
+    margin-bottom: 2%;
 }
-.entrenamiento:hover{
-	background-color: pink
+
+.tituloEntrenamiento {
+    /*border: 1px solid brown;*/
+    height: 100%;
+    text-align: center;
+    text-decoration: double underline green;
 }
-.imagenEntrenamiento{
-	max-width:120px; 
-	max-height: 80px;
-	width: auto;
-	height: auto;
+
+.premiosEntrenamientoGrid {
+    /*border: 1px dotted blue;*/
+    height: 30%;
+    display: grid;
+    margin-left: 2%;
+    margin-right: 2%;
+    margin-bottom: 2%;
+    border-radius: 15px;
+    grid-template-columns: 50% 50%;
+}
+
+.premioEntrenamiento{
+    /*border: 1px solid pink;*/
+    height: 75%;
+    margin-left: 4%;
+    margin-right: 4%;
+    margin-top: 5%;
+    border-radius: 15px;
+    margin-bottom: 5%;
+    background-color: #228B22;
+}
+
+.tituloPremioDiv {
+    border: 1px solid #228B22;
+    height: 25%;
+    margin-top:10%;
+    font-weight: bold
+}
+
+.tituloPremio {
+    /*border: 1px solid black;*/
+    text-align: center;
+    color:white;
+}
+
+.valorPremioDiv {
+    /*border: 1px solid magenta;*/
+    height: 65%;
+    margin-bottom: 5%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.valorPremio {
+    /*border: 1px solid orange;*/
+    text-align: center;
+    font-size: xx-large;
+    margin-top:10%;
+    color: white;
+}
+
+.descripcionEntrenamientoDiv {
+    border: 1px dotted green;
+    height: 48%;
+    width: 96%;
+    margin-left: 2%;
+    margin-right: 2%;
+    margin-bottom: 2%;
+    border-radius: 15px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.descripcionEntrenamiento {
+    /*border: 2px solid black;*/
+    text-align: center;
+}
+
+.botonEntrenamientoDiv {
+    /*border: 2px solid gold;*/
+    display: flex;
+    height: 10%;
+    margin-bottom: 2%;
+    justify-content: center;
 }
