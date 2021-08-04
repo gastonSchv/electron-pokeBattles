@@ -19,7 +19,7 @@
 	/*border: 1px solid;*/
 	border-color: #F5F5DC;
 	height: 355px;
-	background-color: #F5F5DC
+	background-color: white
 }
 .separador{
 	height: 2px;
@@ -30,18 +30,27 @@
 .contenedorEvaluacion{
 	/*border:1px solid;*/
 	display: flex;
-	height: 70px
+	height: 80px
 }
 .evaluaciones{
-	/*border: 1px solid;*/
-	margin: auto;
-	height: 50px;
+    border: 1px dotted green;
+    border-radius: 15px;
+	margin-top: 15px;
+	margin-left: 40px;
 	width: 70%;
-	background-color: #9ca0a6
+	background-color: white;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+.mensajeEvaluacion{
+	margin-left: 10px;
 }
 .resultadoEvaluacion{
 	/*border: 1px solid;*/
-	margin: auto;
+	margin-left: 35px;
+	margin-top: 24px;
 	height: 50px;
 	width: 10%;
 }
