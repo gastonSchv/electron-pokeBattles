@@ -7,7 +7,7 @@
 }
 
 .enemigo{
-	border: 1px solid orange;
+	border: 4px double purple;
 	background-color: white;
 	height: 117px;
 	margin:10px;
@@ -15,7 +15,7 @@
 	border-radius: 15px;
 }
 .enemigo:hover{
-	background-color: orange
+	background-color: purple
 }
 .imagenEnemigo{
 	max-width:120px; 
