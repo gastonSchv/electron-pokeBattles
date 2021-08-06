@@ -23,32 +23,32 @@ class juezDeBatalla {
     verificarEstadoPokemones(unosPokemones) {
         _.forEach(unosPokemones, pokemon => this.verificarEstadoPokemon(pokemon))
     }
-    existeAtaque(unPokemon,unAtaque){
+    existeAtaque(unPokemon, unAtaque) {
         const pokemonDummy = _.cloneDeep(unPokemon)
-        try{
-            unPokemon.atacar(pokemonDummy,unAtaque)
+        try {
+            unPokemon.atacar(pokemonDummy, unAtaque)
             return true
-        }catch(err){
+        } catch (err) {
             return false
         }
     }
     ataquesExistentes(unPokemon) {
         return _(config.ataquesVerificables)
-        .filter(ataque => this.existeAtaque(unPokemon,ataque))
-        .value()
+            .filter(ataque => this.existeAtaque(unPokemon, ataque))
+            .value()
     }
-    constatarEntrenamiento(unPokemon,ataqueExistente){
-        return centroDeEntrenamiento.constatarEntrenamientoAtaques(unPokemon,ataqueExistente)
+    constatarEntrenamiento(unPokemon, ataqueExistente) {
+        return centroDeEntrenamiento.constatarEntrenamientoAtaques(unPokemon, ataqueExistente)
     }
-    ataquesDisponibles(unPokemon){
+    ataquesDisponibles(unPokemon) {
         return _(this.ataquesExistentes(unPokemon))
-        .filter(ataqueExistente => this.constatarEntrenamiento(unPokemon,ataqueExistente))
-        .value()
+            .filter(ataqueExistente => this.constatarEntrenamiento(unPokemon, ataqueExistente))
+            .value()
     }
     __errorDeMetodoNoDeclarado(errMessage) {
         return _.includes(errMessage, 'is not a function')
     }
-    traducirErrorDeMetodoNoDeclarado(errMessage,unPokemon) {
+    traducirErrorDeMetodoNoDeclarado(errMessage, unPokemon) {
         if (this.__errorDeMetodoNoDeclarado(errMessage)) {
             throw { message: relator.anunciarMetodoNoDeclarado(unPokemon, 'ataque basico') }
         } else {
@@ -63,29 +63,37 @@ class juezDeBatalla {
             pokemonDummyAtacante.atacar(pokemonDummyAtacado, 'basico')
             this.verificarDano(unPokemon, 'basico')
         } catch (err) {
-            this.traducirErrorDeMetodoNoDeclarado(err.message,pokemonDummyAtacado)
+            this.traducirErrorDeMetodoNoDeclarado(err.message, pokemonDummyAtacado)
         }
     }
     verificarDano = (unPokemon, tipoDeAtaque) => {
         const pokemonDummyAtacado = _.cloneDeep(unPokemon);
         const pokemonDummyAtacante = _.cloneDeep(unPokemon)
-
-        const verificaDano = (pokemonDummyAtacante,pokemonDummyAtacado, tipoDeAtaque) => {
-            const __danoDeAtaque = pokemonDummyAtacante => {
-                return config.multiplicadorDeAtaque(tipoDeAtaque) * pokemonDummyAtacante.fuerza * pokemonDummyAtacante.factorDeEvolución()
-            }
-            const __defensaTotal = pokemonDummyAtacado => {
-                return pokemonDummyAtacado.defensa * pokemonDummyAtacado.factorDeEvolución()
-            }
+        pokemonDummyAtacado.energia = 99999;
+        pokemonDummyAtacante.energia = 99999;
+        const __danoDeAtaque = pokemonDummyAtacante => {
+            return config.multiplicadorDeAtaque(tipoDeAtaque) * pokemonDummyAtacante.fuerza * pokemonDummyAtacante.factorDeEvolución()
+        }
+        const __defensaTotal = pokemonDummyAtacado => {
+            return pokemonDummyAtacado.defensa * pokemonDummyAtacado.factorDeEvolución()
+        }
+        const verificaDano = (pokemonDummyAtacante, pokemonDummyAtacado, tipoDeAtaque) => {
             return pokemonDummyAtacado.dañoRecibido == __danoDeAtaque(pokemonDummyAtacante) - __defensaTotal(pokemonDummyAtacado)
         }
         try {
             pokemonDummyAtacante.atacar(pokemonDummyAtacado, tipoDeAtaque);
-            if (!verificaDano(pokemonDummyAtacante,pokemonDummyAtacado, tipoDeAtaque)) {
-                throw { message: relator.anunciarVerificaciónDeDanoFallida(pokemonDummyAtacante, tipoDeAtaque) }
+            if (!verificaDano(pokemonDummyAtacante, pokemonDummyAtacado, tipoDeAtaque)) {
+                const listaComparaciones = [
+                {
+                    nombre:'Daño Recibido',
+                    valorEsperado:__danoDeAtaque(pokemonDummyAtacante)-__defensaTotal(pokemonDummyAtacado),
+                    valorObtenido: pokemonDummyAtacado.dañoRecibido
+                }
+                ]
+                throw { message: relator.anunciarVerificaciónDeDanoFallida(pokemonDummyAtacante, tipoDeAtaque,listaComparaciones) }
             }
         } catch (err) {
-            throw { message: err.message}
+            throw { message: err.message }
         }
     }
     verificarDanoDeAtaquesDisponibles(unPokemon) {
