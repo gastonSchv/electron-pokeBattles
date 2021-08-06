@@ -4,8 +4,16 @@ class Relator {
 	constructor(){
 		this.mensajeFinDeBatalla = 'Fin de Batalla Pokemon';
 	}
-	anunciarFalta(unPokemon,condicion){
-		return ` \nEl pokemon ${unPokemon.nombre} no ha verificado : ${condicion}`
+	deListaComparacionesAString(listaComparaciones){
+		if(_.isEmpty(listaComparaciones)) return '';
+
+		return _.map(listaComparaciones, comparacion => {
+			const {nombre,valorEsperado,valorObtenido} = comparacion;
+			return `${nombre} => valor esperado: ${valorEsperado} || valorObtenido: ${valorObtenido}`
+		})
+	}
+	anunciarFalta(unPokemon,condicion,listaComparaciones=[]){
+		return ` \nEl pokemon ${unPokemon.nombre} no ha verificado : ${condicion}. \n ${this.deListaComparacionesAString(listaComparaciones)}`
 	}
 	anunciarValidacionCorrecta(unPokemon,condicion){
 		return ` \nEl pokemon ${unPokemon.nombre} ha verificado ${condicion} con exito!`
@@ -25,8 +33,8 @@ class Relator {
 	anunciarCondicionesDeAtaqueFaltante(unPokemon,tipoDeAtaque){
 		this.anunciarFalta(unPokemon,`Condicion de ataque ${tipoDeAtaque}`)
 	}
-	anunciarVerificaciónDeDanoFallida(unPokemon,tipoDeAtaque){
-		return this.anunciarFalta(unPokemon,`Condicion de daño ${tipoDeAtaque}`)
+	anunciarVerificaciónDeDanoFallida(unPokemon,tipoDeAtaque,listaComparaciones){
+		return this.anunciarFalta(unPokemon,`Condicion de daño ${tipoDeAtaque}`,listaComparaciones)
 	}
 	anunciarEntrenamientoFaltante(unPokemon,tipoDeAtaque){
 		this.anunciarFalta(unPokemon,`Condicion de entrenamiento ${tipoDeAtaque}`)	
