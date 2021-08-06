@@ -3,13 +3,12 @@ const _ = require('lodash')
 const util = require('../utils/util')
 
 let musicaDeBatallaPrendida = true
-
+let botonesDeJuego = []
 function funcionesDeInicio() {
+    botonesDeJuego = [botonBatalla,botonJuezDeBatalla,botonMiPokemon,botonCentroDeEntrenamiento]
+
+    util.deshabilitarBotones(botonesDeJuego)
     botonConfiguracion.disabled = true
-    botonBatalla.disabled = true
-    botonJuezDeBatalla.disabled = true
-	botonMiPokemon.disabled = true
-	botonCentroDeEntrenamiento.disabled = true
 
     musicaDeBatalla.volume = 1
     musicaDeBatalla.loop = true
@@ -57,15 +56,12 @@ ipcRenderer.on('altaDeScreen:configuracionPrimeraApertura',(event,data) => {
 })
 ipcRenderer.on('altaDeScreen:configuracion', (event, data) => {
     botonConfiguracion.disabled = false
-    if (data.ruta) {
-        botonBatalla.disabled = false
-        botonJuezDeBatalla.disabled = false
-  		botonMiPokemon.disabled = false
-  		botonCentroDeEntrenamiento.disabled = false
+})
+ipcRenderer.on('bloqueoBotonesDeJuego',(event,data) => {
+    botonesDeJuego = [botonBatalla,botonMiPokemon,botonCentroDeEntrenamiento]
+    if (!data.deshabilitarBotones) {
+        util.habilitarBotones(botonesDeJuego.concat(botonJuezDeBatalla))      
     }else{
-        botonBatalla.disabled = true
-        botonJuezDeBatalla.disabled = true
-    	botonMiPokemon.disabled = true
-    	botonCentroDeEntrenamiento.disabled = true
+        util.deshabilitarBotones(botonesDeJuego)      
     }
 })

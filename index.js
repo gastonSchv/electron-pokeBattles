@@ -116,12 +116,17 @@ app.on('ready', () => {
     ipcMain.on('altaDeScreen:configuracion', (event, data) => {
         ruta = data.ruta
         landingScreen.webContents.send('altaDeScreen:configuracion', data)
+        juezDeBatallaScreen = modalScreen({ show: false,frame: false }, 'juezDeBatallaScreen/index.html')
+        juezDeBatallaScreen.setPosition(410, 78)
     })
     ipcMain.on('altaDeScreen:configuracionPrimeraApertura',(event,data) => {
     	landingScreen.webContents.send('altaDeScreen:configuracionPrimeraApertura',{})
     })
     ipcMain.on('config:pedidoRutaMiPokemon',(event,data) => {
         miPokemonScreen.webContents.send('config:pedidoRutaMiPokemon',{ruta})
+    })
+    ipcMain.on('bloqueoBotonesDeJuego:juezDeBatalla',(event,data) => {
+        landingScreen.webContents.send('bloqueoBotonesDeJuego',data)
     })
     landingScreen.on('close', (event, data) => {
         app.quit()

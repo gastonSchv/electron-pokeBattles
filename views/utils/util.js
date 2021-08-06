@@ -17,7 +17,7 @@ class Util {
         }
     }
     prenderMusica(musicaDeBatalla, musicaDeBatallaImg) {
-        musicaDeBatalla.play()
+        //musicaDeBatalla.play()
         musicaDeBatallaImg.src = "../../../assets/images/audio on.png"
     }
     apagarMusica(musicaDeBatalla, musicaDeBatallaImg) {
@@ -51,7 +51,7 @@ class Util {
     valorModificacionAtributo = (atributoEvaluado, unPokemon) => {
         if (this.__modificacionEstadisticas(unPokemon)) {
             const atributoParaModificar = _.find(this.__modificacionEstadisticas(unPokemon).atributos, ({ atributo }) => _.isEqual(atributo, atributoEvaluado))
-            return atributoParaModificar?atributoParaModificar.valor : 0
+            return atributoParaModificar ? atributoParaModificar.valor : 0
         }
         return 0
     }
@@ -61,10 +61,20 @@ class Util {
         }
         _.forEach(config.atributosDePokemon.concat('energiaLimite'), atributo => __modificarEstadistica(atributo, this.valorModificacionAtributo(atributo, unPokemon)))
     }
-    crearBotonCerradoConEstilo(contenedor){
+    crearBotonCerradoConEstilo(contenedor) {
         contenedor.innerHTML += `<div id="botonCerrarVentana">
             <img src="../../../assets/images/cerrar ventana.png" onclick="cerrarPantalla()">
         </div>`
+    }
+    deshabilitarBotones(unosBotones) {
+        _.forEach(unosBotones, boton => {
+            boton.disabled = true
+        })  
+    }
+    habilitarBotones(unosBotones) {
+        _.forEach(unosBotones, boton => {
+            boton.disabled = false
+        })
     }
 }
 
