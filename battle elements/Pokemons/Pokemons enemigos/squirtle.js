@@ -8,7 +8,7 @@ const tipoDePokemon = require('../../TiposDePokemon/agua')
 	tipoDePokemon,
 	evolucion:1,
 	vida:1500,
-	energia:600,
+	energia:500,
 	fuerza:1000,
 	defensa:1200,
 	velocidad:800
