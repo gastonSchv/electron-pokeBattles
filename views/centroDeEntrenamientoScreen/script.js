@@ -1,14 +1,23 @@
 const juezDeEntrenamiento = require('../../training management/juezDeEntrenamiento')
-const pokemon = require('../../battle elements/Pokemons/Pokemons enemigos/bolbasaur')
 const util = require('../utils/util')
 const entrenamientos = require('../../training management/entrenamientos')
 const _ = require('lodash')
+const {ipcRenderer} = require('electron')
+let pokemon = {}
 
 function funcionesDeInicio() {
     util.crearBotonCerradoConEstilo(contenedor)
     agregarEntrenamientos();
+    pedirRutaConfig();
 }
+function pedirRutaConfig(){
+    ipcRenderer.send('config:pedidoRutaCentroDeEntrenamiento',{})
+}
+ipcRenderer.on('config:pedidoRutaCentroDeEntrenamiento',(event,data) => {
+    console.log(data.ruta)
+    pokemon = require(data.ruta)
 
+})
 function agregarEntrenamientos(){
     _.forEach(entrenamientos,agregarEntrenamiento)
 }

@@ -128,6 +128,9 @@ app.on('ready', () => {
     ipcMain.on('bloqueoBotonesDeJuego:juezDeBatalla',(event,data) => {
         landingScreen.webContents.send('bloqueoBotonesDeJuego',data)
     })
+    ipcMain.on('config:pedidoRutaCentroDeEntrenamiento',(event,data) => {
+    	centroDeEntrenamientoScreen.webContents.send('config:pedidoRutaCentroDeEntrenamiento',{ruta})
+    })
     landingScreen.on('close', (event, data) => {
         app.quit()
     })
