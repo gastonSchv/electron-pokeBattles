@@ -2,6 +2,8 @@ const juezDeEntrenamiento = require('../../training management/juezDeEntrenamien
 const util = require('../utils/util')
 const entrenamientos = require('../../training management/entrenamientos')
 const _ = require('lodash')
+/*const Store = require('electron-store')
+const store = new Store()*/
 const {ipcRenderer} = require('electron')
 let pokemon = {}
 
@@ -14,7 +16,6 @@ function pedirRutaConfig(){
     ipcRenderer.send('config:pedidoRutaCentroDeEntrenamiento',{})
 }
 ipcRenderer.on('config:pedidoRutaCentroDeEntrenamiento',(event,data) => {
-    console.log(data.ruta)
     pokemon = require(data.ruta)
 
 })
@@ -60,16 +61,18 @@ function agregarEntrenamiento(entrenamiento) {
                 </div>
             </div>`
 }
-
+function guardarEntrenamientoExistoso(nombrePokemon,entrenamientoId){
+	ipcRenderer.send('guardarEntrenamiento',{nombrePokemon,entrenamientoId}) 
+}
 function constatarEntrenamiento(entrenamientoId) {
     try {
         juezDeEntrenamiento.constatarEntrenamiento(pokemon, entrenamientoId);
-        console.log('Entrenamiento completado con exíto')
-        /*asignarPuntosDeHabilidades(pokemon,entrenamiento);
-        mostrarResultadoExitoso(entrenamiento);*/
+        guardarEntrenamientoExistoso(pokemon.nombre,entrenamientoId);
+        /*mostrarResultadoExitoso(entrenamiento);*/
     } catch (err) {
         console.log('Error! ', err)
         /*mostrarResultadoFallido(entrenamiento,err)*/
     }
 
 }
+//const entrenamientosRealizados = store.get('entrenamientosRealizados')
