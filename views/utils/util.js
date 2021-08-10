@@ -2,8 +2,8 @@
 const store = new Store()
 */
 const _ = require('lodash')
-const modificacionesEstadisticas = require('../../battle elements/modificacionesEstadisticas')
 const config = require('../../battle elements/config')
+const juez = require('../../training management/juezDeEntrenamiento')
 
 class Util {
     constructor() {
@@ -45,12 +45,9 @@ class Util {
     largoDeBarra(largoInicial, cantidadInicial, cantidadFinal) {
         return _.max([0, largoInicial * cantidadFinal / cantidadInicial])
     }
-    __modificacionEstadisticas(unPokemon) {
-        return _.find(modificacionesEstadisticas, ({ nombrePokemon }) => _.isEqual(nombrePokemon, unPokemon.nombre))
-    }
     valorModificacionAtributo = (atributoEvaluado, unPokemon) => {
-        if (this.__modificacionEstadisticas(unPokemon)) {
-            const atributoParaModificar = _.find(this.__modificacionEstadisticas(unPokemon).atributos, ({ atributo }) => _.isEqual(atributo, atributoEvaluado))
+        if (juez.tieneModificacionDeAtributo(unPokemon,atributoEvaluado)) {
+            const atributoParaModificar = _.find(juez.modificacionEstadisticasPorEntrenamiento(unPokemon), ({ atributo }) => _.isEqual(atributo, atributoEvaluado))
             return atributoParaModificar ? atributoParaModificar.valor : 0
         }
         return 0
@@ -59,7 +56,9 @@ class Util {
         const __modificarEstadistica = (atributo, modificacion) => {
             unPokemon[atributo] += modificacion
         }
-        _.forEach(config.atributosDePokemon.concat('energiaLimite'), atributo => __modificarEstadistica(atributo, this.valorModificacionAtributo(atributo, unPokemon)))
+        if(juez.tieneModificacionDeEstadisticas(unPokemon)){
+            _.forEach(config.atributosDePokemon.concat('energiaLimite'), atributo => __modificarEstadistica(atributo, this.valorModificacionAtributo(atributo, unPokemon)))
+        }
     }
     crearBotonCerradoConEstilo(contenedor) {
         contenedor.innerHTML += `<div id="botonCerrarVentana">
