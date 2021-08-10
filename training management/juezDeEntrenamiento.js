@@ -1,8 +1,11 @@
 const _ = require('lodash')
 const entrenamientos = require('./entrenamientos')
-const entrenamientosRealizados = require('./entrenamientosRealizados')
+const Store = require('electron-store')
+const store = new Store();
+const entrenamientosRealizadosGlobal = store.get('entrenamientosRealizados')
 const config = require('../battle elements/config')
 const unPokemon = require('../battle elements/bolbasaur para pruebas')
+
 
 class JuezDeEntrenamiento {
     constructor() {
@@ -32,11 +35,14 @@ class JuezDeEntrenamiento {
         }
     }
     tieneModificacionDeEstadisticas(unPokemon) {
-        return _.some(entrenamientosRealizados, entrenamiento => _.isEqual(unPokemon.nombre, entrenamiento.nombrePokemon))
+        return _.some(this.entrenamientosRealizados(unPokemon), entrenamiento => _.isEqual(unPokemon.nombre, entrenamiento.nombrePokemon))
     }
-    obtenerInformacionEntrenamientosRealizados() {
-        return _(entrenamientosRealizados)
-            .map(entrenamientoRealizado => _.find(entrenamientos, { id: entrenamientoRealizado.idEntrenamiento }))
+    entrenamientosRealizados(unPokemon){
+        return _.filter(entrenamientosRealizadosGlobal, ({nombrePokemon})=> _.isEqual(nombrePokemon,unPokemon.nombre))
+    }
+    obtenerInformacionEntrenamientosRealizados(unPokemon) {
+        return _(this.entrenamientosRealizados(unPokemon))
+            .map(entrenamientoRealizado => _.find(entrenamientos, { id: entrenamientoRealizado.entrenamientoId }))
             .value()
     }
     modificacionEstadisticasPorEntrenamiento(unPokemon) { // devuelve array de objetitos con dos properties . atributo : 'defensa' , valor:100
@@ -46,14 +52,14 @@ class JuezDeEntrenamiento {
         const __sumarModificacion = (premios) => {
             _.forEach(premios, ({habilidad,valor}) => _.find(atributos, atributo => _.isEqual(atributo.atributo,habilidad)).valor += valor)
         }
-        _.forEach(this.obtenerInformacionEntrenamientosRealizados(),({ premios }) => __sumarModificacion(premios))
+        _.forEach(this.obtenerInformacionEntrenamientosRealizados(unPokemon),({premios}) => __sumarModificacion(premios))
 
         return atributos.concat({atributo:'energiaLimite',valor:_.find(atributos, ({atributo}) => _.isEqual(atributo,'energia')).valor})
     }
     tieneModificacionDeAtributo(unPokemon, atributoEvaluado) {
         atributoEvaluado =='energiaLimite'? atributoEvaluado= 'energia':atributoEvaluado;
 
-        return _.some(this.obtenerInformacionEntrenamientosRealizados(), ({premios}) => {
+        return _.some(this.obtenerInformacionEntrenamientosRealizados(unPokemon), ({premios}) => {
             return _.some(premios,  premio => _.isEqual(premio.habilidad,atributoEvaluado))
         })
     }
