@@ -4,7 +4,7 @@ const gasti = require('./entrenadorGasti')
 
  const pokemon = new Pokemon({
 	entrenador: gasti,
-	nombre:'bolbasaur',
+	nombre:'bolbasaurDePrueba',
 	tipoDePokemon,
 	evolucion:1,
 	vida:1000,
