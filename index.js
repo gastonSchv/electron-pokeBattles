@@ -7,6 +7,7 @@ const Store = require('electron-store')
 const store = new Store()
 
 let enemigoSeleccionado = '';
+let entrenamientosRealizados = [];
 
 let ruta = store.get('ruta')
 
@@ -151,6 +152,19 @@ app.on('ready', () => {
         if(ruta){
             landingScreen.webContents.send('rutaValida',{})
         }
+    })
+    ipcMain.on('guardarEntrenamiento',(event,data) => {
+        const entrenamientoPreexistente = (entrenamiento,entrenamientosRealizados) => {
+           return  _.some(entrenamientosRealizados, ({entrenamientoId}) => _.isEqual(entrenamientoId,entrenamiento.entrenamientoId) )
+        }
+        const __entrenamientosRealizados = () => {
+            return store.get('entrenamientosRealizados')?entrenamientosRealizados = store.get('entrenamientosRealizados'):entrenamientosRealizados = []
+        }
+       
+        if(!entrenamientoPreexistente(data,__entrenamientosRealizados())){
+            store.set('entrenamientosRealizados',__entrenamientosRealizados().concat(data))
+        }
+       
     })
     landingScreen.on('close', (event, data) => {
         app.quit()
