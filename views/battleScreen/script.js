@@ -71,7 +71,6 @@ ipcRenderer.on('enemigoSeleccionado',(event,data) => {
 function colocarImagenDePersonajeDerecho(nombrePersonaje){
     const personajeDerechoDiv = document.getElementById('personajeDerecho')
     personajeDerechoDiv.innerHTML += `<img type="image/png" src="../../../assets/images/${nombrePersonaje}.png">`
-    console.log(personajeDerechoDiv)
 }
 function pedirRutaConfig() {
     ipcRenderer.send('config:pedidoRutaBattleScreen', {})

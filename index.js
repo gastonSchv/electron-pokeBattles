@@ -3,9 +3,12 @@ const url = require('url')
 const path = require('path')
 const _ = require('lodash')
 const reload = require('electron-reload')
+const Store = require('electron-store')
+const store = new Store()
 
 let enemigoSeleccionado = '';
-let ruta = ''
+
+let ruta = store.get('ruta')
 
 const webPreferences = {
     nodeIntegration: true,
@@ -23,31 +26,35 @@ if (process.env.NODE_ENV !== 'production') {
     reload(__dirname, {
         electron: path.join(__dirname, '../node-modules', '.bin', 'electron')
     })
-}            
+}
+
 function newScreen(browserWindowSettings, pathName) {
     const screen = new BrowserWindow({
         ...browserWindowSettings,
         ...defaultBrowserWindowSetting,
     })
     screen.loadURL(url.format({
-        pathname:pathFromViewsDir(pathName),
+        pathname: pathFromViewsDir(pathName),
         protocol: 'file'
     }))
     return screen
 }
-function modalScreen(browserWindowSettings,pathName){
-	return newScreen({
-        width:820,
-        height:580,
-        ...browserWindowSettings,
-        parent: landingScreen,
-        modal: true},
+
+function modalScreen(browserWindowSettings, pathName) {
+    return newScreen({
+            width: 820,
+            height: 580,
+            ...browserWindowSettings,
+            parent: landingScreen,
+            modal: true
+        },
         pathName)
 }
+
 function newBattleScreen() {
     battleScreen = new BrowserWindow({
         show: false,
-        frame:false,
+        frame: false,
         ...defaultBrowserWindowSetting
     })
     battleScreen.loadURL(url.format({
@@ -55,7 +62,8 @@ function newBattleScreen() {
         protocol: 'file'
     }))
 }
-function configurationScreen(){
+
+function configurationScreen() {
     configurationScreen = modalScreen({
             show: false,
             width: 600,
@@ -67,11 +75,16 @@ function configurationScreen(){
 }
 app.on('ready', () => {
 
-    landingScreen = newScreen({frame:false}, 'landingScreen/index.html')
+    landingScreen = newScreen({ frame: false }, 'landingScreen/index.html')
     landingScreen.maximize()
     landingScreen.once('ready-to-show', () => { landingScreen.show() })
 
     configurationScreen()
+
+    ipcMain.on('altaDeScreen:landingScreen', (event, data) => {        
+        landingScreen.webContents.send('altaDeScreen:landingScreen', {ruta})
+    })
+
     ipcMain.on('buttonClick:restart', (event, data) => {
         battleScreen.reload()
     })
@@ -81,17 +94,17 @@ app.on('ready', () => {
         battleScreen.maximize()
         battleScreen.show()
     })
-    ipcMain.on('altaDeScreen:battleScreen',(event,data) => {
-        battleScreen.webContents.send('enemigoSeleccionado',{enemigoSeleccionado})
+    ipcMain.on('altaDeScreen:battleScreen', (event, data) => {
+        battleScreen.webContents.send('enemigoSeleccionado', { enemigoSeleccionado })
     })
     ipcMain.on('config:pedidoRutaBattleScreen', (event, data) => {
-        battleScreen.webContents.send('config:pedidoRutaBattleScreen',{ruta})
+        battleScreen.webContents.send('config:pedidoRutaBattleScreen', { ruta })
     })
     ipcMain.on('config:pedidoRutaJuezDeBatallaScreen', (event, data) => {
-         juezDeBatallaScreen.webContents.send('config:pedidoRutaJuezDeBatallaScreen',{ruta})
+        juezDeBatallaScreen.webContents.send('config:pedidoRutaJuezDeBatallaScreen', { ruta })
     })
-    ipcMain.on('screens:selectorDeEnemigoScreen',(event,data) => {
-        selectorDeEnemigoScreen = modalScreen({frame:false},'selectorDeEnemigoScreen/index.html')
+    ipcMain.on('screens:selectorDeEnemigoScreen', (event, data) => {
+        selectorDeEnemigoScreen = modalScreen({ frame: false }, 'selectorDeEnemigoScreen/index.html')
         selectorDeEnemigoScreen.setPosition(410, 78)
     })
     ipcMain.on('screens:configurationScreen', (event, data) => {
@@ -102,36 +115,45 @@ app.on('ready', () => {
         juezDeBatallaScreen = modalScreen({ frame: false }, 'juezDeBatallaScreen/index.html')
         juezDeBatallaScreen.setPosition(410, 78)
     })
-    ipcMain.on('screens:miPokemonScreen',(event,data) => {
-        miPokemonScreen = modalScreen({frame:false},'miPokemonScreen/index.html')
-        miPokemonScreen.setPosition(410, 78)      
+    ipcMain.on('screens:miPokemonScreen', (event, data) => {
+        miPokemonScreen = modalScreen({ frame: false }, 'miPokemonScreen/index.html')
+        miPokemonScreen.setPosition(410, 78)
     })
     ipcMain.on('screens:configurationScreenHide', (event, data) => {
         configurationScreen.hide()
     })
-    ipcMain.on('screens:centroDeEntrenamientoScreen',(event,data) =>{
-        centroDeEntrenamientoScreen = modalScreen({frame:false},'centroDeEntrenamientoScreen/index.html')
+    ipcMain.on('screens:centroDeEntrenamientoScreen', (event, data) => {
+        centroDeEntrenamientoScreen = modalScreen({ frame: false }, 'centroDeEntrenamientoScreen/index.html')
         centroDeEntrenamientoScreen.setPosition(410, 78)
     })
     ipcMain.on('altaDeScreen:configuracion', (event, data) => {
-        ruta = data.ruta
-        landingScreen.webContents.send('altaDeScreen:configuracion', data)
-        juezDeBatallaScreen = modalScreen({ show: false,frame: false }, 'juezDeBatallaScreen/index.html')
+        
+        if(data.ruta){
+            store.set('ruta', data.ruta)
+            ruta = data.ruta
+        }
+
+        configurationScreen.webContents.send('altaDeScreen:configuracion', { ruta})
+        landingScreen.webContents.send('altaDeScreen:configuracion',{ruta})
+        juezDeBatallaScreen = modalScreen({ show: false, frame: false }, 'juezDeBatallaScreen/index.html')
         juezDeBatallaScreen.setPosition(410, 78)
     })
-    ipcMain.on('altaDeScreen:configuracionPrimeraApertura',(event,data) => {
-    	landingScreen.webContents.send('altaDeScreen:configuracionPrimeraApertura',{})
+    ipcMain.on('config:pedidoRutaMiPokemon', (event, data) => {
+        miPokemonScreen.webContents.send('config:pedidoRutaMiPokemon', { ruta })
     })
-    ipcMain.on('config:pedidoRutaMiPokemon',(event,data) => {
-        miPokemonScreen.webContents.send('config:pedidoRutaMiPokemon',{ruta})
+    ipcMain.on('bloqueoBotonesDeJuego:juezDeBatalla', (event, data) => {
+        landingScreen.webContents.send('bloqueoBotonesDeJuego', data)
     })
-    ipcMain.on('bloqueoBotonesDeJuego:juezDeBatalla',(event,data) => {
-        landingScreen.webContents.send('bloqueoBotonesDeJuego',data)
+    ipcMain.on('config:pedidoRutaCentroDeEntrenamiento', (event, data) => {
+        centroDeEntrenamientoScreen.webContents.send('config:pedidoRutaCentroDeEntrenamiento', { ruta })
     })
-    ipcMain.on('config:pedidoRutaCentroDeEntrenamiento',(event,data) => {
-    	centroDeEntrenamientoScreen.webContents.send('config:pedidoRutaCentroDeEntrenamiento',{ruta})
+    ipcMain.on('rutaValida',(event,data) => {
+        if(ruta){
+            landingScreen.webContents.send('rutaValida',{})
+        }
     })
     landingScreen.on('close', (event, data) => {
         app.quit()
     })
+
 })

@@ -4,12 +4,12 @@ const util = require('../utils/util')
 
 let musicaDeBatallaPrendida = true
 let botonesDeJuego = []
+
 function funcionesDeInicio() {
     botonesDeJuego = [botonBatalla,botonJuezDeBatalla,botonMiPokemon,botonCentroDeEntrenamiento]
 
     util.deshabilitarBotones(botonesDeJuego)
-    botonConfiguracion.disabled = true
-
+    ipcRenderer.send('altaDeScreen:landingScreen',{})
     musicaDeBatalla.volume = 1
     musicaDeBatalla.loop = true
     util.crearBotonCerradoConEstilo(contenedor)
@@ -48,20 +48,28 @@ function abrirModalDeJuezDeBatalla() {
 function cerrarPantalla(){
 	window.close()
 }
+function consultarRutaValida(){
+    ipcRenderer.send('rutaValida',{})
+}
 function abrirModalCentroDeEntrenamiento(){
     ipcRenderer.send('screens:centroDeEntrenamientoScreen', {})    
 }
-ipcRenderer.on('altaDeScreen:configuracionPrimeraApertura',(event,data) => {
-    botonConfiguracion.disabled = false
+ipcRenderer.on('altaDeScreen:landingScreen',(event,data) => {
+    if(data.ruta){
+        console.log('llego alta de screen')
+      util.habilitarBotones(botonesDeJuego)
+    }
 })
-ipcRenderer.on('altaDeScreen:configuracion', (event, data) => {
-    botonConfiguracion.disabled = false
-})
+
 ipcRenderer.on('bloqueoBotonesDeJuego',(event,data) => {
     botonesDeJuego = [botonBatalla,botonMiPokemon,botonCentroDeEntrenamiento]
     if (!data.deshabilitarBotones) {
-        util.habilitarBotones(botonesDeJuego.concat(botonJuezDeBatalla))      
+        consultarRutaValida()      
     }else{
         util.deshabilitarBotones(botonesDeJuego)      
     }
+})
+ipcRenderer.on('rutaValida',(event,data) => {
+    console.log('llego ruta valida')
+    util.habilitarBotones(botonesDeJuego.concat(botonJuezDeBatalla))
 })
