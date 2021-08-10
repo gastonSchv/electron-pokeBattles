@@ -1,6 +1,3 @@
-/*const Store = require('electron-store')
-const store = new Store()
-*/
 const _ = require('lodash')
 const config = require('../../battle elements/config')
 const juez = require('../../training management/juezDeEntrenamiento')
@@ -46,6 +43,7 @@ class Util {
         return _.max([0, largoInicial * cantidadFinal / cantidadInicial])
     }
     valorModificacionAtributo = (atributoEvaluado, unPokemon) => {
+        
         if (juez.tieneModificacionDeAtributo(unPokemon,atributoEvaluado)) {
             const atributoParaModificar = _.find(juez.modificacionEstadisticasPorEntrenamiento(unPokemon), ({ atributo }) => _.isEqual(atributo, atributoEvaluado))
             return atributoParaModificar ? atributoParaModificar.valor : 0
@@ -56,6 +54,7 @@ class Util {
         const __modificarEstadistica = (atributo, modificacion) => {
             unPokemon[atributo] += modificacion
         }
+        
         if(juez.tieneModificacionDeEstadisticas(unPokemon)){
             _.forEach(config.atributosDePokemon.concat('energiaLimite'), atributo => __modificarEstadistica(atributo, this.valorModificacionAtributo(atributo, unPokemon)))
         }
