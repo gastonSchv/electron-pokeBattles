@@ -5,6 +5,7 @@ const _ = require('lodash')
 
 module.exports = [
  entrenamientoBuilder('dimeTuNombre'),
- entrenamientoBuilder('quienEsElMasFuerte')
+ entrenamientoBuilder('quienEsElMasFuerte'),
+ entrenamientoBuilder('obtenSusAtributos')
 
 ]

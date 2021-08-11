@@ -1,4 +1,5 @@
 const _ = require('lodash')
+const config = require('../battle elements/config')
 
 module.exports = [
 {
@@ -10,5 +11,10 @@ module.exports = [
 	id:'quienEsElMasFuerte',
 	resultadoEsperado: function(unPokemon,inputDeEvaluacion){ return _.maxBy(inputDeEvaluacion, pokemon => pokemon.fuerza)},
 	resultadoEvaluado: function(unPokemon,inputDeEvaluacion){ return unPokemon.elPokemonMasFuerte(inputDeEvaluacion)},
+},
+{
+	id:'obtenSusAtributos',
+	resultadoEsperado: function(unPokemon,inputDeEvaluacion){ return _.pick(inputDeEvaluacion,config.atributosDePokemon)},
+	resultadoEvaluado: function(unPokemon,inputDeEvaluacion){ return unPokemon.obtenerAtributos(inputDeEvaluacion)},
 }
 ]
