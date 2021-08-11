@@ -2,8 +2,6 @@ const juezDeEntrenamiento = require('../../training management/juezDeEntrenamien
 const util = require('../utils/util')
 const entrenamientos = require('../../training management/entrenamientos')
 const _ = require('lodash')
-/*const Store = require('electron-store')
-const store = new Store()*/
 const {ipcRenderer} = require('electron')
 let pokemon = {}
 
@@ -43,7 +41,7 @@ function premioshtml(premios) {
 }
 
 function agregarEntrenamiento(entrenamiento) {
-    const { titulo, premios, descripcion } = entrenamiento
+    const { id,titulo, premios, descripcion } = entrenamiento
     entrenamientosGrid.innerHTML += `<div id="${entrenamiento.id}" class="entrenamiento">
                 <div class="tituloEntrenamientoDiv">
                     <p class="tituloEntrenamiento">${titulo}</p>
@@ -55,11 +53,21 @@ function agregarEntrenamiento(entrenamiento) {
                     <p class="descripcionEntrenamiento">${descripcion}</p>
                 </div>
                 <div class="botonEntrenamientoDiv">
-                    <button onclick="constatarEntrenamiento('${entrenamiento.id}')" class="btn btn-primary">
+                    <button id="boton${entrenamiento.id}" onclick="constatarEntrenamiento('${entrenamiento.id}')" class="btn btn-primary">
                         Realizar entrenamiento
                     </button>
                 </div>
             </div>`
+    if(juezDeEntrenamiento.hizoElEntrenamiento(entrenamiento.id)){
+        bloquearEntrenamiento(entrenamiento.id)
+    }
+}
+function bloquearEntrenamiento(entrenamientoId){
+    const boton = document.getElementById(`boton${entrenamientoId}`)
+    const entrenamiento = document.getElementById(entrenamientoId)
+
+    entrenamiento.style.opacity = 0.3
+    boton.disabled = true
 }
 function guardarEntrenamientoExistoso(nombrePokemon,entrenamientoId){
 	ipcRenderer.send('guardarEntrenamiento',{nombrePokemon,entrenamientoId}) 
@@ -68,6 +76,7 @@ function constatarEntrenamiento(entrenamientoId) {
     try {
         juezDeEntrenamiento.constatarEntrenamiento(pokemon, entrenamientoId);
         guardarEntrenamientoExistoso(pokemon.nombre,entrenamientoId);
+        bloquearEntrenamiento(entrenamientoId);
         /*mostrarResultadoExitoso(entrenamiento);*/
     } catch (err) {
         console.log('Error! ', err)
@@ -75,4 +84,3 @@ function constatarEntrenamiento(entrenamientoId) {
     }
 
 }
-//const entrenamientosRealizados = store.get('entrenamientosRealizados')
