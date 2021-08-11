@@ -56,6 +56,9 @@ class JuezDeEntrenamiento {
 
         return atributos.concat({atributo:'energiaLimite',valor:_.find(atributos, ({atributo}) => _.isEqual(atributo,'energia')).valor})
     }
+    hizoElEntrenamiento(unEntrenamientoId){
+        return _.some(entrenamientosRealizadosGlobal, ({entrenamientoId}) => _.isEqual(entrenamientoId,unEntrenamientoId))
+    }
     tieneModificacionDeAtributo(unPokemon, atributoEvaluado) {
         atributoEvaluado =='energiaLimite'? atributoEvaluado= 'energia':atributoEvaluado;
 
