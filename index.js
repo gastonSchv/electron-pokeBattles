@@ -5,6 +5,7 @@ const _ = require('lodash')
 const reload = require('electron-reload')
 const Store = require('electron-store')
 const store = new Store()
+const juezDeEntrenamiento = require('./training management/juezDeEntrenamiento')
 
 let enemigoSeleccionado = '';
 let entrenamientosRealizados = [];
@@ -152,19 +153,6 @@ app.on('ready', () => {
         if(ruta){
             landingScreen.webContents.send('rutaValida',{})
         }
-    })
-    ipcMain.on('guardarEntrenamiento',(event,data) => {
-        const entrenamientoPreexistente = (entrenamiento,entrenamientosRealizados) => {
-           return  _.some(entrenamientosRealizados, ({entrenamientoId}) => _.isEqual(entrenamientoId,entrenamiento.entrenamientoId) )
-        }
-        const __entrenamientosRealizados = () => {
-            return store.get('entrenamientosRealizados')?entrenamientosRealizados = store.get('entrenamientosRealizados'):entrenamientosRealizados = []
-        }
-       
-        if(!entrenamientoPreexistente(data,__entrenamientosRealizados())){
-            store.set('entrenamientosRealizados',__entrenamientosRealizados().concat(data))
-        }
-       
     })
     landingScreen.on('close', (event, data) => {
         app.quit()
