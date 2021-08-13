@@ -1,6 +1,6 @@
 const config = require('./config')
 const _ = require('lodash')
-const relator = require('./Relator')
+const relator = require('./relator')
 const Promise = require('bluebird')
 const centroDeEntrenamiento = require('../training management/juezDeEntrenamiento')
 

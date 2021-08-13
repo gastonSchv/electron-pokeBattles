@@ -1,6 +1,6 @@
 const _ = require('lodash')
 const config = require('../config')
-const relator = require('../Relator')
+const relator = require('../relator')
 
 class Pokemon {
 	constructor({entrenador,nombre,tipoDePokemon,evolucion,vida,energia,fuerza,defensa,velocidad}){

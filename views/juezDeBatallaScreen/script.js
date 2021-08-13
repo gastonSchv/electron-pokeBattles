@@ -1,6 +1,6 @@
 const juezDeBatalla = require('../../battle elements/juezDeBatalla')
 const { ipcRenderer } = require('electron')
-const relator = require('../../battle elements/Relator')
+const relator = require('../../battle elements/relator')
 const util = require('../utils/util')
 
 function funcionesDeInicio() {
