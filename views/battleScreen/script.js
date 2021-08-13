@@ -6,6 +6,7 @@ let largoInicialDeBarraEnergia = 150;
 let largoInicialDeBarraVitalidad = 150;
 let musicaDeBatallaPrendida = true;
 
+
 let personajeDerecho = require('../../battle elements/Pokemons/Pokemons enemigos/charmander')
 util.modificarEstadisticasPorEntrenamiento(personajeDerecho)
 
@@ -17,8 +18,6 @@ const componentesHtmlDerecho = {
     barraEnergia: 'barraEnergiaPersonajeDerecho',
     barraVitalidad: 'barraVitalidadPersonajeDerecho',
     personaje: 'personajeDerecho',
-    botonAtacar: 'botonDerechoAtacar',
-    botonRecuperarEnergia: 'botonDerechoRecuperar',
     bordeBarraVitalidad: 'bordeBarraVitalidadDerecho',
     valorVitalidad: 'valorVitalidadPersonajeDerecho',
     valorEnergia: 'valorEnergiaPersonajeDerecho',
@@ -232,8 +231,8 @@ function recuperarEnergia(personajeRecuperado, otroPersonaje) {
     util.aparecerYDesvanecer(fotoEnergia, 0.2);
     actualizarValoresBarraEnergia()
     actualizarLargosBarrasDeEnergia()
-    editarDeshabilitacionDeBotones(personajeRecuperado, true)
-    editarDeshabilitacionDeBotones(otroPersonaje, false)
+    darTurnoAlBot(personajeRecuperado)
+
 }
 
 function efectosAtacar(personajeAtacado, personajeAtacanteImg, sonidoAtaque, personajeAtacante) {
@@ -242,11 +241,18 @@ function efectosAtacar(personajeAtacado, personajeAtacanteImg, sonidoAtaque, per
     //personajeAtacante.esAtaqueMortal(personajeAtacado,'fuerte') ? '' : sonidoAtaque.play() 
     desplazarse(personajeAtacado.posicionInicial, personajeAtacanteImg)
 }
-
+function darTurnoAlBot(personajeEnTurno){
+    if(personajeEnTurno == personajeIzquierdo){
+        console.log(personajeEnTurno)
+     editarDeshabilitacionDeBotones(personajeIzquierdo, true)
+     setTimeout(ejecutarEstrategiaDeBot,1000)   
+    }else{
+        editarDeshabilitacionDeBotones(personajeIzquierdo, false)
+    }
+}
 function atacar(personajeAtacado, personajeAtacante) {
     var personajeAtacanteImg = document.getElementById(personajeAtacante.componentesHtml.personaje);
     var botonAtacarAtacante = document.getElementById(personajeAtacante.componentesHtml.botonAtacar);
-    var botonAtacarAtacado = document.getElementById(personajeAtacado.componentesHtml.botonAtacar)
     var sonidoAtaque = document.getElementById(personajeAtacante.componentesHtml.sonidoAtaque)
 
     if (personajeAtacante.energiaSuficiente('fuerte')) {
@@ -255,17 +261,19 @@ function atacar(personajeAtacado, personajeAtacante) {
         desmayarse(personajeAtacante)
     };
     personajeAtacante.atacar(personajeAtacado, 'fuerte'); //buscar la manera de plantear los distintos tipos de ataque
-    editarDeshabilitacionDeBotones(personajeAtacante, true)
     actualizarElementosDeBatalla();
-    editarDeshabilitacionDeBotones(personajeAtacado, false)
     const ganador = juezDeBatalla.definirGanador(personajeAtacante, personajeAtacado)
     if (ganador) {
         cambioCartelGanador(ganador);
-        editarDeshabilitacionDeBotones(personajeAtacante, true)
-        editarDeshabilitacionDeBotones(personajeAtacado, true)
+        editarDeshabilitacionDeBotones(personajeIzquierdo, true)
         prenderSonidoVictoria()
         apagarMusica()
+        return 
     }
+    darTurnoAlBot(personajeAtacante)
+}
+function ejecutarEstrategiaDeBot(){
+    atacarAlIzquierdo()   
 }
 function atacarAlDerecho() {
     atacar(personajeDerecho, personajeIzquierdo)
