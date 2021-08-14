@@ -3,6 +3,8 @@ const _ = require('lodash')
 const relator = require('./relator')
 const Promise = require('bluebird')
 const centroDeEntrenamiento = require('../training management/juezDeEntrenamiento')
+const Store = require('electron-store')
+const store = new Store()
 
 class juezDeBatalla {
     constructor(nombre) {
@@ -136,6 +138,26 @@ class juezDeBatalla {
         if (!this.ambosPokemonsVivos(unPokemon, otroPokemon)) return
         relator.anunciarResultadosDeRonda(pokemonsOrdenados[0], pokemonsOrdenados[1], ronda)
         return Promise.resolve().delay(0)
+    }
+    pokemonesDerrotadosActuales(){
+        return store.get('pokemonesDerrotados') || []
+    }
+    guardarPokemonDerrotado(nombrePokemonDerrotado){
+    	const __ListadoPokemonesDerrotadosCon = nombrePokemonDerrotado => {
+    		const yaSeEncuentraEnListado = _.some(this.pokemonesDerrotadosActuales(),nombrePokemon => _.isEqual(nombrePokemon,nombrePokemonDerrotado))
+    		return yaSeEncuentraEnListado? this.pokemonesDerrotadosActuales() : this.pokemonesDerrotadosActuales().concat(nombrePokemonDerrotado)
+    	}
+        console.log('deberia guardar el pokemon derrotado',nombrePokemonDerrotado,'y generar el listado',__ListadoPokemonesDerrotadosCon(nombrePokemonDerrotado))
+    	store.set('pokemonesDerrotados',__ListadoPokemonesDerrotadosCon(nombrePokemonDerrotado))
+    }
+    borrarPokemonDerrotado(nombrePokemonDerrotado){
+        const __ListadoPokemonesDerrotadosSin = nombrePokemonDerrotado => {
+            return _.filter(this.pokemonesDerrotadosActuales(), pokemon => !_.isEqual(pokemon,nombrePokemonDerrotado))
+        }
+        store.set('pokemonesDerrotados',__ListadoPokemonesDerrotadosSin(nombrePokemonDerrotado))
+    }
+    borrarTodosLosPokemonesDerrotados(){
+    	store.set('pokemonesDerrotados',[])
     }
 }
 
