@@ -5,7 +5,8 @@ class config {
 	this.tiposDeAtaque = ['basico','fuerte','maximo'];	
 	this.ataquesVerificables = ['fuerte','maximo'];
 	this.multiplicadoresDeAtaque = {
-		basico : 10,
+		basico : 5,
+		medio:10,
 		fuerte : 15,
 		maximo : 25
 	}
