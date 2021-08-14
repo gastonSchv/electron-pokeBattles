@@ -154,6 +154,13 @@ app.on('ready', () => {
             landingScreen.webContents.send('rutaValida',{})
         }
     })
+    ipcMain.on('pedidoPokemonesDerrotados',(event,data) => {
+        setTimeout(() => selectorDeEnemigoScreen.webContents.send('pokemonesDerrotados',{pokemonesDerrotados:store.get('pokemonesDerrotados') || [] }),30)
+    })
+    ipcMain.on('avisoPokemonDerrotado',(event,data) => {
+        const {nombrePokemonDerrotado} = data
+    	selectorDeEnemigoScreen.webContents.send('avisoPokemonDerrotado',{nombrePokemonDerrotado})
+    })
     landingScreen.on('close', (event, data) => {
         app.quit()
     })
