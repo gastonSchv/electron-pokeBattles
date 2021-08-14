@@ -41,8 +41,8 @@ body {
 }
 
 .cartelGanador {
-    position: absolute;
     /*border: 2px solid;*/
+    position: absolute;
     border-color: purple;
     margin-left: auto;
     margin-right: auto;
@@ -204,6 +204,15 @@ body {
 #botoneraIzquierda {
     left: 20px;
 }
+#botoneraDeAtaques{
+    /*border: 1px solid;*/
+    border-color: silver;
+    display: grid;
+    grid-template-columns: 45% 45%;
+    grid-column-gap: 10%;
+    grid-row-gap: 10%;
+    height: 60%;
+}
 
 #botoneraDerecha {
     right: 20px;
@@ -229,13 +238,6 @@ body {
     right: 90px;
     height: 40px
 }
-
-#botonIzquierdoAtacar {
-    height: 20%;
-    margin-bottom: 10px;
-    left: 100px;
-}
-
 .luzDeRecuperacionDeEnergia {
     border-color: black;
     position: absolute;
@@ -262,7 +264,7 @@ body {
 }
 
 #botonIzquierdoRecuperar {
-    top: 40px;
+    margin-top: 20%;
 }
 
 #botonDerechoRecuperar {
@@ -335,7 +337,7 @@ body {
     /*border: 1px solid pink;*/
     position: absolute;
     width: 120px;
-    top: 130px;
+    top: 160px;
     left: 130px;
     opacity: 0;
     z-index: 2
