@@ -17,6 +17,15 @@
 .enemigo:hover{
 	background-color: purple
 }
+.pokemonDerrotado{
+	border: 4px double purple;
+	background-color: grey;
+	height: 117px;
+	margin:10px;
+	opacity: 1;
+	border-radius: 15px;
+	opacity: 0.3; 
+}
 .imagenEnemigo{
 	max-width:120px; 
 	max-height: 80px;
