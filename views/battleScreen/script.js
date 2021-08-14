@@ -30,7 +30,10 @@ const componentesHtmlIzquierdo = {
     barraEnergia: 'barraEnergiaPersonajeIzquierdo',
     barraVitalidad: 'barraVitalidadPersonajeIzquierdo',
     personaje: 'personajeIzquierdo',
-    botonAtacar: 'botonIzquierdoAtacar',
+    botonAtacarBasico: 'botonIzquierdoAtacarbasico',
+    botonAtacarMedio: 'botonIzquierdoAtacarmedio',
+    botonAtacarFuerte: 'botonIzquierdoAtacarfuerte',
+    botonAtacarMaximo: 'botonIzquierdoAtacarmaximo',
     botonRecuperarEnergia: 'botonIzquierdoRecuperar',
     bordeBarraVitalidad: 'bordeBarraVitalidadIzquierdo',
     valorVitalidad: 'valorVitalidadPersonajeIzquierdo',
@@ -208,7 +211,10 @@ function actualizarElementosDeBatalla() {
 }
 
 function editarDeshabilitacionDeBotones(personaje, estado) {
-    document.getElementById(personaje.componentesHtml.botonAtacar).disabled = estado
+    document.getElementById(personaje.componentesHtml.botonAtacarBasico).disabled = estado
+    document.getElementById(personaje.componentesHtml.botonAtacarMedio).disabled = estado
+    document.getElementById(personaje.componentesHtml.botonAtacarFuerte).disabled = estado
+    document.getElementById(personaje.componentesHtml.botonAtacarMaximo).disabled = estado
     document.getElementById(personaje.componentesHtml.botonRecuperarEnergia).disabled = estado
 }
 
@@ -243,24 +249,23 @@ function efectosAtacar(personajeAtacado, personajeAtacanteImg, sonidoAtaque, per
 }
 function darTurnoAlBot(personajeEnTurno){
     if(personajeEnTurno == personajeIzquierdo){
-        console.log(personajeEnTurno)
      editarDeshabilitacionDeBotones(personajeIzquierdo, true)
      setTimeout(ejecutarEstrategiaDeBot,1000)   
     }else{
         editarDeshabilitacionDeBotones(personajeIzquierdo, false)
     }
 }
-function atacar(personajeAtacado, personajeAtacante) {
+function atacar(personajeAtacado, personajeAtacante,tipoDeAtaque) {
     var personajeAtacanteImg = document.getElementById(personajeAtacante.componentesHtml.personaje);
-    var botonAtacarAtacante = document.getElementById(personajeAtacante.componentesHtml.botonAtacar);
+    var botonAtacarAtacante = document.getElementById(_.get(personajeAtacante.componentesHtml,`botonAtacar${tipoDeAtaque}`));
     var sonidoAtaque = document.getElementById(personajeAtacante.componentesHtml.sonidoAtaque)
 
-    if (personajeAtacante.energiaSuficiente('fuerte')) {
+    if (personajeAtacante.energiaSuficiente(tipoDeAtaque)) {
         efectosAtacar(personajeAtacado, personajeAtacanteImg, sonidoAtaque,personajeAtacante)
     } else {
         desmayarse(personajeAtacante)
     };
-    personajeAtacante.atacar(personajeAtacado, 'fuerte'); //buscar la manera de plantear los distintos tipos de ataque
+    personajeAtacante.atacar(personajeAtacado, tipoDeAtaque);
     actualizarElementosDeBatalla();
     const ganador = juezDeBatalla.definirGanador(personajeAtacante, personajeAtacado)
     if (ganador) {
@@ -268,18 +273,23 @@ function atacar(personajeAtacado, personajeAtacante) {
         editarDeshabilitacionDeBotones(personajeIzquierdo, true)
         prenderSonidoVictoria()
         apagarMusica()
+        juezDeBatalla.guardarPokemonDerrotado(personajeDerecho.nombre)
+        notificarPokemonDerrotado(personajeDerecho.nombre)
         return 
     }
     darTurnoAlBot(personajeAtacante)
 }
+function notificarPokemonDerrotado(nombrePokemonDerrotado){
+    ipcRenderer.send('avisoPokemonDerrotado',{nombrePokemonDerrotado})
+}
 function ejecutarEstrategiaDeBot(){
-    atacarAlIzquierdo()   
+    atacarAlIzquierdo('fuerte')   
 }
-function atacarAlDerecho() {
-    atacar(personajeDerecho, personajeIzquierdo)
+function atacarAlDerecho(tipoDeAtaque) {
+    atacar(personajeDerecho, personajeIzquierdo,tipoDeAtaque)
 }
-function atacarAlIzquierdo() {
-    atacar(personajeIzquierdo, personajeDerecho)
+function atacarAlIzquierdo(tipoDeAtaque) {
+    atacar(personajeIzquierdo, personajeDerecho,tipoDeAtaque)
 }
 function recuperarEnergiaIzquierdo() {
     recuperarEnergia(personajeIzquierdo, personajeDerecho)
