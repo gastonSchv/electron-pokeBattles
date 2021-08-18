@@ -10,8 +10,8 @@
 	opacity: 100%
 }
 #botonCerrarVentana img{
-	height: 4%;
-	width: 3%;
+	height: 20px;
+	width: 20px;
 	position: absolute;
 	top:2px;
 	right: 2px;
