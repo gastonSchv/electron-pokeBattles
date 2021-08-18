@@ -88,12 +88,10 @@ function cambiarBotonAccionEnTarjeta(entrenamientoId) {
 function cambiarBloqueoEntrenamiento(entrenamientoId){
 	const botonRealizarEntrenamiento = document.getElementById(`boton${entrenamientoId}`)
     const entrenamiento = document.getElementById(entrenamientoId)
-    const cartelEntrenamientoExitoso = document.getElementById(`cartelEntrenamientoExitoso${entrenamientoId}`)
 	if(juezDeEntrenamiento.hizoElEntrenamiento(entrenamientoId)){
 		entrenamiento.style.opacity = 0.3
     	botonRealizarEntrenamiento.opacity = 0
     	botonRealizarEntrenamiento.disabled = true
-        util.aparecerYDesvanecer(cartelEntrenamientoExitoso,0.05)
 	}else{
 		entrenamiento.style.opacity = 1
     	botonRealizarEntrenamiento.opacity = 1
@@ -109,18 +107,27 @@ function borrarEntrenamientoDeStore(entrenamientoId) {
     cambiarBotonAccionEnTarjeta(entrenamientoId)
     cambiarBloqueoEntrenamiento(entrenamientoId)
 }
-
+function habilitarDetalleResultadoFallido(entrenamientoId,err){
+    const botonEntrenamientoDiv = document.getElementById(`boton${entrenamientoId}Div`)
+    botonEntrenamientoDiv.innerHTML +=`
+    <button id="botonError${entrenamientoId}" onclick="mostrarDetalleError('${err.message}')" class="botonDetalleError">
+        detalle error
+    </button>` 
+}
+function mostrarDetalleError(errMessage){
+    ipcRenderer.send('detalleDeError',{errMessage})
+}
 function constatarEntrenamiento(entrenamientoId) {
+    const cartelEntrenamientoExitoso = document.getElementById(`cartelEntrenamientoExitoso${entrenamientoId}`)
     try {
         juezDeEntrenamiento.constatarEntrenamiento(pokemon, entrenamientoId);
         guardarEntrenamientoExistoso(pokemon.nombre, entrenamientoId);
-        sonidoEntrenamientoCorrecto.play();
         cambiarEntrenamientoRealizado(entrenamientoId);
-        /*mostrarResultadoExitoso(entrenamiento);*/
+        sonidoEntrenamientoCorrecto.play();
+        util.aparecerYDesvanecer(cartelEntrenamientoExitoso,0.1)
     } catch (err) {
         sonidoEntrenamientoIncorrecto.play()
-        console.log('Error! ', err)
-        /*mostrarResultadoFallido(entrenamiento,err)*/
+        habilitarDetalleResultadoFallido(entrenamientoId,err)
     }
 
 }
