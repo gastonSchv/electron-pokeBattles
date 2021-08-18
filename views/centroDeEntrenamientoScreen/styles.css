@@ -97,6 +97,7 @@
     margin-bottom: 2%;
     border-radius: 15px;
     display: flex;
+    position: relative;
     flex-direction: column;
     align-items: center;
     justify-content: center;
@@ -105,7 +106,9 @@
 .descripcionEntrenamiento {
     /*border: 2px solid black;*/
     width: 96%;
-    height: 100%;
+    position: absolute;
+    top:5px;
+    height: 95%;
     text-align: center;
 }
 
@@ -115,4 +118,20 @@
     height: 10%;
     margin-bottom: 2%;
     justify-content: center;
+}
+.cartelEntrenamientoExitoso{
+    border:1px solid blue;
+    background-color: #28B62C;
+    width: 90%;
+    opacity: 0;
+    height: 25%;
+    position: absolute;
+    bottom: 5px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 15px;
+    border-radius: 15px;
+    z-index: 3
 }

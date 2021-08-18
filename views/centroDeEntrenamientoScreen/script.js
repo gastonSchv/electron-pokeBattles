@@ -53,6 +53,9 @@ function agregarEntrenamiento(entrenamiento) {
                 </div>
                 <div class="descripcionEntrenamientoDiv">
                     <p class="descripcionEntrenamiento">${descripcion}</p>
+                    <div id="cartelEntrenamientoExitoso${id}" class="cartelEntrenamientoExitoso">
+                        ENTRENAMIENTO EXITOSO!
+                    </div>
                 </div>
                 <div id="boton${entrenamiento.id}Div" class="botonEntrenamientoDiv">
                     <button id="boton${entrenamiento.id}" onclick="constatarEntrenamiento('${entrenamiento.id}')" class="btn btn-primary">
@@ -70,7 +73,6 @@ function cambiarEntrenamientoRealizado(entrenamientoId){
 }
 function cambiarBotonAccionEnTarjeta(entrenamientoId) {
     const botonEntrenamientoDiv = document.getElementById(`boton${entrenamientoId}Div`)
-    console.log(juezDeEntrenamiento.hizoElEntrenamiento(entrenamientoId),entrenamientoId)
     if (juezDeEntrenamiento.hizoElEntrenamiento(entrenamientoId)) {
         botonEntrenamientoDiv.innerHTML = `
 		<button id="botonBorrar${entrenamientoId}" onclick="borrarEntrenamientoDeStore('${entrenamientoId}')" class="btn btn-danger">
@@ -86,12 +88,12 @@ function cambiarBotonAccionEnTarjeta(entrenamientoId) {
 function cambiarBloqueoEntrenamiento(entrenamientoId){
 	const botonRealizarEntrenamiento = document.getElementById(`boton${entrenamientoId}`)
     const entrenamiento = document.getElementById(entrenamientoId)
-
+    const cartelEntrenamientoExitoso = document.getElementById(`cartelEntrenamientoExitoso${entrenamientoId}`)
 	if(juezDeEntrenamiento.hizoElEntrenamiento(entrenamientoId)){
-		console.log('entre a cambiar, entrenamiento: ', entrenamiento)
 		entrenamiento.style.opacity = 0.3
     	botonRealizarEntrenamiento.opacity = 0
     	botonRealizarEntrenamiento.disabled = true
+        util.aparecerYDesvanecer(cartelEntrenamientoExitoso,0.05)
 	}else{
 		entrenamiento.style.opacity = 1
     	botonRealizarEntrenamiento.opacity = 1
