@@ -42,12 +42,12 @@ function newScreen(browserWindowSettings, pathName) {
     return screen
 }
 
-function modalScreen(browserWindowSettings, pathName) {
+function modalScreen(browserWindowSettings, pathName,parent = landingScreen) {
     return newScreen({
             width: 820,
             height: 580,
             ...browserWindowSettings,
-            parent: landingScreen,
+            parent,
             modal: true
         },
         pathName)
@@ -160,6 +160,10 @@ app.on('ready', () => {
     ipcMain.on('avisoPokemonDerrotado',(event,data) => {
         const {nombrePokemonDerrotado} = data
     	selectorDeEnemigoScreen.webContents.send('avisoPokemonDerrotado',{nombrePokemonDerrotado})
+    })
+    ipcMain.on('detalleDeError',(event,data) => {
+        const detalleDeErrorScreen = modalScreen({height:500,width:600,frame:false},'detalleDeErrorScreen/index.html',centroDeEntrenamientoScreen)
+        detalleDeErrorScreen.setPosition(500,140)      
     })
     landingScreen.on('close', (event, data) => {
         app.quit()
