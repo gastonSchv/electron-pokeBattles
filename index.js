@@ -75,6 +75,9 @@ function configurationScreen() {
         'configurationScreen/index.html'
     )
 }
+function setModalScreenPosition(modalScreen){
+    modalScreen.setPosition(410,70)
+}
 app.on('ready', () => {
 
     landingScreen = newScreen({ frame: false }, 'landingScreen/index.html')
@@ -107,26 +110,26 @@ app.on('ready', () => {
     })
     ipcMain.on('screens:selectorDeEnemigoScreen', (event, data) => {
         selectorDeEnemigoScreen = modalScreen({ frame: false }, 'selectorDeEnemigoScreen/index.html')
-        selectorDeEnemigoScreen.setPosition(410, 78)
+        setModalScreenPosition(selectorDeEnemigoScreen)
     })
     ipcMain.on('screens:configurationScreen', (event, data) => {
         configurationScreen.show()
-        configurationScreen.setPosition(410, 78)
+        setModalScreenPosition(configurationScreen)
     })
     ipcMain.on('screens:juezDeBatallaScreen', (event, data) => {
         juezDeBatallaScreen = modalScreen({ frame: false }, 'juezDeBatallaScreen/index.html')
-        juezDeBatallaScreen.setPosition(410, 78)
+        setModalScreenPosition(juezDeBatallaScreen)
     })
     ipcMain.on('screens:miPokemonScreen', (event, data) => {
         miPokemonScreen = modalScreen({ frame: false }, 'miPokemonScreen/index.html')
-        miPokemonScreen.setPosition(410, 78)
+        setModalScreenPosition(miPokemonScreen)
     })
     ipcMain.on('screens:configurationScreenHide', (event, data) => {
         configurationScreen.hide()
     })
     ipcMain.on('screens:centroDeEntrenamientoScreen', (event, data) => {
         centroDeEntrenamientoScreen = modalScreen({ frame: false }, 'centroDeEntrenamientoScreen/index.html')
-        centroDeEntrenamientoScreen.setPosition(410, 78)
+        setModalScreenPosition(centroDeEntrenamientoScreen)
     })
     ipcMain.on('altaDeScreen:configuracion', (event, data) => {
         
@@ -138,7 +141,7 @@ app.on('ready', () => {
         configurationScreen.webContents.send('altaDeScreen:configuracion', { ruta})
         landingScreen.webContents.send('altaDeScreen:configuracion',{ruta})
         juezDeBatallaScreen = modalScreen({ show: false, frame: false }, 'juezDeBatallaScreen/index.html')
-        juezDeBatallaScreen.setPosition(410, 78)
+        setModalScreenPosition(juezDeBatallaScreen)
     })
     ipcMain.on('config:pedidoRutaMiPokemon', (event, data) => {
         miPokemonScreen.webContents.send('config:pedidoRutaMiPokemon', { ruta })
