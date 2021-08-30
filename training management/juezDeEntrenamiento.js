@@ -4,24 +4,25 @@ const Store = require('electron-store')
 const store = new Store();
 const config = require('../battle elements/config')
 const unPokemon = require('../battle elements/bolbasaur para pruebas')
+const CreatedError = require('../error management/CreatedError')
+const SystemError = require('../error management/SystemError')
 
 
 class JuezDeEntrenamiento {
     constructor() {
 
     }
-    traducirErrorDeSistema(err) {
-        return `Error de sistema: ${err.message}`
-    }
     constatarEntrenamiento(unPokemon, entrenamiento) {
         const entrenamientoSeleccionado = _.find(entrenamientos, { id: entrenamiento });
         try {
             if (!entrenamientoSeleccionado.resultadosIguales(unPokemon)) {
-                throw { message: entrenamientoSeleccionado.mensajeResultadoDesigual(unPokemon) }
+                throw new CreatedError({message:entrenamientoSeleccionado.mensajeResultadoDesigual(unPokemon)})
             }
         } catch (err) {
-
-            throw { message: this.traducirErrorDeSistema(err) }
+            if(err.isCreatedError){
+                throw err
+            }        
+            throw new SystemError(err);
         }
     }
     constatarEntrenamientoAtaques(unPokemon, ataqueExistente) {
@@ -81,7 +82,6 @@ class JuezDeEntrenamiento {
             return _.filter(this.entrenamientosRealizadosGlobal(),({entrenamientoId}) => !_.isEqual(entrenamiento.entrenamientoId,entrenamientoId))
         }
         if (this.entrenamientoPreexistente(entrenamiento)){
-            console.log('deberia borrar el entrenamiento',entrenamiento.entrenamientoId)
             store.set('entrenamientosRealizados',__ListadoEntrenamientosRealizadosSin(entrenamiento))
         }
     }
