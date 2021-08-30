@@ -1,0 +1,26 @@
+
+#contenedor{
+	height: 499px;
+	width: 599px;
+	display: flex;
+	align-items: center;
+
+}
+#cartelDetalleDeError{
+	border: 1px dotted green;
+    height: 90%;
+    width: 90%;
+    margin:auto;
+    border-radius: 15px;
+}
+.recomendacion{
+	margin-top: 20px;
+	margin-left: 5px;
+}
+#tituloDeError{
+	/*border: 3px solid black;	*/
+	margin-top: 15px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
