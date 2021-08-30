@@ -166,7 +166,8 @@ app.on('ready', () => {
     })
     ipcMain.on('detalleDeError',(event,data) => {
         const detalleDeErrorScreen = modalScreen({height:500,width:600,frame:false},'detalleDeErrorScreen/index.html',centroDeEntrenamientoScreen)
-        detalleDeErrorScreen.setPosition(500,140)      
+        detalleDeErrorScreen.setPosition(500,140)
+        setTimeout(() => detalleDeErrorScreen.webContents.send('detalleDeError',data),250)      
     })
     landingScreen.on('close', (event, data) => {
         app.quit()
