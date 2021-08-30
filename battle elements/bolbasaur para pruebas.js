@@ -1,8 +1,9 @@
 const Pokemon = require('./Pokemons/Pokemon')
 const tipoDePokemon = require('./TiposDePokemon/planta')
 const gasti = require('./entrenadorGasti')
+const _ = require('lodash')
 
- const pokemon = new Pokemon({
+const pokemon = new Pokemon({
 	entrenador: gasti,
 	nombre:'bolbasaurDePrueba',
 	tipoDePokemon,
@@ -15,4 +16,5 @@ const gasti = require('./entrenadorGasti')
 })
 pokemon.miNombre = () => pokemon.nombre
 pokemon.elPokemonMasFuerte = unosPokemones => _.maxBy(unosPokemones, pokemon => pokemon.fuerza)
+pokemon.obtenerAtributos = pokemon => asd
 module.exports = pokemon
