@@ -110,12 +110,13 @@ function borrarEntrenamientoDeStore(entrenamientoId) {
 function habilitarDetalleResultadoFallido(entrenamientoId,err){
     const botonEntrenamientoDiv = document.getElementById(`boton${entrenamientoId}Div`)
     botonEntrenamientoDiv.innerHTML +=`
-    <button id="botonError${entrenamientoId}" onclick="mostrarDetalleError('${err.message}')" class="botonDetalleError">
+    <button id="botonError${entrenamientoId}" onclick="mostrarDetalleError('${err.prettyMessage()}','${err.recommendations()}','${err.message()}')" class="botonDetalleError">
         detalle error
     </button>` 
 }
-function mostrarDetalleError(errMessage){
-    ipcRenderer.send('detalleDeError',{errMessage})
+function mostrarDetalleError(errMessage,recommendations,originalErrorMessage){
+    const botonEntrenamientoDiv = document.getElementById(`botonErrorobtenSusAtributos`)
+    ipcRenderer.send('detalleDeError',{errMessage,recommendations,originalErrorMessage})
 }
 function constatarEntrenamiento(entrenamientoId) {
     const cartelEntrenamientoExitoso = document.getElementById(`cartelEntrenamientoExitoso${entrenamientoId}`)
