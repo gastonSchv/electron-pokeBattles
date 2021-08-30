@@ -8,20 +8,17 @@ class Entrenamiento {
 		this.descripcion = descripcion;
 		this.inputs = inputs 	
 	}
-	input(){
-	 return 'bolbasaur' 
-	}
     resultadoEsperado(unPokemon,inputDeEvaluacion){ 
  	}
     resultadoEvaluado(unPokemon, inputDeEvaluacion) {
  	}
     resultadosIguales(unPokemon) {
-        const inputDeEvaluacion = this.input()
-        return _.isEqual(this.resultadoEsperado(unPokemon,inputDeEvaluacion), this.resultadoEvaluado(unPokemon, inputDeEvaluacion))
+        return _.isEqual(this.resultadoEsperado(unPokemon,this.inputs), this.resultadoEvaluado(unPokemon, this.inputs))
     }
     mensajeResultadoDesigual(unPokemon) {
-        const inputDeEvaluacion = this.input()
-        return relator.anunciarEntrenamientoDesigual(this.resultadoEsperado(unPokemon,inputDeEvaluacion), this.resultadoEvaluado(unPokemon, inputDeEvaluacion))
+        const resultadoEsperado = JSON.stringify(this.resultadoEsperado(unPokemon,this.inputs))
+        const resultadoEvaluado = JSON.stringify(this.resultadoEvaluado(unPokemon, this.inputs))
+        return relator.anunciarEntrenamientoDesigual(resultadoEsperado, resultadoEvaluado)
     }
 }
 
