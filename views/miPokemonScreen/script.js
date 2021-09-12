@@ -20,6 +20,7 @@ ipcRenderer.on('config:pedidoRutaMiPokemon',(event,data) => {
 	completarEstadoPokemon(pokemon)
 	completarValoresDeEstadisticas(pokemon)
 	modificarLargoBarrasEstadisticas(pokemon)
+	util.colocarFotoMiPokemon(pokemonImgDiv,pokemon);
 })
 
 function completarEstadoPokemon(unPokemon){
