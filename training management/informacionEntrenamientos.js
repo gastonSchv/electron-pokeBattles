@@ -1,5 +1,5 @@
-const bolbasaur = require('../battle elements/Pokemons/Pokemons enemigos/bolbasaur') // hacer que se busquen todos los pokemons
-const squirtle = require('../battle elements/Pokemons/Pokemons enemigos/squirtle') // hacer que se busquen todos los pokemons
+const bolbasaur = require('../battle elements/Pokemons/Pokemons enemigos/ekans') // hacer que se busquen todos los pokemons
+const squirtle = require('../battle elements/Pokemons/Pokemons enemigos/pidgey') // hacer que se busquen todos los pokemons
 const caterpie = require('../battle elements/Pokemons/Pokemons enemigos/caterpie') // hacer que se busquen todos los pokemons
 const _ = require('lodash')
 
