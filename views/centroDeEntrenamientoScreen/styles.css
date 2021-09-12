@@ -1,11 +1,7 @@
 #contenedor {}
-
-#tituloDeSelector {
-    height: 120px;
-}
-
 #entrenamientosGrid {
     /*border: 1px solid black;*/
+    margin-top:20px;
     display: grid;
     height: 100%;
     grid-template-columns: 33% 33% 33%;
@@ -14,7 +10,7 @@
 .entrenamiento {
     border: 4px double purple;
     background-color: white;
-    height: 400px;
+    height: 250px;
     margin: 10px;
     opacity: 1;
     border-radius: 15px;
@@ -23,7 +19,7 @@
 
 .tituloEntrenamientoDiv {
     /*border: 2px solid black;*/
-    height: 7%;
+    height: 10%;
     justify-content: center;
     margin-bottom: 2%;
 }
@@ -37,30 +33,27 @@
 
 .premiosEntrenamientoGrid {
     /*border: 1px dotted blue;*/
-    height: 30%;
+    height: 20%;
     display: grid;
     margin-left: 2%;
     margin-right: 2%;
-    margin-bottom: 2%;
     border-radius: 15px;
     grid-template-columns: 50% 50%;
 }
 
 .premioEntrenamiento{
     /*border: 1px solid pink;*/
-    height: 75%;
+    height: 40%;
     margin-left: 4%;
     margin-right: 4%;
-    margin-top: 5%;
     border-radius: 15px;
     margin-bottom: 5%;
     background-color: #228B22;
 }
 
 .tituloPremioDiv {
-    border: 1px solid #228B22;
-    height: 25%;
-    margin-top:10%;
+    /*border: 1px solid #228B22;*/
+    height: 10%;
     font-weight: bold
 }
 
@@ -73,7 +66,7 @@
 .valorPremioDiv {
     /*border: 1px solid magenta;*/
     height: 65%;
-    margin-bottom: 5%;
+    margin-bottom: 2%;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -83,15 +76,16 @@
 .valorPremio {
     /*border: 1px solid orange;*/
     text-align: center;
-    font-size: xx-large;
+    font-size: x-large;
     margin-top:10%;
     color: white;
 }
 
 .descripcionEntrenamientoDiv {
     border: 1px dotted green;
-    height: 48%;
+    height: 45%;
     width: 96%;
+    margin-top: 1%;
     margin-left: 2%;
     margin-right: 2%;
     margin-bottom: 2%;
@@ -107,7 +101,7 @@
     /*border: 2px solid black;*/
     width: 96%;
     position: absolute;
-    top:5px;
+    top:0px;
     height: 95%;
     text-align: center;
 }
@@ -115,13 +109,14 @@
 .botonEntrenamientoDiv {
     /*border: 2px solid gold;*/
     display: flex;
-    height: 10%;
+    height: 15%;
+    margin-top: 4%;
     margin-bottom: 2%;
     position: relative;
     justify-content: center;
 }
 .cartelEntrenamientoExitoso{
-    border:1px solid blue;
+    /*border:1px solid blue;*/
     background-color: #28B62C;
     width: 90%;
     opacity: 0;
@@ -137,7 +132,7 @@
     z-index: 3
 }
 #cartelEntrenamientoFallido{
-    border: 2px solid black
+    /*border: 2px solid black*/
 }
 .botonDetalleError{
     background-color: #FF851B;
