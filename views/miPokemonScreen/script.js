@@ -50,14 +50,27 @@ function largoDeBarra(atributo,valorAtributo){
 	const max = atributo == 'vida'?valorMaxVida:valorMaxOtrasEstadisticas;
 	return util.largoDeBarra(largoBarraEstadistica,max,valorAtributo)
 }
-function modificarLargoDeBarrasEstadistica(estadisticaIncial,estadisticaPorEntrenamiento,atributo,unPokemon){
-	estadisticaIncial.style.width = `${largoDeBarra(atributo,_.get(unPokemon,atributo))}px`
-	estadisticaPorEntrenamiento.style.width = `${largoDeBarra(atributo,util.valorModificacionAtributo(atributo,unPokemon))}px`
+function completarValorBarraEstadistica(div,valorAtributo){
+	div.innerHTML = `<div class="valorAtributoDentroDeBarra"> ${valorAtributo} </div>`
+}
+function completarValorBarraEstadisticaModificada(div,valorAtributo){
+	div.innerHTML = `<div class="valorAtributoDentroDeBarraModificada"> ${valorAtributo} </div>`
+}
+function adaptarBarraEstadistica(estadisticaIncial,estadisticaPorEntrenamiento,atributo,unPokemon){
+	const valorAtributo = _.get(unPokemon,atributo);
+	const valorAtributoModificado = util.valorModificacionAtributo(atributo,unPokemon);
+
+	estadisticaIncial.style.width = `${largoDeBarra(atributo,valorAtributo)}px`
+	estadisticaPorEntrenamiento.style.width = `${largoDeBarra(atributo,valorAtributoModificado)}px`
+	completarValorBarraEstadistica(estadisticaIncial,valorAtributo)
+	if(valorAtributoModificado > 0 ){
+		completarValorBarraEstadisticaModificada(estadisticaPorEntrenamiento,valorAtributoModificado)
+	}
 }
 function modificarLargoBarrasEstadisticas(unPokemon){	
-	modificarLargoDeBarrasEstadistica(estadisticaVidaIncial,estadisticaVidaPorEntrenamiento,'vida',unPokemon)
-	modificarLargoDeBarrasEstadistica(estadisticaEnergiaIncial,estadisticaEnergiaPorEntrenamiento,'energia',unPokemon)
-	modificarLargoDeBarrasEstadistica(estadisticaFuerzaIncial,estadisticaFuerzaPorEntrenamiento,'fuerza',unPokemon)
-	modificarLargoDeBarrasEstadistica(estadisticaDefensaIncial,estadisticaDefensaPorEntrenamiento,'defensa',unPokemon)
-	modificarLargoDeBarrasEstadistica(estadisticaVelocidadIncial,estadisticaVelocidadPorEntrenamiento,'velocidad',unPokemon)
+	adaptarBarraEstadistica(estadisticaVidaIncial,estadisticaVidaPorEntrenamiento,'vida',unPokemon)
+	adaptarBarraEstadistica(estadisticaEnergiaIncial,estadisticaEnergiaPorEntrenamiento,'energia',unPokemon)
+	adaptarBarraEstadistica(estadisticaFuerzaIncial,estadisticaFuerzaPorEntrenamiento,'fuerza',unPokemon)
+	adaptarBarraEstadistica(estadisticaDefensaIncial,estadisticaDefensaPorEntrenamiento,'defensa',unPokemon)
+	adaptarBarraEstadistica(estadisticaVelocidadIncial,estadisticaVelocidadPorEntrenamiento,'velocidad',unPokemon)
 }
