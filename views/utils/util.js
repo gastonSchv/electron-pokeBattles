@@ -76,7 +76,20 @@ class Util {
     }
     substringSiHaceFalta(mensaje,numCaracteres){
         return mensaje.length > numCaracteres? `${mensaje.substring(0,numCaracteres)}...`:mensaje
-     }
+    }
+    colocarFotoMiPokemon(div,pokemon){
+        const tipoDePokemon = pokemon.tipoDePokemon.nombre.toLowerCase()
+        console.log('coloco foto en',div)
+        div.innerHTML += `<img src="../../../assets/images/mi pokemon/${tipoDePokemon}.png">`
+    }
+    obtenerNombreDesdeNombreArchivo(nombreArchivo){
+        return _.head(_.split(nombreArchivo,'.'))
+    }
+    hacerConNombresDeArchivos(carpeta,funcion){
+        fs.readdir(carpeta, (err, archivos) => {
+        		archivos.forEach(archivo => funcion(this.obtenerNombreDesdeNombreArchivo(archivo)))
+        })
+    }
 }
 
 module.exports = new Util
