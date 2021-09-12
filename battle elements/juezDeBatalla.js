@@ -147,7 +147,6 @@ class juezDeBatalla {
     		const yaSeEncuentraEnListado = _.some(this.pokemonesDerrotadosActuales(),nombrePokemon => _.isEqual(nombrePokemon,nombrePokemonDerrotado))
     		return yaSeEncuentraEnListado? this.pokemonesDerrotadosActuales() : this.pokemonesDerrotadosActuales().concat(nombrePokemonDerrotado)
     	}
-        console.log('deberia guardar el pokemon derrotado',nombrePokemonDerrotado,'y generar el listado',__ListadoPokemonesDerrotadosCon(nombrePokemonDerrotado))
     	store.set('pokemonesDerrotados',__ListadoPokemonesDerrotadosCon(nombrePokemonDerrotado))
     }
     borrarPokemonDerrotado(nombrePokemonDerrotado){

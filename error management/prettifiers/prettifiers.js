@@ -23,7 +23,7 @@ module.exports = [
         messageAfterKeyWord:'pero no la definiste',
         recommendations:[
         'Verifica que la variable keyWord haya sido declarada en tu codigo',
-        'Verifica que no hayas olvidado la referencia a la instancia this al llamar a keyWord'
+        'Verifica que no hayas olvidado la referencia a la instancia al llamar a keyWord (this)'
         ]
     })
 ]
