@@ -10,7 +10,7 @@ function getButton(button){
 	ipcRenderer.send('screens:battleScreen',{enemigoSeleccionado:button.id})
 }
 function funcionesDeInicio(){
-	crearTodosLosBotonesEnemigos();
+ 	util.hacerConNombresDeArchivos(carpetaPokemonsEnemigos,crearBotonEnemigo)
 	util.crearBotonCerradoConEstilo(contenedor)
 	pedirPokemonesDerrotados()
 }
@@ -22,18 +22,8 @@ function cerrarPantalla(){
 }
 function crearBotonEnemigo(nombrePokemonEnemigo){
 	enemigosGrid.innerHTML +=  `<button onclick="getButton(this)" id="${nombrePokemonEnemigo}" class="enemigo">
-	<img class="imagenEnemigo" src="../../../assets/images/${nombrePokemonEnemigo}.png">
+	<img class="imagenEnemigo" src="../../../assets/images/pokemones enemigos/${nombrePokemonEnemigo}.png">
 	</button>`
-}
-function obtenerNombrePokemonDesdeNombreArchivo(nombreArchivo){
-	return _.head(_.split(nombreArchivo,'.'))
-}
-function crearTodosLosBotonesEnemigos(){
- 	fs.readdir(carpetaPokemonsEnemigos, (err, archivos) => {
-	  	archivos.forEach(archivo => {
-	  		crearBotonEnemigo(obtenerNombrePokemonDesdeNombreArchivo(archivo))
-	  	});
-	});
 }
 function cambiarBotonPokemonDerrotado(nombrePokemonDerrotado){
 	const boton = document.getElementById(nombrePokemonDerrotado)
