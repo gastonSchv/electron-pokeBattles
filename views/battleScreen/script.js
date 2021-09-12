@@ -7,7 +7,7 @@ let largoInicialDeBarraVitalidad = 150;
 let musicaDeBatallaPrendida = true;
 
 
-let personajeDerecho = require('../../battle elements/Pokemons/Pokemons enemigos/charmander')
+let personajeDerecho = require('../../battle elements/Pokemons/Pokemons enemigos/caterpie')
 util.modificarEstadisticasPorEntrenamiento(personajeDerecho)
 
 personajeDerecho.inicial = _.cloneDeep(personajeDerecho);
@@ -55,12 +55,14 @@ function asignarComponentesDefault(personaje,componentes){
 asignarComponentesDefault(personajeDerecho, componentesDefaultDerecho)
 
 ipcRenderer.on('config:pedidoRutaBattleScreen', (event, data) => {
+    const personajeIzquierdoDiv = document.getElementById('personajeIzquierdo')
     personajeIzquierdo = require(`${data.ruta}`)
     util.modificarEstadisticasPorEntrenamiento(personajeIzquierdo) 
     personajeIzquierdo.inicial = _.cloneDeep(personajeIzquierdo)
     asignarComponentesDefault(personajeIzquierdo, componentesDefaultIzquierdo)
     actualizarValoresBarraVitalidad()
     actualizarValoresBarraEnergia()
+    util.colocarFotoMiPokemon(personajeIzquierdoDiv,personajeIzquierdo)
 })
 ipcRenderer.on('enemigoSeleccionado',(event,data) => {
     personajeDerecho = require(`../../battle elements/Pokemons/Pokemons enemigos/${data.enemigoSeleccionado}`) 
@@ -72,7 +74,7 @@ ipcRenderer.on('enemigoSeleccionado',(event,data) => {
 })
 function colocarImagenDePersonajeDerecho(nombrePersonaje){
     const personajeDerechoDiv = document.getElementById('personajeDerecho')
-    personajeDerechoDiv.innerHTML += `<img type="image/png" src="../../../assets/images/${nombrePersonaje}.png">`
+    personajeDerechoDiv.innerHTML += `<img type="image/png" src="../../../assets/images/pokemones enemigos/${nombrePersonaje}.png">`
 }
 function pedirRutaConfig() {
     ipcRenderer.send('config:pedidoRutaBattleScreen', {})
