@@ -1,17 +1,17 @@
 const juan = require('../../entrenadorJuan')
 const Pokemon = require('../Pokemon')
-const tipoDePokemon = require('../../TiposDePokemon/agua')
+const tipoDePokemon = require('../../TiposDePokemon/volador')
 
  const pokemon = new Pokemon({
 	entrenador: juan,
-	nombre:'squirtle',
+	nombre:'pidgey',
 	tipoDePokemon,
 	evolucion:1,
-	vida:1500,
-	energia:1500,
+	vida:2000,
+	energia:600,
 	fuerza:500,
-	defensa:500,
-	velocidad:1000
+	defensa:800,
+	velocidad:1100
 })
 
 
