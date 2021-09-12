@@ -74,6 +74,9 @@ class Util {
             boton.disabled = false
         })
     }
+    substringSiHaceFalta(mensaje,numCaracteres){
+        return mensaje.length > numCaracteres? `${mensaje.substring(0,numCaracteres)}...`:mensaje
+     }
 }
 
 module.exports = new Util
