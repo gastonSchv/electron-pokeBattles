@@ -16,6 +16,9 @@ class Pokemon {
 		this.velocidad = velocidad * tipoDePokemon.multiplicadorDeAtributo('velocidad');
 		this.dañoRecibido = 0;
 	}
+	miTipo(){
+		return this.tipoDePokemon.nombre
+	}
 	factorDeEvolución(){
 		return Math.sqrt(this.evolucion)
 	}
