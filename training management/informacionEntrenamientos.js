@@ -10,7 +10,7 @@ module.exports = [{
         titulo: 'DIME TU NOMBRE',
         premios: [{
                 habilidad: 'vida',
-                valor: 10000
+                valor: 60000
             },
             {
                 habilidad: 'defensa',
@@ -24,11 +24,11 @@ module.exports = [{
         id: 'quienEsElMasFuerte',
         titulo: 'QUIEN ES EL MAS FUERTE',
         premios: [{
-                habilidad: 'vida',
-                valor: 30000
+                habilidad: 'velocidad',
+                valor: 3000
             },
             {
-                habilidad: 'defensa',
+                habilidad: 'fuerza',
                 valor: 1000
             }
         ],
