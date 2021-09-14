@@ -3,7 +3,7 @@ const entrenamientos = require('./entrenamientos')
 const Store = require('electron-store')
 const store = new Store();
 const config = require('../battle elements/config')
-const unPokemon = require('../battle elements/bolbasaur para pruebas')
+const unPokemon = require('../battle elements/pokemons para pruebas/bolbasaur para pruebas')
 const CreatedError = require('../error management/CreatedError')
 const SystemError = require('../error management/SystemError')
 
