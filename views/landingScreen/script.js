@@ -7,7 +7,6 @@ let botonesDeJuego = []
 
 function funcionesDeInicio() {
     botonesDeJuego = [botonBatalla,botonJuezDeBatalla,botonMiPokemon,botonCentroDeEntrenamiento]
-
     util.deshabilitarBotones(botonesDeJuego)
     ipcRenderer.send('altaDeScreen:landingScreen',{})
     musicaDeBatalla.volume = 1
@@ -55,12 +54,10 @@ function abrirModalCentroDeEntrenamiento(){
     ipcRenderer.send('screens:centroDeEntrenamientoScreen', {})    
 }
 ipcRenderer.on('altaDeScreen:landingScreen',(event,data) => {
-    if(data.ruta){
-        console.log('llego alta de screen')
-      util.habilitarBotones(botonesDeJuego)
+    if(data.ruta){  
+      util.habilitarBotones(botonesDeJuego)  
     }
 })
-
 ipcRenderer.on('bloqueoBotonesDeJuego',(event,data) => {
     botonesDeJuego = [botonBatalla,botonMiPokemon,botonCentroDeEntrenamiento]
     if (!data.deshabilitarBotones) {
@@ -70,6 +67,5 @@ ipcRenderer.on('bloqueoBotonesDeJuego',(event,data) => {
     }
 })
 ipcRenderer.on('rutaValida',(event,data) => {
-    console.log('llego ruta valida')
     util.habilitarBotones(botonesDeJuego.concat(botonJuezDeBatalla))
 })
