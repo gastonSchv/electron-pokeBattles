@@ -1,6 +1,6 @@
-const Pokemon = require('./Pokemons/Pokemon')
-const tipoDePokemon = require('./TiposDePokemon/fuego')
-const gasti = require('./entrenadorGasti')
+const Pokemon = require('../Pokemons/Pokemon')
+const tipoDePokemon = require('../TiposDePokemon/fuego')
+const gasti = require('../entrenadorGasti')
 const _ = require('lodash')
 
 const pokemon = new Pokemon({
