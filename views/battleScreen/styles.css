@@ -87,14 +87,16 @@ body {
     /*border: 1px solid;*/
     border-color: blue;
     position: absolute;
-    left: 25px;
+    left: 35px;
 
 }
 
 #personajeIzquierdo img {
     height: 200px;
     position: absolute;
-    bottom: 0px
+    bottom: 0px;
+    z-index: -1;
+
 }
 
 #personajeDerecho {
@@ -191,52 +193,66 @@ body {
     top: -8px;
     left: -51px;
 }
-
-.botonera {
-    /*border: 1px solid;*/
+.botonera button{
+    color:black;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+#botoneraIzquierda {
+   /* border: 1px solid;*/
     border-color: silver;
     position: absolute;
-    height: 200px;
-    width: 180px;
-    top: 80px;
-}
-
-#botoneraIzquierda {
-    left: 20px;
+    height: 190px;
+    width: 210px;
+    top: 110px;
+    left: 10px;
 }
 #botoneraDeAtaques{
     /*border: 1px solid;*/
     border-color: silver;
     display: grid;
+    height: 100px;
     grid-template-columns: 45% 45%;
-    grid-column-gap: 10%;
-    grid-row-gap: 10%;
-    height: 60%;
+    grid-column-gap: 3%;
+    grid-row-gap:1%;
+    align-items: center;
+    justify-content: center;
 }
-
-#botoneraDerecha {
-    right: 20px;
-}
-
-.boton {
-    background-color: #f2ae72;
-    height: 30px;
-    color: black;
-    font-weight: 500;
-    position: absolute;
-    right: 0px;
-    border-radius: 10px;
-}
-
-.botonera button:hover {
-    background-color: #ffcc5c;
-    color: black;
-}
-
-#botonDerechoAtacar {
-    margin-bottom: 10px;
-    right: 90px;
+#botoneraDeAtaques button{
+    border: 1px solid black;
     height: 40px
+}
+#botoneraDeAtaques button:hover{
+    background-color: black;
+    color:white;
+}
+#botoneraDeAtaques button:disabled{
+    background-color: grey;
+    color:white;
+}
+#botoneraRecuperarEnergia{
+    /*border: 2px solid blue;*/
+    height: 50px;
+    margin-top: 15%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+#botoneraRecuperarEnergia button{
+    border: 1px solid black;
+    height: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+#botoneraRecuperarEnergia button:hover{
+    background-color: black;
+    color:white;
+}
+#botoneraRecuperarEnergia button:disabled{
+    background-color: grey;
+    color:white;
 }
 .luzDeRecuperacionDeEnergia {
     border-color: black;
@@ -251,7 +267,8 @@ body {
 
 #luzDeRecuperacionDeEnergiaIzquierda img {
     width: 300px;
-    height: 250px
+    height: 250px;
+    z-index: 2
 }
 
 #luzDeRecuperacionDeEnergiaDerecho {
@@ -261,10 +278,6 @@ body {
 #luzDeRecuperacionDeEnergiaDerecho img {
     width: 300px;
     height: 250px;
-}
-
-#botonIzquierdoRecuperar {
-    margin-top: 20%;
 }
 
 #botonDerechoRecuperar {
@@ -342,7 +355,6 @@ body {
     opacity: 0;
     z-index: 2
 }
-
 #textoGanador {
     font-weight: 10;
     color: #F5FFFA;

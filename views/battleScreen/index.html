@@ -55,22 +55,24 @@
             </div>
             <div id="botoneraIzquierda" class="botonera">
                 <div id="botoneraDeAtaques">
-                    <button onclick="atacarAlDerecho('basico')" id="botonIzquierdoAtacarbasico" class="btn btn-warning">
+                    <button onclick="atacarAlDerecho('basico')" id="botonIzquierdoAtacarbasico" class="btn btn-secondary">
                         BASICO
                     </button>
-                    <button onclick="atacarAlDerecho('medio')" id="botonIzquierdoAtacarmedio" class="btn btn-warning">
+                    <button onclick="atacarAlDerecho('medio')" id="botonIzquierdoAtacarmedio" class="btn btn-success">
                         MEDIO
                     </button>
                     <button onclick="atacarAlDerecho('fuerte')" id="botonIzquierdoAtacarfuerte" class="btn btn-warning">
                         FUERTE
                     </button>
-                    <button onclick="atacarAlDerecho('maximo')" id="botonIzquierdoAtacarmaximo" class="btn btn-warning">
+                    <button onclick="atacarAlDerecho('maximo')" id="botonIzquierdoAtacarmaximo" class="btn btn-danger">
                         MAXIMO
                     </button>
                 </div>
-                <button onclick="recuperarEnergiaIzquierdo()" id="botonIzquierdoRecuperar" class="btn btn-primary">
-                    RECUPERAR ENERGIA
-                </button>
+                <div id="botoneraRecuperarEnergia">
+                    <button onclick="recuperarEnergiaIzquierdo()" id="botonIzquierdoRecuperar" class="btn btn-info">
+                        RECUPERAR ENERGIA
+                    </button>
+                </div>
             </div>
             <div id="personajeDerecho" class="personaje">
                 <audio id="sonidoAtaqueDerecho" src="../../../assets/audio/whippyhit.wav"> </audio>
