@@ -1,3 +1,15 @@
+#contenedor{
+	border:1px solid #fff5ee;
+	background-color: #fff5ee;
+}
+body::-webkit-scrollbar{
+    width: 10px;
+    background-color: pink
+}
+body::-webkit-scrollbar-thumb{
+    background-color: purple;
+    border-radius: 15px;
+}
 #tituloDeSelector{
 	height: 120px;
 }
