@@ -79,7 +79,6 @@ class Util {
     }
     colocarFotoMiPokemon(div,pokemon){
         const tipoDePokemon = pokemon.tipoDePokemon.nombre.toLowerCase()
-        console.log('coloco foto en',div)
         div.innerHTML += `<img src="../../../assets/images/mi pokemon/${tipoDePokemon}.png">`
     }
     obtenerNombreDesdeNombreArchivo(nombreArchivo){
