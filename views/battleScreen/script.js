@@ -113,11 +113,6 @@ function cambiarEstadoMusicaDeBatalla() {
     util.cambiarEstadoMusicaDeBatalla(musicaDeBatalla,musicaDeBatallaPrendida,musicaDeBatallaImg)
     musicaDeBatallaPrendida? musicaDeBatallaPrendida=false:musicaDeBatallaPrendida=true
 }
-
-function reload() {
-    ipcRenderer.send('buttonClick:restart', {})
-}
-
 function largoDeBarra(largoInicial, cantidadInicial, cantidadFinal) {
     return util.largoDeBarra(largoInicial, cantidadInicial, cantidadFinal)
 }
@@ -221,12 +216,22 @@ function editarDeshabilitacionDeBotones(personaje, estado) {
 }
 
 function cambioCartelGanador(ganador) {
-    document.getElementById('cartelDesafio').style.opacity = 0
-    document.getElementById('cartelGanadorBackground').style.opacity = 0.5
-    document.getElementById('botonRestartGanador').style.opacity = 1
+    let cartelFinDeBatalla = document.getElementById('cartelFinDeBatalla')
+    const cartelDesafio = document.getElementById('cartelDesafio') 
+    
+    const ganoIzquierdo = ganador.nombre == personajeIzquierdo.nombre
+    
+    cartelDesafio.style.opacity = 0 
+    cartelFinDeBatalla.innerHTML += `
+                <div id="ribbonDiv">
+                    <img src="../../../assets/images/ribbon ${ganoIzquierdo?'verde':'rojo'}.png">
+                    <h1 id="textoGanador"></h1>
+                </div>`
+
     const textoGanador = document.getElementById('textoGanador')
+    cartelFinDeBatalla.style.opacity = 1
     textoGanador.style.opacity = 1
-    textoGanador.innerHTML = `${_.upperCase(ganador.nombre)} ES EL GANADOR!`
+    textoGanador.innerHTML = ganoIzquierdo?`HAS GANADO!`:`HAS SIDO DERROTADO`
 }
 
 function recuperarEnergia(personajeRecuperado, otroPersonaje) {
