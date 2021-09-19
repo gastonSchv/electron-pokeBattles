@@ -169,6 +169,9 @@ app.on('ready', () => {
         detalleDeErrorScreen.setPosition(500,140)
         setTimeout(() => detalleDeErrorScreen.webContents.send('detalleDeError',data),250)      
     })
+    ipcMain.on('motrarSelectorDeEnemigos',(event,data) => {
+        landingScreen.show()
+    })
     landingScreen.on('close', (event, data) => {
         app.quit()
     })

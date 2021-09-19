@@ -251,6 +251,7 @@ function restart(){
     ipcRenderer.send('buttonClick:restart',{})
 }
 function irHaciaSelector(){
+    ipcRenderer.send('motrarSelectorDeEnemigos',{})
     window.close()
 }
 function cambioCartelGanador(ganador) {
