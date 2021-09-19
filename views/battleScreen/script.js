@@ -214,24 +214,56 @@ function editarDeshabilitacionDeBotones(personaje, estado) {
     document.getElementById(personaje.componentesHtml.botonAtacarMaximo).disabled = estado
     document.getElementById(personaje.componentesHtml.botonRecuperarEnergia).disabled = estado
 }
-
+function armarCartelVictoria(cartelFinDeBatalla){
+    cartelFinDeBatalla.innerHTML += `
+                <div id="ribbonDiv">
+                    <img src="../../../assets/images/ribbon verde.png">
+                    <h1 id="textoGanador">HAS GANADO!</h1>
+                </div>
+                <div id="imagenSuperiorCartelFinDeBatalla">
+                    <img src="../../../assets/images/victoria batalla 5 estrellas.png">
+                </div>
+                <div id="imagenPokemonCartelFinDeBatalla">
+                    <img src="../../../assets/images/victoria batalla squartle.png">
+                </div>`
+}
+function armarCartelDerrota(cartelFinDeBatalla){
+    cartelFinDeBatalla.innerHTML += `
+                <div id="ribbonDiv">
+                    <img src="../../../assets/images/ribbon rojo.png">
+                    <h1 id="textoGanador">HAS PERDIDO</h1>
+                </div>
+                <div id="imagenSuperiorCartelFinDeBatalla">
+                    <img src="../../../assets/images/derrota batalla 5 calaveras.png">
+                </div>
+                <div id="imagenPokemonCartelFinDeBatalla">
+                    <img src="../../../assets/images/pokemon desmayado.png">
+                </div>`
+}
+function agregarBotonesCartelFinDeBatalla(){
+    cartelFinDeBatalla.innerHTML += `
+                <div class="botonesCartelFinDeBatalla">
+                    <button onclick="restart()">RESTART</button>
+                    <button onclick="irHaciaSelector()">NUEVO ENEMIGO</button>
+                </div>`
+}
+function restart(){
+    ipcRenderer.send('buttonClick:restart',{})
+}
+function irHaciaSelector(){
+    window.close()
+}
 function cambioCartelGanador(ganador) {
     let cartelFinDeBatalla = document.getElementById('cartelFinDeBatalla')
     const cartelDesafio = document.getElementById('cartelDesafio') 
-    
     const ganoIzquierdo = ganador.nombre == personajeIzquierdo.nombre
     
-    cartelDesafio.style.opacity = 0 
-    cartelFinDeBatalla.innerHTML += `
-                <div id="ribbonDiv">
-                    <img src="../../../assets/images/ribbon ${ganoIzquierdo?'verde':'rojo'}.png">
-                    <h1 id="textoGanador"></h1>
-                </div>`
-
+    cartelDesafio.style.opacity = 0 ;
+    ganoIzquierdo? armarCartelVictoria(cartelFinDeBatalla):armarCartelDerrota(cartelFinDeBatalla);
+    agregarBotonesCartelFinDeBatalla(cartelFinDeBatalla)
     const textoGanador = document.getElementById('textoGanador')
     cartelFinDeBatalla.style.opacity = 1
     textoGanador.style.opacity = 1
-    textoGanador.innerHTML = ganoIzquierdo?`HAS GANADO!`:`HAS SIDO DERROTADO`
 }
 
 function recuperarEnergia(personajeRecuperado, otroPersonaje) {
@@ -281,12 +313,12 @@ function atacar(personajeAtacado, personajeAtacante,tipoDeAtaque) {
         prenderSonidoVictoria()
         apagarMusica()
         juezDeBatalla.guardarPokemonDerrotado(personajeDerecho.nombre)
-        notificarPokemonDerrotado(personajeDerecho.nombre)
+        notificarPokemonDerrotadoParaMarcarEnSelector(personajeDerecho.nombre)
         return 
     }
     darTurnoAlBot(personajeAtacante)
 }
-function notificarPokemonDerrotado(nombrePokemonDerrotado){
+function notificarPokemonDerrotadoParaMarcarEnSelector(nombrePokemonDerrotado){
     ipcRenderer.send('avisoPokemonDerrotado',{nombrePokemonDerrotado})
 }
 function ejecutarEstrategiaDeBot(){
