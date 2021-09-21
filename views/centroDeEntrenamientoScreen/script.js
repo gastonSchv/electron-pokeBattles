@@ -52,9 +52,12 @@ function agregarEntrenamiento(entrenamiento) {
                     ${premioshtml(premios)}
                 </div>
                 <div class="descripcionEntrenamientoDiv">
-                    <p class="descripcionEntrenamiento">${util.substringSiHaceFalta(descripcion,90)}</p>
+                    <p class="descripcionEntrenamiento">${util.substringSiHaceFalta(descripcion,85)}</p>
                     <div id="cartelEntrenamientoExitoso${id}" class="cartelEntrenamientoExitoso">
                         ENTRENAMIENTO EXITOSO!
+                    </div>
+                    <div class="descripcionPopover">
+                    ${descripcion}
                     </div>
                 </div>
                 <div id="boton${entrenamiento.id}Div" class="botonEntrenamientoDiv">
