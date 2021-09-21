@@ -17,7 +17,7 @@ module.exports = [{
                 valor: 300
             }
         ],
-        descripcion: 'Genera que tu Pokemon pueda retornar una string con su nombre cuando se invoca su metodo miNombre()',
+        descripcion: 'Genera el metodo miNombre() mediante el cual tu Pokemon pueda retornar una string con su nombre',
         inputs: []
     },
     {
@@ -32,7 +32,7 @@ module.exports = [{
                 valor: 150
             }
         ],
-        descripcion: 'Genera el metodo "elPokemonMasFuerte (unosPokemones)" en tu Pokemon que reciba un listado de pokemones y retorne el que tenga mas fuerza',
+        descripcion: 'Genera el metodo "elPokemonMasFuerte (unosPokemones)" mediante el cual tu Pokemon reciba un listado de pokemones y retorne el que tenga mas fuerza',
         inputs: [...pokemones]
     },
     {
@@ -47,7 +47,7 @@ module.exports = [{
                 valor: 150
             }
         ],
-        descripcion: 'Genera el metodo "obtenerAtributos(unPokemon)" en tu Pokemon que reciba otro pokemon y retorne un objeto con los atributos (vida, energia, fuerza, defensa, velocidad) y valores para dicho pokemon',
+        descripcion: 'Genera el metodo "obtenerAtributos(unPokemon)" mediante el cual tu Pokemon reciba otro pokemon y retorne un objeto con los atributos y valores (vida, energia, fuerza, defensa, velocidad) para dicho pokemon',
         inputs: _.sample(pokemones)
     },
     {
@@ -62,7 +62,7 @@ module.exports = [{
                 valor: 1000
             }
         ],
-        descripcion: 'Genera el metodo "fusionarConPokemon (unPokemon)" en tu Pokemon que reciba otro pokemon y retorne un objeto con los atributos (nombre,vida, energia, fuerza, defensa, velocidad) cuyos valores sean resultado de la suma de los atributos del pokemons evaluado y el tuyo',
+        descripcion: 'Genera el metodo "fusionarConPokemon (unPokemon)" mediante el cual tu Pokemon reciba otro pokemon y retorne un objeto con los atributos (nombre,vida, energia, fuerza, defensa, velocidad) suma de los atributos del pokemons evaluado y tu pokemon',
         inputs: _.sample(pokemones)
     }
 ]
