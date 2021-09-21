@@ -16,5 +16,19 @@ module.exports = [
 	id:'obtenSusAtributos',
 	resultadoEsperado: function(unPokemon,inputDeEvaluacion){ return _.pick(inputDeEvaluacion,config.atributosDePokemon)},
 	resultadoEvaluado: function(unPokemon,inputDeEvaluacion){ return unPokemon.obtenerAtributos(inputDeEvaluacion)},
+},
+{
+    id: 'fusionDePokemones',
+    resultadoEsperado:function(unPokemon,inputDeEvaluacion){
+    	const dummyObj = {}
+    	
+    	_.forEach(config.atributosDePokemon.concat('nombre'), atributo => {
+    		dummyObj[atributo] = unPokemon[atributo] + inputDeEvaluacion[atributo]
+    	})
+
+    	return dummyObj 
+    },
+    resultadoEvaluado: function(unPokemon,inputDeEvaluacion){return unPokemon.fusionarConPokemon(inputDeEvaluacion)}
+
 }
 ]
