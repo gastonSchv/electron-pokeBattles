@@ -95,10 +95,13 @@ function funcionesDeInicio() {
 function cerrarPantalla(){
     window.close()
 }
-function prenderSonidoVictoria() {
+function prenderSonidoFinDeBatalla(ganoIzquierdo) {
     const sonidoVictoria = document.getElementById('sonidoVictoria')
+    const sonidoDerrota = document.getElementById('sonidoDerrota')
     sonidoVictoria.volume = 0.1
-    sonidoVictoria.play()
+    sonidoDerrota.volume = 0.5
+    console.log(ganoIzquierdo)
+    ganoIzquierdo? sonidoVictoria.play() : sonidoDerrota.play()
 }
 
 function apagarMusica() {
@@ -254,10 +257,9 @@ function irHaciaSelector(){
     ipcRenderer.send('motrarSelectorDeEnemigos',{})
     window.close()
 }
-function cambioCartelGanador(ganador) {
+function cambioCartelGanador(ganador,ganoIzquierdo) {
     let cartelFinDeBatalla = document.getElementById('cartelFinDeBatalla')
     const cartelDesafio = document.getElementById('cartelDesafio') 
-    const ganoIzquierdo = ganador.nombre == personajeIzquierdo.nombre
     
     cartelDesafio.style.opacity = 0 ;
     ganoIzquierdo? armarCartelVictoria(cartelFinDeBatalla):armarCartelDerrota(cartelFinDeBatalla);
@@ -309,9 +311,10 @@ function atacar(personajeAtacado, personajeAtacante,tipoDeAtaque) {
     actualizarElementosDeBatalla();
     const ganador = juezDeBatalla.definirGanador(personajeAtacante, personajeAtacado)
     if (ganador) {
-        cambioCartelGanador(ganador);
+        const ganoIzquierdo = ganador.nombre == personajeIzquierdo.nombre
+        cambioCartelGanador(ganador,ganoIzquierdo);
         editarDeshabilitacionDeBotones(personajeIzquierdo, true)
-        prenderSonidoVictoria()
+        prenderSonidoFinDeBatalla(ganoIzquierdo)
         apagarMusica()
         juezDeBatalla.guardarPokemonDerrotado(personajeDerecho.nombre)
         notificarPokemonDerrotadoParaMarcarEnSelector(personajeDerecho.nombre)
