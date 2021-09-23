@@ -3,14 +3,14 @@ body::-webkit-scrollbar{
     background-color: #ffb9b9
 }
 body::-webkit-scrollbar-thumb{
-    border:1px solid black;
+    /*border:1px solid black;*/
     background-color: #ff3333;
     border-radius: 15px;
 }
 
 #contenedor {
     background-color: #fffafa;
-    border:1px solid #fffafa;
+    /*border:1px solid #fffafa;*/
 }
 #entrenamientosGrid {
     /*border: 1px solid black;*/
@@ -45,7 +45,7 @@ body::-webkit-scrollbar-thumb{
 }
 
 .premiosEntrenamientoGrid {
-    /*border: 1px dotted blue;*/
+    /*border: 1px solid blue;*/
     height: 20%;
     display: grid;
     margin-left: 2%;
@@ -166,8 +166,9 @@ body::-webkit-scrollbar-thumb{
     background-color: #FFC189;
 }
 .descripcionPopover{
-    border: 2px solid black;
-    height: 90px;
+    /*border: 2px solid purple;*/
+    height: 40px;
+    width: 50px;
     z-index: 4;
     overflow: hidden;    
     opacity: 0;
