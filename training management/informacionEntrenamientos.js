@@ -64,5 +64,20 @@ module.exports = [{
         ],
         descripcion: 'Genera el metodo "fusionarConPokemon (unPokemon)" mediante el cual tu Pokemon reciba otro pokemon y retorne un objeto con los atributos (nombre,vida, energia, fuerza, defensa, velocidad) suma de los atributos del pokemons evaluado y tu pokemon',
         inputs: _.sample(pokemones)
+    },
+    {
+        id: 'dimeCuantoPesa',
+        titulo: 'DIME CUANTO PESA',
+        premios: [{
+                habilidad: 'vida',
+                valor: 25000
+            },
+            {
+                habilidad: 'defensa',
+                valor: 1200
+            }
+        ],
+        descripcion: 'Genera el metodo "cuantoPesa (unPokemon)" mediante el cual tu Pokemon reciba el nombre de un pokemon, consulte la pokeapi y retorne el peso de dicho pokemon',
+        inputs: _.sample(pokemones).nombre
     }
 ]

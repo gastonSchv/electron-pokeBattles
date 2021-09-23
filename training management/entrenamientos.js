@@ -7,6 +7,7 @@ module.exports = [
  entrenamientoBuilder('dimeTuNombre'),
  entrenamientoBuilder('quienEsElMasFuerte'),
  entrenamientoBuilder('obtenSusAtributos'),
- entrenamientoBuilder('fusionDePokemones')
+ entrenamientoBuilder('fusionDePokemones'),
+ entrenamientoBuilder('dimeCuantoPesa')
 
 ]

@@ -1,5 +1,6 @@
 const _ = require('lodash')
 const config = require('../battle elements/config')
+const request = require('request-promise')
 
 module.exports = [
 {
@@ -29,6 +30,18 @@ module.exports = [
     	return dummyObj 
     },
     resultadoEvaluado: function(unPokemon,inputDeEvaluacion){return unPokemon.fusionarConPokemon(inputDeEvaluacion)}
+
+},
+{
+    id: 'dimeCuantoPesa',
+    resultadoEsperado:function(unPokemon,inputDeEvaluacion){
+        var options = {
+            url:`https://pokeapi.co/api/v2/pokemon/${inputDeEvaluacion}`
+        }       
+        return request(options)
+        .then(pokemon => pokemon.weigth) 
+    },
+    resultadoEvaluado: function(unPokemon,inputDeEvaluacion){return unPokemon.cuantoPesa(inputDeEvaluacion)}
 
 }
 ]
