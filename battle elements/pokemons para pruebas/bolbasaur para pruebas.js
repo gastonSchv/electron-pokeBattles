@@ -18,8 +18,7 @@ pokemon.miNombre = () => pokemon.nombre
 pokemon.elPokemonMasFuerte = unosPokemones => _.maxBy(unosPokemones, pokemon => pokemon.fuerza)
 pokemon.obtenerAtributos = pokemon => asd
 pokemon.fusionarConPokemon = unPokemon => {
-	const dummyObj = {}
-    	
+	const dummyObj = {}   	
     	_.forEach(['nombre','vida','energia','fuerza','defensa','velocidad'], atributo => {
     		console.log(atributo,pokemon[atributo],unPokemon[atributo])
     		dummyObj[atributo] = pokemon[atributo] + unPokemon[atributo]

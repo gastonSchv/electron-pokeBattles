@@ -9,7 +9,7 @@ const tipoDePokemon = require('../../TiposDePokemon/normal')
 	evolucion:1,
 	vida:2000,
 	energia:600,
-	fuerza:500,
+	fuerza:5000,
 	defensa:800,
 	velocidad:1100
 })
