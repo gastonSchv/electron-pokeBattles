@@ -12,10 +12,11 @@ class JuezDeEntrenamiento {
     constructor() {
 
     }
-    constatarEntrenamiento(unPokemon, entrenamiento) {
+    async constatarEntrenamiento(unPokemon, entrenamiento) {
         const entrenamientoSeleccionado = _.find(entrenamientos, { id: entrenamiento });
         try {
-            if (!entrenamientoSeleccionado.resultadosIguales(unPokemon)) {
+            const resultadosIguales = await entrenamientoSeleccionado.resultadosIguales(unPokemon)
+            if (!resultadosIguales) {
                 throw new CreatedError({message:entrenamientoSeleccionado.mensajeResultadoDesigual(unPokemon)})
             }
         } catch (err) {

@@ -121,17 +121,19 @@ function mostrarDetalleError(errMessage,recommendations,originalErrorMessage){
     const botonEntrenamientoDiv = document.getElementById(`botonErrorobtenSusAtributos`)
     ipcRenderer.send('detalleDeError',{errMessage,recommendations,originalErrorMessage})
 }
-function constatarEntrenamiento(entrenamientoId) {
+function  constatarEntrenamiento(entrenamientoId) {
     const cartelEntrenamientoExitoso = document.getElementById(`cartelEntrenamientoExitoso${entrenamientoId}`)
-    try {
-        juezDeEntrenamiento.constatarEntrenamiento(pokemon, entrenamientoId);
+    
+    juezDeEntrenamiento.constatarEntrenamiento(pokemon, entrenamientoId)
+    .then(() => {
         guardarEntrenamientoExistoso(pokemon.nombre, entrenamientoId);
         cambiarEntrenamientoRealizado(entrenamientoId);
         sonidoEntrenamientoCorrecto.play();
         util.aparecerYDesvanecer(cartelEntrenamientoExitoso,0.1)
-    } catch (err) {
+    })
+    .catch(err => {
         sonidoEntrenamientoIncorrecto.play()
         habilitarDetalleResultadoFallido(entrenamientoId,err)
-    }
+    })
 
 }
