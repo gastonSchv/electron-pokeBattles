@@ -2,6 +2,7 @@ const Pokemon = require('../Pokemons/Pokemon')
 const tipoDePokemon = require('../TiposDePokemon/planta')
 const gasti = require('../entrenadorGasti')
 const _ = require('lodash')
+const request = require('request-promise')
 
 const pokemon = new Pokemon({
 	entrenador: gasti,
@@ -25,5 +26,12 @@ pokemon.fusionarConPokemon = unPokemon => {
     	})
     	console.log(dummyObj)
     	return dummyObj 
+}
+pokemon.cuantoPesa = unNombrePokemon => {
+	var options = {
+		url:`https://pokeapi.co/api/v2/pokemon/${unNombrePokemon}`
+	}
+	return request(options)
+	.then(pokemon => pokemon)
 } 
 module.exports = pokemon
