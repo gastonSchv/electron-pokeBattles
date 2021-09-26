@@ -38,8 +38,7 @@ class Pokemon {
 		if(this.energiaSuficiente(tipoDeAtaque)) {
 			this.disminuirEnergia(this.energiaParaAtaque(tipoDeAtaque))
 			unPokemon.recibirDaño(this.dañoDeAtaque(tipoDeAtaque))
-		}else{
-			relator.anunciarDesmayoPokemon(this);
+		}else{	
 			this.desmayarse();
 		}
 		
