@@ -6,24 +6,31 @@ const config = require('../battle elements/config')
 const unPokemon = require('../battle elements/pokemons para pruebas/bolbasaur para pruebas')
 const CreatedError = require('../error management/CreatedError')
 const SystemError = require('../error management/SystemError')
-
+const Promise = require('bluebird')
 
 class JuezDeEntrenamiento {
-    constructor() {
-
-    }
-    async constatarEntrenamiento(unPokemon, entrenamiento) {
-        const entrenamientoSeleccionado = _.find(entrenamientos, { id: entrenamiento });
+    constructor() {}
+    constatarEntrenamiento(unPokemon, entrenamiento) {
         try {
-            const resultadosIguales = await entrenamientoSeleccionado.resultadosIguales(unPokemon)
-            if (!resultadosIguales) {
-                throw new CreatedError({message:entrenamientoSeleccionado.mensajeResultadoDesigual(unPokemon)})
-            }
+            const entrenamientoSeleccionado = _.find(entrenamientos, { id: entrenamiento });
+            return entrenamientoSeleccionado.resultadosIguales(unPokemon)
+                .then(resultadosIguales => {
+                    if (!resultadosIguales) {
+                        return entrenamientoSeleccionado.mensajeResultadoDesigual(unPokemon)
+                            .then(mensaje => { throw new CreatedError({ message: mensaje }) })
+                    }
+                })
+                .catch(err => {
+                    if (err.isCreatedError) {
+                        throw err
+                    }
+                    throw new SystemError(err);
+                })
         } catch (err) {
-            if(err.isCreatedError){
-                throw err
-            }        
-            throw new SystemError(err);
+            if (err.isCreatedError) {
+                return Promise.reject(err)
+            }
+            return Promise.reject(new SystemError(err))
         }
     }
     constatarEntrenamientoAtaques(unPokemon, ataqueExistente) {
@@ -38,8 +45,8 @@ class JuezDeEntrenamiento {
     tieneModificacionDeEstadisticas(unPokemon) {
         return _.some(this.entrenamientosRealizados(unPokemon), entrenamiento => _.isEqual(unPokemon.nombre, entrenamiento.nombrePokemon))
     }
-    entrenamientosRealizadosGlobal(){
-        return store.get('entrenamientosRealizados') || [] 
+    entrenamientosRealizadosGlobal() {
+        return store.get('entrenamientosRealizados') || []
     }
     entrenamientosRealizados(unPokemon) {
         return _.filter(this.entrenamientosRealizadosGlobal(), ({ nombrePokemon }) => _.isEqual(nombrePokemon, unPokemon.nombre))
@@ -80,10 +87,10 @@ class JuezDeEntrenamiento {
     }
     borrarEntrenamientoRealizado(entrenamiento) {
         const __ListadoEntrenamientosRealizadosSin = entrenamiento => {
-            return _.filter(this.entrenamientosRealizadosGlobal(),({entrenamientoId}) => !_.isEqual(entrenamiento.entrenamientoId,entrenamientoId))
+            return _.filter(this.entrenamientosRealizadosGlobal(), ({ entrenamientoId }) => !_.isEqual(entrenamiento.entrenamientoId, entrenamientoId))
         }
-        if (this.entrenamientoPreexistente(entrenamiento)){
-            store.set('entrenamientosRealizados',__ListadoEntrenamientosRealizadosSin(entrenamiento))
+        if (this.entrenamientoPreexistente(entrenamiento)) {
+            store.set('entrenamientosRealizados', __ListadoEntrenamientosRealizadosSin(entrenamiento))
         }
     }
 }
