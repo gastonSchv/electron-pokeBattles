@@ -17,21 +17,20 @@ const pokemon = new Pokemon({
 })
 pokemon.miNombre = () => pokemon.nombre
 pokemon.elPokemonMasFuerte = unosPokemones => _.maxBy(unosPokemones, pokemon => pokemon.fuerza)
-pokemon.obtenerAtributos = pokemon => asd
+pokemon.obtenerAtributos = function(){return asd}
 pokemon.fusionarConPokemon = unPokemon => {
 	const dummyObj = {}   	
     	_.forEach(['nombre','vida','energia','fuerza','defensa','velocidad'], atributo => {
-    		console.log(atributo,pokemon[atributo],unPokemon[atributo])
     		dummyObj[atributo] = pokemon[atributo] + unPokemon[atributo]
     	})
-    	console.log(dummyObj)
-    	return dummyObj 
+    	return 123123 
 }
 pokemon.cuantoPesa = unNombrePokemon => {
 	var options = {
-		url:`https://pokeapi.co/api/v2/pokemon/${unNombrePokemon}`
+		url:`https://pokeapi.co/api/v2/pokemon/${unNombrePokemon}`,
+		json:true
 	}
 	return request(options)
-	.then(pokemon => pokemon)
+	.then(pokemon => pokemon.height)
 } 
 module.exports = pokemon
