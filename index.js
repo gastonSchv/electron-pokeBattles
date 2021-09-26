@@ -5,7 +5,6 @@ const _ = require('lodash')
 const reload = require('electron-reload')
 const Store = require('electron-store')
 const store = new Store()
-const juezDeEntrenamiento = require('./training management/juezDeEntrenamiento')
 
 let enemigoSeleccionado = '';
 let entrenamientosRealizados = [];
