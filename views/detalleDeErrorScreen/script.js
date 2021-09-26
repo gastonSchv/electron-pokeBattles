@@ -11,7 +11,14 @@ function cerrarPantalla(){
     window.close()
 }
 function agregarError(errMessage){
-	tituloDeError.innerHTML = errMessage
+	const mensajeDeError = esErrorDeResultado(errMessage)? mensajeErrorDeResultado(errMessage):errMessage
+	tituloDeError.innerHTML += mensajeDeError
+}
+function mensajeErrorDeResultado(errMessage){
+	return `<p>${errMessage}</p>`.replace('|','<br>')
+}
+function esErrorDeResultado(errMessage){
+	return _.includes(errMessage,'Resultado esperado')
 }
 function agregarRecomendacion(recomendacion){
 	listaDeRecomendaciones.innerHTML += `

@@ -100,7 +100,6 @@ function prenderSonidoFinDeBatalla(ganoIzquierdo) {
     const sonidoDerrota = document.getElementById('sonidoDerrota')
     sonidoVictoria.volume = 0.1
     sonidoDerrota.volume = 0.5
-    console.log(ganoIzquierdo)
     ganoIzquierdo? sonidoVictoria.play() : sonidoDerrota.play()
 }
 

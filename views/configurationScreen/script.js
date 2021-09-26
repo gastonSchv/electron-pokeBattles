@@ -47,7 +47,6 @@ ipcRenderer.on('config:ruta', (event, data) => {
     ipcRenderer.send('config:ruta', { ruta: inputRuta.value })
 })
 ipcRenderer.on('altaDeScreen:configuracion', (event, data) => {
-    console.log(data)
     if (data.ruta) {
         colocarPlaceHolder(data.ruta);
     }
