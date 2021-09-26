@@ -2,7 +2,6 @@ const config = require('./config')
 const _ = require('lodash')
 const relator = require('./relator')
 const Promise = require('bluebird')
-const centroDeEntrenamiento = require('../training management/juezDeEntrenamiento')
 const Store = require('electron-store')
 const store = new Store()
 
@@ -39,12 +38,9 @@ class juezDeBatalla {
             .filter(ataque => this.existeAtaque(unPokemon, ataque))
             .value()
     }
-    constatarEntrenamiento(unPokemon, ataqueExistente) {
-        return centroDeEntrenamiento.constatarEntrenamientoAtaques(unPokemon, ataqueExistente)
-    }
     ataquesDisponibles(unPokemon) {
         return _(this.ataquesExistentes(unPokemon))
-            .filter(ataqueExistente => this.constatarEntrenamiento(unPokemon, ataqueExistente))
+            .filter(ataqueExistente => ataqueExistente)// por ahora no se controla de ninguna manera cuales de los ataques existentes estan disponibles
             .value()
     }
     __errorDeMetodoNoDeclarado(errMessage) {
