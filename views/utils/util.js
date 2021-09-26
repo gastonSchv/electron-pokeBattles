@@ -1,6 +1,6 @@
 const _ = require('lodash')
 const config = require('../../battle elements/config')
-const juez = require('../../training management/juezDeEntrenamiento')
+const juezDeEntrenamiento = require('../../training management/juezDeEntrenamiento')
 
 class Util {
     constructor() {
@@ -44,8 +44,8 @@ class Util {
     }
     valorModificacionAtributo = (atributoEvaluado, unPokemon) => {
         
-        if (juez.tieneModificacionDeAtributo(unPokemon,atributoEvaluado)) {
-            const atributoParaModificar = _.find(juez.modificacionEstadisticasPorEntrenamiento(unPokemon), ({ atributo }) => _.isEqual(atributo, atributoEvaluado))
+        if (juezDeEntrenamiento.tieneModificacionDeAtributo(unPokemon,atributoEvaluado)) {
+            const atributoParaModificar = _.find(juezDeEntrenamiento.modificacionEstadisticasPorEntrenamiento(unPokemon), ({ atributo }) => _.isEqual(atributo, atributoEvaluado))
             return atributoParaModificar ? atributoParaModificar.valor : 0
         }
         return 0
@@ -55,7 +55,7 @@ class Util {
             unPokemon[atributo] += modificacion
         }
         
-        if(juez.tieneModificacionDeEstadisticas(unPokemon)){
+        if(juezDeEntrenamiento.tieneModificacionDeEstadisticas(unPokemon)){
             _.forEach(config.atributosDePokemon.concat('energiaLimite'), atributo => __modificarEstadistica(atributo, this.valorModificacionAtributo(atributo, unPokemon)))
         }
     }
