@@ -78,6 +78,36 @@ module.exports = [{
             }
         ],
         descripcion: 'Genera el metodo "cuantoPesa (unPokemon)" mediante el cual tu Pokemon reciba el nombre de un pokemon, consulte la pokeapi y retorne el peso de dicho pokemon',
-        inputs: _.sample(pokemones).nombre
+        inputs: [_.sample(pokemones).nombre]
+    },
+    {
+        id: 'ordenalosPorVida',
+        titulo: 'ORDENALOS POR VIDA',
+        premios: [{
+                habilidad: 'fuerza',
+                valor: 1200
+            },
+            {
+                habilidad: 'defensa',
+                valor: 500
+            }
+        ],
+        descripcion: 'Genera el metodo "ordenarPorVida (unosPokemones)" mediante el cual tu Pokemon reciba una lista de pokemones y retorne dicha lista, ordenada segun la vida del pokemon de manera descendiente',
+        inputs: [_.sample(pokemones)]
+    },
+        {
+        id: 'encuentraAlDeFuego',
+        titulo: 'ENCUENTRA AL DE FUEGO',
+        premios: [{
+                habilidad: 'velocidad',
+                valor: 400
+            },
+            {
+                habilidad: 'energia',
+                valor: 500
+            }
+        ],
+        descripcion: 'Genera el metodo "encontrarAlDeFuego (unPokemon)" mediante el cual tu Pokemon reciba una lista de pokemones y retorne al primer pokemon de fuego que encuentre',
+        inputs: [_.sample(pokemones)]
     }
 ]

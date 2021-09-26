@@ -19,6 +19,22 @@ module.exports = [
 	resultadoEvaluado: function(unPokemon,inputDeEvaluacion){ return unPokemon.obtenerAtributos(inputDeEvaluacion)},
 },
 {
+    id: 'encuentraAlDeFuego',
+    resultadoEsperado:function(unPokemon,inputDeEvaluacion){
+        return _.find(inputDeEvaluacion, ({tipoDePokemon}) => tipoDePokemon.nombre == 'fuego')
+    },
+    resultadoEvaluado: function(unPokemon,inputDeEvaluacion){return unPokemon.encontrarAlDeFuego(inputDeEvaluacion)}
+
+},
+{
+    id: 'ordenalosPorVida',
+    resultadoEsperado:function(unPokemon,inputDeEvaluacion){       
+        const pokemonesOrdenados = _.sortBy(inputDeEvaluacion, pokemon => 1/(pokemon.vida+10000000))
+        return pokemonesOrdenados
+    },
+    resultadoEvaluado: function(unPokemon,inputDeEvaluacion){return unPokemon.ordenarPorVida(inputDeEvaluacion)}
+},
+{
     id: 'fusionDePokemones',
     resultadoEsperado:function(unPokemon,inputDeEvaluacion){
     	const dummyObj = {}
@@ -36,10 +52,11 @@ module.exports = [
     id: 'dimeCuantoPesa',
     resultadoEsperado:function(unPokemon,inputDeEvaluacion){
         var options = {
-            url:`https://pokeapi.co/api/v2/pokemon/${inputDeEvaluacion}`
+            url:`https://pokeapi.co/api/v2/pokemon/${inputDeEvaluacion}`,
+            json:true
         }       
         return request(options)
-        .then(pokemon => pokemon.weigth) 
+        .then(pokemon => pokemon.weight) 
     },
     resultadoEvaluado: function(unPokemon,inputDeEvaluacion){return unPokemon.cuantoPesa(inputDeEvaluacion)}
 
