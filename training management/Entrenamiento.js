@@ -11,12 +11,15 @@ class Entrenamiento {
     }
     resultadoEsperado(unPokemon, inputDeEvaluacion) {}
     resultadoEvaluado(unPokemon, inputDeEvaluacion) {}
+    igualesNoFalseables(resultadoEvaluado, resultadoEsperado){
+        return _.isEqual(resultadoEvaluado, resultadoEsperado) && resultadoEvaluado && resultadoEsperado
+    }
     resultadosIguales(unPokemon) {
         return Promise.props({
             resultadoEsperado: this.resultadoEsperado(unPokemon, this.inputs),
             resultadoEvaluado: this.resultadoEvaluado(unPokemon, this.inputs)
         })
-        .then(({resultadoEvaluado, resultadoEsperado}) => _.isEqual(resultadoEvaluado, resultadoEsperado))
+        .then(({resultadoEvaluado, resultadoEsperado}) => this.igualesNoFalseables(resultadoEvaluado, resultadoEsperado))
     }
     mensajeResultadoDesigual(unPokemon) {
         return Promise.props({
