@@ -4,34 +4,13 @@ const Store = require('electron-store')
 const store = new Store();
 const config = require('../battle elements/config')
 const unPokemon = require('../battle elements/pokemons para pruebas/bolbasaur para pruebas')
-const CreatedError = require('../error management/CreatedError')
-const SystemError = require('../error management/SystemError')
 const Promise = require('bluebird')
+const util = require('../management utils/util')
 
 class JuezDeEntrenamiento {
     constructor() {}
-    constatarEntrenamiento(unPokemon, entrenamiento) {
-        try {
-            const entrenamientoSeleccionado = _.find(entrenamientos, { id: entrenamiento });
-            return entrenamientoSeleccionado.resultadosIguales(unPokemon)
-                .then(resultadosIguales => {
-                    if (!resultadosIguales) {
-                        return entrenamientoSeleccionado.mensajeResultadoDesigual(unPokemon)
-                            .then(mensaje => { throw new CreatedError({ message: mensaje }) })
-                    }
-                })
-                .catch(err => {
-                    if (err.isCreatedError) {
-                        throw err
-                    }
-                    throw new SystemError(err);
-                })
-        } catch (err) {
-            if (err.isCreatedError) {
-                return Promise.reject(err)
-            }
-            return Promise.reject(new SystemError(err))
-        }
+    constatarEntrenamiento(unPokemon, entrenamientoId) {
+        return util.constatarAccion(unPokemon,entrenamientos,entrenamientoId)
     }
     constatarEntrenamientoAtaques(unPokemon, ataqueExistente) {
         if (ataqueExistente == 'fuerte') {
