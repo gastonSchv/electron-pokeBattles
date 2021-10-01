@@ -14,7 +14,7 @@ class Entrenamiento {
     igualesNoFalseables(resultadoEvaluado, resultadoEsperado){
         return _.isEqual(resultadoEvaluado, resultadoEsperado) && resultadoEvaluado && resultadoEsperado
     }
-    resultadosIguales(unPokemon) {
+    comparacionResultadosExitosa(unPokemon) {
         return Promise.props({
             resultadoEsperado: this.resultadoEsperado(unPokemon, this.inputs),
             resultadoEvaluado: this.resultadoEvaluado(unPokemon, this.inputs)
