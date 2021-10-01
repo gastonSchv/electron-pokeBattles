@@ -1,13 +1,18 @@
-const config = require('./config')
+const config = require('../battle elements/config')
 const _ = require('lodash')
-const relator = require('./relator')
+const relator = require('../battle elements/relator')
 const Promise = require('bluebird')
 const Store = require('electron-store')
 const store = new Store()
+const util = require('../management utils/util')
+const evaluaciones = require('./evaluaciones')
 
 class juezDeBatalla {
     constructor(nombre) {
         this.nombre = nombre
+    }
+    constatarEvaluacion(unPokemon,evaluacionId){
+        return util.constatarAccion(unPokemon,evaluaciones,evaluacionId) // implementar todos los cambios para manejar esta estructura
     }
     verificarEstadoPokemon(unPokemon) {
         const pokemonDeVerificacion = _.cloneDeep(unPokemon)
