@@ -4,7 +4,7 @@ const path = require('path')
 const _ = require('lodash')
 const carpetaPokemonsEnemigos = path.join(__dirname,'..','..','battle elements','Pokemons','Pokemons enemigos')
 const util = require('../utils/util')
-const juezDeBatalla = require('../../battle elements/juezDeBatalla')
+const juezDeBatalla = require('../../evaluation management/juezDeBatalla')
 
 function getButton(button){
 	ipcRenderer.send('screens:battleScreen',{enemigoSeleccionado:button.id})

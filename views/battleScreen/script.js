@@ -1,7 +1,7 @@
 const _ = require('lodash')
 const { ipcRenderer } = require('electron')
 const util = require('../utils/util')
-const juezDeBatalla = require('../../battle elements/juezDeBatalla')
+const juezDeBatalla = require('../../evaluation management/juezDeBatalla')
 let largoInicialDeBarraEnergia = 150;
 let largoInicialDeBarraVitalidad = 150;
 let musicaDeBatallaPrendida = true;
@@ -301,7 +301,7 @@ function atacar(personajeAtacado, personajeAtacante,tipoDeAtaque) {
     var botonAtacarAtacante = document.getElementById(_.get(personajeAtacante.componentesHtml,`botonAtacar${tipoDeAtaque}`));
     var sonidoAtaque = document.getElementById(personajeAtacante.componentesHtml.sonidoAtaque)
 
-    if (personajeAtacante.energiaSuficiente(tipoDeAtaque)) {
+    if (personajeAtacante.energiaSuficiente(tipoDeAtaque)) { // responsabilidad del juez de batalla
         efectosAtacar(personajeAtacado, personajeAtacanteImg, sonidoAtaque,personajeAtacante)
     } else {
         desmayarse(personajeAtacante)
