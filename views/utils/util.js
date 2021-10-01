@@ -4,7 +4,6 @@ const juezDeEntrenamiento = require('../../training management/juezDeEntrenamien
 
 class Util {
     constructor() {
-
     }
     cambiarEstadoMusicaDeBatalla(musicaDeBatalla, musicaDeBatallaPrendida, musicaDeBatallaImg) {
         if (musicaDeBatallaPrendida) {
@@ -43,8 +42,8 @@ class Util {
         return _.max([0, largoInicial * cantidadFinal / cantidadInicial])
     }
     valorModificacionAtributo = (atributoEvaluado, unPokemon) => {
-        
-        if (juezDeEntrenamiento.tieneModificacionDeAtributo(unPokemon,atributoEvaluado)) {
+
+        if (juezDeEntrenamiento.tieneModificacionDeAtributo(unPokemon, atributoEvaluado)) {
             const atributoParaModificar = _.find(juezDeEntrenamiento.modificacionEstadisticasPorEntrenamiento(unPokemon), ({ atributo }) => _.isEqual(atributo, atributoEvaluado))
             return atributoParaModificar ? atributoParaModificar.valor : 0
         }
@@ -54,8 +53,7 @@ class Util {
         const __modificarEstadistica = (atributo, modificacion) => {
             unPokemon[atributo] += modificacion
         }
-        
-        if(juezDeEntrenamiento.tieneModificacionDeEstadisticas(unPokemon)){
+        if (juezDeEntrenamiento.tieneModificacionDeEstadisticas(unPokemon)) {
             _.forEach(config.atributosDePokemon.concat('energiaLimite'), atributo => __modificarEstadistica(atributo, this.valorModificacionAtributo(atributo, unPokemon)))
         }
     }
@@ -67,26 +65,26 @@ class Util {
     deshabilitarBotones(unosBotones) {
         _.forEach(unosBotones, boton => {
             boton.disabled = true
-        })  
+        })
     }
     habilitarBotones(unosBotones) {
         _.forEach(unosBotones, boton => {
             boton.disabled = false
         })
     }
-    substringSiHaceFalta(mensaje,numCaracteres){
-        return mensaje.length > numCaracteres? `${mensaje.substring(0,numCaracteres)}...`:mensaje
+    substringSiHaceFalta(mensaje, numCaracteres) {
+        return mensaje.length > numCaracteres ? `${mensaje.substring(0,numCaracteres)}...` : mensaje
     }
-    colocarFotoMiPokemon(div,pokemon){
+    colocarFotoMiPokemon(div, pokemon) {
         const tipoDePokemon = pokemon.tipoDePokemon.nombre.toLowerCase()
         div.innerHTML += `<img src="../../../assets/images/mi pokemon/${tipoDePokemon}.png">`
     }
-    obtenerNombreDesdeNombreArchivo(nombreArchivo){
-        return _.head(_.split(nombreArchivo,'.'))
+    obtenerNombreDesdeNombreArchivo(nombreArchivo) {
+        return _.head(_.split(nombreArchivo, '.'))
     }
-    hacerConNombresDeArchivos(carpeta,funcion){
+    hacerConNombresDeArchivos(carpeta, funcion) {
         fs.readdir(carpeta, (err, archivos) => {
-        		archivos.forEach(archivo => funcion(this.obtenerNombreDesdeNombreArchivo(archivo)))
+            archivos.forEach(archivo => funcion(this.obtenerNombreDesdeNombreArchivo(archivo)))
         })
     }
 }
