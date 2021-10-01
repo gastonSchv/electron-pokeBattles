@@ -139,7 +139,7 @@ app.on('ready', () => {
 
         configurationScreen.webContents.send('altaDeScreen:configuracion', { ruta})
         landingScreen.webContents.send('altaDeScreen:configuracion',{ruta})
-        juezDeBatallaScreen = modalScreen({ show: false, frame: false }, 'juezDeBatallaScreen/index.html')
+        juezDeBatallaScreen = modalScreen({ show: false, frame: false,width:200 }, 'juezDeBatallaScreen/index.html')
         setModalScreenPosition(juezDeBatallaScreen)
     })
     ipcMain.on('config:pedidoRutaMiPokemon', (event, data) => {
