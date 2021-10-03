@@ -54,8 +54,10 @@ function abrirModalCentroDeEntrenamiento(){
     ipcRenderer.send('screens:centroDeEntrenamientoScreen', {})    
 }
 ipcRenderer.on('altaDeScreen:landingScreen',(event,data) => {
-    if(data.ruta){  
-      util.habilitarBotones(botonesDeJuego)  
+    if(data.ruta){
+      const pokemon = require(data.ruta)
+      util.habilitarBotones(botonesDeJuego)
+      util.colocarFotoMiniaturaMiPokemon(iconoPokemon,pokemon)  
     }
 })
 ipcRenderer.on('bloqueoBotonesDeJuego',(event,data) => {
@@ -68,4 +70,8 @@ ipcRenderer.on('bloqueoBotonesDeJuego',(event,data) => {
 })
 ipcRenderer.on('rutaValida',(event,data) => {
     util.habilitarBotones(botonesDeJuego.concat(botonJuezDeBatalla))
+})
+ipcRenderer.on('altaDeScreen:configuracion',(event,data) => {
+      const pokemon = require(data.ruta)
+      util.colocarFotoMiniaturaMiPokemon(iconoPokemon,pokemon)  
 })

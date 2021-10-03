@@ -5,28 +5,38 @@ body {
 }
 
 #contenedor {
-    /*border: 2px solid;*/
+   /* border: 2px solid;*/
     border-color: purple;
     height: 100vh;
     display: flex
 }
 
 #botonesCentrales {
-    /*border: 2px solid;*/
+   /* border: 2px solid;*/
     border-color: white;
     position: absolute;
-    height: 230px;
     left: 140px;
     top: 70px;
     width: 222px
 }
 
 .divDeBoton{
-    /*border: 2px solid;*/
+   /* border: 2px solid;*/
     width: 220px;
     border-color: gold;
     margin-left: auto;
     margin-right: auto;
     margin-top: auto;
     margin-bottom: 15px;
+}
+#iconoPokemon{
+    /*border: 2px solid;*/
+    position: absolute;
+    left:380px;
+    top:70px;
+}
+#iconoPokemon img{
+    /*border: 2px solid;*/
+    height: 40px;
+    width: 50px;
 }
