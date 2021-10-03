@@ -5,17 +5,17 @@ class Evaluacion {
 		this.id = id
 		this.mensajeResultadoIncorrecto = mensajeResultadoIncorrecto
 	}
-	comparacionResultadosExitosaSync(unPokemon){
+	comparacionResultadosExitosaInicial(unPokemon){
 
 	}
 	comparacionResultadosExitosa(unPokemon){
-		return Promise.resolve(this.comparacionResultadosExitosaSync(unPokemon))
+		return Promise.resolve(this.comparacionResultadosExitosaInicial(unPokemon))
 	}
-	mensajeResultadoDesigualSync(unPokemon){
+	mensajeResultadoDesigualInicial(unPokemon){
 
 	}
 	mensajeResultadoDesigual(unPokemon){
-		return Promise.resolve(this.mensajeResultadoDesigualSync(unPokemon))
+		return Promise.resolve(this.mensajeResultadoDesigualInicial(unPokemon))
 	}
 }
 
