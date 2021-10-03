@@ -4,11 +4,12 @@ const gasti = require('../entrenadorGasti')
 const _ = require('lodash')
 
 const pokemon = new Pokemon({
-	entrenador: gasti,
+	//entrenador: gasti,
+	entrenador:'gasti',
 	nombre:'squartle',
 	tipoDePokemon,
 	evolucion:1,
-	vida:1000,
+	vida:'1000',
 	energia:1000,
 	fuerza:1000,
 	defensa:1000,

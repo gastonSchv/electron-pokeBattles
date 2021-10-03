@@ -5,7 +5,8 @@ const _ = require('lodash')
 const request = require('request-promise')
 
 const pokemon = new Pokemon({
-	entrenador: gasti,
+	//entrenador: gasti,
+	entrenador: 'gasti',
 	nombre:'bolbasaurDePrueba',
 	tipoDePokemon,
 	evolucion:1,
