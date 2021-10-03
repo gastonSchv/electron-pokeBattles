@@ -14,21 +14,6 @@ class juezDeBatalla {
     constatarEvaluacion(unPokemon,evaluacionId){
         return util.constatarAccion(unPokemon,evaluaciones,evaluacionId) // implementar todos los cambios para manejar esta estructura
     }
-    verificarEstadoPokemon(unPokemon) {
-        const pokemonDeVerificacion = _.cloneDeep(unPokemon)
-        const __sumaSinMultiplicadores = atributo => {
-            return pokemonDeVerificacion[atributo] / pokemonDeVerificacion.tipoDePokemon.multiplicadorDeAtributo(atributo)
-        }
-        const __sumarPuntajes = pokemonDeVerificacion => {
-            return _.sumBy(config.atributosDePokemon, atributo => __sumaSinMultiplicadores(atributo))
-        }
-        if (__sumarPuntajes(pokemonDeVerificacion) > config.puntajeMaximoPermitido()) {
-            throw { message: relator.anunciarExcesoDePuntaje(pokemonDeVerificacion, __sumarPuntajes(pokemonDeVerificacion)) }
-        }
-    }
-    verificarEstadoPokemones(unosPokemones) {
-        _.forEach(unosPokemones, pokemon => this.verificarEstadoPokemon(pokemon))
-    }
     existeAtaque(unPokemon, unAtaque) {
         const pokemonDummy = _.cloneDeep(unPokemon)
         try {
