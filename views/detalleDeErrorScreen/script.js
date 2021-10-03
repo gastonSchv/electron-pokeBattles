@@ -27,12 +27,17 @@ function agregarRecomendacion(recomendacion){
 			</li>			
 	`
 }
-function agregarRecomendaciones(recomendaciones){
+function agregarRecomendacionesTipicas(recomendaciones){
 	const recomendacionesList = recomendaciones.split('*')
 	_.forEach(recomendacionesList, agregarRecomendacion)
 }
+function agregarRecomendacionDeLocacion(localization){
+	const [linea,columna,ruta] = localization.split('*')
+	agregarRecomendacion(`Revisa la linea ${linea} y columna ${columna} del archivo ${ruta} , al parecer ahí está el problema`)
+}
 ipcRenderer.on('detalleDeError',(event,data) => {
 	 agregarError(data.errMessage)
-	 agregarRecomendaciones(data.recommendations)
+	 agregarRecomendacionesTipicas(data.recommendations)
+	 //agregarRecomendacionDeLocacion(data.localization)
 })
 
