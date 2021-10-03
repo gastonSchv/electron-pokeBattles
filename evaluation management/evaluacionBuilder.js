@@ -7,11 +7,11 @@ function evaluacionBuilder(evaluacionId){
 	const informacionEvaluacion = _.find(informacionEvaluaciones,{id:evaluacionId})
 	const comportamientoEvaluacion = _.find(comportamientoEvaluaciones,{id:evaluacionId})
 	const {id,mensajeResultadoIncorrecto} = informacionEvaluacion
-	const {comparacionResultadosExitosaSync,mensajeResultadoDesigualSync} = comportamientoEvaluacion
+	const {comparacionResultadosExitosaInicial,mensajeResultadoDesigualInicial} = comportamientoEvaluacion
 
 	const evaluacion = new Evaluacion(id,mensajeResultadoIncorrecto)
-	evaluacion.comparacionResultadosExitosaSync = comparacionResultadosExitosaSync;
-	evaluacion.mensajeResultadoDesigualSync = mensajeResultadoDesigualSync;
+	evaluacion.comparacionResultadosExitosaInicial = comparacionResultadosExitosaInicial;
+	evaluacion.mensajeResultadoDesigualInicial = mensajeResultadoDesigualInicial;
 
 	return evaluacion
 }
