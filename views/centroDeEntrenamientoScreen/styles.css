@@ -36,7 +36,13 @@ body::-webkit-scrollbar-thumb{
     justify-content: center;
     margin-bottom: 2%;
 }
+.tituloEntrenamientoDiv img{
+    /*border: 2px solid black;*/
+    height: 30px;
+    margin-top:-90px;
+    margin-left: 220px;
 
+}
 .tituloEntrenamiento {
     /*border: 1px solid brown;*/
     height: 100%;

@@ -44,8 +44,8 @@ function premioshtml(premios) {
 
 function agregarEntrenamiento(entrenamiento) {
     const { id, titulo, premios, descripcion } = entrenamiento
-    entrenamientosGrid.innerHTML += `<div id="${entrenamiento.id}" class="entrenamiento">
-                <div class="tituloEntrenamientoDiv">
+    entrenamientosGrid.innerHTML += `<div id="${id}" class="entrenamiento">
+                <div id='tituloEntrenamiento${id}' class="tituloEntrenamientoDiv">
                     <p class="tituloEntrenamiento">${titulo}</p>
                 </div>
                 <div class="premiosEntrenamientoGrid">
@@ -60,27 +60,35 @@ function agregarEntrenamiento(entrenamiento) {
                     ${descripcion}
                     </div>
                 </div>
-                <div id="boton${entrenamiento.id}Div" class="botonEntrenamientoDiv">
-                    <button id="boton${entrenamiento.id}" onclick="constatarEntrenamiento('${entrenamiento.id}')" class="btn btn-primary">
+                <div id="boton${id}Div" class="botonEntrenamientoDiv">
+                    <button id="boton${id}" onclick="constatarEntrenamiento('${id}')" class="btn btn-primary">
                         Realizar entrenamiento
                     </button>
                 </div>
             </div>`
-    if (juezDeEntrenamiento.hizoElEntrenamiento(entrenamiento.id)) {
-    	cambiarEntrenamientoRealizado(entrenamiento.id)
+    if (juezDeEntrenamiento.hizoElEntrenamiento(id)) {
+    	cambiarEntrenamientoRealizado(id)
     }
 }
 function cambiarEntrenamientoRealizado(entrenamientoId){
-	cambiarBloqueoEntrenamiento(entrenamientoId)
+	const entrenamientoRealizado = juezDeEntrenamiento.obtenerInformacionEntrenamientoRealizado(entrenamientoId)
+
     cambiarBotonAccionEnTarjeta(entrenamientoId)
+	cambiarBloqueoEntrenamiento(entrenamientoId)
+    agregarMiniaturaDePokemonRealizador(entrenamientoId,entrenamientoRealizado.tipoDePokemon)
+}
+function agregarMiniaturaDePokemonRealizador(entrenamientoId,tipoDePokemon){
+    const tituloEntrenamientoDiv = document.getElementById(`tituloEntrenamiento${entrenamientoId}`)
+    tituloEntrenamientoDiv.innerHTML += `<img src="../../../assets/images/miniaturas/${tipoDePokemon}.png">`;
 }
 function cambiarBotonAccionEnTarjeta(entrenamientoId) {
     const botonEntrenamientoDiv = document.getElementById(`boton${entrenamientoId}Div`)
+    
     if (juezDeEntrenamiento.hizoElEntrenamiento(entrenamientoId)) {
         botonEntrenamientoDiv.innerHTML = `
-		<button id="botonBorrar${entrenamientoId}" onclick="borrarEntrenamientoDeStore('${entrenamientoId}')" class="btn btn-danger">
-    	    Restaurar entrenamiento
-   		 </button>`
+		<button disabled id="boton${entrenamientoId}" onclick="borrarEntrenamientoDeStore('${entrenamientoId}')" class="btn btn-info">
+    	    Entrenamiento Realizado
+   		 </button>`;
     }else{
     	botonEntrenamientoDiv.innerHTML = `
     	<button id="boton${entrenamientoId}" onclick="constatarEntrenamiento('${entrenamientoId}')" class="btn btn-primary">
@@ -91,8 +99,9 @@ function cambiarBotonAccionEnTarjeta(entrenamientoId) {
 function cambiarBloqueoEntrenamiento(entrenamientoId){
 	const botonRealizarEntrenamiento = document.getElementById(`boton${entrenamientoId}`)
     const entrenamiento = document.getElementById(entrenamientoId)
+
 	if(juezDeEntrenamiento.hizoElEntrenamiento(entrenamientoId)){
-		entrenamiento.style.opacity = 0.3
+		entrenamiento.style.opacity = 0.5
     	botonRealizarEntrenamiento.opacity = 0
     	botonRealizarEntrenamiento.disabled = true
 	}else{
@@ -101,8 +110,8 @@ function cambiarBloqueoEntrenamiento(entrenamientoId){
     	botonRealizarEntrenamiento.disabled = false
 	}
 }
-function guardarEntrenamientoExistoso(nombrePokemon, entrenamientoId) {
-    juezDeEntrenamiento.guardarEntrenamientoExistoso({ nombrePokemon, entrenamientoId })
+function guardarEntrenamientoExistoso(nombrePokemon,tipoDePokemon, entrenamientoId) {
+    juezDeEntrenamiento.guardarEntrenamientoExistoso({ nombrePokemon,tipoDePokemon, entrenamientoId })
 }
 
 function borrarEntrenamientoDeStore(entrenamientoId) {
@@ -125,7 +134,7 @@ function  constatarEntrenamiento(entrenamientoId) {
     
     return juezDeEntrenamiento.constatarEntrenamiento(pokemon, entrenamientoId)
     .then(() => {
-        guardarEntrenamientoExistoso(pokemon.nombre, entrenamientoId);
+        guardarEntrenamientoExistoso(pokemon.nombre,pokemon.miTipo(), entrenamientoId);
         cambiarEntrenamientoRealizado(entrenamientoId);
         sonidoEntrenamientoCorrecto.play();
         util.aparecerYDesvanecer(cartelEntrenamientoExitoso,0.1)
