@@ -1,5 +1,6 @@
 const Prettifier = require('./Prettifier')
 const config = require('../../battle elements/config')
+const _ = require('lodash')
 
 module.exports = [
     new Prettifier({
@@ -65,6 +66,19 @@ module.exports = [
         ]
     }),
         new Prettifier({
+        id: 'atributosConValoresPermitidos',
+        stringToIdentify: 'tipo de dato correcto en todos sus atributos',
+        keyWordLeftBound: 'asdasdas',
+        keyWordRightBound: 'asdasdas',
+        messageBeforeKeyWord: '',
+        messageAfterKeyWord: '',
+        recommendations: [
+            `Recuerda que los tipos de datos para cada atributos son ${
+                _.map(_.toPairs(config.tiposDeDatoPorAtributo), pair => pair.join('|')).join(', ')
+            }`
+        ]
+    }),
+    new Prettifier({
         id: 'puntoDeAtributosMaximoPermitido',
         stringToIdentify: 'Tu pokemon supera el límite de puntos',
         keyWordLeftBound: 'asdasdas',
@@ -73,7 +87,7 @@ module.exports = [
         messageAfterKeyWord: '',
         recommendations: [
             `Recuerda que el máximo de puntos asignables son: ${config.puntajeMaximoPermitido()}`,
-            'Verifica que la suma de los puntajes de tus atributos sea menor o igual al maximo permitido' 
+            'Verifica que la suma de los puntajes de tus atributos sea menor o igual al maximo permitido'
         ]
     })
 ]
