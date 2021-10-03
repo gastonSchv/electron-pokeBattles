@@ -62,7 +62,7 @@ module.exports = [{
                 valor: 1000
             }
         ],
-        descripcion: 'Genera el metodo "fusionarConPokemon (unPokemon)" mediante el cual tu Pokemon reciba otro pokemon y retorne un objeto con los atributos (nombre,vida, energia, fuerza, defensa, velocidad) suma de los atributos del pokemons evaluado y tu pokemon',
+        descripcion: 'Genera el metodo "fusionarConPokemon (unPokemon)" mediante el cual tu Pokemon reciba otro pokemon y retorne un objeto con los atributos (nombre,vida, energia, fuerza, defensa, velocidad) suma de los atributos del pokemon evaluado y tu pokemon',
         inputs: _.sample(pokemones)
     },
     {
