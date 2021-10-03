@@ -11,7 +11,8 @@ class config {
 		maximo : 25
 	}
 	this.atributosDePokemon  =  ['vida','energia','fuerza','defensa','velocidad'];
-	this.puntajePorAtributo = 1000 ; 	
+	this.puntajePorAtributo = 1000 ;
+	this.listaPropiedadesDeEstado = ['entrenador','nombre','evolucion','vida','energia','energiaLimite','fuerza','defensa','velocidad','dañoRecibido']; 	
 	}
 	puntajeMaximoPermitido(){
 		return this.atributosDePokemon.length * this.puntajePorAtributo
