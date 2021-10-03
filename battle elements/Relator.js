@@ -48,6 +48,10 @@ class Relator {
 	anunciarAtributosFaltantes(unPokemon,atributosFaltantes){
 		return `Tu pokemon no cuenta con los atributos requeridos, debe incorporar los siguientes: ${atributosFaltantes.join(', ')}`
 	}
+	anunciarAtributosConTipoDeDatoErroneo(unPokemon, propertiesConTiposIncorrectos){
+		return `Tu pokemon no cuenta con el tipo de dato correcto en todos sus atributos, se deben modificar los siguientes:\
+		 ${propertiesConTiposIncorrectos.join(', ')}`
+	}
 }
 
  
