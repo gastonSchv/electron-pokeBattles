@@ -76,8 +76,12 @@ class Util {
         return mensaje.length > numCaracteres ? `${mensaje.substring(0,numCaracteres)}...` : mensaje
     }
     colocarFotoMiPokemon(div, pokemon) {
-        const tipoDePokemon = pokemon.tipoDePokemon.nombre.toLowerCase()
+        const tipoDePokemon = pokemon.miTipo().toLowerCase()
         div.innerHTML += `<img src="../../../assets/images/mi pokemon/${tipoDePokemon}.png">`
+    }
+    colocarFotoMiniaturaMiPokemon(div,pokemon){
+        const tipoDePokemon = pokemon.miTipo().toLowerCase()
+        div.innerHTML = `<img src="../../../assets/images/miniaturas/${tipoDePokemon}.png">`   
     }
     obtenerNombreDesdeNombreArchivo(nombreArchivo) {
         return _.head(_.split(nombreArchivo, '.'))
