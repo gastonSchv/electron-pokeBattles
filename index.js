@@ -75,7 +75,7 @@ function configurationScreen() {
     )
 }
 function setModalScreenPosition(modalScreen){
-    modalScreen.setPosition(410,70)
+    modalScreen.setPosition(440,70)
 }
 app.on('ready', () => {
 
@@ -171,6 +171,9 @@ app.on('ready', () => {
     })
     ipcMain.on('motrarSelectorDeEnemigos',(event,data) => {
         landingScreen.show()
+    })
+    ipcMain.on('recalculoFotoMiniatura',(event,data) => {
+        landingScreen.webContents.send('recalculoFotoMiniatura',data)
     })
     landingScreen.on('close', (event, data) => {
         app.quit()
