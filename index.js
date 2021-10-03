@@ -164,9 +164,10 @@ app.on('ready', () => {
     	selectorDeEnemigoScreen.webContents.send('avisoPokemonDerrotado',{nombrePokemonDerrotado})
     })
     ipcMain.on('detalleDeError',(event,data) => {
-        const detalleDeErrorScreen = modalScreen({height:500,width:600,frame:false},'detalleDeErrorScreen/index.html',centroDeEntrenamientoScreen)
+        const parentScreen = juezDeBatallaScreen? juezDeBatallaScreen : centroDeEntrenamientoScreen; 
+        const detalleDeErrorScreen = modalScreen({height:500,width:600,frame:false},'detalleDeErrorScreen/index.html',parentScreen);
         detalleDeErrorScreen.setPosition(500,140)
-        setTimeout(() => detalleDeErrorScreen.webContents.send('detalleDeError',data),250)      
+        setTimeout(() => detalleDeErrorScreen.webContents.send('detalleDeError',data),500)
     })
     ipcMain.on('motrarSelectorDeEnemigos',(event,data) => {
         landingScreen.show()
