@@ -9,9 +9,21 @@ class config {
 		medio:10,
 		fuerte : 15,
 		maximo : 25
-	}
+	};
 	this.atributosDePokemon  =  ['vida','energia','fuerza','defensa','velocidad'];
 	this.puntajePorAtributo = 1000 ;
+	this.tiposDeDatoPorAtributo = {
+		entrenador:'string',
+		nombre:'string',
+		evolucion:'number',
+		vida:'number',
+		energia:'number',
+		energiaLimite:'number',
+		fuerza:'number',
+		defensa:'number',
+		velocidad:'number',
+		dañoRecibido:'number'
+	}
 	this.listaPropiedadesDeEstado = ['entrenador','nombre','evolucion','vida','energia','energiaLimite','fuerza','defensa','velocidad','dañoRecibido']; 	
 	}
 	puntajeMaximoPermitido(){
