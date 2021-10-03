@@ -1,4 +1,6 @@
 const _  = require('lodash')
+const informacionEvaluaciones = require('../evaluation management/informacionEvaluaciones')
+const config = require('./config')
 
 class Relator {
 	constructor(){
@@ -18,9 +20,6 @@ class Relator {
 	anunciarFalta(unPokemon,condicion,listaComparaciones=[]){
 		return ` \nEl pokemon ${unPokemon.nombre} no ha verificado : ${condicion}. \n ${this.deListaComparacionesAString(listaComparaciones)}`
 	}
-	anunciarValidacionCorrecta(unPokemon,condicion){
-		return ` \nEl pokemon ${unPokemon.nombre} ha verificado ${condicion} con exito!`
-	}
 	estadoPokemon(unPokemon){
 		return `${unPokemon.nombre} vida: ${unPokemon.vida} | energia: ${unPokemon.energia} | daño recibido: ${unPokemon.dañoRecibido}`
 	}
@@ -34,16 +33,20 @@ class Relator {
 		this.anunciarFalta(unPokemon,`Condicion de entrenamiento ${tipoDeAtaque}`)	
 	}
 	anunciarExcesoDePuntaje(unPokemon,puntajeDelPokemon){
-		return this.anunciarFalta(unPokemon,`Exceso de asignacion de puntaje. Máximo permitido: 5000 - puntaje del pokemon: ${puntajeDelPokemon}`)
+		return `Tu pokemon supera el límite de puntos de atributos permitidos por ${puntajeDelPokemon-config.puntajeMaximoPermitido()} puntos`
 	}
 	anunciarMetodoNoDeclarado(unPokemon,metodo){
 		return this.anunciarFalta(unPokemon,`${metodo} no declarado`)
 	}
-	anunciarEvaluacionCorrecta(unPokemon,tipoDeEvaluacion){
-		return this.anunciarValidacionCorrecta(unPokemon,tipoDeEvaluacion)
+	anunciarEvaluacionCorrecta(unPokemon,idEvaluacion){
+		const informacionEvaluacion = _.find(informacionEvaluaciones,{id:idEvaluacion})
+		return informacionEvaluacion.mensajeResultadoCorrecto
 	}
 	anunciarEntrenamientoDesigual(resultadoEsperado,resultadoObtenido){
 		return `Resultado esperado: ${this.stringificarYSepararComas(resultadoEsperado)} | Resultado obtenido: ${resultadoObtenido}`
+	}
+	anunciarAtributosFaltantes(unPokemon,atributosFaltantes){
+		return `Tu pokemon no cuenta con los atributos requeridos, debe incorporar los siguientes: ${atributosFaltantes.join(', ')}`
 	}
 }
 
