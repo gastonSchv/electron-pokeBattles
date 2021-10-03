@@ -2,6 +2,7 @@ const juezDeBatalla = require('../../evaluation management/juezDeBatalla')
 const { ipcRenderer } = require('electron')
 const relator = require('../../battle elements/relator')
 const util = require('../utils/util')
+const _ = require('lodash')
 
 function funcionesDeInicio() {
     const contenedorEvaluaciones = document.getElementById('contenedorEvaluaciones');
@@ -42,8 +43,9 @@ function mostrarDetalleError(errMessage,recommendations,originalErrorMessage){//
     ipcRenderer.send('detalleDeError',{errMessage,recommendations,originalErrorMessage})
 }
 function realizarEvaluacionesNecesarias(unPokemon) {
-    realizarEvaluacion(unPokemon,'atributosNecesarios')
-    realizarEvaluacion(unPokemon,'puntoDeAtributosMaximoPermitido')
+    _.forEach(juezDeBatalla.obtenerEvaluaciones(), evaluacion => {
+        realizarEvaluacion(unPokemon,evaluacion.id)
+    })
 }
 ipcRenderer.on('config:pedidoRutaJuezDeBatallaScreen', (event, data) => {
     const unPokemon = require(`${data.ruta}`)
