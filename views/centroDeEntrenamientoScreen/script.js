@@ -110,21 +110,20 @@ function borrarEntrenamientoDeStore(entrenamientoId) {
     cambiarBotonAccionEnTarjeta(entrenamientoId)
     cambiarBloqueoEntrenamiento(entrenamientoId)
 }
-function habilitarDetalleResultadoFallido(entrenamientoId,err){
+function habilitarDetalleResultadoFallido(entrenamientoId,err){//sumar localizacion
     const botonEntrenamientoDiv = document.getElementById(`boton${entrenamientoId}Div`)
     botonEntrenamientoDiv.innerHTML +=`
     <button id="botonError${entrenamientoId}" onclick="mostrarDetalleError('${err.prettyMessage()}','${err.recommendations()}','${err.message()}')" class="botonDetalleError">
         detalle error
     </button>` 
 }
-function mostrarDetalleError(errMessage,recommendations,originalErrorMessage){
-    const botonEntrenamientoDiv = document.getElementById(`botonErrorobtenSusAtributos`)
+function mostrarDetalleError(errMessage,recommendations,originalErrorMessage){//sumar localizacion
     ipcRenderer.send('detalleDeError',{errMessage,recommendations,originalErrorMessage})
 }
 function  constatarEntrenamiento(entrenamientoId) {
     const cartelEntrenamientoExitoso = document.getElementById(`cartelEntrenamientoExitoso${entrenamientoId}`)
     
-    juezDeEntrenamiento.constatarEntrenamiento(pokemon, entrenamientoId)
+    return juezDeEntrenamiento.constatarEntrenamiento(pokemon, entrenamientoId)
     .then(() => {
         guardarEntrenamientoExistoso(pokemon.nombre, entrenamientoId);
         cambiarEntrenamientoRealizado(entrenamientoId);
