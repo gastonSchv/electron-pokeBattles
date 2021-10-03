@@ -14,6 +14,9 @@ class juezDeBatalla {
     constatarEvaluacion(unPokemon,evaluacionId){
         return util.constatarAccion(unPokemon,evaluaciones,evaluacionId) // implementar todos los cambios para manejar esta estructura
     }
+    obtenerEvaluaciones(){
+        return evaluaciones
+    }
     existeAtaque(unPokemon, unAtaque) {
         const pokemonDummy = _.cloneDeep(unPokemon)
         try {
@@ -118,9 +121,9 @@ class juezDeBatalla {
             return _.orderBy([unPokemon, otroPokemon], pokemon => 1 / pokemon.velocidadDeAtaque())
         }
         let pokemonsOrdenados = __ordenarTurno(unPokemon, otroPokemon)
-        pokemonsOrdenados[0].entrenador.ejecutarEstrategia(pokemonsOrdenados[0], pokemonsOrdenados[1])
+        pokemonsOrdenados[0].entrenador.ejecutarEstrategia(pokemonsOrdenados[0], pokemonsOrdenados[1])//por el momento se esta tratando al entrenador como una sting
         if (!this.ambosPokemonsVivos(unPokemon, otroPokemon)) return
-        pokemonsOrdenados[1].entrenador.ejecutarEstrategia(pokemonsOrdenados[1], pokemonsOrdenados[0])
+        pokemonsOrdenados[1].entrenador.ejecutarEstrategia(pokemonsOrdenados[1], pokemonsOrdenados[0])//por el momento se esta tratando al entrenador como una sting
         if (!this.ambosPokemonsVivos(unPokemon, otroPokemon)) return
         relator.anunciarResultadosDeRonda(pokemonsOrdenados[0], pokemonsOrdenados[1], ronda)
         return Promise.resolve().delay(0)
