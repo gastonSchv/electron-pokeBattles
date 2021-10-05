@@ -36,7 +36,7 @@ class Relator {
 		return `Tu pokemon supera el límite de puntos de atributos permitidos por ${puntajeDelPokemon-config.puntajeMaximoPermitido()} puntos`
 	}
 	anunciarMetodoNoDeclarado(unPokemon,metodo){
-		return this.anunciarFalta(unPokemon,`${metodo} no declarado`)
+		return metodo? `El metodo ${metodo}no se ha encontrado`: 'No se ha encontrado un metodo utilizado'
 	}
 	anunciarEvaluacionCorrecta(unPokemon,idEvaluacion){
 		const informacionEvaluacion = _.find(informacionEvaluaciones,{id:idEvaluacion})
