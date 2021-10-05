@@ -39,13 +39,6 @@ class juezDeBatalla {
     __errorDeMetodoNoDeclarado(errMessage) {
         return _.includes(errMessage, 'is not a function')
     }
-    traducirErrorDeMetodoNoDeclarado(errMessage, unPokemon) {
-        if (this.__errorDeMetodoNoDeclarado(errMessage)) {
-            throw { message: relator.anunciarMetodoNoDeclarado(unPokemon, 'ataque basico') }
-        } else {
-            throw { message: errMessage }
-        }
-    }
     verificarAtaqueBasico(unPokemon) {
         const pokemonDummyAtacado = _.cloneDeep(unPokemon)
         const pokemonDummyAtacante = _.cloneDeep(unPokemon)

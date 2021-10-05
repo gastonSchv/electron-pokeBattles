@@ -11,7 +11,11 @@ module.exports = [
         mensajeResultadoCorrecto: 'Tu pokemon no excede el límite de puntos de atributos permitidos'
     },
     {
-        id: 'existeMetodoAtacar',
-        mensajeResultadoCorrecto: 'Tu pokemon cuenta con el metodo atacar(otroPokemon, tipoDeAtaque)'
+        id: 'metodosNecesarios',
+        mensajeResultadoCorrecto: 'Tu pokemon cuenta con todos los metodos requeridos'
+    },
+        {
+        id: 'retornoVitalidadCorrecto',
+        mensajeResultadoCorrecto: 'Tu pokemon retorna el valor correcta al al invocar su metodo vitalidad()'
     }
 ]

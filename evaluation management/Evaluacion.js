@@ -9,13 +9,17 @@ class Evaluacion {
 
 	}
 	comparacionResultadosExitosa(unPokemon){
-		return Promise.resolve(this.comparacionResultadosExitosaInicial(unPokemon))
+		const pokemonDummy = _.cloneDeep(unPokemon)
+
+		return Promise.resolve(this.comparacionResultadosExitosaInicial(pokemonDummy))
 	}
 	mensajeResultadoDesigualInicial(unPokemon){
 
 	}
 	mensajeResultadoDesigual(unPokemon){
-		return Promise.resolve(this.mensajeResultadoDesigualInicial(unPokemon))
+		const pokemonDummy = _.cloneDeep(unPokemon)
+
+		return Promise.resolve(this.mensajeResultadoDesigualInicial(pokemonDummy))
 	}
 }
 
