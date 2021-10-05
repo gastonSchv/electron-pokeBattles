@@ -3,8 +3,7 @@ const config = require('../../battle elements/config')
 const juezDeEntrenamiento = require('../../training management/juezDeEntrenamiento')
 
 class Util {
-    constructor() {
-    }
+    constructor() {}
     cambiarEstadoMusicaDeBatalla(musicaDeBatalla, musicaDeBatallaPrendida, musicaDeBatallaImg) {
         if (musicaDeBatallaPrendida) {
             this.apagarMusica(musicaDeBatalla, musicaDeBatallaImg)
@@ -76,12 +75,12 @@ class Util {
         return mensaje.length > numCaracteres ? `${mensaje.substring(0,numCaracteres)}...` : mensaje
     }
     colocarFotoMiPokemon(div, pokemon) {
-        const tipoDePokemon = pokemon.miTipo().toLowerCase()
-        div.innerHTML += `<img src="../../../assets/images/mi pokemon/${tipoDePokemon}.png">`
+        const tipoDePokemon = pokemon.miTipo().toLowerCase();
+        this.esTipoAceptado(tipoDePokemon) ? div.innerHTML += `<img src="../../../assets/images/mi pokemon/${tipoDePokemon}.png">`:''
     }
-    colocarFotoMiniaturaMiPokemon(div,pokemon){
+    colocarFotoMiniaturaMiPokemon(div, pokemon) {
         const tipoDePokemon = pokemon.miTipo().toLowerCase()
-        div.innerHTML = `<img src="../../../assets/images/miniaturas/${tipoDePokemon}.png">`   
+        this.esTipoAceptado(tipoDePokemon) ? div.innerHTML = `<img src="../../../assets/images/miniaturas/${tipoDePokemon}.png">`:''
     }
     obtenerNombreDesdeNombreArchivo(nombreArchivo) {
         return _.head(_.split(nombreArchivo, '.'))
@@ -90,6 +89,9 @@ class Util {
         fs.readdir(carpeta, (err, archivos) => {
             archivos.forEach(archivo => funcion(this.obtenerNombreDesdeNombreArchivo(archivo)))
         })
+    }
+    esTipoAceptado(unTipo) {
+        return _.includes(config.tiposDePokemonAceptados, unTipo)
     }
 }
 
