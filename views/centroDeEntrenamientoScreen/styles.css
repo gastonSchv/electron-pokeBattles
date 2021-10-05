@@ -1,6 +1,6 @@
 body::-webkit-scrollbar{
     width: 10px;
-    background-color: #ffb9b9
+    background-color: #FFC0C0
 }
 body::-webkit-scrollbar-thumb{
     /*border:1px solid black;*/
@@ -9,8 +9,8 @@ body::-webkit-scrollbar-thumb{
 }
 
 #contenedor {
-    background-color: #fffafa;
-    /*border:1px solid #fffafa;*/
+    border:1px solid #fffafa;
+    background-color: #FFECEC;
 }
 #entrenamientosGrid {
     /*border: 1px solid black;*/
