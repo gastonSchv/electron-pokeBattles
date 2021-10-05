@@ -8,7 +8,7 @@ class BasicError {
 		this.prettifier = _.find(prettifiers, prettifier => prettifier.isSuitable(this.message()))
 	}
 	message(){
-		return this.originalError.message.replace(/\"|\'|\`/gi,'')
+		return this.originalError.message.replace(/\"|\'|\`|\r?\n|\r/gi,'')
 	}
 	prettyMessage(){
 		return this.prettifier?this.prettifier.prettify(this.message()):this.message()
