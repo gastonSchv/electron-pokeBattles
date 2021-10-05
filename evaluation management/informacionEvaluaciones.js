@@ -16,6 +16,6 @@ module.exports = [
     },
         {
         id: 'retornoVitalidadCorrecto',
-        mensajeResultadoCorrecto: 'Tu pokemon retorna el valor correcta al al invocar su metodo vitalidad()'
+        mensajeResultadoCorrecto: 'Tu pokemon retorna el valor correcto al al invocar su metodo vitalidad()'
     }
 ]
