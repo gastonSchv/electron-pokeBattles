@@ -11,7 +11,7 @@ module.exports = [
         messageBeforeKeyWord: 'El método',
         messageAfterKeyWord: 'no se ha encontrado',
         recommendations: [
-            'Verifica, si el entrenamiento exige que tu pokemon tenga el método keyWord, que lo hayas declarado',
+            'Verifica, si se exige que tu pokemon tenga el método keyWord, que lo hayas declarado',
             'Verifica que el método keyWord exista o sea soportado',
             'Lee atentamente el mensaje de error para verificar que no haya habido ningún typo en la declaración del método keyWord'
         ]
@@ -37,7 +37,7 @@ module.exports = [
         messageAfterKeyWord: '',
         recommendations: [
             'Verifica que no estés recibiendo una string en un sitio donde se espera un objeto',
-            'Verifica lo que pide exactamente el entrenamiento y comparalo con lo que has implementado en tu pokemon',
+            'Verifica lo que se pide exactamente y comparalo con lo que has implementado en tu pokemon',
             'Analiza los resultados para encontrar pistas sobre lo que pudo originar la diferencia hallada'
         ]
     }),
@@ -49,7 +49,7 @@ module.exports = [
         messageBeforeKeyWord: '',
         messageAfterKeyWord: '',
         recommendations: [
-            'Verifica lo que pide exactamente el entrenamiento y comparalo con lo que has implementado en tu pokemon',
+            'Verifica lo que se pide exactamente y comparalo con lo que has implementado en tu pokemon',
             'Analiza los resultados para encontrar pistas sobre lo que pudo originar la diferencia hallada'
         ]
     }),
@@ -61,7 +61,7 @@ module.exports = [
         messageBeforeKeyWord: '',
         messageAfterKeyWord: '',
         recommendations: [
-            `Recuerda que los atributos requeridos son : ${config.listaPropiedadesDeEstado.join(', ')}`,
+            `Recuerda que los atributos requeridos son : ${config.listaAtributosEstado.join(', ')}`,
             'Asegurate de haber colocado valores válidos en el atributo faltante'
         ]
     }),
@@ -88,6 +88,17 @@ module.exports = [
         recommendations: [
             `Recuerda que el máximo de puntos asignables son: ${config.puntajeMaximoPermitido()}`,
             'Verifica que la suma de los puntajes de tus atributos sea menor o igual al maximo permitido'
+        ]
+    }),
+        new Prettifier({
+        id: 'cannotFindModule',
+        stringToIdentify: 'Cannot find module',
+        keyWordLeftBound: 'Cannot find module',
+        keyWordRightBound: 'Require',
+        messageBeforeKeyWord: 'No se ha podido encontrar el modulo',
+        messageAfterKeyWord: '',
+        recommendations: [
+            `Verifica que no haya ningun typo en tu codigo al solicitar una dependencia (require=...)`
         ]
     })
 ]
