@@ -58,23 +58,28 @@ function evaluar(idEvaluacion, unPokemon, evaluacionDeJuez) {
 
     return evaluacionDeJuez(unPokemon)
         .then(() => {
-            agregarEvaluacion(idEvaluacion, relator.anunciarEvaluacionCorrecta(unPokemon, idEvaluacion), 'tick verde')
+            agregarEvaluacion(idEvaluacion, relator.anunciarEvaluacionCorrecta(unPokemon, idEvaluacion), true)
         })
         .catch(err => {
-            agregarEvaluacion(idEvaluacion, err.prettyMessage(), 'tick rojo')
+            agregarEvaluacion(idEvaluacion, err.prettyMessage(), false)
             deshabilitarBotonesDeJuego(true)
             habilitarDetalleResultadoFallido(idEvaluacion, err)
         })
 }
 
-function agregarEvaluacion(idEvaluacion, mensaje = '', tick) {
+function agregarEvaluacion(idEvaluacion, mensaje = '', resultadoExitoso) {
+    resultadoExitoso? tick = 'tick verde': tick = 'tick rojo';
+    resultadoExitoso? colorPuntos = 'green' : colorPuntos= 'red';
+
     contenedorEvaluaciones.innerHTML += `
     <div id="botonError${idEvaluacion}" class="contenedorEvaluacion">
         <div id="${idEvaluacion}" class="evaluaciones">
-        <p class="mensajeEvaluacion">${util.substringSiHaceFalta(mensaje,200)}</p>
+        <p class="mensajeEvaluacion">${util.substringSiHaceFalta(mensaje,75)}</p>
         </div>
         <div class="resultadoEvaluacion">
             <img src="../../../assets/images/${tick}.png">
         </div>
     </div>`
+
+    document.getElementById(idEvaluacion).style.border = `1px dotted ${colorPuntos}`
 }
