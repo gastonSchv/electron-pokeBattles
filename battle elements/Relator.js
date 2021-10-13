@@ -26,9 +26,6 @@ class Relator {
 	anunciarCondicionesDeAtaqueFaltante(unPokemon,tipoDeAtaque){
 		this.anunciarFalta(unPokemon,`Condicion de ataque ${tipoDeAtaque}`)
 	}
-	anunciarVerificaciónDeDanoFallida(unPokemon,tipoDeAtaque,listaComparaciones){
-		return this.anunciarFalta(unPokemon,`Condicion de daño ${tipoDeAtaque}`,listaComparaciones)
-	}
 	anunciarEntrenamientoFaltante(unPokemon,tipoDeAtaque){
 		this.anunciarFalta(unPokemon,`Condicion de entrenamiento ${tipoDeAtaque}`)	
 	}
@@ -48,10 +45,19 @@ class Relator {
 	anunciarAtributosFaltantes(unPokemon,atributosFaltantes){
 		return `Tu pokemon no cuenta con los atributos requeridos, debe incorporar los siguientes: ${atributosFaltantes.join(', ')}`
 	}
-	anunciarAtributosConTipoDeDatoErroneo(unPokemon, propertiesConTiposIncorrectos){
-		return `Tu pokemon no cuenta con el tipo de dato correcto en todos sus atributos, se deben modificar los siguientes:\
+	anunciarAtributosConValorNoPermitido(unPokemon, propertiesConTiposIncorrectos){
+		return `Tu pokemon no cuenta con el tipo de dato correcto en todos sus atributos o cuenta con valores no permitidos, se deben modificar los siguientes:\
 		 ${propertiesConTiposIncorrectos.join(', ')}`
 	}
+	anunciarResultadoInesperadoEnMetodo(metodo,resultadoEsperado,resultadoObtenido){
+		return `El metodo ${metodo} ha retornado un valor inesperado\
+		${this.anunciarEntrenamientoDesigual(resultadoEsperado,resultadoObtenido)}
+		`
+	}
+	anunciarAtaquesConDañoIncorrecto(unPokemon,ataquesConDañoIncorrecto){
+		return `Tu pokemon no realiza el daño adecuado para los siguientes ataques ${ataquesConDañoIncorrecto}`
+	}
+
 }
 
  
