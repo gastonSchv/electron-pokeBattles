@@ -5,5 +5,10 @@ module.exports = [
     evaluacionBuilder('atributosConValoresPermitidos'),
     evaluacionBuilder('puntoDeAtributosMaximoPermitido'),
     evaluacionBuilder('metodosNecesarios'),
-    evaluacionBuilder('retornoVitalidadCorrecto')
+    evaluacionBuilder('retornoVitalidadCorrecto'),
+    evaluacionBuilder('retornoMiTipoValido'),
+    evaluacionBuilder('dañoDeAtaquesDisponiblesCorrecto'),
+    evaluacionBuilder('energiaConsumidaPorAtaqueCorrecto'),
+ 	evaluacionBuilder('desmayarseCorrectamente'),
+ 	evaluacionBuilder('recuperarEnergiaCorrectamente')
 ]
