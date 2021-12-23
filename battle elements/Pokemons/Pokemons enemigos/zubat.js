@@ -1,11 +1,10 @@
 const juan = require('../../entrenadorJuan')
 const Pokemon = require('../Pokemon')
-const tipoDePokemon = require('../../TiposDePokemon/veneno')
 
  const pokemon = new Pokemon({
 	entrenador: juan,
 	nombre:'zubat',
-	tipoDePokemon,
+	tipoDePokemon:'veneno',
 	evolucion:1,
 	vida:2000,
 	energia:600,
