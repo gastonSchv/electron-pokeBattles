@@ -47,14 +47,12 @@ class JuezDeEntrenamiento {
         }
         _.forEach(this.obtenerInformacionEntrenamientosRealizados(unPokemon), ({ premios }) => __sumarModificacion(premios))
 
-        return atributos.concat({ atributo: 'energiaLimite', valor: _.find(atributos, ({ atributo }) => _.isEqual(atributo, 'energia')).valor })
+        return atributos
     }
     hizoElEntrenamiento(unEntrenamientoId) {
         return _.some(this.entrenamientosRealizadosGlobal(), ({ entrenamientoId }) => _.isEqual(entrenamientoId, unEntrenamientoId))
     }
     tieneModificacionDeAtributo(unPokemon, atributoEvaluado) {
-        atributoEvaluado == 'energiaLimite' ? atributoEvaluado = 'energia' : atributoEvaluado;
-
         return _.some(this.obtenerInformacionEntrenamientosRealizados(unPokemon), ({ premios }) => {
             return _.some(premios, premio => _.isEqual(premio.habilidad, atributoEvaluado))
         })
