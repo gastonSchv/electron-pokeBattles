@@ -1,5 +1,4 @@
 const Pokemon = require('../Pokemons/Pokemon')
-const tipoDePokemon = require('../TiposDePokemon/agua')
 const gasti = require('../entrenadorGasti')
 const _ = require('lodash')
 
@@ -7,7 +6,7 @@ const pokemon = new Pokemon({
 	//entrenador: gasti,
 	entrenador:'gasti',
 	nombre:'squartle',
-	tipoDePokemon,
+	tipoDePokemon:'agua',
 	evolucion:1,
 	vida:'1000',
 	energia:1000,

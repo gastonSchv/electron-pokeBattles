@@ -1,5 +1,4 @@
 const Pokemon = require('../Pokemons/Pokemon')
-const tipoDePokemon = require('../TiposDePokemon/planta')
 const gasti = require('../entrenadorGasti')
 const _ = require('lodash')
 const request = require('request-promise')
@@ -8,7 +7,7 @@ const pokemon = new Pokemon({
 	//entrenador: gasti,
 	entrenador: 'gasti',
 	nombre:'bolbasaurDePrueba',
-	tipoDePokemon,
+	tipoDePokemon:'planta',
 	evolucion:1,
 	vida:1000,
 	energia:1000,
@@ -16,6 +15,7 @@ const pokemon = new Pokemon({
 	defensa:1000,
 	velocidad:1000
 })
+
 pokemon.miNombre = () => pokemon.nombre
 pokemon.elPokemonMasFuerte = unosPokemones => _.maxBy(unosPokemones, pokemon => pokemon.fuerza)
 pokemon.obtenerAtributos = function(){return asd}
