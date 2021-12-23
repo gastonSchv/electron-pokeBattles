@@ -127,7 +127,7 @@ function largoDeBarraVitalidad(personaje) {
     return largoDeBarra(largoInicialDeBarraVitalidad, personaje.inicial.vida, personaje.vitalidad())
 }
 
-function desmayarse(personajeAtacante) {
+function efectosDesmayarse(personajeAtacante) {
     var iconoDesmayo = document.getElementById(personajeAtacante.componentesHtml.iconoDesmayo)
     var sonidoDesmayo = document.getElementById("sonidoDesmayo")
     sonidoDesmayo.volume = 0.3
@@ -177,7 +177,7 @@ function actualizarValoresBarraVitalidad() {
 }
 
 function actualizarValorBarraEnergia(personaje) {
-    editInnerHtml(personaje.componentesHtml.valorEnergia, `${personaje.energia} / ${personaje.energiaLimite}`)
+    editInnerHtml(personaje.componentesHtml.valorEnergia, `${personaje.energia} / ${personaje.inicial.energia}`)
 }
 
 function actualizarValoresBarraEnergia() {
@@ -250,7 +250,7 @@ function agregarBotonesCartelFinDeBatalla(){
                 </div>`
 }
 function restart(){
-    ipcRenderer.send('buttonClick:restart',{})
+    ipcRenderer.send('reloadScreen:battleScreen',{})
 }
 function irHaciaSelector(){
     ipcRenderer.send('motrarSelectorDeEnemigos',{})
@@ -272,9 +272,10 @@ function recuperarEnergia(personajeRecuperado, otroPersonaje) {
     const fotoEnergia = document.getElementById(personajeRecuperado.componentesHtml.fotoEnergia);
     const barraEnergiaPersonaje = document.getElementById(personajeRecuperado.componentesHtml.barraEnergia);
     const sonidoRecuperarEnergia = document.getElementById('sonidoRecuperarEnergia')
+    const energiaLimite = personajeRecuperado.inicial.energia;
 
     sonidoRecuperarEnergia.play()
-    personajeRecuperado.recuperarEnergia()
+    personajeRecuperado.recuperarEnergia(energiaLimite)
     util.aparecerYDesvanecer(fotoEnergia, 0.2);
     actualizarValoresBarraEnergia()
     actualizarLargosBarrasDeEnergia()
@@ -305,12 +306,14 @@ function atacar(personajeAtacado, personajeAtacante,tipoDeAtaque) {
     var botonAtacarAtacante = document.getElementById(_.get(personajeAtacante.componentesHtml,`botonAtacar${tipoDeAtaque}`));
     var sonidoAtaque = document.getElementById(personajeAtacante.componentesHtml.sonidoAtaque)
 
-    if (personajeAtacante.energiaSuficiente(tipoDeAtaque)) { // responsabilidad del juez de batalla
+    if (juezDeBatalla.energiaSuficiente(personajeAtacante,tipoDeAtaque)) {
+        personajeAtacante.atacar(personajeAtacado, tipoDeAtaque);
         efectosAtacar(personajeAtacado, personajeAtacanteImg, sonidoAtaque,personajeAtacante)
     } else {
-        desmayarse(personajeAtacante)
+        const energiaLimite = personajeAtacante.inicial.energia;
+        personajeAtacante.desmayarse(energiaLimite)
+        efectosDesmayarse(personajeAtacante)
     };
-    personajeAtacante.atacar(personajeAtacado, tipoDeAtaque);
     actualizarElementosDeBatalla();
     const ganador = juezDeBatalla.definirGanador(personajeAtacante, personajeAtacado)
     if (ganador) {
