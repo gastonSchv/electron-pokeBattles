@@ -89,8 +89,11 @@ app.on('ready', () => {
         landingScreen.webContents.send('altaDeScreen:landingScreen', {ruta})
     })
 
-    ipcMain.on('buttonClick:restart', (event, data) => {
+    ipcMain.on('reloadScreen:battleScreen', (event, data) => {
         battleScreen.reload()
+    })
+    ipcMain.on('reloadScreen:juezDeBatallaScreen',(event,data) => {
+        juezDeBatallaScreen.reload()
     })
     ipcMain.on('screens:battleScreen', (event, data) => {
         enemigoSeleccionado = data.enemigoSeleccionado
