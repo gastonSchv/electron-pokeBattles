@@ -22,17 +22,47 @@ function prenderPitidoArbitro() {
     pitidoArbitro.volume = 0.5
     pitidoArbitro.play()
 }
-
-
+function reload(){
+    ipcRenderer.send('reloadScreen:juezDeBatallaScreen',{})
+}
+function agregarCuadroResumen(unPokemon){
+    const __addCeroIfNecessary = list => {
+        if(list.length < 10){
+            return `0${list.length}`
+        }
+        return list.length
+    }
+    return juezDeBatalla.obtenerResultadoEvaluaciones(unPokemon)
+    .then(({evaluacionesCorrectas,evaluacionesIncorrectas}) => {
+        imagenDeFondo.innerHTML +=`      
+            <div id="cuadroResumen">
+                <div id="resultados">
+                    <div id="resultadoPostivo">
+                        ${__addCeroIfNecessary(evaluacionesCorrectas)} evaluaciones correctas    
+                        <img src="../../../assets/images/tick verde.png">
+                    </div>
+                    <div id="resultadoNegativo">
+                        ${__addCeroIfNecessary(evaluacionesIncorrectas)} evaluaciones incorrectas
+                        <img src="../../../assets/images/tick rojo.png">
+                    </div>
+                </div>
+                <div id="botonEvaluarDiv">
+                    <button id="botonEvaluar" class="btn btn-primary" onclick="reload()">
+                        EVALUAR!
+                    </button>
+                </div>
+            </div>`
+    })
+}
 function deshabilitarBotonesDeJuego(booleano) {
     ipcRenderer.send('bloqueoBotonesDeJuego:juezDeBatalla', { deshabilitarBotones: booleano })
 }
 
 function habilitarDetalleResultadoFallido(idEvaluacion, err) {//agregar localizacion
-    const contenedorEvaluacion = document.getElementById(`botonError${idEvaluacion}`)
+    const contenedorEvaluacion = document.getElementById(`contenedorEvaluacion${idEvaluacion}`)
     contenedorEvaluacion.innerHTML += `
-         <button id="botonError${idEvaluacion}" onclick="mostrarDetalleError('\
-         ${err.prettyMessage()}','${err.recommendations()}','${err.message()}')" class="botonDetalleError">
+        <button id="botonError${idEvaluacion}" class="botonDetalleError" onclick="mostrarDetalleError('\
+         ${err.prettyMessage()}','${err.recommendations()}','${err.message()}')">
             detalle error
         </button>`
 }
@@ -48,12 +78,15 @@ function realizarEvaluacionesNecesarias(unPokemon) {
     })
 }
 ipcRenderer.on('config:pedidoRutaJuezDeBatallaScreen', (event, data) => {
+    const cuadro = document.getElementById('cuadroResumen')
     const unPokemon = require(`${data.ruta}`)
+    
+    cuadro?0:agregarCuadroResumen(unPokemon)
     deshabilitarBotonesDeJuego(false)
+    eliminarEvaluaciones()
     realizarEvaluacionesNecesarias(unPokemon)
     window.visualViewport.width > 400 ? prenderPitidoArbitro() : ''
 })
-
 function evaluar(idEvaluacion, unPokemon, evaluacionDeJuez) {
 
     return evaluacionDeJuez(unPokemon)
@@ -66,13 +99,15 @@ function evaluar(idEvaluacion, unPokemon, evaluacionDeJuez) {
             habilitarDetalleResultadoFallido(idEvaluacion, err)
         })
 }
-
+function eliminarEvaluaciones(){
+    contenedorEvaluaciones.innerHTML = ``
+}
 function agregarEvaluacion(idEvaluacion, mensaje = '', resultadoExitoso) {
     resultadoExitoso? tick = 'tick verde': tick = 'tick rojo';
     resultadoExitoso? colorPuntos = 'green' : colorPuntos= 'red';
 
     contenedorEvaluaciones.innerHTML += `
-    <div id="botonError${idEvaluacion}" class="contenedorEvaluacion">
+    <div id="contenedorEvaluacion${idEvaluacion}" class="contenedorEvaluacion">
         <div id="${idEvaluacion}" class="evaluaciones">
         <p class="mensajeEvaluacion">${util.substringSiHaceFalta(mensaje,75)}</p>
         </div>
@@ -81,5 +116,5 @@ function agregarEvaluacion(idEvaluacion, mensaje = '', resultadoExitoso) {
         </div>
     </div>`
 
-    document.getElementById(idEvaluacion).style.border = `1px dotted ${colorPuntos}`
+    //document.getElementById(idEvaluacion).style.border = `1px dotted ${colorPuntos}`
 }

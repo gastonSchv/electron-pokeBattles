@@ -1,24 +1,30 @@
 #contenedor{
-/*	border: 1px solid;*/
+	/*border: 10px solid black;*/
 	background-color: white;
 	position: absolute;
 	left:0px;
 	top:0px;
-	height: 580px;
+	height: 100%;
 	width: 820px;
 	overflow: hidden;
 }
 #imagenDeFondo img{
-	height: 45%;
-	width: 45%;
+	height: 30%;
+	width: 30%;
+	margin-left: 37px;
 }
 #imagenDeFondo{
-/*	border: 1px solid;*/
+	border: 1px solid;
 	background-color: #FFF6EC;
+	display: flex;
+	align-items: center;
 }
 #contenedorEvaluaciones::-webkit-scrollbar{
     width: 10px;
     background-color: #FFA84B;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 
 }
 #contenedorEvaluaciones::-webkit-scrollbar-thumb{
@@ -28,9 +34,9 @@
 }
 #contenedorEvaluaciones{
 	/*border: 1px solid purple;*/
-	height: 355px;
+	height: 370px;
 	background-color: #FFF6EC;
-	overflow-y: scroll;
+	overflow-y: auto;
 }
 .separador{
 	height: 2px;
@@ -39,28 +45,31 @@
 	background-color: black
 }
 .contenedorEvaluacion{
-/*	border:1px solid;*/
+	/*border:1px solid black;*/
+	position: relative;
 	display: flex;
-	height: 50px
+	height: 52px
 }
 .evaluaciones{
-    /*border: 1px dotted green;*/
+    border: 1px dotted green;
     border-radius: 15px;
 	margin-top: 15px;
 	margin-left: 40px;
 	width: 70%;
 	background-color: white;
+    text-align: center;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
 }
 .mensajeEvaluacion{
-/*	border:2px solid blue;*/
+	/*border:2px solid blue;*/
+	margin-bottom: 0px;
 	margin-left: 10px;
 }
 .resultadoEvaluacion{
-/*	border: 1px solid;*/
+	/*border: 1px solid;*/
 	margin-left: 30px;
 	margin-top: 18px;
 	height: 50px;
@@ -74,6 +83,7 @@
     /*border: 1px solid black;*/
     background-color: #FF851B;
     position: absolute;
+    height: 18px;
     border-radius: 3px;
     margin-top: 5px;
     margin-left: 510px;
@@ -86,4 +96,63 @@
 .botonDetalleError:hover{
     /*border: 2px solid black;*/
     background-color: #FFC189;
+}
+#cuadroResumen{
+	/*border: 2px solid blue;*/
+	height: 160px;
+	width: 495px;
+	margin-left: 20px;
+	display: flex;
+	align-items: center;
+}
+#resultados{
+	/*border: 2px solid green;*/
+	height: 160px;
+	width: 340px;
+}
+#botonEvaluarDiv{
+	/*border: 2px solid yellow;*/
+	height: 160px;
+	width: 140px;
+	display: flex;
+	align-items: center;
+	justify-content: center;	
+}
+#botonEvaluar{
+	height: 50px;
+	width: 100px;
+}
+#resultadoPostivo{
+	/*border: 2px solid green;*/
+	height: 40px;
+	width: 360px;
+	margin-top: 30px;
+	font-weight: bold;
+	color:green;
+	font-size: x-large;
+	display: flex;
+	align-items: center;	
+}
+#resultadoPostivo img{
+	/*border:2px solid black;*/
+	height: 30px;
+	width: 30px
+}
+#resultadoNegativo{
+	/*border: 2px solid green;*/
+	height: 40px;
+	width: 360px;
+	margin-top: 20px;
+	font-weight: bold;
+	color: red;
+	font-size: x-large;
+	display: flex;
+	align-items: center; 	
+
+}
+#resultadoNegativo img{
+	/*border:2px solid black;*/
+	height: 30px;
+	width: 30px;
+	margin-left: 18px
 }
