@@ -1,5 +1,4 @@
 const {ipcRenderer} = require('electron')
-const fs = require('fs')
 const path = require('path')
 const _ = require('lodash')
 const carpetaPokemonsEnemigos = path.join(__dirname,'..','..','battle elements','Pokemons','Pokemons enemigos')
