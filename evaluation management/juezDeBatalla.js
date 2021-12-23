@@ -6,16 +6,27 @@ const Store = require('electron-store')
 const store = new Store()
 const util = require('../management utils/util')
 const evaluaciones = require('./evaluaciones')
+const tiposDePokemon = require('../battle elements/TiposDePokemon/todos')
 
 class juezDeBatalla {
     constructor(nombre) {
         this.nombre = nombre
     }
-    constatarEvaluacion(unPokemon,evaluacionId){
-        return util.constatarAccion(unPokemon,evaluaciones,evaluacionId) // implementar todos los cambios para manejar esta estructura
+    constatarEvaluacion(unPokemon, evaluacionId) {
+        return util.constatarAccion(unPokemon, evaluaciones, evaluacionId)
     }
-    obtenerEvaluaciones(){
+    obtenerEvaluaciones() {
         return evaluaciones
+    }
+    obtenerResultadoEvaluaciones(unPokemon) {
+        console.log(evaluaciones)
+        return Promise.props({
+            evaluacionesCorrectas: Promise.filter(evaluaciones, evaluacion => evaluacion.comparacionResultadosExitosa(unPokemon)) ,
+            evaluacionesIncorrectas: Promise.filter(evaluaciones, evaluacion => {
+                return evaluacion.comparacionResultadosExitosa(unPokemon)
+                .then(result => !result)
+            })
+        }).tap(console.log)
     }
     existeAtaque(unPokemon, unAtaque) {
         const pokemonDummy = _.cloneDeep(unPokemon)
@@ -33,61 +44,75 @@ class juezDeBatalla {
     }
     ataquesDisponibles(unPokemon) {
         return _(this.ataquesExistentes(unPokemon))
-            .filter(ataqueExistente => ataqueExistente)// por ahora no se controla de ninguna manera cuales de los ataques existentes estan disponibles
+            .filter(ataqueExistente => ataqueExistente) // por ahora no se controla de ninguna manera cuales de los ataques existentes estan disponibles
             .value()
     }
-    __errorDeMetodoNoDeclarado(errMessage) {
-        return _.includes(errMessage, 'is not a function')
-    }
-    verificarAtaqueBasico(unPokemon) {
-        const pokemonDummyAtacado = _.cloneDeep(unPokemon)
-        const pokemonDummyAtacante = _.cloneDeep(unPokemon)
-
-        try {
-            pokemonDummyAtacante.atacar(pokemonDummyAtacado, 'basico')
-            this.verificarDano(unPokemon, 'basico')
-        } catch (err) {
-            this.traducirErrorDeMetodoNoDeclarado(err.message, pokemonDummyAtacado)
-        }
-    }
-    verificarDano = (unPokemon, tipoDeAtaque) => {
+    haceElDañoEsperado = (unPokemon, tipoDeAtaque) => {
         const pokemonDummyAtacado = _.cloneDeep(unPokemon);
         const pokemonDummyAtacante = _.cloneDeep(unPokemon)
         pokemonDummyAtacado.energia = 99999;
         pokemonDummyAtacante.energia = 99999;
+
+        const factorDeEvolución = unPokemon => {
+            return Math.sqrt(unPokemon.evolucion)
+        }
         const __danoDeAtaque = pokemonDummyAtacante => {
-            return config.multiplicadorDeAtaque(tipoDeAtaque) * pokemonDummyAtacante.fuerza * pokemonDummyAtacante.factorDeEvolución()
+            return config.multiplicadorDeAtaque(tipoDeAtaque) * pokemonDummyAtacante.fuerza * factorDeEvolución(pokemonDummyAtacante)
         }
         const __defensaTotal = pokemonDummyAtacado => {
-            return pokemonDummyAtacado.defensa * pokemonDummyAtacado.factorDeEvolución()
+            return pokemonDummyAtacado.defensa * factorDeEvolución(pokemonDummyAtacado)
         }
         const verificaDano = (pokemonDummyAtacante, pokemonDummyAtacado, tipoDeAtaque) => {
             return pokemonDummyAtacado.dañoRecibido == __danoDeAtaque(pokemonDummyAtacante) - __defensaTotal(pokemonDummyAtacado)
         }
-        try {
-            pokemonDummyAtacante.atacar(pokemonDummyAtacado, tipoDeAtaque);
-            if (!verificaDano(pokemonDummyAtacante, pokemonDummyAtacado, tipoDeAtaque)) {
-                const listaComparaciones = [
-                {
-                    nombre:'Daño Recibido',
-                    valorEsperado:__danoDeAtaque(pokemonDummyAtacante)-__defensaTotal(pokemonDummyAtacado),
-                    valorObtenido: pokemonDummyAtacado.dañoRecibido
-                }
-                ]
-                throw { message: relator.anunciarVerificaciónDeDanoFallida(pokemonDummyAtacante, tipoDeAtaque,listaComparaciones) }
-            }
-        } catch (err) {
-            throw { message: err.message }
-        }
+        pokemonDummyAtacante.atacar(pokemonDummyAtacado, tipoDeAtaque)
+        const valorEsperado = __danoDeAtaque(pokemonDummyAtacante) - __defensaTotal(pokemonDummyAtacado)
+        const valorObtenido = pokemonDummyAtacado.dañoRecibido
+
+        return valorEsperado == valorObtenido
     }
-    verificarDanoDeAtaquesDisponibles(unPokemon) {
-        const ataquesDisponibles = this.ataquesDisponibles(unPokemon)
-        _.forEach(ataquesDisponibles, tipoDeAtaque => {
-            this.verificarDano(unPokemon, tipoDeAtaque)
+    filtrarAtaquesDisponiblesPor(unPokemon, condicionDeFiltro) {
+        return _.filter(this.ataquesDisponibles(unPokemon), ataqueDisponible => {
+            return !condicionDeFiltro(unPokemon, ataqueDisponible)
         })
     }
-    verificarEnergiaConsumidaPor(unPokemon) {
-        const pokemonDeVerificacion = _.cloneDeep(unPokemon)
+    ataquesConDañoIncorrecto(unPokemon) {
+        return this.filtrarAtaquesDisponiblesPor(unPokemon, this.haceElDañoEsperado)
+    }
+    tipoDePokemon(unPokemon) {
+        return _.find(tiposDePokemon, tipoDePokemon => {
+            return unPokemon.miTipo() == tipoDePokemon.nombre
+        })
+    }
+    consumoEnergeticoEsperado(unPokemon, tipoDeAtaque) {
+        const tipoDePokemon = this.tipoDePokemon(unPokemon)
+        return _.get(tipoDePokemon.energiaParaAtaques, tipoDeAtaque)
+    }
+    consumeLaEnergiaEsperada(unPokemon, tipoDeAtaque, tipoDePokemon) {
+        const pokemonDummyAtacado = _.cloneDeep(unPokemon);
+        const pokemonDummyAtacante = _.cloneDeep(unPokemon)
+        const energiaInicial = 99999
+        pokemonDummyAtacado.energia = energiaInicial;
+        pokemonDummyAtacante.energia = energiaInicial;
+
+        const _consumoEnergeticoEsperado = (tipoDeAtaque) => { // ver como evitar repeticion de logica sin romper el this por lambda
+            return _.get(tipoDePokemon.energiaParaAtaques, tipoDeAtaque)
+        }
+        pokemonDummyAtacante.atacar(pokemonDummyAtacado, tipoDeAtaque)
+        return energiaInicial - pokemonDummyAtacante.energia == _consumoEnergeticoEsperado(tipoDeAtaque)
+
+    }
+    ataquesConConsumoEnergiaIncorrecto(unPokemon) {
+        const _consumeLaEnergiaEsperada = (unPokemon, tipoDeAtaque) => {
+            return this.consumeLaEnergiaEsperada(unPokemon, tipoDeAtaque, this.tipoDePokemon(unPokemon))
+        }
+        return this.filtrarAtaquesDisponiblesPor(unPokemon, _consumeLaEnergiaEsperada)
+    }
+    energiaSuficiente(unPokemon, tipoDeAtaque) {
+        return unPokemon.energia > this.consumoEnergeticoEsperado(unPokemon, tipoDeAtaque)
+    }
+    energiaDeRecuperacion(tipoDePokemon) {
+        return _.find(tiposDePokemon, ({ nombre }) => tipoDePokemon == nombre).energiaDeRecuperacion
     }
     ambosPokemonsVivos(unPokemon, otroPokemon) {
         return unPokemon.vitalidad() > 0 && otroPokemon.vitalidad() > 0
@@ -114,31 +139,31 @@ class juezDeBatalla {
             return _.orderBy([unPokemon, otroPokemon], pokemon => 1 / pokemon.velocidadDeAtaque())
         }
         let pokemonsOrdenados = __ordenarTurno(unPokemon, otroPokemon)
-        pokemonsOrdenados[0].entrenador.ejecutarEstrategia(pokemonsOrdenados[0], pokemonsOrdenados[1])//por el momento se esta tratando al entrenador como una sting
+        pokemonsOrdenados[0].entrenador.ejecutarEstrategia(pokemonsOrdenados[0], pokemonsOrdenados[1]) //por el momento se esta tratando al entrenador como una sting
         if (!this.ambosPokemonsVivos(unPokemon, otroPokemon)) return
-        pokemonsOrdenados[1].entrenador.ejecutarEstrategia(pokemonsOrdenados[1], pokemonsOrdenados[0])//por el momento se esta tratando al entrenador como una sting
+        pokemonsOrdenados[1].entrenador.ejecutarEstrategia(pokemonsOrdenados[1], pokemonsOrdenados[0]) //por el momento se esta tratando al entrenador como una sting
         if (!this.ambosPokemonsVivos(unPokemon, otroPokemon)) return
         relator.anunciarResultadosDeRonda(pokemonsOrdenados[0], pokemonsOrdenados[1], ronda)
         return Promise.resolve().delay(0)
     }
-    pokemonesDerrotadosActuales(){
+    pokemonesDerrotadosActuales() {
         return store.get('pokemonesDerrotados') || []
     }
-    guardarPokemonDerrotado(nombrePokemonDerrotado){
-    	const __ListadoPokemonesDerrotadosCon = nombrePokemonDerrotado => {
-    		const yaSeEncuentraEnListado = _.some(this.pokemonesDerrotadosActuales(),nombrePokemon => _.isEqual(nombrePokemon,nombrePokemonDerrotado))
-    		return yaSeEncuentraEnListado? this.pokemonesDerrotadosActuales() : this.pokemonesDerrotadosActuales().concat(nombrePokemonDerrotado)
-    	}
-    	store.set('pokemonesDerrotados',__ListadoPokemonesDerrotadosCon(nombrePokemonDerrotado))
-    }
-    borrarPokemonDerrotado(nombrePokemonDerrotado){
-        const __ListadoPokemonesDerrotadosSin = nombrePokemonDerrotado => {
-            return _.filter(this.pokemonesDerrotadosActuales(), pokemon => !_.isEqual(pokemon,nombrePokemonDerrotado))
+    guardarPokemonDerrotado(nombrePokemonDerrotado) {
+        const __ListadoPokemonesDerrotadosCon = nombrePokemonDerrotado => {
+            const yaSeEncuentraEnListado = _.some(this.pokemonesDerrotadosActuales(), nombrePokemon => _.isEqual(nombrePokemon, nombrePokemonDerrotado))
+            return yaSeEncuentraEnListado ? this.pokemonesDerrotadosActuales() : this.pokemonesDerrotadosActuales().concat(nombrePokemonDerrotado)
         }
-        store.set('pokemonesDerrotados',__ListadoPokemonesDerrotadosSin(nombrePokemonDerrotado))
+        store.set('pokemonesDerrotados', __ListadoPokemonesDerrotadosCon(nombrePokemonDerrotado))
     }
-    borrarTodosLosPokemonesDerrotados(){
-    	store.set('pokemonesDerrotados',[])
+    borrarPokemonDerrotado(nombrePokemonDerrotado) {
+        const __ListadoPokemonesDerrotadosSin = nombrePokemonDerrotado => {
+            return _.filter(this.pokemonesDerrotadosActuales(), pokemon => !_.isEqual(pokemon, nombrePokemonDerrotado))
+        }
+        store.set('pokemonesDerrotados', __ListadoPokemonesDerrotadosSin(nombrePokemonDerrotado))
+    }
+    borrarTodosLosPokemonesDerrotados() {
+        store.set('pokemonesDerrotados', [])
     }
 }
 
