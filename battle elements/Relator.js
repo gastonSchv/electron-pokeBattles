@@ -55,9 +55,17 @@ class Relator {
 		`
 	}
 	anunciarAtaquesConDañoIncorrecto(unPokemon,ataquesConDañoIncorrecto){
-		return `Tu pokemon no realiza el daño adecuado para los siguientes ataques ${ataquesConDañoIncorrecto}`
+		return `Tu pokemon no realiza el daño adecuado para los siguientes ataques: ${ataquesConDañoIncorrecto}`
 	}
-
+	anunciarAtaquesConConsumoEnergiaIncorrecto(unPokemon,ataquesConConsumoEnergiaIncorrecto){
+		return `Tu pokemon no consume correctamenta la energia en los ataques: ${ataquesConConsumoEnergiaIncorrecto.join(', ')}`
+	}
+	anunciarDesmayoIncorrecto(unPokemon){
+		return `Tu pokemon no se desmaya correctamente`
+	}
+	anunciarRecuperacionEnergiaIncorrecto(unPokemon){
+		return `Tu pokemon no recuperar energia de manera correcta`
+	}
 }
 
  
