@@ -10,22 +10,33 @@ class Prettifier {
         this.keyWordRightBound = keyWordRightBound; 
         this.recommendations = recommendations; 
     }
-    keyWord(string){
-        return _.last(string.split(this.keyWordLeftBound)).split(this.keyWordRightBound)[0]
+    keyWord(errorMessage){
+        return _.last(errorMessage.split(this.keyWordLeftBound)).split(this.keyWordRightBound)[0]
     }
-    prettify(string){
-    	return `${this.messageBeforeKeyWord} ${this.keyWord(string)} ${this.messageAfterKeyWord}`
+    prettify(errorMessage){
+    	return `${this.messageBeforeKeyWord} ${this.keyWord(errorMessage)} ${this.messageAfterKeyWord}`
     }
-    isSuitable(string) {
-        return _.includes(string, this.stringToIdentify)
+    isSuitable(errorMessage) {
+        return _.includes(errorMessage, this.stringToIdentify)
     }
-    recommendationsString(string){
-        return _.map(this.recommendations, recommendation => {
+    hasResultsComparison(recommendations){
+        return _.some(recommendations,recommendation => 'Resultado esperado vs resultado obtenido' == recommendation)
+    }
+    addResults(keyWordReplacedRecommendations,errorMessage){
+        const results = `Resultado esperado${_.split(errorMessage,'Resultado esperado')[1]}`
+        return _.filter(keyWordReplacedRecommendations,recommendation => !_.includes(recommendation,'Resultado esperado')).concat([results])
+    }
+    recommendationsString(errorMessage){
+        const keyWordReplacedRecommendations = _.map(this.recommendations, recommendation => {
         	if(_.includes(recommendation,'keyWord')){
-        		return recommendation.replace('keyWord',this.keyWord(string))
+        		return recommendation.replace('keyWord',this.keyWord(errorMessage))
         	}
         	return recommendation
-        }).join('*')
+        })
+        if(this.hasResultsComparison(keyWordReplacedRecommendations)){
+            return this.addResults(keyWordReplacedRecommendations,errorMessage).join('*')
+        }
+        return keyWordReplacedRecommendations.join('*')
     }
 }
 
