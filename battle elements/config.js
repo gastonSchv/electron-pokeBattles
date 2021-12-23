@@ -2,8 +2,8 @@ const _ = require('lodash')
 
 class config {
     constructor() {
-        this.tiposDeAtaque = ['basico', 'fuerte', 'maximo'];
-        this.ataquesVerificables = ['fuerte', 'maximo'];
+        this.tiposDeAtaque = ['basico','medio','fuerte', 'maximo'];
+        this.ataquesVerificables = ['basico','medio','fuerte', 'maximo'];
         this.multiplicadoresDeAtaque = {
             basico: 5,
             medio: 10,
@@ -18,7 +18,6 @@ class config {
             evolucion: 'number',
             vida: 'number',
             energia: 'number',
-            energiaLimite: 'number',
             fuerza: 'number',
             defensa: 'number',
             velocidad: 'number',
@@ -30,12 +29,12 @@ class config {
             'evolucion',
             'vida',
             'energia',
-            'energiaLimite',
             'fuerza',
             'defensa',
             'velocidad',
             'dañoRecibido'
         ];
+        this.energiaDeDesmayo = 750;
         this.tiposDePokemonAceptados = ['agua','fuego','electricidad','planta'];
     }
     puntajeMaximoPermitido() {
