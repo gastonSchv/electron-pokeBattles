@@ -1,10 +1,11 @@
 const _  = require ('lodash')
 
 class TipoDePokemon {
-	constructor({nombre,multiplicadoresDeAtributo,energiaParaAtaques}){
+	constructor({nombre,multiplicadoresDeAtributo,energiaParaAtaques,energiaDeRecuperacion}){
 		this.nombre = nombre;
 		this.multiplicadoresDeAtributo = multiplicadoresDeAtributo;
-		this.energiaParaAtaques = energiaParaAtaques; 
+		this.energiaParaAtaques = energiaParaAtaques;
+		this.energiaDeRecuperacion = energiaDeRecuperacion;
 	}
 	multiplicadorDeAtributo(atributo){
 		return _.get(this.multiplicadoresDeAtributo,atributo)
