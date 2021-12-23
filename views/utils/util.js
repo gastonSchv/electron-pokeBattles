@@ -1,6 +1,7 @@
 const _ = require('lodash')
 const config = require('../../battle elements/config')
 const juezDeEntrenamiento = require('../../training management/juezDeEntrenamiento')
+const fs = require('fs')
 
 class Util {
     constructor() {}
@@ -53,7 +54,7 @@ class Util {
             unPokemon[atributo] += modificacion
         }
         if (juezDeEntrenamiento.tieneModificacionDeEstadisticas(unPokemon)) {
-            _.forEach(config.atributosDePokemon.concat('energiaLimite'), atributo => __modificarEstadistica(atributo, this.valorModificacionAtributo(atributo, unPokemon)))
+            _.forEach(config.atributosDePokemon, atributo => __modificarEstadistica(atributo, this.valorModificacionAtributo(atributo, unPokemon)))
         }
     }
     crearBotonCerradoConEstilo(contenedor) {
@@ -85,10 +86,14 @@ class Util {
     obtenerNombreDesdeNombreArchivo(nombreArchivo) {
         return _.head(_.split(nombreArchivo, '.'))
     }
-    hacerConNombresDeArchivos(carpeta, funcion) {
+    hacerConNombresDeArchivos(carpeta, unaFuncion) {
         fs.readdir(carpeta, (err, archivos) => {
-            archivos.forEach(archivo => funcion(this.obtenerNombreDesdeNombreArchivo(archivo)))
+            archivos.forEach(archivo => unaFuncion(this.obtenerNombreDesdeNombreArchivo(archivo)))
         })
+    }
+    obtenerNombresDeArchivos(carpeta){
+        const archivos = fs.readdirSync(carpeta);
+        return _.map(archivos,archivo => this.obtenerNombreDesdeNombreArchivo(archivo))
     }
     esTipoAceptado(unTipo) {
         return _.includes(config.tiposDePokemonAceptados, unTipo)
