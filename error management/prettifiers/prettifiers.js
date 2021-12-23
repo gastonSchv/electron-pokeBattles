@@ -29,6 +29,19 @@ module.exports = [
         ]
     }),
     new Prettifier({
+        id: 'methodWrongResult',
+        stringToIdentify: 'El metodo',
+        keyWordLeftBound: 'El metodo',
+        keyWordRightBound: 'ha retornado un valor',
+        messageBeforeKeyWord: 'El metodo',
+        messageAfterKeyWord: ' ha retornado un valor inesperado',
+        recommendations: [
+            `Resultado esperado vs resultado obtenido`,
+            `Verifica que es lo que se espera sea retornado por el metodo keyWord`,
+            `Verifica que es lo que está retornando el metodo keyWord de tu pokemon`
+        ]
+    }),
+    new Prettifier({
         id: 'isNotEqualWithUndefined',
         stringToIdentify: 'Resultado obtenido: undefined',
         keyWordLeftBound: 'asdasdas',
@@ -62,10 +75,11 @@ module.exports = [
         messageAfterKeyWord: '',
         recommendations: [
             `Recuerda que los atributos requeridos son : ${config.listaAtributosEstado.join(', ')}`,
-            'Asegurate de haber colocado valores válidos en el atributo faltante'
+            'Asegurate de haber colocado valores válidos en los atributos faltantes',
+            'Recuerda quelos atributos pokemon que tienen valores numéricos siempre tienen que se mayor a 0 (salvo dañoRecibido)'
         ]
     }),
-        new Prettifier({
+    new Prettifier({
         id: 'atributosConValoresPermitidos',
         stringToIdentify: 'tipo de dato correcto en todos sus atributos',
         keyWordLeftBound: 'asdasdas',
@@ -90,7 +104,7 @@ module.exports = [
             'Verifica que la suma de los puntajes de tus atributos sea menor o igual al maximo permitido'
         ]
     }),
-        new Prettifier({
+    new Prettifier({
         id: 'cannotFindModule',
         stringToIdentify: 'Cannot find module',
         keyWordLeftBound: 'Cannot find module',
@@ -99,6 +113,57 @@ module.exports = [
         messageAfterKeyWord: '',
         recommendations: [
             `Verifica que no haya ningun typo en tu codigo al solicitar una dependencia (require=...)`
+        ]
+    }),
+    new Prettifier({
+        id: 'dañoDeAtaquesDisponiblesIncorrectos',
+        stringToIdentify: 'Tu pokemon no realiza el daño adecuado',
+        keyWordLeftBound: 'asdasdas',
+        keyWordRightBound: 'asdasdasd',
+        messageBeforeKeyWord: '',
+        messageAfterKeyWord: '',
+        recommendations: [
+            `Verifica que el calculo de daño de tu pokemon siga la formula daño(tipoDeAtaque) = fuerza X multiplicadorDeAtaque(tipoDeAtaque) X factorDeEvolucion`,
+            `Verifica que tus multiplicadoresDeAtaque sean adecuados para el tipo de pokemon que tengas (planta,fuego,agua o electricidad)`
+        ]
+    }),
+    new Prettifier({
+        id: 'energiaConsumidaPorAtaqueIncorrecto',
+        stringToIdentify: 'Tu pokemon no consume correctamenta la energia',
+        keyWordLeftBound: 'asdasdas',
+        keyWordRightBound: 'asdasdasd',
+        messageBeforeKeyWord: '',
+        messageAfterKeyWord: '',
+        recommendations: [
+            `Verifica que estes disminuyendo la energia de tu pokemon al atacar`,
+            `Verifica que el consumo de energia de tu pokemon este siendo correcto para cada tipo de ataque`,
+            `Verifica que el consumo de energia sea adecuados para el tipo de pokemon que tengas (planta,fuego,agua o electricidad)`
+        ]
+    }),
+        new Prettifier({
+        id: 'desmayarseCorrectamente',
+        stringToIdentify: 'Tu pokemon no se desmaya correctamente',
+        keyWordLeftBound: 'asdasdas',
+        keyWordRightBound: 'asdasdasd',
+        messageBeforeKeyWord: '',
+        messageAfterKeyWord: '',
+        recommendations: [
+            `Verifica que estes aumentando la energia adecuada segun tu tipo de pokemon (planta,fuego,agua o electricidad)`,
+            `Verifica que no estes alterando ningun otro atributos de tu pokemon por fuera de su energia`,
+            `Verifica que estes limitando el aumento de energia de tu pokemon al valor inicial de la energia asignada de tu pokemon`
+        ]
+    }),
+        new Prettifier({
+        id: 'recuperarEnergiaCorrectamente',
+        stringToIdentify: 'Tu pokemon no recuperar energia',
+        keyWordLeftBound: 'asdasdas',
+        keyWordRightBound: 'asdasdasd',
+        messageBeforeKeyWord: '',
+        messageAfterKeyWord: '',
+        recommendations: [
+            `Verifica que estes aumentando la energia adecuada segun tu tipo de pokemon (planta,fuego,agua o electricidad)`,
+            `Verifica que no estes alterando ningun otro atributos de tu pokemon por fuera de su energia`,
+            `Verifica que estes limitando el aumento de energia de tu pokemon al valor inicial de la energia asignada de tu pokemon`
         ]
     })
 ]
