@@ -328,7 +328,7 @@ function atacar(personajeAtacado, personajeAtacante,tipoDeAtaque) {
     darTurnoAlBot(personajeAtacante)
 }
 function notificarPokemonDerrotadoParaMarcarEnSelector(nombrePokemonDerrotado){
-    ipcRenderer.send('avisoPokemonDerrotado',{nombrePokemonDerrotado})
+    ipcRenderer.send('renderizarBotonesEnemigos',{nombrePokemonDerrotado})
 }
 function ejecutarEstrategiaDeBot(){
     atacarAlIzquierdo('fuerte')   
