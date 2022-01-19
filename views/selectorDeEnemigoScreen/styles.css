@@ -21,22 +21,24 @@ body::-webkit-scrollbar-thumb{
 
 .enemigo{
 	border: 4px double purple;
-	background-color: white;
+	/*background-color: white;*/
 	height: 117px;
 	margin:10px;
 	opacity: 1;
 	border-radius: 15px;
 }
-.enemigo:hover{
+.enemigoRestringido{
+	background-color: grey;
+	opacity: 0.8; 
+}
+.proximoEnemigo{
+	background-color: white
+}
+.proximoEnemigo:hover{
 	background-color: purple
 }
 .pokemonDerrotado{
-	border: 4px double purple;
-	background-color: grey;
-	height: 117px;
-	margin:10px;
-	opacity: 1;
-	border-radius: 15px;
+	background-color: #ABEBC6;
 	opacity: 0.8; 
 }
 .imagenEnemigo{

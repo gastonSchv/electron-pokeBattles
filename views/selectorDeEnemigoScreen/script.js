@@ -9,31 +9,52 @@ function getButton(button){
 	ipcRenderer.send('screens:battleScreen',{enemigoSeleccionado:button.id})
 }
 function funcionesDeInicio(){
- 	util.hacerConNombresDeArchivos(carpetaPokemonsEnemigos,crearBotonEnemigo)
+	_.forEach(crearListadoOrdenadoPorPoder(),crearBotonEnemigo)
+	renderizarBotonesEnemigos()
 	util.crearBotonCerradoConEstilo(contenedor)
-	pedirPokemonesDerrotados()
 }
-function pedirPokemonesDerrotados(){
-	ipcRenderer.send('pedidoPokemonesDerrotados',{})
+function renderizarBotonesEnemigos(){
+	ipcRenderer.send('renderizarBotonesEnemigos',{})
 }
 function cerrarPantalla(){
 	window.close()
 }
+function obtenerPokemon(pokemonName){
+	return require(`${carpetaPokemonsEnemigos}/${pokemonName}`)
+}
+function crearListadoOrdenadoPorPoder(){
+	return _(util.obtenerNombresDeArchivos(carpetaPokemonsEnemigos))
+	.map(obtenerPokemon)
+	.sortBy(p => {console.log(p.vida,p.danoDeAtaque('basico'),p.defensa);return p.poderTotal()})
+	.map(pokemon => pokemon.nombre)
+	.value()
+}
 function crearBotonEnemigo(nombrePokemonEnemigo){
-	enemigosGrid.innerHTML +=  `<button onclick="getButton(this)" id="${nombrePokemonEnemigo}" class="enemigo">
+	enemigosGrid.innerHTML +=  `<button onclick="getButton(this)" id="${nombrePokemonEnemigo}" class="enemigo enemigoRestringido" disabled>
 	<img class="imagenEnemigo" src="../../../assets/images/pokemones enemigos/${nombrePokemonEnemigo}.png">
 	</button>`
 }
 function cambiarBotonPokemonDerrotado(nombrePokemonDerrotado){
 	const boton = document.getElementById(nombrePokemonDerrotado)
-	boton.className = "pokemonDerrotado"
+	boton.disabled = false
+	boton.className = "enemigo pokemonDerrotado"
 }
-ipcRenderer.on('pokemonesDerrotados',(event,data) => {
+function cambiarBotonProximoPokemon(proximoPokemon){
+	const boton = document.getElementById(proximoPokemon)
+	boton.disabled = false
+	boton.className = "enemigo proximoEnemigo"
+}
+ipcRenderer.on('renderizarBotonesEnemigos',(event,data) => {
 	const {pokemonesDerrotados} = data;
+	const pokemonsTotalesOrdenadosPorPoder = crearListadoOrdenadoPorPoder()
+	const _proximoPokemon = () => {
+		return _.find(pokemonsTotalesOrdenadosPorPoder, pokemon =>{
+			return !_.includes(pokemonesDerrotados,pokemon)
+		})
+	}
+
 	if(!_.isEmpty(pokemonesDerrotados)){
 		_.forEach(pokemonesDerrotados,cambiarBotonPokemonDerrotado)
 	}
-})
-ipcRenderer.on('avisoPokemonDerrotado',(event,data) => {
-	cambiarBotonPokemonDerrotado(data.nombrePokemonDerrotado)
+	cambiarBotonProximoPokemon(_proximoPokemon())
 })
