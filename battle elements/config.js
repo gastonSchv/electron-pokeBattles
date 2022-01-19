@@ -36,6 +36,11 @@ class config {
         ];
         this.energiaDeDesmayo = 750;
         this.tiposDePokemonAceptados = ['agua','fuego','electricidad','planta'];
+        this.referencia = {
+            vida:250000,
+            danoBasico: 10000,
+            defensa: 10000
+        }
     }
     puntajeMaximoPermitido() {
         return this.atributosDePokemon.length * this.puntajePorAtributo
