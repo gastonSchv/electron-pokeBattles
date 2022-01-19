@@ -24,7 +24,7 @@ class Pokemon {
     vitalidad() {
         return _.max([this.vida - this.dañoRecibido, 0])
     }
-    dañoDeAtaque(tipoDeAtaque) {
+    danoDeAtaque(tipoDeAtaque) {
         return this.fuerza * config.multiplicadorDeAtaque(tipoDeAtaque) * this.factorDeEvolución()
     }
     energiaParaAtaque(tipoDeAtaque) {
@@ -32,7 +32,7 @@ class Pokemon {
     }
     atacar(unPokemon, tipoDeAtaque) {
         this.disminuirEnergia(this.energiaParaAtaque(tipoDeAtaque))
-        unPokemon.recibirDaño(this.dañoDeAtaque(tipoDeAtaque))
+        unPokemon.recibirDaño(this.danoDeAtaque(tipoDeAtaque))
     }
     entrenarAtaqueFuerte() {
         return 'Entrenamiento ataque fuerte completado'
@@ -65,7 +65,14 @@ class Pokemon {
         this.energia = _.min([this.energia + config.energiaDeDesmayo, energiaLimite]);
     }
     esAtaqueMortal(pokemonOponente, tipoDeAtaque) {
-        return pokemonOponente.vitalidad() <= pokemonOponente.dañoARecibir(this.dañoDeAtaque(tipoDeAtaque))
+        return pokemonOponente.vitalidad() <= pokemonOponente.dañoARecibir(this.danoDeAtaque(tipoDeAtaque))
+    }
+    poderTotal(){ // hacer un calculo que refleje las cantidades de rounds que harían falta para derrotar un enemigo y cantidad de rounds para ser derrotado
+        return _.sum([
+            this.vida / config.referencia.vida,
+            this.danoDeAtaque('basico') / config.referencia.danoBasico,
+            this.defensa / config.referencia.defensa
+            ])
     }
 }
 
