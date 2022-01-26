@@ -6,7 +6,7 @@ const Pokemon = require('../Pokemon')
 	nombre:'caterpie',
 	tipoDePokemon:'bicho',
 	evolucion:1,
-	vida:300,
+	vida:400,
 	energia:1100,
 	fuerza:1000,
 	defensa:2000,
