@@ -25,7 +25,7 @@ function obtenerPokemon(pokemonName){
 function crearListadoOrdenadoPorPoder(){
 	return _(util.obtenerNombresDeArchivos(carpetaPokemonsEnemigos))
 	.map(obtenerPokemon)
-	.sortBy(p => {console.log(p.vida,p.danoDeAtaque('basico'),p.defensa);return p.poderTotal()})
+	.sortBy(p =>  -p.poderTotal())
 	.map(pokemon => pokemon.nombre)
 	.value()
 }
