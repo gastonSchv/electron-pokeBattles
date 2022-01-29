@@ -3,7 +3,7 @@ const config = require('../config')
 const relator = require('../relator')
 
 class Pokemon {
-    constructor({ entrenador, nombre, tipoDePokemon, evolucion, vida, energia, fuerza, defensa, velocidad }) {
+    constructor({ entrenador, nombre, tipoDePokemon, evolucion, vida, energia, fuerza, defensa, velocidad,estrategia}) {
         this.entrenador = entrenador;
         this.nombre = nombre;
         this.tipoDePokemon = require(`../TiposDePokemon/Tipos/${tipoDePokemon}`);
@@ -14,6 +14,7 @@ class Pokemon {
         this.defensa = defensa * this.tipoDePokemon.multiplicadorDeAtributo('defensa');
         this.velocidad = velocidad * this.tipoDePokemon.multiplicadorDeAtributo('velocidad');
         this.dañoRecibido = 0;
+        this.estrategia = estrategia || "bajaEstrategia"
     }
     miTipo() {
         return this.tipoDePokemon.nombre
@@ -25,6 +26,7 @@ class Pokemon {
         return _.max([this.vida - this.dañoRecibido, 0])
     }
     danoDeAtaque(tipoDeAtaque) {
+        console.log(this.fuerza * config.multiplicadorDeAtaque(tipoDeAtaque) * this.factorDeEvolución())
         return this.fuerza * config.multiplicadorDeAtaque(tipoDeAtaque) * this.factorDeEvolución()
     }
     energiaParaAtaque(tipoDeAtaque) {
@@ -67,12 +69,14 @@ class Pokemon {
     esAtaqueMortal(pokemonOponente, tipoDeAtaque) {
         return pokemonOponente.vitalidad() <= pokemonOponente.dañoARecibir(this.danoDeAtaque(tipoDeAtaque))
     }
-    poderTotal(){ // hacer un calculo que refleje las cantidades de rounds que harían falta para derrotar un enemigo y cantidad de rounds para ser derrotado
-        return _.sum([
-            this.vida / config.referencia.vida,
-            this.danoDeAtaque('basico') / config.referencia.danoBasico,
-            this.defensa / config.referencia.defensa
-            ])
+    numeroDeAtaquesHastaVictoria(tipoDeAtaque,vidaEnemiga){
+    	return Math.ceil(vidaEnemiga / this.danoDeAtaque(tipoDeAtaque))
+    }
+    numeroDeAtaquesHastaDerrota(danoDeAtaqueEnemigo){
+    	return Math.ceil(this.vida/danoDeAtaqueEnemigo)
+    }
+    poderTotal(){ 
+        return this.numeroDeAtaquesHastaVictoria('basico',config.referencia.vida) / this.numeroDeAtaquesHastaDerrota(config.referencia.danoBasico) 
     }
 }
 
