@@ -331,7 +331,11 @@ function notificarPokemonDerrotadoParaMarcarEnSelector(nombrePokemonDerrotado){
     ipcRenderer.send('renderizarBotonesEnemigos',{nombrePokemonDerrotado})
 }
 function ejecutarEstrategiaDeBot(){
-    atacarAlIzquierdo('fuerte')   
+    switch (personajeDerecho.estrategia){
+    	case "bajaEstrategia":
+    	 ejecutarEstrategiaBaja()
+    	break;
+    }   
 }
 function atacarAlDerecho(tipoDeAtaque) {
     atacar(personajeDerecho, personajeIzquierdo,tipoDeAtaque)
@@ -344,4 +348,7 @@ function recuperarEnergiaIzquierdo() {
 }
 function recuperarEnergiaDerecho() {
     recuperarEnergia(personajeDerecho, personajeIzquierdo)
+}
+function ejecutarEstrategiaBaja(){
+	atacar(personajeIzquierdo,personajeDerecho,'basico')
 }
