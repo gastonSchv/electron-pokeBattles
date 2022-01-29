@@ -10,11 +10,11 @@ module.exports = [{
         titulo: 'DIME TU NOMBRE',
         premios: [{
                 habilidad: 'vida',
-                valor: 40000
+                valor: 20000
             },
             {
                 habilidad: 'defensa',
-                valor: 3000
+                valor: 500
             }
         ],
         descripcion: 'Genera el metodo miNombre() mediante el cual tu Pokemon pueda retornar una string con su nombre',
@@ -25,11 +25,11 @@ module.exports = [{
         titulo: 'QUIEN ES EL MAS FUERTE',
         premios: [{
                 habilidad: 'velocidad',
-                valor: 2000
+                valor: 500
             },
             {
                 habilidad: 'fuerza',
-                valor: 1500
+                valor: 500
             }
         ],
         descripcion: 'Genera el metodo "elPokemonMasFuerte (unosPokemones)" mediante el cual tu Pokemon reciba un listado de pokemones y retorne el que tenga mas fuerza',
