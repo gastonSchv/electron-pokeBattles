@@ -6,9 +6,9 @@ const Pokemon = require('../Pokemon')
 	nombre:'pidgey',
 	tipoDePokemon:'volador',
 	evolucion:1,
-	vida:2000,
+	vida:2600,
 	energia:600,
-	fuerza:500,
+	fuerza:1700,
 	defensa:800,
 	velocidad:1100
 })

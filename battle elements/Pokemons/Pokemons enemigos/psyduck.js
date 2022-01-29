@@ -6,9 +6,9 @@ const Pokemon = require('../Pokemon')
 	nombre:'psyduck',
 	tipoDePokemon:'agua',
 	evolucion:1,
-	vida:2000,
+	vida:1500,
 	energia:700,
-	fuerza:500,
+	fuerza:1500,
 	defensa:800,
 	velocidad:1100
 })

@@ -8,7 +8,7 @@ const Pokemon = require('../Pokemon')
 	evolucion:1,
 	vida:2000,
 	energia:600,
-	fuerza:5000,
+	fuerza:2300,
 	defensa:800,
 	velocidad:1100
 })

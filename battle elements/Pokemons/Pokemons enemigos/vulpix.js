@@ -6,9 +6,9 @@ const Pokemon = require('../Pokemon')
 	nombre:'vulpix',
 	tipoDePokemon:'fuego',
 	evolucion:1,
-	vida:2000,
+	vida:2500,
 	energia:600,
-	fuerza:500,
+	fuerza:1800,
 	defensa:800,
 	velocidad:1100
 })

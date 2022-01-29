@@ -6,9 +6,9 @@ const Pokemon = require('../Pokemon')
 	nombre:'rattata',
 	tipoDePokemon:'normal',
 	evolucion:1,
-	vida:2000,
+	vida:1250,
 	energia:600,
-	fuerza:500,
+	fuerza:1200,
 	defensa:800,
 	velocidad:1100
 })

@@ -6,9 +6,9 @@ const Pokemon = require('../Pokemon')
 	nombre:'diglett',
 	tipoDePokemon:'tierra',
 	evolucion:1,
-	vida:2000,
+	vida:1000,
 	energia:600,
-	fuerza:500,
+	fuerza:1500,
 	defensa:800,
 	velocidad:1100
 })

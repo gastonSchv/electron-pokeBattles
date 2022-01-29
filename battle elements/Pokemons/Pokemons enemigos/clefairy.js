@@ -1,3 +1,4 @@
+
 const juan = require('../../entrenadorJuan')
 const Pokemon = require('../Pokemon')
 
@@ -6,9 +7,9 @@ const Pokemon = require('../Pokemon')
 	nombre:'clefairy',
 	tipoDePokemon:'hada',
 	evolucion:1,
-	vida:2000,
+	vida:1600,
 	energia:600,
-	fuerza:500,
+	fuerza:1300,
 	defensa:800,
 	velocidad:1100
 })

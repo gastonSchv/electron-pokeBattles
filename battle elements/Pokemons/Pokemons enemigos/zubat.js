@@ -6,9 +6,9 @@ const Pokemon = require('../Pokemon')
 	nombre:'zubat',
 	tipoDePokemon:'veneno',
 	evolucion:1,
-	vida:2000,
+	vida:1500,
 	energia:600,
-	fuerza:500,
+	fuerza:1250,
 	defensa:800,
 	velocidad:1100
 })

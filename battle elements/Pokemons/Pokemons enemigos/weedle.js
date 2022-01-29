@@ -6,9 +6,9 @@ const Pokemon = require('../Pokemon')
 	nombre:'weedle',
 	tipoDePokemon:'bicho',
 	evolucion:1,
-	vida:2000,
+	vida:1800,
 	energia:600,
-	fuerza:500,
+	fuerza:1800,
 	defensa:800,
 	velocidad:1100
 })

@@ -6,9 +6,9 @@ const Pokemon = require('../Pokemon')
 	nombre:'nidoran',
 	tipoDePokemon:'veneno',
 	evolucion:1,
-	vida:2000,
+	vida:1300,
 	energia:600,
-	fuerza:500,
+	fuerza:1300,
 	defensa:800,
 	velocidad:1100
 })
