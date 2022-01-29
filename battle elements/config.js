@@ -5,9 +5,9 @@ class config {
         this.tiposDeAtaque = ['basico','medio','fuerte', 'maximo'];
         this.ataquesVerificables = ['basico','medio','fuerte', 'maximo'];
         this.multiplicadoresDeAtaque = {
-            basico: 5,
-            medio: 10,
-            fuerte: 15,
+            basico: 15,
+            medio: 16,
+            fuerte: 23,
             maximo: 25
         };
         this.atributosDePokemon = ['vida', 'energia', 'fuerza', 'defensa', 'velocidad'];
@@ -39,7 +39,6 @@ class config {
         this.referencia = {
             vida:250000,
             danoBasico: 10000,
-            defensa: 10000
         }
     }
     puntajeMaximoPermitido() {
