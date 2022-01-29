@@ -109,7 +109,7 @@ class juezDeBatalla {
         return this.filtrarAtaquesDisponiblesPor(unPokemon, _consumeLaEnergiaEsperada)
     }
     energiaSuficiente(unPokemon, tipoDeAtaque) {
-        return unPokemon.energia > this.consumoEnergeticoEsperado(unPokemon, tipoDeAtaque)
+        return unPokemon.energia >= this.consumoEnergeticoEsperado(unPokemon, tipoDeAtaque)
     }
     energiaDeRecuperacion(tipoDePokemon) {
         return _.find(tiposDePokemon, ({ nombre }) => tipoDePokemon == nombre).energiaDeRecuperacion
