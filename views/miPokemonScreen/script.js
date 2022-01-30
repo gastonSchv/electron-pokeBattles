@@ -33,7 +33,6 @@ function completarValorDeDato(div,atributo,unPokemon){
 }
 function completarValoresDeDato(unPokemon){
 	completarValorDeDato(nombre,'nombre',unPokemon)
-	completarValorDeDato(entrenador,'entrenador',unPokemon)
 	completarValorDeDato(tipoDePokemon,'tipoDePokemon',unPokemon)
 	completarValorDeDato(evolucion,'evolucion',unPokemon)
 }
