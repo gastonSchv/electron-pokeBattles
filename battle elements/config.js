@@ -10,10 +10,10 @@ class config {
             fuerte: 23,
             maximo: 25
         };
+        this.multiplicadorDeDefensa = 15;
         this.atributosDePokemon = ['vida', 'energia', 'fuerza', 'defensa', 'velocidad'];
         this.puntajePorAtributo = 1000;
         this.tiposDeDatoPorAtributo = {
-            entrenador: 'string',
             nombre: 'string',
             evolucion: 'number',
             vida: 'number',
@@ -24,7 +24,6 @@ class config {
             dañoRecibido: 'number'
         }
         this.listaAtributosEstado = [
-            'entrenador',
             'nombre',
             'evolucion',
             'vida',
@@ -38,7 +37,8 @@ class config {
         this.tiposDePokemonAceptados = ['agua','fuego','electricidad','planta'];
         this.referencia = {
             vida:250000,
-            danoBasico: 10000,
+            danoBasico: 100000,
+            defensaAnteAtaque: 5000,
         }
     }
     puntajeMaximoPermitido() {
