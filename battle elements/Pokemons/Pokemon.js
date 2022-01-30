@@ -3,8 +3,7 @@ const config = require('../config')
 const relator = require('../relator')
 
 class Pokemon {
-    constructor({ entrenador, nombre, tipoDePokemon, evolucion, vida, energia, fuerza, defensa, velocidad,estrategia}) {
-        this.entrenador = entrenador;
+    constructor({ nombre, tipoDePokemon, evolucion, vida, energia, fuerza, defensa, velocidad,estrategia}) {
         this.nombre = nombre;
         this.tipoDePokemon = require(`../TiposDePokemon/Tipos/${tipoDePokemon}`);
         this.evolucion = evolucion;
@@ -26,15 +25,17 @@ class Pokemon {
         return _.max([this.vida - this.dañoRecibido, 0])
     }
     danoDeAtaque(tipoDeAtaque) {
-        console.log(this.fuerza * config.multiplicadorDeAtaque(tipoDeAtaque) * this.factorDeEvolución())
         return this.fuerza * config.multiplicadorDeAtaque(tipoDeAtaque) * this.factorDeEvolución()
     }
     energiaParaAtaque(tipoDeAtaque) {
         return this.tipoDePokemon.energiaParaAtaque(tipoDeAtaque)
     }
     atacar(unPokemon, tipoDeAtaque) {
-        this.disminuirEnergia(this.energiaParaAtaque(tipoDeAtaque))
+        this.disminuirEnergia(tipoDeAtaque)
         unPokemon.recibirDaño(this.danoDeAtaque(tipoDeAtaque))
+    }
+    resultadoDeAtaque(unDañoDeAtaque,defensaAnteAtaque){
+    	return _.max([unDañoDeAtaque*0.1,unDañoDeAtaque - defensaAnteAtaque])
     }
     entrenarAtaqueFuerte() {
         return 'Entrenamiento ataque fuerte completado'
@@ -45,17 +46,17 @@ class Pokemon {
     deTipo(propertyPath) {
         return _.get(this.tipoDePokemon, propertyPath)
     }
-    dañoARecibir(unDaño) {
-        return unDaño - (this.defensa * this.factorDeEvolución())
+    defensaAnteAtaque(){
+    	return this.defensa * this.factorDeEvolución() * config.multiplicadorDeDefensa
     }
-    recibirDaño(unDaño) {
-        const __dañoDespuesDeDefensa = unDaño => {
-            return _.max([0, this.dañoARecibir(unDaño)])
-        }
-        this.dañoRecibido += __dañoDespuesDeDefensa(unDaño);
+    probabilidadDeEsquivarAtaque(){
+    	return _.max([0,(0.1639 * Math.log(this.velocidad) - 0.9925)])
     }
-    disminuirEnergia(unaEnergia) {
-        this.energia -= unaEnergia
+    recibirDaño(unDañoDeAtaque) {
+        this.dañoRecibido += this.resultadoDeAtaque(unDañoDeAtaque,this.defensaAnteAtaque())
+    }
+    disminuirEnergia(tipoDeAtaque) {
+        this.energia -= this.energiaParaAtaque(tipoDeAtaque)
     }
     velocidadDeAtaque() {
         return _.random(0.7, 1, 0) * this.velocidad
@@ -69,14 +70,15 @@ class Pokemon {
     esAtaqueMortal(pokemonOponente, tipoDeAtaque) {
         return pokemonOponente.vitalidad() <= pokemonOponente.dañoARecibir(this.danoDeAtaque(tipoDeAtaque))
     }
-    numeroDeAtaquesHastaVictoria(tipoDeAtaque,vidaEnemiga){
-    	return Math.ceil(vidaEnemiga / this.danoDeAtaque(tipoDeAtaque))
+    numeroDeAtaquesHastaVictoria(tipoDeAtaque){
+    	return Math.ceil(config.referencia.vida / _.max([1,this.danoDeAtaque(tipoDeAtaque) - config.referencia.defensaAnteAtaque]))
     }
-    numeroDeAtaquesHastaDerrota(danoDeAtaqueEnemigo){
-    	return Math.ceil(this.vida/danoDeAtaqueEnemigo)
+    numeroDeAtaquesHastaDerrota(){
+        const danoEquivalente = config.referencia.danoBasico * (1-this.probabilidadDeEsquivarAtaque())
+    	return Math.ceil(this.vida / this.resultadoDeAtaque(danoEquivalente,this.defensaAnteAtaque))
     }
     poderTotal(){ 
-        return this.numeroDeAtaquesHastaVictoria('basico',config.referencia.vida) / this.numeroDeAtaquesHastaDerrota(config.referencia.danoBasico) 
+        return this.numeroDeAtaquesHastaVictoria('basico') / this.numeroDeAtaquesHastaDerrota() 
     }
 }
 
