@@ -1,8 +1,6 @@
-const juan = require('../../entrenadorJuan')
 const Pokemon = require('../Pokemon')
 
  const pokemon = new Pokemon({
-	entrenador: juan,
 	nombre:'diglett',
 	tipoDePokemon:'tierra',
 	evolucion:1,
