@@ -42,46 +42,53 @@ const componentesHtmlIzquierdo = {
     sonidoAtaque: 'sonidoAtaqueIzquierdo'
 }
 const componentesDefaultDerecho = {
-    componentesHtml:{...componentesHtmlDerecho},
-    posicionInicial:410
+    componentesHtml: { ...componentesHtmlDerecho },
+    posicionInicial: 410,
+    posicionFinalDeEsquivo: 700
 }
-const componentesDefaultIzquierdo ={
-    componentesHtml:{...componentesHtmlIzquierdo},
-    posicionInicial:200
+const componentesDefaultIzquierdo = {
+    componentesHtml: { ...componentesHtmlIzquierdo },
+    posicionInicial: 200,
+    posicionFinalDeEsquivo:0
 }
-function asignarComponentesDefault(personaje,componentes){
-    _.assign(personaje,{...componentes})
+
+function asignarComponentesDefault(personaje, componentes) {
+    _.assign(personaje, { ...componentes })
 }
 asignarComponentesDefault(personajeDerecho, componentesDefaultDerecho)
 
 ipcRenderer.on('config:pedidoRutaBattleScreen', (event, data) => {
     const personajeIzquierdoDiv = document.getElementById('personajeIzquierdo')
     personajeIzquierdo = require(`${data.ruta}`)
-    util.modificarEstadisticasPorEntrenamiento(personajeIzquierdo) 
+    util.modificarEstadisticasPorEntrenamiento(personajeIzquierdo)
     personajeIzquierdo.inicial = _.cloneDeep(personajeIzquierdo)
     asignarComponentesDefault(personajeIzquierdo, componentesDefaultIzquierdo)
     actualizarValoresBarraVitalidad()
     actualizarValoresBarraEnergia()
-    util.colocarFotoMiPokemon(personajeIzquierdoDiv,personajeIzquierdo)
+    util.colocarFotoMiPokemon(personajeIzquierdoDiv, personajeIzquierdo)
 })
-ipcRenderer.on('enemigoSeleccionado',(event,data) => {
-    personajeDerecho = require(`../../battle elements/Pokemons/Pokemons enemigos/${data.enemigoSeleccionado}`) 
+ipcRenderer.on('enemigoSeleccionado', (event, data) => {
+    personajeDerecho = require(`../../battle elements/Pokemons/Pokemons enemigos/${data.enemigoSeleccionado}`)
     personajeDerecho.inicial = _.cloneDeep(personajeDerecho)
     colocarImagenDePersonajeDerecho(personajeDerecho.nombre)
     asignarComponentesDefault(personajeDerecho, componentesDefaultDerecho)
     actualizarValoresBarraVitalidad()
-    actualizarValoresBarraEnergia()  
+    actualizarValoresBarraEnergia()
 })
-function colocarImagenDePersonajeDerecho(nombrePersonaje){
+
+function colocarImagenDePersonajeDerecho(nombrePersonaje) {
     const personajeDerechoDiv = document.getElementById('personajeDerecho')
     personajeDerechoDiv.innerHTML += `<img type="image/png" src="../../../assets/images/pokemones enemigos/${nombrePersonaje}.png">`
 }
+
 function pedirRutaConfig() {
     ipcRenderer.send('config:pedidoRutaBattleScreen', {})
 }
-function pedirPokemonEnemigo(){
-    ipcRenderer.send('altaDeScreen:battleScreen',{})
+
+function pedirPokemonEnemigo() {
+    ipcRenderer.send('altaDeScreen:battleScreen', {})
 }
+
 function funcionesDeInicio() {
     let musicaDeBatalla = document.getElementById("musicaDeBatalla");
     musicaDeBatalla.volume = 1
@@ -92,29 +99,32 @@ function funcionesDeInicio() {
     util.crearBotonCerradoConEstilo(contenedor)
     prenderMusica()
 }
-function cerrarPantalla(){
+
+function cerrarPantalla() {
     window.close()
 }
+
 function prenderSonidoFinDeBatalla(ganoIzquierdo) {
     const sonidoVictoria = document.getElementById('sonidoVictoria')
     const sonidoDerrota = document.getElementById('sonidoDerrota')
     sonidoVictoria.volume = 0.1
     sonidoDerrota.volume = 0.5
-    ganoIzquierdo? sonidoVictoria.play() : sonidoDerrota.play()
+    ganoIzquierdo ? sonidoVictoria.play() : sonidoDerrota.play()
 }
 
 function apagarMusica() {
-    util.apagarMusica(musicaDeBatalla,musicaDeBatallaImg)   
+    util.apagarMusica(musicaDeBatalla, musicaDeBatallaImg)
 }
 
 function prenderMusica() {
-    util.prenderMusica(musicaDeBatalla,musicaDeBatallaImg)
+    util.prenderMusica(musicaDeBatalla, musicaDeBatallaImg)
 }
 
 function cambiarEstadoMusicaDeBatalla() {
-    util.cambiarEstadoMusicaDeBatalla(musicaDeBatalla,musicaDeBatallaPrendida,musicaDeBatallaImg)
-    musicaDeBatallaPrendida? musicaDeBatallaPrendida=false:musicaDeBatallaPrendida=true
+    util.cambiarEstadoMusicaDeBatalla(musicaDeBatalla, musicaDeBatallaPrendida, musicaDeBatallaImg)
+    musicaDeBatallaPrendida ? musicaDeBatallaPrendida = false : musicaDeBatallaPrendida = true
 }
+
 function largoDeBarra(largoInicial, cantidadInicial, cantidadFinal) {
     return util.largoDeBarra(largoInicial, cantidadInicial, cantidadFinal)
 }
@@ -159,6 +169,7 @@ function desplazarse(enemyXPosition, personajeAtacanteImg) {
         }
     }, 1)
 }
+
 function editInnerHtml(elementId, value) {
     document.getElementById(elementId).innerHTML = value
 }
@@ -216,7 +227,8 @@ function editarDeshabilitacionDeBotones(personaje, estado) {
     document.getElementById(personaje.componentesHtml.botonAtacarMaximo).disabled = estado
     document.getElementById(personaje.componentesHtml.botonRecuperarEnergia).disabled = estado
 }
-function armarCartelVictoria(cartelFinDeBatalla){
+
+function armarCartelVictoria(cartelFinDeBatalla) {
     cartelFinDeBatalla.innerHTML += `
                 <div id="ribbonDiv">
                     <img src="../../../assets/images/ribbon verde.png">
@@ -229,7 +241,8 @@ function armarCartelVictoria(cartelFinDeBatalla){
                     <img src="../../../assets/images/victoria batalla squartle.png">
                 </div>`
 }
-function armarCartelDerrota(cartelFinDeBatalla){
+
+function armarCartelDerrota(cartelFinDeBatalla) {
     cartelFinDeBatalla.innerHTML += `
                 <div id="ribbonDiv">
                     <img src="../../../assets/images/ribbon rojo.png">
@@ -242,26 +255,30 @@ function armarCartelDerrota(cartelFinDeBatalla){
                     <img src="../../../assets/images/pokemon desmayado.png">
                 </div>`
 }
-function agregarBotonesCartelFinDeBatalla(){
+
+function agregarBotonesCartelFinDeBatalla() {
     cartelFinDeBatalla.innerHTML += `
                 <div class="botonesCartelFinDeBatalla">
                     <button onclick="restart()">RESTART</button>
                     <button onclick="irHaciaSelector()">NUEVO ENEMIGO</button>
                 </div>`
 }
-function restart(){
-    ipcRenderer.send('reloadScreen:battleScreen',{})
+
+function restart() {
+    ipcRenderer.send('reloadScreen:battleScreen', {})
 }
-function irHaciaSelector(){
-    ipcRenderer.send('motrarSelectorDeEnemigos',{})
+
+function irHaciaSelector() {
+    ipcRenderer.send('motrarSelectorDeEnemigos', {})
     window.close()
 }
+
 function cambioCartelGanador(ganoIzquierdo) {
     let cartelFinDeBatalla = document.getElementById('cartelFinDeBatalla')
-    const cartelDesafio = document.getElementById('cartelDesafio') 
-    
-    cartelDesafio.style.opacity = 0 ;
-    ganoIzquierdo? armarCartelVictoria(cartelFinDeBatalla):armarCartelDerrota(cartelFinDeBatalla);
+    const cartelDesafio = document.getElementById('cartelDesafio')
+
+    cartelDesafio.style.opacity = 0;
+    ganoIzquierdo ? armarCartelVictoria(cartelFinDeBatalla) : armarCartelDerrota(cartelFinDeBatalla);
     agregarBotonesCartelFinDeBatalla(cartelFinDeBatalla)
     const textoGanador = document.getElementById('textoGanador')
     cartelFinDeBatalla.style.opacity = 1
@@ -280,41 +297,43 @@ function recuperarEnergia(personajeRecuperado, otroPersonaje) {
     actualizarValoresBarraEnergia()
     actualizarLargosBarrasDeEnergia()
     darTurnoAlBot(personajeRecuperado)
-
 }
 
 function efectosAtacar(personajeAtacado, personajeAtacanteImg, sonidoAtaque, personajeAtacante) {
     sonidoAtaque.volume = 0.1
-    sonidoAtaque.play()//definir una logica para que cambie si es el último ataque. Ver que es lo que quedaría bien
+    sonidoAtaque.play() //definir una logica para que cambie si es el último ataque. Ver que es lo que quedaría bien
     //personajeAtacante.esAtaqueMortal(personajeAtacado,'fuerte') ? '' : sonidoAtaque.play() 
     desplazarse(personajeAtacado.posicionInicial, personajeAtacanteImg)
 }
-function darTurnoAlBot(personajeEnTurno){
-    if(personajeEnTurno == personajeIzquierdo){
-     editarDeshabilitacionDeBotones(personajeIzquierdo, true)
-     setTimeout(ejecutarEstrategiaDeBot,1000)   
-    }else{
+
+function darTurnoAlBot(personajeEnTurno) {
+    if (personajeEnTurno == personajeIzquierdo) {
+        editarDeshabilitacionDeBotones(personajeIzquierdo, true)
+        setTimeout(ejecutarEstrategiaDeBot, 1000)
+    } else {
         editarDeshabilitacionDeBotones(personajeIzquierdo, false)
     }
 }
-function cambioInformacionPokemonDerrotados(pokemonDerrotado){
+
+function cambioInformacionPokemonDerrotados(pokemonDerrotado) {
     juezDeBatalla.guardarPokemonDerrotado(pokemonDerrotado.nombre)
     notificarPokemonDerrotadoParaMarcarEnSelector(pokemonDerrotado.nombre)
 }
-function atacar(personajeAtacado, personajeAtacante,tipoDeAtaque) {
-    var personajeAtacanteImg = document.getElementById(personajeAtacante.componentesHtml.personaje);
-    var botonAtacarAtacante = document.getElementById(_.get(personajeAtacante.componentesHtml,`botonAtacar${tipoDeAtaque}`));
+
+function atacar(personajeAtacado, personajeAtacante, tipoDeAtaque,personajeAtacanteImg) {
     var sonidoAtaque = document.getElementById(personajeAtacante.componentesHtml.sonidoAtaque)
 
-    if (juezDeBatalla.energiaSuficiente(personajeAtacante,tipoDeAtaque)) {
+    if (juezDeBatalla.energiaSuficiente(personajeAtacante, tipoDeAtaque)) {
         personajeAtacante.atacar(personajeAtacado, tipoDeAtaque);
-        efectosAtacar(personajeAtacado, personajeAtacanteImg, sonidoAtaque,personajeAtacante)
+        efectosAtacar(personajeAtacado, personajeAtacanteImg, sonidoAtaque, personajeAtacante)
     } else {
         const energiaLimite = personajeAtacante.inicial.energia;
         personajeAtacante.desmayarse(energiaLimite)
         efectosDesmayarse(personajeAtacante)
-    };
-    actualizarElementosDeBatalla();
+    }
+}
+
+function verificarSiHayGanadaro(personajeAtacado, personajeAtacante, tipoDeAtaque) {
     const ganador = juezDeBatalla.definirGanador(personajeAtacante, personajeAtacado)
     if (ganador) {
         const ganoIzquierdo = ganador.nombre == personajeIzquierdo.nombre
@@ -322,33 +341,60 @@ function atacar(personajeAtacado, personajeAtacante,tipoDeAtaque) {
         editarDeshabilitacionDeBotones(personajeIzquierdo, true)
         prenderSonidoFinDeBatalla(ganoIzquierdo)
         apagarMusica()
-        ganoIzquierdo?cambioInformacionPokemonDerrotados(personajeDerecho):''
-        return 
+        ganoIzquierdo ? cambioInformacionPokemonDerrotados(personajeDerecho) : ''
+        return
     }
     darTurnoAlBot(personajeAtacante)
 }
-function notificarPokemonDerrotadoParaMarcarEnSelector(nombrePokemonDerrotado){
-    ipcRenderer.send('renderizarBotonesEnemigos',{nombrePokemonDerrotado})
+
+function notificarPokemonDerrotadoParaMarcarEnSelector(nombrePokemonDerrotado) {
+    ipcRenderer.send('renderizarBotonesEnemigos', { nombrePokemonDerrotado })
 }
-function ejecutarEstrategiaDeBot(){
-    switch (personajeDerecho.estrategia){
-    	case "bajaEstrategia":
-    	 ejecutarEstrategiaBaja()
-    	break;
-    }   
+
+function ejecutarEstrategiaDeBot() {
+    switch (personajeDerecho.estrategia) {
+        case "bajaEstrategia":
+            ejecutarEstrategiaBaja()
+            break;
+    }
 }
+function efectosEsquivarAtaque(personajeAtacado,personajeAtacanteImg,personajeAtacadoImg){
+    desplazarse(personajeAtacado.posicionInicial, personajeAtacanteImg);
+    desplazarse(personajeAtacado.posicionFinalDeEsquivo, personajeAtacadoImg);
+    sonidoEsquivo.play()
+}
+function desencadenarAccionesAlAtacar(personajeAtacado, personajeAtacante, tipoDeAtaque) {
+    var personajeAtacanteImg = document.getElementById(personajeAtacante.componentesHtml.personaje);
+    var personajeAtacadoImg = document.getElementById(personajeAtacado.componentesHtml.personaje);
+
+    if(juezDeBatalla.ataqueEsquivado(personajeAtacado)){
+        efectosEsquivarAtaque(personajeAtacado,personajeAtacanteImg,personajeAtacadoImg)
+        personajeAtacante.disminuirEnergia(tipoDeAtaque)
+        darTurnoAlBot(personajeAtacante)
+        actualizarElementosDeBatalla();
+      return
+    }
+    atacar(personajeAtacado, personajeAtacante, tipoDeAtaque,personajeAtacanteImg);
+    actualizarElementosDeBatalla();
+    verificarSiHayGanadaro(personajeAtacado, personajeAtacante, tipoDeAtaque);
+}
+
 function atacarAlDerecho(tipoDeAtaque) {
-    atacar(personajeDerecho, personajeIzquierdo,tipoDeAtaque)
+    desencadenarAccionesAlAtacar(personajeDerecho, personajeIzquierdo, tipoDeAtaque)
 }
+
 function atacarAlIzquierdo(tipoDeAtaque) {
-    atacar(personajeIzquierdo, personajeDerecho,tipoDeAtaque)
+    desencadenarAccionesAlAtacar(personajeIzquierdo, personajeDerecho, tipoDeAtaque)
 }
+
 function recuperarEnergiaIzquierdo() {
     recuperarEnergia(personajeIzquierdo, personajeDerecho)
 }
+
 function recuperarEnergiaDerecho() {
     recuperarEnergia(personajeDerecho, personajeIzquierdo)
 }
-function ejecutarEstrategiaBaja(){
-	atacar(personajeIzquierdo,personajeDerecho,'basico')
+
+function ejecutarEstrategiaBaja() {
+    desencadenarAccionesAlAtacar(personajeIzquierdo, personajeDerecho, 'basico')
 }
