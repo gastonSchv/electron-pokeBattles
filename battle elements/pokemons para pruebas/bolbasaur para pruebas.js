@@ -1,11 +1,8 @@
 const Pokemon = require('../Pokemons/Pokemon')
-const gasti = require('../entrenadorGasti')
 const _ = require('lodash')
 const request = require('request-promise')
 
 const pokemon = new Pokemon({
-	//entrenador: gasti,
-	entrenador: 'gasti',
 	nombre:'bolbasaurDePrueba',
 	tipoDePokemon:'planta',
 	evolucion:1,
