@@ -31,14 +31,13 @@ class juezDeBatalla {
         return evaluaciones
     }
     obtenerResultadoEvaluaciones(unPokemon) {
-        console.log(evaluaciones)
         return Promise.props({
             evaluacionesCorrectas: Promise.filter(evaluaciones, evaluacion => evaluacion.comparacionResultadosExitosa(unPokemon)) ,
             evaluacionesIncorrectas: Promise.filter(evaluaciones, evaluacion => {
                 return evaluacion.comparacionResultadosExitosa(unPokemon)
                 .then(result => !result)
             })
-        }).tap(console.log)
+        })
     }
     existeAtaque(unPokemon, unAtaque) {
         const pokemonDummy = _.cloneDeep(unPokemon)
@@ -81,7 +80,6 @@ class juezDeBatalla {
         const valorEsperado = pokemonDeReferencia.resultadoDeAtaque(__danoDeAtaque(pokemonDummyAtacante),__defensaTotal(pokemonDummyAtacado)) 
         const valorObtenido = pokemonDummyAtacado.dañoRecibido
 
-        console.log(valorEsperado,valorObtenido,tipoDeAtaque)
         return valorEsperado == valorObtenido
     }
     filtrarAtaquesDisponiblesPor(unPokemon, condicionDeFiltro) {
@@ -178,10 +176,8 @@ class juezDeBatalla {
     borrarTodosLosPokemonesDerrotados() {
         store.set('pokemonesDerrotados', [])
     }
-    ataqueEsquivado(personajeAtacado){
-        const random = _.random(1,true)
-        console.log(random,personajeAtacado.probabilidadDeEsquivarAtaque(),random <= personajeAtacado.probabilidadDeEsquivarAtaque())
-        return random <= personajeAtacado.probabilidadDeEsquivarAtaque()
+    ataqueEsquivado(personajeAtacado){       
+        return _.random(1,true) <= personajeAtacado.probabilidadDeEsquivarAtaque()
     }
 }
 
