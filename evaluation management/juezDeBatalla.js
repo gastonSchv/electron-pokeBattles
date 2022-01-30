@@ -7,6 +7,18 @@ const store = new Store()
 const util = require('../management utils/util')
 const evaluaciones = require('./evaluaciones')
 const tiposDePokemon = require('../battle elements/TiposDePokemon/todos')
+const Pokemon  = require('../battle elements/Pokemons/Pokemon.js')
+
+const pokemonDeReferencia = new Pokemon({
+    nombre:'clefairy',
+    tipoDePokemon:'hada',
+    evolucion:1,
+    vida:1600,
+    energia:600,
+    fuerza:1300,
+    defensa:800,
+    velocidad:1100
+});
 
 class juezDeBatalla {
     constructor(nombre) {
@@ -60,15 +72,16 @@ class juezDeBatalla {
             return config.multiplicadorDeAtaque(tipoDeAtaque) * pokemonDummyAtacante.fuerza * factorDeEvolución(pokemonDummyAtacante)
         }
         const __defensaTotal = pokemonDummyAtacado => {
-            return pokemonDummyAtacado.defensa * factorDeEvolución(pokemonDummyAtacado)
+            return pokemonDummyAtacado.defensa * factorDeEvolución(pokemonDummyAtacado) * config.multiplicadorDeDefensa
         }
         const verificaDano = (pokemonDummyAtacante, pokemonDummyAtacado, tipoDeAtaque) => {
             return pokemonDummyAtacado.dañoRecibido == __danoDeAtaque(pokemonDummyAtacante) - __defensaTotal(pokemonDummyAtacado)
         }
         pokemonDummyAtacante.atacar(pokemonDummyAtacado, tipoDeAtaque)
-        const valorEsperado = __danoDeAtaque(pokemonDummyAtacante) - __defensaTotal(pokemonDummyAtacado)
+        const valorEsperado = pokemonDeReferencia.resultadoDeAtaque(__danoDeAtaque(pokemonDummyAtacante),__defensaTotal(pokemonDummyAtacado)) 
         const valorObtenido = pokemonDummyAtacado.dañoRecibido
 
+        console.log(valorEsperado,valorObtenido,tipoDeAtaque)
         return valorEsperado == valorObtenido
     }
     filtrarAtaquesDisponiblesPor(unPokemon, condicionDeFiltro) {
@@ -134,14 +147,14 @@ class juezDeBatalla {
         }
         relator.anunciarGanador(unPokemon, otroPokemon, i - 1)
     }
-    oficiarRonda(unPokemon, otroPokemon, ronda) { // hay que comprobar que no se edite el estado el poquemon oponente salvo por el danoRecibido.
+    oficiarRonda(unPokemon, otroPokemon, ronda) {
         const __ordenarTurno = (unPokemon, otroPokemon) => {
             return _.orderBy([unPokemon, otroPokemon], pokemon => 1 / pokemon.velocidadDeAtaque())
         }
         let pokemonsOrdenados = __ordenarTurno(unPokemon, otroPokemon)
-        pokemonsOrdenados[0].entrenador.ejecutarEstrategia(pokemonsOrdenados[0], pokemonsOrdenados[1]) //por el momento se esta tratando al entrenador como una sting
+        pokemonsOrdenados[0].ejecutarEstrategia(pokemonsOrdenados[0], pokemonsOrdenados[1])
         if (!this.ambosPokemonsVivos(unPokemon, otroPokemon)) return
-        pokemonsOrdenados[1].entrenador.ejecutarEstrategia(pokemonsOrdenados[1], pokemonsOrdenados[0]) //por el momento se esta tratando al entrenador como una sting
+        pokemonsOrdenados[1].ejecutarEstrategia(pokemonsOrdenados[1], pokemonsOrdenados[0])
         if (!this.ambosPokemonsVivos(unPokemon, otroPokemon)) return
         relator.anunciarResultadosDeRonda(pokemonsOrdenados[0], pokemonsOrdenados[1], ronda)
         return Promise.resolve().delay(0)
@@ -164,6 +177,11 @@ class juezDeBatalla {
     }
     borrarTodosLosPokemonesDerrotados() {
         store.set('pokemonesDerrotados', [])
+    }
+    ataqueEsquivado(personajeAtacado){
+        const random = _.random(1,true)
+        console.log(random,personajeAtacado.probabilidadDeEsquivarAtaque(),random <= personajeAtacado.probabilidadDeEsquivarAtaque())
+        return random <= personajeAtacado.probabilidadDeEsquivarAtaque()
     }
 }
 
