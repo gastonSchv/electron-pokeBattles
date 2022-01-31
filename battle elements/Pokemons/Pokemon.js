@@ -71,14 +71,14 @@ class Pokemon {
         return pokemonOponente.vitalidad() <= pokemonOponente.dañoARecibir(this.danoDeAtaque(tipoDeAtaque))
     }
     numeroDeAtaquesHastaVictoria(tipoDeAtaque){
-    	return Math.ceil(config.referencia.vida / _.max([1,this.danoDeAtaque(tipoDeAtaque) - config.referencia.defensaAnteAtaque]))
+    	return Math.ceil(config.referencia.vida / this.resultadoDeAtaque(this.danoDeAtaque(tipoDeAtaque),0))
     }
     numeroDeAtaquesHastaDerrota(){
         const danoEquivalente = config.referencia.danoBasico * (1-this.probabilidadDeEsquivarAtaque())
-    	return Math.ceil(this.vida / this.resultadoDeAtaque(danoEquivalente,this.defensaAnteAtaque))
+    	return Math.ceil(this.vida / this.resultadoDeAtaque(danoEquivalente,this.defensaAnteAtaque()))
     }
-    poderTotal(){ 
-        return this.numeroDeAtaquesHastaVictoria('basico') / this.numeroDeAtaquesHastaDerrota() 
+    poderTotal(){
+        return 6 * this.danoDeAtaque('maximo') + 1.3 * this.defensaAnteAtaque() / (1-this.probabilidadDeEsquivarAtaque()) + 0.8 * this.vida  
     }
 }
 
