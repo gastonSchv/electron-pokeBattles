@@ -296,7 +296,7 @@ function recuperarEnergia(personajeRecuperado, otroPersonaje) {
     util.aparecerYDesvanecer(fotoEnergia, 0.2);
     actualizarValoresBarraEnergia()
     actualizarLargosBarrasDeEnergia()
-    darTurnoAlBot(personajeRecuperado)
+    darTurnoAOponente(personajeRecuperado)
 }
 
 function efectosAtacar(personajeAtacado, personajeAtacanteImg, sonidoAtaque, personajeAtacante) {
@@ -306,7 +306,7 @@ function efectosAtacar(personajeAtacado, personajeAtacanteImg, sonidoAtaque, per
     desplazarse(personajeAtacado.posicionInicial, personajeAtacanteImg)
 }
 
-function darTurnoAlBot(personajeEnTurno) {
+function darTurnoAOponente(personajeEnTurno) {
     if (personajeEnTurno == personajeIzquierdo) {
         editarDeshabilitacionDeBotones(personajeIzquierdo, true)
         setTimeout(ejecutarEstrategiaDeBot, 1000)
@@ -321,19 +321,13 @@ function cambioInformacionPokemonDerrotados(pokemonDerrotado) {
 }
 
 function atacar(personajeAtacado, personajeAtacante, tipoDeAtaque,personajeAtacanteImg) {
-    var sonidoAtaque = document.getElementById(personajeAtacante.componentesHtml.sonidoAtaque)
-
-    if (juezDeBatalla.energiaSuficiente(personajeAtacante, tipoDeAtaque)) {
-        personajeAtacante.atacar(personajeAtacado, tipoDeAtaque);
-        efectosAtacar(personajeAtacado, personajeAtacanteImg, sonidoAtaque, personajeAtacante)
-    } else {
-        const energiaLimite = personajeAtacante.inicial.energia;
-        personajeAtacante.desmayarse(energiaLimite)
-        efectosDesmayarse(personajeAtacante)
-    }
+    const sonidoAtaque = document.getElementById(personajeAtacante.componentesHtml.sonidoAtaque)
+    
+    personajeAtacante.atacar(personajeAtacado, tipoDeAtaque);
+    efectosAtacar(personajeAtacado, personajeAtacanteImg, sonidoAtaque, personajeAtacante)
 }
 
-function verificarSiHayGanadaro(personajeAtacado, personajeAtacante, tipoDeAtaque) {
+function verificarSiHayGanador(personajeAtacado, personajeAtacante, tipoDeAtaque) {
     const ganador = juezDeBatalla.definirGanador(personajeAtacante, personajeAtacado)
     if (ganador) {
         const ganoIzquierdo = ganador.nombre == personajeIzquierdo.nombre
@@ -344,7 +338,7 @@ function verificarSiHayGanadaro(personajeAtacado, personajeAtacante, tipoDeAtaqu
         ganoIzquierdo ? cambioInformacionPokemonDerrotados(personajeDerecho) : ''
         return
     }
-    darTurnoAlBot(personajeAtacante)
+    darTurnoAOponente(personajeAtacante)
 }
 
 function notificarPokemonDerrotadoParaMarcarEnSelector(nombrePokemonDerrotado) {
@@ -366,17 +360,25 @@ function efectosEsquivarAtaque(personajeAtacado,personajeAtacanteImg,personajeAt
 function desencadenarAccionesAlAtacar(personajeAtacado, personajeAtacante, tipoDeAtaque) {
     var personajeAtacanteImg = document.getElementById(personajeAtacante.componentesHtml.personaje);
     var personajeAtacadoImg = document.getElementById(personajeAtacado.componentesHtml.personaje);
+    
+    const _actualizarYcerrar = personajeAtacante => {
+        darTurnoAOponente(personajeAtacante)
+        actualizarElementosDeBatalla();
+    }
 
-    if(juezDeBatalla.ataqueEsquivado(personajeAtacado)){
+    if (!juezDeBatalla.energiaSuficiente(personajeAtacante, tipoDeAtaque)) {
+        const energiaLimite = personajeAtacante.inicial.energia;
+        personajeAtacante.desmayarse(energiaLimite)
+        efectosDesmayarse(personajeAtacante)
+        return _actualizarYcerrar(personajeAtacante)
+    } else if(juezDeBatalla.ataqueEsquivado(personajeAtacado)){
         efectosEsquivarAtaque(personajeAtacado,personajeAtacanteImg,personajeAtacadoImg)
         personajeAtacante.disminuirEnergia(tipoDeAtaque)
-        darTurnoAlBot(personajeAtacante)
-        actualizarElementosDeBatalla();
-      return
+        return _actualizarYcerrar(personajeAtacante)
     }
     atacar(personajeAtacado, personajeAtacante, tipoDeAtaque,personajeAtacanteImg);
     actualizarElementosDeBatalla();
-    verificarSiHayGanadaro(personajeAtacado, personajeAtacante, tipoDeAtaque);
+    verificarSiHayGanador(personajeAtacado, personajeAtacante, tipoDeAtaque);
 }
 
 function atacarAlDerecho(tipoDeAtaque) {
