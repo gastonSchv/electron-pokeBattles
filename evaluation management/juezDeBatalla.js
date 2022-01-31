@@ -7,18 +7,7 @@ const store = new Store()
 const util = require('../management utils/util')
 const evaluaciones = require('./evaluaciones')
 const tiposDePokemon = require('../battle elements/TiposDePokemon/todos')
-const Pokemon  = require('../battle elements/Pokemons/Pokemon.js')
-
-const pokemonDeReferencia = new Pokemon({
-    nombre:'clefairy',
-    tipoDePokemon:'hada',
-    evolucion:1,
-    vida:1600,
-    energia:600,
-    fuerza:1300,
-    defensa:800,
-    velocidad:1100
-});
+const pokemonDeReferencia  = require('../battle elements/Pokemons/pokemon de referencia.js')
 
 class juezDeBatalla {
     constructor(nombre) {
