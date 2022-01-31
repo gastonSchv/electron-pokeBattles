@@ -70,13 +70,6 @@ class Pokemon {
     esAtaqueMortal(pokemonOponente, tipoDeAtaque) {
         return pokemonOponente.vitalidad() <= pokemonOponente.dañoARecibir(this.danoDeAtaque(tipoDeAtaque))
     }
-    numeroDeAtaquesHastaVictoria(tipoDeAtaque){
-    	return Math.ceil(config.referencia.vida / this.resultadoDeAtaque(this.danoDeAtaque(tipoDeAtaque),0))
-    }
-    numeroDeAtaquesHastaDerrota(){
-        const danoEquivalente = config.referencia.danoBasico * (1-this.probabilidadDeEsquivarAtaque())
-    	return Math.ceil(this.vida / this.resultadoDeAtaque(danoEquivalente,this.defensaAnteAtaque()))
-    }
     poderTotal(){
         return 6 * this.danoDeAtaque('maximo') + 1.3 * this.defensaAnteAtaque() / (1-this.probabilidadDeEsquivarAtaque()) + 0.8 * this.vida  
     }
