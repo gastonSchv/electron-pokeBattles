@@ -71,7 +71,7 @@ class Pokemon {
         return pokemonOponente.vitalidad() <= pokemonOponente.dañoARecibir(this.danoDeAtaque(tipoDeAtaque))
     }
     poderTotal(){
-        return 6 * this.danoDeAtaque('maximo') + 1.3 * this.defensaAnteAtaque() / (1-this.probabilidadDeEsquivarAtaque()) + 0.8 * this.vida  
+        return 2.5 * this.danoDeAtaque('maximo') + 1.4 * this.defensaAnteAtaque() / (1-this.probabilidadDeEsquivarAtaque()) + 0.8 * this.vida  
     }
 }
 
