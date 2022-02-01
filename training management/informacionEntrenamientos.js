@@ -14,7 +14,7 @@ module.exports = [{
             },
             {
                 habilidad: 'defensa',
-                valor: 500
+                valor: 150
             }
         ],
         descripcion: 'Genera el metodo miNombre() mediante el cual tu Pokemon pueda retornar una string con su nombre',
@@ -25,11 +25,11 @@ module.exports = [{
         titulo: 'QUIEN ES EL MAS FUERTE',
         premios: [{
                 habilidad: 'velocidad',
-                valor: 500
+                valor: 150
             },
             {
                 habilidad: 'fuerza',
-                valor: 500
+                valor: 100
             }
         ],
         descripcion: 'Genera el metodo "elPokemonMasFuerte (unosPokemones)" mediante el cual tu Pokemon reciba un listado de pokemones y retorne el que tenga mas fuerza',
@@ -40,11 +40,11 @@ module.exports = [{
         titulo: 'OBTEN SUS ATRIBUTOS',
         premios: [{
                 habilidad: 'energia',
-                valor: 2000
+                valor: 400
             },
             {
                 habilidad: 'velocidad',
-                valor: 1500
+                valor: 100
             }
         ],
         descripcion: 'Genera el metodo "obtenerAtributos(unPokemon)" mediante el cual tu Pokemon reciba otro pokemon y retorne un objeto con los atributos y valores (vida, energia, fuerza, defensa, velocidad) para dicho pokemon',
@@ -55,11 +55,11 @@ module.exports = [{
         titulo: 'FUSION DE POKEMONES',
         premios: [{
                 habilidad: 'vida',
-                valor: 30000
+                valor: 10000
             },
             {
                 habilidad: 'energia',
-                valor: 1000
+                valor: 100
             }
         ],
         descripcion: 'Genera el metodo "fusionarConPokemon (unPokemon)" mediante el cual tu Pokemon reciba otro pokemon y retorne un objeto con los atributos (nombre,vida, energia, fuerza, defensa, velocidad) suma de los atributos del pokemon evaluado y tu pokemon',
@@ -74,7 +74,7 @@ module.exports = [{
             },
             {
                 habilidad: 'defensa',
-                valor: 1200
+                valor: 120
             }
         ],
         descripcion: 'Genera el metodo "cuantoPesa (unPokemon)" mediante el cual tu Pokemon reciba el nombre de un pokemon, consulte la pokeapi y retorne el peso de dicho pokemon',
@@ -85,11 +85,11 @@ module.exports = [{
         titulo: 'ORDENALOS POR VIDA',
         premios: [{
                 habilidad: 'fuerza',
-                valor: 1200
+                valor: 120
             },
             {
                 habilidad: 'defensa',
-                valor: 500
+                valor: 200
             }
         ],
         descripcion: 'Genera el metodo "ordenarPorVida (unosPokemones)" mediante el cual tu Pokemon reciba una lista de pokemones y retorne dicha lista, ordenada segun la vida del pokemon de manera descendiente',
@@ -100,11 +100,11 @@ module.exports = [{
         titulo: 'ENCUENTRA AL DE FUEGO',
         premios: [{
                 habilidad: 'velocidad',
-                valor: 400
+                valor: 200
             },
             {
                 habilidad: 'energia',
-                valor: 500
+                valor: 200
             }
         ],
         descripcion: 'Genera el metodo "encontrarAlDeFuego (unPokemon)" mediante el cual tu Pokemon reciba una lista de pokemones y retorne al primer pokemon de fuego que encuentre',
