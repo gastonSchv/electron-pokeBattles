@@ -10,9 +10,9 @@ function getButton(button){
 	ipcRenderer.send('screens:battleScreen',{enemigoSeleccionado:button.id})
 }
 function funcionesDeInicio(){
+	_.forEach(crearListadoOrdenadoPorPoder(),crearBotonEnemigo)
 	renderizarBotonesEnemigos()
 	util.crearBotonCerradoConEstilo(contenedor)
-	_.forEach(crearListadoOrdenadoPorPoder(),crearBotonEnemigo)
 	setTimeout(() => ponerTootltips(),300);
 }
 function renderizarBotonesEnemigos(){
@@ -28,7 +28,6 @@ function crearListadoOrdenadoPorPoder(){
 	return _(util.obtenerNombresDeArchivos(carpetaPokemonsEnemigos))
 	.map(obtenerPokemon)
 	.sortBy(p =>  p.poderTotal())
-	//.map(p => {console.log(p.nombre,p.vida,p.energia,p.danoDeAtaque('maximo'),p.defensaAnteAtaque(),p.probabilidadDeEsquivarAtaque(),p.poderTotal());return p})
 	.map(pokemon => pokemon.nombre)
 	.value()
 }
