@@ -11,7 +11,12 @@ class Evaluacion {
 	comparacionResultadosExitosa(unPokemon){
 		const pokemonDummy = _.cloneDeep(unPokemon)
 
-		return Promise.resolve(this.comparacionResultadosExitosaInicial(pokemonDummy))
+		try {
+			this.comparacionResultadosExitosaInicial(pokemonDummy)
+			return Promise.resolve(this.comparacionResultadosExitosaInicial(pokemonDummy))
+		} catch(err) {
+			return Promise.reject(this.comparacionResultadosExitosaInicial(pokemonDummy))
+		}
 	}
 	mensajeResultadoDesigualInicial(unPokemon){
 
