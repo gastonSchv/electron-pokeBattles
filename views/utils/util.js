@@ -13,7 +13,7 @@ class Util {
         }
     }
     prenderMusica(musicaDeBatalla, musicaDeBatallaImg) {
-        //musicaDeBatalla.play()
+        musicaDeBatalla.play()
         musicaDeBatallaImg.src = "../../../assets/images/audio on.png"
     }
     apagarMusica(musicaDeBatalla, musicaDeBatallaImg) {
@@ -80,8 +80,13 @@ class Util {
         this.esTipoAceptado(tipoDePokemon) ? div.innerHTML += `<img src="../../../assets/images/mi pokemon/${tipoDePokemon}.png">`:''
     }
     colocarFotoMiniaturaMiPokemon(div, pokemon) {
-        const tipoDePokemon = pokemon.miTipo().toLowerCase()
-        this.esTipoAceptado(tipoDePokemon) ? div.innerHTML = `<img src="../../../assets/images/miniaturas/${tipoDePokemon}.png">`:''
+        try{
+            const tipoDePokemon = pokemon.miTipo().toLowerCase()
+            this.esTipoAceptado(tipoDePokemon) ? div.innerHTML = `<img src="../../../assets/images/miniaturas/${tipoDePokemon}.png">`:''
+        } catch(err){
+            console.log(err)
+            div.innerHTML = ""
+        }
     }
     obtenerNombreDesdeNombreArchivo(nombreArchivo) {
         return _.head(_.split(nombreArchivo, '.'))
