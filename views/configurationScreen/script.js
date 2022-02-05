@@ -51,3 +51,6 @@ ipcRenderer.on('altaDeScreen:configuracion', (event, data) => {
         colocarPlaceHolder(data.ruta);
     }
 })
+function borrarRuta (){
+    ipcRenderer.send('borrarRutaConfig',{})
+}
