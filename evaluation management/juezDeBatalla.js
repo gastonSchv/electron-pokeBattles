@@ -19,13 +19,15 @@ class juezDeBatalla {
     obtenerEvaluaciones() {
         return evaluaciones
     }
+    pasaEvaluacion(unPokemon,evaluacionId){
+        return this.constatarEvaluacion(unPokemon,evaluacionId)
+        .then(() => true)
+        .catch(() => false)
+    }
     obtenerResultadoEvaluaciones(unPokemon) {
         return Promise.props({
-            evaluacionesCorrectas: Promise.filter(evaluaciones, evaluacion => evaluacion.comparacionResultadosExitosa(unPokemon)) ,
-            evaluacionesIncorrectas: Promise.filter(evaluaciones, evaluacion => {
-                return evaluacion.comparacionResultadosExitosa(unPokemon)
-                .then(result => !result)
-            })
+            evaluacionesCorrectas: Promise.filter(evaluaciones, evaluacion => this.pasaEvaluacion(unPokemon,evaluacion.id)) ,
+            evaluacionesIncorrectas: Promise.filter(evaluaciones, evaluacion => this.pasaEvaluacion(unPokemon,evaluacion.id).then(a=>!a))
         })
     }
     existeAtaque(unPokemon, unAtaque) {
@@ -52,7 +54,6 @@ class juezDeBatalla {
         const pokemonDummyAtacante = _.cloneDeep(unPokemon)
         pokemonDummyAtacado.energia = 99999;
         pokemonDummyAtacante.energia = 99999;
-
         const factorDeEvolución = unPokemon => {
             return Math.sqrt(unPokemon.evolucion)
         }
@@ -73,11 +74,14 @@ class juezDeBatalla {
     }
     filtrarAtaquesDisponiblesPor(unPokemon, condicionDeFiltro) {
         return _.filter(this.ataquesDisponibles(unPokemon), ataqueDisponible => {
-            return !condicionDeFiltro(unPokemon, ataqueDisponible)
+            return !condicionDeFiltro(unPokemon, ataqueDisponible)  
         })
     }
     ataquesConDañoIncorrecto(unPokemon) {
-        return this.filtrarAtaquesDisponiblesPor(unPokemon, this.haceElDañoEsperado)
+        const __haceEldañoEsperado = (unPokemon, tipoDeAtaque) => {
+            return this.haceElDañoEsperado(unPokemon, tipoDeAtaque)
+        } 
+        return this.filtrarAtaquesDisponiblesPor(unPokemon,__haceEldañoEsperado)
     }
     tipoDePokemon(unPokemon) {
         return _.find(tiposDePokemon, tipoDePokemon => {
