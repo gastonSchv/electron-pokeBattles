@@ -6,7 +6,7 @@ module.exports = [
     new Prettifier({
         id: 'isNotAFunction',
         stringToIdentify: 'is not a function',
-        keyWordLeftBound: 'unPokemon.',
+        keyWordLeftBound: '.',
         keyWordRightBound: 'is not a function',
         messageBeforeKeyWord: 'El método',
         messageAfterKeyWord: 'no se ha encontrado',
@@ -123,8 +123,9 @@ module.exports = [
         messageBeforeKeyWord: '',
         messageAfterKeyWord: '',
         recommendations: [
+            `Verifica que tu pokemon cuente con al menos un ataque disponible. Recuerda que hay 4 tipos de ataque: basico, medio, fuerte y maximo`,
             `Verifica que el calculo de daño de tu pokemon siga la formula daño(tipoDeAtaque) = fuerza X multiplicadorDeAtaque(tipoDeAtaque) X factorDeEvolucion`,
-            `Verifica que tus multiplicadoresDeAtaque sean adecuados para el tipo de pokemon que tengas (planta,fuego,agua o electricidad)`
+            `Verifica que tus multiplicadoresDeAtaque sean adecuados para el tipo de pokemon que tengas (planta, fuego, agua, electricidad, etc)`
         ]
     }),
     new Prettifier({
@@ -135,6 +136,7 @@ module.exports = [
         messageBeforeKeyWord: '',
         messageAfterKeyWord: '',
         recommendations: [
+            `Verifica que tu pokemon cuente con al menos un ataque disponible. Recuerda que hay 4 tipos de ataque: basico, medio, fuerte y maximo`,
             `Verifica que estes disminuyendo la energia de tu pokemon al atacar`,
             `Verifica que el consumo de energia de tu pokemon este siendo correcto para cada tipo de ataque`,
             `Verifica que el consumo de energia sea adecuados para el tipo de pokemon que tengas (planta,fuego,agua o electricidad)`
