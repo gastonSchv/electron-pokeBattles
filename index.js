@@ -177,5 +177,11 @@ app.on('ready', () => {
     landingScreen.on('close', (event, data) => {
         app.quit()
     })
+    ipcMain.on('borrarRutaConfig',(event,data) => {
+        console.log('borrarRutaConfig')
+        store.set('ruta',"")
+        ruta = ""
+        console.log(ruta,store.get('ruta'))      
+    })
 
 })
