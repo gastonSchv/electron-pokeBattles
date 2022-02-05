@@ -103,7 +103,7 @@
         {
             id: 'dañoDeAtaquesDisponiblesCorrecto',
             comparacionResultadosExitosaInicial: function(unPokemon) {
-                return _.isEmpty(juezDeBatalla.ataquesConDañoIncorrecto(unPokemon))
+                return _.isEmpty(juezDeBatalla.ataquesConDañoIncorrecto(unPokemon)) && !_.isEmpty(juezDeBatalla.ataquesDisponibles(unPokemon))
             },
             mensajeResultadoDesigualInicial: function(unPokemon) {
                 return relator.anunciarAtaquesConDañoIncorrecto(unPokemon, juezDeBatalla.ataquesConDañoIncorrecto(unPokemon))
@@ -112,7 +112,7 @@
         {
             id: 'energiaConsumidaPorAtaqueCorrecto',
             comparacionResultadosExitosaInicial: function(unPokemon) {
-                return _.isEmpty(juezDeBatalla.ataquesConConsumoEnergiaIncorrecto(unPokemon))
+                return _.isEmpty(juezDeBatalla.ataquesConConsumoEnergiaIncorrecto(unPokemon)) && !_.isEmpty(juezDeBatalla.ataquesDisponibles(unPokemon))
             },
             mensajeResultadoDesigualInicial: function(unPokemon) {
                 return relator.anunciarAtaquesConConsumoEnergiaIncorrecto(unPokemon, juezDeBatalla.ataquesConConsumoEnergiaIncorrecto(unPokemon))
