@@ -16,12 +16,15 @@ class ManagementUtil {
                     }
                 })
                 .catch(err => {
+
                     if (err.isCreatedError) {
-                        throw err
+                        return Promise.reject(err)
                     }
-                    throw new SystemError(err);
+                    return Promise.reject(new SystemError(err))
+
                 })
         } catch (err) {
+
             if (err.isCreatedError) {
                 return Promise.reject(err)
             }
