@@ -76,14 +76,18 @@ class Util {
         return mensaje.length > numCaracteres ? `${mensaje.substring(0,numCaracteres)}...` : mensaje
     }
     colocarFotoMiPokemon(div, pokemon) {
-        const tipoDePokemon = pokemon.miTipo().toLowerCase();
-        this.esTipoAceptado(tipoDePokemon) ? div.innerHTML += `<img src="../../../assets/images/mi pokemon/${tipoDePokemon}.png">`:''
+        try{
+            const tipoDePokemon = pokemon.miTipo().toLowerCase();
+            this.esTipoAceptado(tipoDePokemon) ? div.innerHTML += `<img src="../../../assets/images/mi pokemon/${tipoDePokemon}.png">` : ''
+        }catch(err){
+            div.innerHTML += ""
+        }
     }
     colocarFotoMiniaturaMiPokemon(div, pokemon) {
-        try{
+        try {
             const tipoDePokemon = pokemon.miTipo().toLowerCase()
-            this.esTipoAceptado(tipoDePokemon) ? div.innerHTML = `<img src="../../../assets/images/miniaturas/${tipoDePokemon}.png">`:''
-        } catch(err){
+            this.esTipoAceptado(tipoDePokemon) ? div.innerHTML = `<img src="../../../assets/images/miniaturas/${tipoDePokemon}.png">` : ''
+        } catch (err) {
             console.log(err)
             div.innerHTML = ""
         }
@@ -96,12 +100,19 @@ class Util {
             archivos.forEach(archivo => unaFuncion(this.obtenerNombreDesdeNombreArchivo(archivo)))
         })
     }
-    obtenerNombresDeArchivos(carpeta){
+    obtenerNombresDeArchivos(carpeta) {
         const archivos = fs.readdirSync(carpeta);
-        return _.map(archivos,archivo => this.obtenerNombreDesdeNombreArchivo(archivo))
+        return _.map(archivos, archivo => this.obtenerNombreDesdeNombreArchivo(archivo))
     }
     esTipoAceptado(unTipo) {
         return _.includes(config.tiposDePokemonAceptados, unTipo)
+    }
+    habilitarDetalleResultadoFallido(div, resourceId, err) { //agregar localizacion
+        div.innerHTML += `
+        <button id="botonError${resourceId}" class="botonDetalleError" onclick="mostrarDetalleError('\
+         ${err.prettyMessage()}','${err.recommendations()}','${err.message()}')">
+            detalle error
+        </button>`
     }
 }
 
