@@ -5,11 +5,12 @@ const _ = require('lodash')
 const reload = require('electron-reload')
 const Store = require('electron-store')
 const store = new Store()
+const util = require('./views/utils/util')
 
 let enemigoSeleccionado = '';
 let entrenamientosRealizados = [];
-
 let ruta = store.get('ruta')
+
 
 const webPreferences = {
     nodeIntegration: true,
@@ -18,6 +19,10 @@ const webPreferences = {
 const defaultBrowserWindowSetting = {
     webPreferences,
     icon: 'C:/Users/Producteca/Desktop/Gaston/Programming learning/Electron/electron-pokeBattles/assets/icons/win/Bolbasaur.ico'
+}
+
+function viewsFolderName(){
+    return util.obtenerNombresDeArchivos(path.join(__dirname, 'views'))
 }
 
 function pathFromViewsDir(pathName) {
@@ -41,7 +46,7 @@ function newScreen(browserWindowSettings, pathName) {
     return screen
 }
 
-function modalScreen(browserWindowSettings, pathName,parent = landingScreen) {
+function modalScreen(browserWindowSettings, pathName, parent = landingScreen) {
     return newScreen({
             width: 820,
             height: 580,
@@ -74,9 +79,25 @@ function configurationScreen() {
         'configurationScreen/index.html'
     )
 }
-function setModalScreenPosition(modalScreen){
-    modalScreen.setPosition(440,70)
+
+function setModalScreenPosition(modalScreen) {
+    modalScreen.setPosition(440, 70)
 }
+
+function _getView(url) {
+    return _.find(viewsFolderName(), folderName => {
+        return _.includes(url, folderName)
+    })
+}
+function getParentScreen(screenName){
+	if(screenName == 'centroDeEntrenamientoScreen'){
+		return centroDeEntrenamientoScreen
+	}else if(screenName == 'juezDeBatallaScreen'){
+		return juezDeBatallaScreen
+	}
+	return landingScreen
+}
+
 app.on('ready', () => {
 
     landingScreen = newScreen({ frame: false }, 'landingScreen/index.html')
@@ -85,14 +106,14 @@ app.on('ready', () => {
 
     configurationScreen()
 
-    ipcMain.on('altaDeScreen:landingScreen', (event, data) => {        
-        landingScreen.webContents.send('altaDeScreen:landingScreen', {ruta})
+    ipcMain.on('altaDeScreen:landingScreen', (event, data) => {
+        landingScreen.webContents.send('altaDeScreen:landingScreen', { ruta })
     })
 
     ipcMain.on('reloadScreen:battleScreen', (event, data) => {
         battleScreen.reload()
     })
-    ipcMain.on('reloadScreen:juezDeBatallaScreen',(event,data) => {
+    ipcMain.on('reloadScreen:juezDeBatallaScreen', (event, data) => {
         juezDeBatallaScreen.reload()
     })
     ipcMain.on('screens:battleScreen', (event, data) => {
@@ -134,15 +155,15 @@ app.on('ready', () => {
         setModalScreenPosition(centroDeEntrenamientoScreen)
     })
     ipcMain.on('altaDeScreen:configuracion', (event, data) => {
-        
-        if(data.ruta){
+
+        if (data.ruta) {
             store.set('ruta', data.ruta)
             ruta = data.ruta
         }
 
-        configurationScreen.webContents.send('altaDeScreen:configuracion', { ruta})
-        landingScreen.webContents.send('altaDeScreen:configuracion',{ruta})
-        juezDeBatallaScreen = modalScreen({ show: false, frame: false,width:200 }, 'juezDeBatallaScreen/index.html')
+        configurationScreen.webContents.send('altaDeScreen:configuracion', { ruta })
+        landingScreen.webContents.send('altaDeScreen:configuracion', { ruta })
+        juezDeBatallaScreen = modalScreen({ show: false, frame: false, width: 200 }, 'juezDeBatallaScreen/index.html')
         setModalScreenPosition(juezDeBatallaScreen)
     })
     ipcMain.on('config:pedidoRutaMiPokemon', (event, data) => {
@@ -154,34 +175,38 @@ app.on('ready', () => {
     ipcMain.on('config:pedidoRutaCentroDeEntrenamiento', (event, data) => {
         centroDeEntrenamientoScreen.webContents.send('config:pedidoRutaCentroDeEntrenamiento', { ruta })
     })
-    ipcMain.on('rutaValida',(event,data) => {
-        if(ruta){
-            landingScreen.webContents.send('rutaValida',{})
+    ipcMain.on('rutaValida', (event, data) => {
+        if (ruta) {
+            landingScreen.webContents.send('rutaValida', {})
         }
     })
-    ipcMain.on('renderizarBotonesEnemigos',(event,data) => {
-        setTimeout(() => selectorDeEnemigoScreen.webContents.send('renderizarBotonesEnemigos',{pokemonesDerrotados:store.get('pokemonesDerrotados') || [] }),30)
+    ipcMain.on('renderizarBotonesEnemigos', (event, data) => {
+        setTimeout(() => selectorDeEnemigoScreen.webContents.send('renderizarBotonesEnemigos', { pokemonesDerrotados: store.get('pokemonesDerrotados') || [] }), 30)
     })
-    ipcMain.on('detalleDeError',(event,data) => {
-        const parentScreen = juezDeBatallaScreen? juezDeBatallaScreen : centroDeEntrenamientoScreen; 
-        const detalleDeErrorScreen = modalScreen({height:500,width:600,frame:false},'detalleDeErrorScreen/index.html',parentScreen);
-        detalleDeErrorScreen.setPosition(500,140)
-        setTimeout(() => detalleDeErrorScreen.webContents.send('detalleDeError',data),500)
+    ipcMain.on('detalleDeError', (event, data) => {
+    	const parentScreenName = _getView(event.sender._getURL())
+        const parentScreen = getParentScreen(parentScreenName)
+        const detalleDeErrorScreen = modalScreen({ height: 500, width: 600, frame: false }, 'detalleDeErrorScreen/index.html', parentScreen);
+        const verticalPosition = parentScreenName == 'landingScreen' ? 440 : 500
+        const horizontalPosition = parentScreenName == 'landingScreen' ? 70 : 140 
+
+        detalleDeErrorScreen.setPosition(440, 70)
+        setTimeout(() => detalleDeErrorScreen.webContents.send('detalleDeError', data), 500)
     })
-    ipcMain.on('motrarSelectorDeEnemigos',(event,data) => {
+    ipcMain.on('motrarSelectorDeEnemigos', (event, data) => {
         landingScreen.show()
     })
-    ipcMain.on('recalculoFotoMiniatura',(event,data) => {
-        landingScreen.webContents.send('recalculoFotoMiniatura',data)
+    ipcMain.on('recalculoFotoMiniatura', (event, data) => {
+        landingScreen.webContents.send('recalculoFotoMiniatura', data)
     })
     landingScreen.on('close', (event, data) => {
         app.quit()
     })
-    ipcMain.on('borrarRutaConfig',(event,data) => {
+    ipcMain.on('borrarRutaConfig', (event, data) => {
         console.log('borrarRutaConfig')
-        store.set('ruta',"")
+        store.set('ruta', "")
         ruta = ""
-        console.log(ruta,store.get('ruta'))      
+        console.log(ruta, store.get('ruta'))
     })
 
 })
