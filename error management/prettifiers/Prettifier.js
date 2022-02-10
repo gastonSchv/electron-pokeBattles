@@ -20,23 +20,35 @@ class Prettifier {
         return _.includes(errorMessage, this.stringToIdentify)
     }
     hasResultsComparison(recommendations){
-        return _.some(recommendations,recommendation => 'Resultado esperado vs resultado obtenido' == recommendation)
+        return _.some(recommendations,({descripcion}) => 'Resultado esperado vs resultado obtenido' == descripcion)
     }
     addResults(keyWordReplacedRecommendations,errorMessage){
         const results = `Resultado esperado${_.split(errorMessage,'Resultado esperado')[1]}`
-        return _.filter(keyWordReplacedRecommendations,recommendation => !_.includes(recommendation,'Resultado esperado')).concat([results])
+        return _(keyWordReplacedRecommendations)
+        .filter(({descripcion}) => !_.includes(descripcion,'Resultado esperado'))
+        .map(({titulo,descripcion}) => {
+            return {
+                titulo,
+                descripcion: descripcion + results
+            }
+        })
+        .value()
+    }
+    stringifyRecommendations(recommendations){
+        return _.flatMap(recommendations, ({titulo,descripcion}) => `${titulo}*${descripcion}`).join('<>')
     }
     recommendationsString(errorMessage){
         const keyWordReplacedRecommendations = _.map(this.recommendations, recommendation => {
-        	if(_.includes(recommendation,'keyWord')){
-        		return recommendation.replace('keyWord',this.keyWord(errorMessage))
+        	if(_.includes(recommendation.descripcion,'keyWord')){
+                recommendation.descripcion = recommendation.descripcion.replace('keyWord',this.keyWord(errorMessage))
+        		return recommendation
         	}
         	return recommendation
         })
         if(this.hasResultsComparison(keyWordReplacedRecommendations)){
-            return this.addResults(keyWordReplacedRecommendations,errorMessage).join('*')
+            return this.stringifyRecommendations(this.addResults(keyWordReplacedRecommendations,errorMessage)) 
         }
-        return keyWordReplacedRecommendations.join('*')
+        return this.stringifyRecommendations(keyWordReplacedRecommendations)
     }
 }
 
