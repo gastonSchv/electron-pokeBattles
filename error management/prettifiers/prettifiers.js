@@ -10,11 +10,13 @@ module.exports = [
         keyWordRightBound: 'is not a function',
         messageBeforeKeyWord: 'El método',
         messageAfterKeyWord: 'no se ha encontrado',
-        recommendations: [
-            'Verifica, si se exige que tu pokemon tenga el método keyWord, que lo hayas declarado',
-            'Verifica que el método keyWord exista o sea soportado',
-            'Lee atentamente el mensaje de error para verificar que no haya habido ningún typo en la declaración del método keyWord'
-        ]
+        recommendations: [{
+            titulo: "Declaracion de metodo",
+            descripcion: "Verifica, si se exige que tu pokemon tenga el método keyWord, que lo hayas declarado"
+        }, {
+            titulo: "Typo",
+            descripcion: "Lee atentamente el mensaje de error para verificar que no haya habido ningún typo en la declaración del método keyWord"
+        }]
     }),
     new Prettifier({
         id: 'isNotDefined',
@@ -23,10 +25,13 @@ module.exports = [
         keyWordRightBound: 'is not defined',
         messageBeforeKeyWord: 'Utilizaste la variable',
         messageAfterKeyWord: 'pero no la definiste',
-        recommendations: [
-            'Verifica que la variable keyWord haya sido declarada en tu codigo',
-            'Verifica que no hayas olvidado la referencia a la instancia al llamar a keyWord (this)'
-        ]
+        recommendations: [{
+            titulo: "Declaracion de variable",
+            descripcion: "Verifica que la variable keyWord haya sido declarada en tu codigo"
+        }, {
+            titulo: "Referencia a instancia",
+            descripcion: "Verifica que no hayas olvidado la referencia a la instancia al llamar a keyWord (this)"
+        }]
     }),
     new Prettifier({
         id: 'methodWrongResult',
@@ -35,11 +40,13 @@ module.exports = [
         keyWordRightBound: 'ha retornado un valor',
         messageBeforeKeyWord: 'El metodo',
         messageAfterKeyWord: ' ha retornado un valor inesperado',
-        recommendations: [
-            `Resultado esperado vs resultado obtenido`,
-            `Verifica que es lo que se espera sea retornado por el metodo keyWord`,
-            `Verifica que es lo que está retornando el metodo keyWord de tu pokemon`
-        ]
+        recommendations: [{
+            titulo: "Resultado inesperado",
+            descripcion: "Resultado esperado vs resultado obtenido"
+        }, {
+            titulo: "Retorno esperado",
+            descripcion: "Verifica que es lo que se espera sea retornado por el metodo keyWord"
+        }]
     }),
     new Prettifier({
         id: 'isNotEqualWithUndefined',
@@ -48,11 +55,16 @@ module.exports = [
         keyWordRightBound: 'asdasdas',
         messageBeforeKeyWord: '',
         messageAfterKeyWord: '',
-        recommendations: [
-            'Verifica que no estés recibiendo una string en un sitio donde se espera un objeto',
-            'Verifica lo que se pide exactamente y comparalo con lo que has implementado en tu pokemon',
-            'Analiza los resultados para encontrar pistas sobre lo que pudo originar la diferencia hallada'
-        ]
+        recommendations: [{
+            titulo: "Tipo de dato esperado",
+            descripcion: "Verifica que no estés recibiendo una string en un sitio donde se espera un objeto"
+        }, {
+            titulo: "Solicitado vs realizado",
+            descripcion: "Verifica lo que se pide exactamente y comparalo con lo que has implementado en tu pokemon"
+        }, {
+            titulo: "Analiza resultado obtenido",
+            descripcion: "Analiza los resultados para encontrar pistas sobre lo que pudo originar la diferencia hallada"
+        }]
     }),
     new Prettifier({
         id: 'isNotEqual',
@@ -61,10 +73,13 @@ module.exports = [
         keyWordRightBound: 'asdasdas',
         messageBeforeKeyWord: '',
         messageAfterKeyWord: '',
-        recommendations: [
-            'Verifica lo que se pide exactamente y comparalo con lo que has implementado en tu pokemon',
-            'Analiza los resultados para encontrar pistas sobre lo que pudo originar la diferencia hallada'
-        ]
+        recommendations: [{
+            titulo: "Solicitado vs realizado",
+            descripcion: "Verifica lo que se pide exactamente y comparalo con lo que has implementado en tu pokemon"
+        }, {
+            titulo: "Analiza resultado obtenido",
+            descripcion: "Analiza los resultados para encontrar pistas sobre lo que pudo originar la diferencia hallada"
+        }]
     }),
     new Prettifier({
         id: 'atributosNecesarios',
@@ -73,11 +88,16 @@ module.exports = [
         keyWordRightBound: 'asdasdas',
         messageBeforeKeyWord: '',
         messageAfterKeyWord: '',
-        recommendations: [
-            `Recuerda que los atributos requeridos son : ${config.listaAtributosEstado.join(', ')}`,
-            'Asegurate de haber colocado valores válidos en los atributos faltantes',
-            'Recuerda quelos atributos pokemon que tienen valores numéricos siempre tienen que se mayor a 0 (salvo dañoRecibido)'
-        ]
+        recommendations: [{
+            titulo: "Atributos requeridos",
+            descripcion: `Recuerda que los atributos requeridos son : ${config.listaAtributosEstado.join(', ')}`
+        }, {
+            titulo: "Valores validos",
+            descripcion: "Asegurate de haber colocado valores válidos en los atributos faltantes"
+        }, {
+            titulo: "Valores numericos > 0",
+            descripcion: "Recuerda quelos atributos pokemon que tienen valores numéricos siempre tienen que se mayor a 0 (salvo dañoRecibido)"
+        }]
     }),
     new Prettifier({
         id: 'atributosConValoresPermitidos',
@@ -86,11 +106,12 @@ module.exports = [
         keyWordRightBound: 'asdasdas',
         messageBeforeKeyWord: '',
         messageAfterKeyWord: '',
-        recommendations: [
-            `Recuerda que los tipos de datos para cada atributos son ${
+        recommendations: [{
+            titulo: "Tipo de dato esperado",
+            descripcion: `Recuerda que los tipos de datos para cada atributos son ${
                 _.map(_.toPairs(config.tiposDeDatoPorAtributo), pair => pair.join('|')).join(', ')
             }`
-        ]
+        }]
     }),
     new Prettifier({
         id: 'puntoDeAtributosMaximoPermitido',
@@ -99,10 +120,13 @@ module.exports = [
         keyWordRightBound: 'asdasdas',
         messageBeforeKeyWord: '',
         messageAfterKeyWord: '',
-        recommendations: [
-            `Recuerda que el máximo de puntos asignables son: ${config.puntajeMaximoPermitido()}`,
-            'Verifica que la suma de los puntajes de tus atributos sea menor o igual al maximo permitido'
-        ]
+        recommendations: [{
+            titulo: "Limite de puntos permitidos",
+            descripcion: `Recuerda que el máximo de puntos asignables son: ${config.puntajeMaximoPermitido()}`
+        }, {
+            titulo: "Comparacion con maximo permitido",
+            descripcion: "Verifica que la suma de los puntajes de tus atributos sea menor o igual al maximo permitido"
+        }]
     }),
     new Prettifier({
         id: 'cannotFindModule',
@@ -111,9 +135,10 @@ module.exports = [
         keyWordRightBound: 'Require',
         messageBeforeKeyWord: 'No se ha podido encontrar el modulo',
         messageAfterKeyWord: '',
-        recommendations: [
-            `Verifica que no haya ningun typo en tu codigo al solicitar una dependencia (require=...)`
-        ]
+        recommendations: [{
+            titulo: "Typo",
+            descripcion: "Verifica que no haya ningun typo en tu codigo al solicitar una dependencia (require=... o import ...)"
+        }]
     }),
     new Prettifier({
         id: 'dañoDeAtaquesDisponiblesIncorrectos',
@@ -122,11 +147,16 @@ module.exports = [
         keyWordRightBound: 'asdasdasd',
         messageBeforeKeyWord: '',
         messageAfterKeyWord: '',
-        recommendations: [
-            `Verifica que tu pokemon cuente con al menos un ataque disponible. Recuerda que hay 4 tipos de ataque: basico, medio, fuerte y maximo`,
-            `Verifica que el calculo de daño de tu pokemon siga la formula daño(tipoDeAtaque) = fuerza X multiplicadorDeAtaque(tipoDeAtaque) X factorDeEvolucion`,
-            `Verifica que tus multiplicadoresDeAtaque sean adecuados para el tipo de pokemon que tengas (planta, fuego, agua, electricidad, etc)`
-        ]
+        recommendations: [{
+            titulo: "Al menos un ataque",
+            descripcion: "Verifica que tu pokemon cuente con al menos un ataque disponible. Recuerda que hay 4 tipos de ataque: basico, medio, fuerte y maximo"
+        }, {
+            titulo: "Daño por ataque",
+            descripcion: "Verifica que el calculo de daño de tu pokemon siga la formula daño(tipoDeAtaque) = fuerza X multiplicadorDeAtaque(tipoDeAtaque) X factorDeEvolucion"
+        }, {
+            titulo: "Multiplicadores por tipo de pokemon",
+            descripcion: "Verifica que tus multiplicadoresDeAtaque sean adecuados para el tipo de pokemon que tengas (planta, fuego, agua, electricidad, etc)"
+        }]
     }),
     new Prettifier({
         id: 'energiaConsumidaPorAtaqueIncorrecto',
@@ -135,14 +165,19 @@ module.exports = [
         keyWordRightBound: 'asdasdasd',
         messageBeforeKeyWord: '',
         messageAfterKeyWord: '',
-        recommendations: [
-            `Verifica que tu pokemon cuente con al menos un ataque disponible. Recuerda que hay 4 tipos de ataque: basico, medio, fuerte y maximo`,
-            `Verifica que estes disminuyendo la energia de tu pokemon al atacar`,
-            `Verifica que el consumo de energia de tu pokemon este siendo correcto para cada tipo de ataque`,
-            `Verifica que el consumo de energia sea adecuados para el tipo de pokemon que tengas (planta,fuego,agua o electricidad)`
+        recommendations: [{
+            titulo: "Al menos un ataque",
+            descripcion: "Verifica que tu pokemon cuente con al menos un ataque disponible. Recuerda que hay 4 tipos de ataque: basico, medio, fuerte y maximo"
+        }, {
+            titulo: "Disminución de energia",
+            descripcion: "Verifica que estes disminuyendo la energia de tu pokemon al atacar"
+        }, {
+            titulo: "Disminución adecuada por ataque",
+            descripcion: "Verifica que la disminucion de energia de tu pokemon este siendo correcto para cada tipo de ataque"
+        }
         ]
     }),
-        new Prettifier({
+    new Prettifier({
         id: 'desmayarseCorrectamente',
         stringToIdentify: 'Tu pokemon no se desmaya correctamente',
         keyWordLeftBound: 'asdasdas',
@@ -150,22 +185,27 @@ module.exports = [
         messageBeforeKeyWord: '',
         messageAfterKeyWord: '',
         recommendations: [
-            `Verifica que estes aumentando la energia adecuada segun tu tipo de pokemon (planta,fuego,agua o electricidad)`,
-            `Verifica que no estes alterando ningun otro atributos de tu pokemon por fuera de su energia`,
-            `Verifica que estes limitando el aumento de energia de tu pokemon al valor inicial de la energia asignada de tu pokemon`
-        ]
+        {
+            titulo: "Solo modificar energia",
+            descripcion: "Verifica que no estes alterando ningun otro atributos de tu pokemon por fuera de su energia"
+        }, {
+            titulo: "Aumento de energia limitado",
+            descripcion: "Verifica que estes limitando el aumento de energia de tu pokemon al valor inicial de la energia asignada de tu pokemon"
+        }]
     }),
-        new Prettifier({
+    new Prettifier({
         id: 'recuperarEnergiaCorrectamente',
         stringToIdentify: 'Tu pokemon no recuperar energia',
         keyWordLeftBound: 'asdasdas',
         keyWordRightBound: 'asdasdasd',
         messageBeforeKeyWord: '',
         messageAfterKeyWord: '',
-        recommendations: [
-            `Verifica que estes aumentando la energia adecuada segun tu tipo de pokemon (planta,fuego,agua o electricidad)`,
-            `Verifica que no estes alterando ningun otro atributos de tu pokemon por fuera de su energia`,
-            `Verifica que estes limitando el aumento de energia de tu pokemon al valor inicial de la energia asignada de tu pokemon`
-        ]
+        recommendations: [{
+            titulo: "Solo modificar energia",
+            descripcion: "Verifica que no estes alterando ningun otro atributos de tu pokemon por fuera de su energia"
+        }, {
+            titulo: "Aumento de energia limitado",
+            descripcion: "Verifica que estes limitando el aumento de energia de tu pokemon al valor inicial de la energia asignada de tu pokemon"
+        }]
     })
 ]
