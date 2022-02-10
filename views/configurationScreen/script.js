@@ -9,7 +9,6 @@ function guardarRutaPokemon() {
 
     notificarAltaDeScreenHaciaMain({ruta:valorInputRuta})
     util.aparecerYDesvanecer(tickGuardadoCorrecto, 0.1)
-    ipcRenderer.send('altaDeScreen:configuracion', { ruta: valorInputRuta })
     colocarPlaceHolder()
     placeHolderLabel.style.color = 'black'
 }
