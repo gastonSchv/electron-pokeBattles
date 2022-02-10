@@ -1,10 +1,10 @@
 const util = require('../utils/util')
 const { ipcRenderer } = require('electron')
 const _ = require('lodash')
+let index = 0
 
 function funcionesDeInicio(){
     util.crearBotonCerradoConEstilo(contenedor)
-
 }
 
 function cerrarPantalla(){
@@ -20,16 +20,43 @@ function mensajeErrorDeResultado(errMessage){
 function esErrorDeResultado(errMessage){
 	return _.includes(errMessage,'Resultado esperado')
 }
-function agregarRecomendacion(recomendacion){
+function agregarRecomendacion(titulo,descripcion){
 	listaDeRecomendaciones.innerHTML += `
 			<li class="recomendacion">
-			 ${recomendacion}	
-			</li>			
+			 ${acordeon(titulo,descripcion)}	
+			</li>					
 	`
 }
-function agregarRecomendacionesTipicas(recomendaciones){
-	const recomendacionesList = recomendaciones.split('*')
-	_.forEach(recomendacionesList, agregarRecomendacion)
+function acordeon(titulo,descripcion) {
+	index++;
+	return `<div class="accordion" id="${index}">
+	  <div class="accordion-item">
+	    <h2 class="accordion-header" id="heading${index}">
+	      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse${index}" aria-expanded="false" aria-controls="collapse${index}">
+	        ${titulo}
+	      </button>
+	    </h2>
+	    <div id="collapse${index}" class="accordion-collapse collapse" aria-labelledby="heading${index}" data-bs-parent="#${index}">
+	      <div class="accordion-body">
+	        ${descripcion}
+	      </div>
+	    </div>
+	  </div>
+	</div>`	
+}
+function agregarRecomendacionesTipicas(recomendacionesString){
+	const recomendacionesCupla = recomendacionesString.split('<>')
+	const recomendacionesList = _.map(recomendacionesCupla,recomendacionCupla => {
+		const [titulo,descripcion] = recomendacionCupla.split('*')
+		return {
+			titulo,
+			descripcion
+		}
+	} )
+	_.forEach(recomendacionesList,recomendacion => {
+		const {titulo,descripcion} = recomendacion; 
+		agregarRecomendacion(titulo,descripcion)	
+	})
 }
 function agregarRecomendacionDeLocacion(localization){
 	const [linea,columna,ruta] = localization.split('*')

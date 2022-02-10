@@ -1,14 +1,13 @@
 
 #contenedor{
 	/*border: 1px solid yellow;*/
-	height: 499px;
-	width: 599px;
+	height: 500px;
+	width: 600px;
 	display: flex;
 	align-items: center;
-
 }
 #cartelDetalleDeError{
-	border: 1px dotted green;
+	/*border: 1px dotted green;*/
     height: 90%;
     width: 90%;
     margin:auto;
@@ -17,17 +16,5 @@
 .recomendacion{
 	/*border: 1px solid purple;*/
 	margin-top: 20px;
-	margin-left: 5px;
-}
-#tituloDeError{
-	border: 1px dotted blue;	
-	margin-top: 15px;
-	margin-left: 10px;
-	margin-right: 10px;
-	border-radius: 15px;
-	padding: 5px;
-	overflow: hidden;
-	display: flex;
-	align-items: center;
-	justify-content: center;
+	margin-left: -15px;
 }
