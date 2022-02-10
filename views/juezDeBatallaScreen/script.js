@@ -60,11 +60,7 @@ function deshabilitarBotonesDeJuego(booleano) {
 
 function habilitarDetalleResultadoFallido(idEvaluacion, err) {//agregar localizacion
     const contenedorEvaluacion = document.getElementById(`contenedorEvaluacion${idEvaluacion}`)
-    contenedorEvaluacion.innerHTML += `
-        <button id="botonError${idEvaluacion}" class="botonDetalleError" onclick="mostrarDetalleError('\
-         ${err.prettyMessage()}','${err.recommendations()}','${err.message()}')">
-            detalle error
-        </button>`
+    util.habilitarDetalleResultadoFallido(contenedorEvaluacion,idEvaluacion,err)
 }
 function realizarEvaluacion(unPokemon,idEvaluacion){
 	return evaluar(idEvaluacion, unPokemon, () => juezDeBatalla.constatarEvaluacion(unPokemon,idEvaluacion))	
@@ -116,5 +112,5 @@ function agregarEvaluacion(idEvaluacion, mensaje = '', resultadoExitoso) {
         </div>
     </div>`
 
-    //document.getElementById(idEvaluacion).style.border = `1px dotted ${colorPuntos}`
+    document.getElementById(idEvaluacion).style.border = `1px dotted ${colorPuntos}`
 }
