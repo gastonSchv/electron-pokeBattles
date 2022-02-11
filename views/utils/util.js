@@ -88,7 +88,6 @@ class Util {
             const tipoDePokemon = pokemon.miTipo().toLowerCase()
             this.esTipoAceptado(tipoDePokemon) ? div.innerHTML = `<img src="../../../assets/images/miniaturas/${tipoDePokemon}.png">` : ''
         } catch (err) {
-            console.log(err)
             div.innerHTML = ""
         }
     }
