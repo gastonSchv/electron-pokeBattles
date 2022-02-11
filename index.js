@@ -203,10 +203,8 @@ app.on('ready', () => {
         app.quit()
     })
     ipcMain.on('borrarRutaConfig', (event, data) => {
-        console.log('borrarRutaConfig')
         store.set('ruta', "")
         ruta = ""
-        console.log(ruta, store.get('ruta'))
     })
 
 })
