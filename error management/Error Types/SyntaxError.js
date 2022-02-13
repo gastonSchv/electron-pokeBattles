@@ -1,11 +1,12 @@
 class SyntaxError {
 	constructor(err){
 		this.err = err;
+		this.identifier = "SyntaxError"
 	}
 	errorPosition(){
 		const err = this.err
-		const linea = err.stack.split('.js:')[1].split('')[0]
-		return {linea,columna:'?'}
+		const linea = err.stack.split('.js:')[1].split('\n')[0]
+		return {linea,columna:''}
 	}
 	errorRoute(){
 		const err = this.err

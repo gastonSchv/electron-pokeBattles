@@ -1,6 +1,7 @@
 class ReferenceError {
 	constructor(err){
 		this.err = err;
+		this.identifier = "ReferenceError"
 	}
 	errorPosition(){
 		const err = this.err
