@@ -187,10 +187,10 @@ app.on('ready', () => {
     	const parentScreenName = _getView(event.sender._getURL())
         const parentScreen = getParentScreen(parentScreenName)
         const detalleDeErrorScreen = modalScreen({ height: 500, width: 600, frame: false }, 'detalleDeErrorScreen/index.html', parentScreen);
-        const verticalPosition = parentScreenName == 'landingScreen' ? 440 : 500
-        const horizontalPosition = parentScreenName == 'landingScreen' ? 70 : 140 
+        const verticalPosition = parentScreenName == 'landingScreen' ? 440 : 550
+        const horizontalPosition = parentScreenName == 'landingScreen' ? 70 : 120 
 
-        detalleDeErrorScreen.setPosition(440, 70)
+        detalleDeErrorScreen.setPosition(verticalPosition, horizontalPosition)
         setTimeout(() => detalleDeErrorScreen.webContents.send('detalleDeError', data), 500)
     })
     ipcMain.on('motrarSelectorDeEnemigos', (event, data) => {
