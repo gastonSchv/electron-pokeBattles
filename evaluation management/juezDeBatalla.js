@@ -24,6 +24,10 @@ class juezDeBatalla {
         .then(() => true)
         .catch(() => false)
     }
+    pasaTodasLasEvaluaciones(unPokemon){
+        return Promise.map(evaluaciones, ({id}) => this.pasaEvaluacion(unPokemon,id))
+        .then(results => _.every(results, e=>e))
+    }
     obtenerResultadoEvaluaciones(unPokemon) {
         return Promise.props({
             evaluacionesCorrectas: Promise.filter(evaluaciones, evaluacion => this.pasaEvaluacion(unPokemon,evaluacion.id)) ,
