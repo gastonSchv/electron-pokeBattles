@@ -90,7 +90,7 @@ function evaluar(idEvaluacion, unPokemon, evaluacionDeJuez) {
             agregarEvaluacion(idEvaluacion, relator.anunciarEvaluacionCorrecta(unPokemon, idEvaluacion), true)
         })
         .catch(err => {
-            agregarEvaluacion(idEvaluacion, err.prettyMessage(), false)
+            agregarEvaluacion(idEvaluacion, relator.anunciarEvaluacionIncorrecta(unPokemon,idEvaluacion), false)
             deshabilitarBotonesDeJuego(true)
             habilitarDetalleResultadoFallido(idEvaluacion, err)
         })
