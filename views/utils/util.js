@@ -101,7 +101,10 @@ class Util {
     }
     obtenerNombresDeArchivos(carpeta) {
         const archivos = fs.readdirSync(carpeta);
-        return _.map(archivos, archivo => this.obtenerNombreDesdeNombreArchivo(archivo))
+        return _(archivos)
+        .map(archivo => this.obtenerNombreDesdeNombreArchivo(archivo))
+        .compact()
+        .value()
     }
     esTipoAceptado(unTipo) {
         return _.includes(config.tiposDePokemonAceptados, unTipo)
