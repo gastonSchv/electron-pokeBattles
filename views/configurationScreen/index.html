@@ -13,7 +13,7 @@
     <div id="contenedor">
         <div id="elementos">
             <div id="formRutaPokemon" class="form-group">
-                <input id="inputRuta" class="form-control" type="file" onchange="colocarPlaceHolderPrevisional()">
+                <input id="inputRuta" class="form-control" type="file" onchange="accionesPostBusquedaDeArchivo()">
                 <label id="placeHolderLabel"></label>
             </div>
             <div id="tickGuardadoCorrecto">
@@ -21,7 +21,7 @@
             </div>
             <div id="botones">
                 <div id="botonGuardar">
-                    <button type="button" class="btn btn-success" onclick="guardarRutaPokemon()"> GUARDAR</button>
+                    <button id="botonGuardarButton" type="button" class="btn btn-success" onclick="guardarRutaPokemon()"> GUARDAR</button>
                 </div>
             </div>
         </div>
