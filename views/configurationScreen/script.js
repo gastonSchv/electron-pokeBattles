@@ -1,6 +1,7 @@
 const { ipcRenderer } = require('electron')
 const util = require('../utils/util')
 const _ = require('lodash')
+const bootstrap = require('bootstrap')
 
 function guardarRutaPokemon() {
     const tickGuardadoCorrecto = document.getElementById('tickGuardadoCorrecto')
@@ -36,10 +37,31 @@ function colocarPlaceHolder(ruta) {
     const extensionDeRuta = obtenerExtension(ruta)
     placeHolder(extensionDeRuta)
 }
-
-function colocarPlaceHolderPrevisional() {
-    const valorInputRuta = obtenerExtension(inputRuta.files[0].path)
-    placeHolder(valorInputRuta)
+function accionesPostBusquedaDeArchivo(){
+    const extension = obtenerExtension(inputRuta.files[0].path)
+    colocarPlaceHolderPrevisional(extension)
+    verificarExtensionDeArchivo(extension)
+}
+function verificarExtensionDeArchivo(extension){
+    console.log(extension)
+    if(!_.includes(extension,".js")){
+        botonGuardarButton.disabled = true
+        agregarToolTipConMensajeEnBotonGuardar('La extension del archivo debe ser .js')
+    }else{
+    	botonGuardarButton.disabled = false
+    	eliminarToolTipDeBotonGuardar()
+    }
+}
+function agregarToolTipConMensajeEnBotonGuardar(unMensaje){
+	console.log(unMensaje)
+	botonGuardar.title = unMensaje
+	new bootstrap.Tooltip(botonGuardar)
+}
+function eliminarToolTipDeBotonGuardar(){
+	new bootstrap.Tooltip(botonGuardar).disable()	
+}
+function colocarPlaceHolderPrevisional(extension) {
+    placeHolder(extension)
     placeHolderLabel.style.color = 'blue'
 }
 ipcRenderer.on('config:ruta', (event, data) => {
