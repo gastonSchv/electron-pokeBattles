@@ -98,6 +98,7 @@ function funcionesDeInicio() {
     pedirPokemonEnemigo()
     util.crearBotonCerradoConEstilo(contenedor)
     prenderMusica()
+    seleccionarDefensa('Baja')
 }
 
 function cerrarPantalla() {
@@ -399,4 +400,16 @@ function recuperarEnergiaDerecho() {
 
 function ejecutarEstrategiaBaja() {
     desencadenarAccionesAlAtacar(personajeIzquierdo, personajeDerecho, 'basico')
+}
+function seleccionarDefensa(tipoDeDefensa){
+    const tipoDeDefensas = ['Baja','Media','Alta']
+    const defensaSeleccionada = _.filter(tipoDeDefensas, defensa => defensa == tipoDeDefensa)
+    const defensasNoSeleccionadas = _.filter(tipoDeDefensas, defensa => defensa !== tipoDeDefensa)
+    
+    _.forEach(defensaSeleccionada, defensa => {
+        document.getElementById(`defensa${defensa}`).style.opacity = 1
+    })
+    _.forEach(defensasNoSeleccionadas, defensa => {
+        document.getElementById(`defensa${defensa}`).style.opacity = 0.3
+    })
 }
