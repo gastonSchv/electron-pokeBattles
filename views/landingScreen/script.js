@@ -2,7 +2,7 @@ const { ipcRenderer } = require('electron')
 const _ = require('lodash')
 const util = require('../utils/util')
 const SystemError = require('../../error management/SystemError')
-
+const juezDeBatalla = require('../../evaluation management/juezDeBatalla')
 
 let musicaDeBatallaPrendida = true
 let botonesDeJuego = []
@@ -73,10 +73,17 @@ function borrarBotonesDeError(){
 }
 function verificarPokemonAntesDeComenzar(data) {
     botonesDeJuego = [botonBatalla, botonJuezDeBatalla, botonMiPokemon, botonCentroDeEntrenamiento]
+    botonesIniciales = [botonJuezDeBatalla]
     if (data.ruta) {
         try {
             const pokemon = require(data.ruta)
-            util.habilitarBotones(botonesDeJuego)
+            juezDeBatalla.pasaTodasLasEvaluaciones(pokemon)
+            .then(pasaTodasLasEvaluaciones => {
+                if(pasaTodasLasEvaluaciones){
+                    util.habilitarBotones(botonesDeJuego)
+                }
+                util.habilitarBotones(botonesIniciales)
+            })
             util.colocarFotoMiniaturaMiPokemon(iconoPokemon, pokemon)
             borrarBotonesDeError()
         } catch (err) {
@@ -96,14 +103,9 @@ ipcRenderer.on('altaDeScreen:landingScreen', (event, data) => {
 })
 ipcRenderer.on('bloqueoBotonesDeJuego', (event, data) => {
     botonesDeJuego = [botonBatalla, botonMiPokemon, botonCentroDeEntrenamiento]
-    if (!data.deshabilitarBotones) {
-        consultarRutaValida()
-    } else {
+    if (data.deshabilitarBotones) {
         util.deshabilitarBotones(botonesDeJuego)
     }
-})
-ipcRenderer.on('rutaValida', (event, data) => {
-    util.habilitarBotones(botonesDeJuego.concat(botonJuezDeBatalla))
 })
 ipcRenderer.on('altaDeScreen:configuracion', (event, data) => {
     verificarPokemonAntesDeComenzar(data)
