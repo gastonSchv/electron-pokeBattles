@@ -54,7 +54,7 @@ class Type {
 			const fileMessage = this.errorRoute()? `en el archivo ${this.errorRoute()}`:"";
 			if(columnMessage||lineMessage||fileMessage){
 				const localizationString = `<>Localizacion del error*Revisa ${lineMessage} ${columnMessage}  ${fileMessage} , al parecer ahí está el problema`
-				return localizationString //this.isErrorInAppFiles()? "":localizationString
+				return this.isErrorInAppFiles()? "":localizationString
 			}
 			return ""
 		}catch(err){
