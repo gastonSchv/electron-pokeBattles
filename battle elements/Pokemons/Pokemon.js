@@ -12,7 +12,7 @@ class Pokemon {
         this.fuerza = fuerza * this.tipoDePokemon.multiplicadorDeAtributo('fuerza');
         this.defensa = defensa * this.tipoDePokemon.multiplicadorDeAtributo('defensa');
         this.velocidad = velocidad * this.tipoDePokemon.multiplicadorDeAtributo('velocidad');
-        this.dañoRecibido = 0;
+        this.deterioroRecibido = 0;
         this.estrategia = estrategia || "bajaEstrategia"
     }
     miTipo() {
@@ -22,7 +22,7 @@ class Pokemon {
         return Math.sqrt(this.evolucion)
     }
     vitalidad() {
-        return _.max([this.vida - this.dañoRecibido, 0])
+        return _.max([this.vida - this.deterioroRecibido, 0])
     }
     danoDeAtaque(tipoDeAtaque) {
         return this.fuerza * config.multiplicadorDeAtaque(tipoDeAtaque) * this.factorDeEvolución()
@@ -32,10 +32,10 @@ class Pokemon {
     }
     atacar(unPokemon, tipoDeAtaque) {
         this.disminuirEnergia(tipoDeAtaque)
-        unPokemon.recibirDaño(this.danoDeAtaque(tipoDeAtaque))
+        unPokemon.recibirDeterioro(this.danoDeAtaque(tipoDeAtaque))
     }
-    resultadoDeAtaque(unDañoDeAtaque,defensaAnteAtaque){
-    	return _.max([unDañoDeAtaque*0.1,unDañoDeAtaque - defensaAnteAtaque])
+    resultadoDeAtaque(unDeterioroDeAtaque,defensaAnteAtaque){
+    	return _.max([unDeterioroDeAtaque*0.1,unDeterioroDeAtaque - defensaAnteAtaque])
     }
     entrenarAtaqueFuerte() {
         return 'Entrenamiento ataque fuerte completado'
@@ -52,8 +52,8 @@ class Pokemon {
     probabilidadDeEsquivarAtaque(){
     	return _.max([0,(0.1639 * Math.log(this.velocidad) - 0.9925)])
     }
-    recibirDaño(unDañoDeAtaque) {
-        this.dañoRecibido += this.resultadoDeAtaque(unDañoDeAtaque,this.defensaAnteAtaque())
+    recibirDeterioro(unDeterioroDeAtaque) {
+        this.deterioroRecibido += this.resultadoDeAtaque(unDeterioroDeAtaque,this.defensaAnteAtaque())
     }
     disminuirEnergia(tipoDeAtaque) {
         this.energia -= this.energiaParaAtaque(tipoDeAtaque)
@@ -68,7 +68,7 @@ class Pokemon {
         this.energia = _.min([this.energia + config.energiaDeDesmayo, energiaLimite]);
     }
     esAtaqueMortal(pokemonOponente, tipoDeAtaque) {
-        return pokemonOponente.vitalidad() <= pokemonOponente.dañoARecibir(this.danoDeAtaque(tipoDeAtaque))
+        return pokemonOponente.vitalidad() <= pokemonOponente.deterioroARecibir(this.danoDeAtaque(tipoDeAtaque))
     }
     poderTotal(){
         return 2.5 * this.danoDeAtaque('maximo') + 1.4 * this.defensaAnteAtaque() / (1-this.probabilidadDeEsquivarAtaque()) + 0.8 * this.vida  
