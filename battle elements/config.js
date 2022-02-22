@@ -35,12 +35,29 @@ class config {
         ];
         this.energiaDeDesmayo = 750;
         this.tiposDePokemonAceptados = ['agua','fuego','electricidad','planta'];
+        this.adicionalDeDefensa = {
+            Baja:500,
+            Media: 700,
+            Alta: 1000
+        };
+        this.energiaPorDefensa = {
+            Baja:200,
+            Media: 300,
+            Alta: 500
+        }
     }
     puntajeMaximoPermitido() {
         return this.atributosDePokemon.length * this.puntajePorAtributo
     }
     multiplicadorDeAtaque(tipoDeAtaque) {
         return _.get(this.multiplicadoresDeAtaque, tipoDeAtaque)
+    }
+    defensaAdicionalPorEstrategia(tipoDeDefensa){
+        return _.get(this.adicionalDeDefensa,tipoDeDefensa)
+    }
+    consumoEnergiaPorDefensa(tipoDeDefensa){
+        console.log(tipoDeDefensa)
+        return _.get(this.energiaPorDefensa,tipoDeDefensa)
     }
 }
 
