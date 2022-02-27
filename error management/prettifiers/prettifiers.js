@@ -96,7 +96,7 @@ module.exports = [
             descripcion: "Asegurate de haber colocado valores válidos en los atributos faltantes"
         }, {
             titulo: "Valores numericos > 0",
-            descripcion: "Recuerda quelos atributos pokemon que tienen valores numéricos siempre tienen que se mayor a 0 (salvo dañoRecibido)"
+            descripcion: "Recuerda quelos atributos pokemon que tienen valores numéricos siempre tienen que se mayor a 0 (salvo deterioroRecibido)"
         }]
     }),
     new Prettifier({
@@ -141,8 +141,8 @@ module.exports = [
         }]
     }),
     new Prettifier({
-        id: 'dañoDeAtaquesDisponiblesIncorrectos',
-        stringToIdentify: 'Tu pokemon no realiza el daño adecuado',
+        id: 'deterioroDeAtaquesDisponiblesIncorrectos',
+        stringToIdentify: 'Tu pokemon no realiza el deterioro adecuado',
         keyWordLeftBound: 'asdasdas',
         keyWordRightBound: 'asdasdasd',
         messageBeforeKeyWord: '',
@@ -151,8 +151,8 @@ module.exports = [
             titulo: "Al menos un ataque",
             descripcion: "Verifica que tu pokemon cuente con al menos un ataque disponible. Recuerda que hay 4 tipos de ataque: basico, medio, fuerte y maximo"
         }, {
-            titulo: "Daño por ataque",
-            descripcion: "Verifica que el calculo de daño de tu pokemon siga la formula daño(tipoDeAtaque) = fuerza X multiplicadorDeAtaque(tipoDeAtaque) X factorDeEvolucion"
+            titulo: "deterioro por ataque",
+            descripcion: "Verifica que el calculo de deterioro de tu pokemon siga la formula deterioro(tipoDeAtaque) = fuerza X multiplicadorDeAtaque(tipoDeAtaque) X factorDeEvolucion"
         }, {
             titulo: "Multiplicadores por tipo de pokemon",
             descripcion: "Verifica que tus multiplicadoresDeAtaque sean adecuados para el tipo de pokemon que tengas (planta, fuego, agua, electricidad, etc)"

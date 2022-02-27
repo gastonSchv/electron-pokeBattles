@@ -7,7 +7,7 @@ module.exports = [
     evaluacionBuilder('metodosNecesarios'),
     evaluacionBuilder('retornoVitalidadCorrecto'),
     evaluacionBuilder('retornoMiTipoValido'),
-    evaluacionBuilder('dañoDeAtaquesDisponiblesCorrecto'),
+    evaluacionBuilder('deterioroDeAtaquesDisponiblesCorrecto'),
     evaluacionBuilder('energiaConsumidaPorAtaqueCorrecto'),
  	evaluacionBuilder('desmayarseCorrectamente'),
  	evaluacionBuilder('recuperarEnergiaCorrectamente')

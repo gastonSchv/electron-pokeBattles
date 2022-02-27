@@ -34,11 +34,11 @@
     module.exports = [{
             id: 'atributosNecesarios',
             comparacionResultadosExitosaInicial: function(unPokemon) {
-                const __tieneValorAceptado = property => property === 'dañoRecibido' && unPokemon[property] === 0 ? true : unPokemon[property]
+                const __tieneValorAceptado = property => property === 'deterioroRecibido' && unPokemon[property] === 0 ? true : unPokemon[property]
                 return _.every(config.listaAtributosEstado, __tieneValorAceptado)
             },
             mensajeResultadoDesigualInicial: function(unPokemon) {
-                const __tieneValorAceptado = property => property === 'dañoRecibido' && unPokemon[property] === 0 ? true : unPokemon[property]
+                const __tieneValorAceptado = property => property === 'deterioroRecibido' && unPokemon[property] === 0 ? true : unPokemon[property]
                 const atributosConValorValido = _.filter(_.keys(unPokemon), __tieneValorAceptado)
                 const atributosFaltantes = _.difference(config.listaAtributosEstado, atributosConValorValido);
 
@@ -71,7 +71,7 @@
                 unPokemon.vitalidad();
                 unPokemon.recuperarEnergia();
                 unPokemon.atacar(unPokemon, 'basico');
-                unPokemon.recibirDaño(1000);
+                unPokemon.recibirDeterioro(1000);
                 unPokemon.miTipo();
                 unPokemon.desmayarse();
                 return true
@@ -83,11 +83,11 @@
         {
             id: 'retornoVitalidadCorrecto',
             comparacionResultadosExitosaInicial: function(unPokemon) {
-                return vitalidadCorrecta = unPokemon.vitalidad() == unPokemon.vida - unPokemon.dañoRecibido;
+                return vitalidadCorrecta = unPokemon.vitalidad() == unPokemon.vida - unPokemon.deterioroRecibido;
 
             },
             mensajeResultadoDesigualInicial: function(unPokemon) {
-                return relator.anunciarResultadoInesperadoEnMetodo('vitalidad()', unPokemon.vida - unPokemon.dañoRecibido, unPokemon.vitalidad())
+                return relator.anunciarResultadoInesperadoEnMetodo('vitalidad()', unPokemon.vida - unPokemon.deterioroRecibido, unPokemon.vitalidad())
             }
         },
         {
@@ -101,12 +101,12 @@
             }
         },
         {
-            id: 'dañoDeAtaquesDisponiblesCorrecto',
+            id: 'deterioroDeAtaquesDisponiblesCorrecto',
             comparacionResultadosExitosaInicial: function(unPokemon) {
-                return _.isEmpty(juezDeBatalla.ataquesConDañoIncorrecto(unPokemon)) && !_.isEmpty(juezDeBatalla.ataquesDisponibles(unPokemon))
+                return _.isEmpty(juezDeBatalla.ataquesConDeterioroIncorrecto(unPokemon)) && !_.isEmpty(juezDeBatalla.ataquesDisponibles(unPokemon))
             },
             mensajeResultadoDesigualInicial: function(unPokemon) {
-                return relator.anunciarAtaquesConDañoIncorrecto(unPokemon, juezDeBatalla.ataquesConDañoIncorrecto(unPokemon))
+                return relator.anunciarAtaquesConDeterioroIncorrecto(unPokemon, juezDeBatalla.ataquesConDeterioroIncorrecto(unPokemon))
             }
         },
         {

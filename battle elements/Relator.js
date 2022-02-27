@@ -21,7 +21,7 @@ class Relator {
         return ` \nEl pokemon ${unPokemon.nombre} no ha verificado : ${condicion}. \n ${this.deListaComparacionesAString(listaComparaciones)}`
     }
     estadoPokemon(unPokemon) {
-        return `${unPokemon.nombre} vida: ${unPokemon.vida} | energia: ${unPokemon.energia} | daño recibido: ${unPokemon.dañoRecibido}`
+        return `${unPokemon.nombre} vida: ${unPokemon.vida} | energia: ${unPokemon.energia} | deterioro recibido: ${unPokemon.deterioroRecibido}`
     }
     anunciarCondicionesDeAtaqueFaltante(unPokemon, tipoDeAtaque) {
         this.anunciarFalta(unPokemon, `Condicion de ataque ${tipoDeAtaque}`)
@@ -58,8 +58,8 @@ class Relator {
 		${this.anunciarEntrenamientoDesigual(resultadoEsperado,resultadoObtenido)}
 		`
     }
-    anunciarAtaquesConDañoIncorrecto(unPokemon, ataquesConDañoIncorrecto) {
-        return `Tu pokemon no realiza el daño adecuado en los ataques: ${ataquesConDañoIncorrecto}`
+    anunciarAtaquesConDeterioroIncorrecto(unPokemon, ataquesConDeterioroIncorrecto) {
+        return `Tu pokemon no realiza el deterioro adecuado en los ataques: ${ataquesConDeterioroIncorrecto}`
     }
     anunciarAtaquesConConsumoEnergiaIncorrecto(unPokemon, ataquesConConsumoEnergiaIncorrecto) {
         return `Tu pokemon no consume correctamenta la energia en los ataques: ${ataquesConConsumoEnergiaIncorrecto.join(', ')}`

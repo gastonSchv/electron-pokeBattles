@@ -35,7 +35,7 @@ class Pokemon {
         unPokemon.recibirDeterioro(this.danoDeAtaque(tipoDeAtaque))
     }
     resultadoDeAtaque(unDeterioroDeAtaque,defensaAnteAtaque){
-    	return _.max([unDeterioroDeAtaque*0.1,unDeterioroDeAtaque - defensaAnteAtaque])
+        return _.max([unDeterioroDeAtaque*0.1,unDeterioroDeAtaque - defensaAnteAtaque])
     }
     entrenarAtaqueFuerte() {
         return 'Entrenamiento ataque fuerte completado'

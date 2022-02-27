@@ -12,7 +12,7 @@ const pokemon = new Pokemon({
 	velocidad:1000
 })
 
-pokemon.miNombre = () => "pokemon.nombre"
+pokemon.miNombre = () => pokemon.nombre
 pokemon.elPokemonMasFuerte = unosPokemones => _.maxBy(unosPokemones, pokemon => pokemon.fuerza)
 pokemon.obtenerAtributos = pokemon => asd
 module.exports = pokemon

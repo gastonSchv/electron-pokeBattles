@@ -53,7 +53,7 @@ class juezDeBatalla {
             .filter(ataqueExistente => ataqueExistente) // por ahora no se controla de ninguna manera cuales de los ataques existentes estan disponibles
             .value()
     }
-    haceElDañoEsperado = (unPokemon, tipoDeAtaque) => {
+    haceElDeterioroEsperado = (unPokemon, tipoDeAtaque) => {
         const pokemonDummyAtacado = _.cloneDeep(unPokemon);
         const pokemonDummyAtacante = _.cloneDeep(unPokemon)
         pokemonDummyAtacado.energia = 99999;
@@ -68,11 +68,11 @@ class juezDeBatalla {
             return pokemonDummyAtacado.defensa * factorDeEvolución(pokemonDummyAtacado) * config.multiplicadorDeDefensa
         }
         const verificaDano = (pokemonDummyAtacante, pokemonDummyAtacado, tipoDeAtaque) => {
-            return pokemonDummyAtacado.dañoRecibido == __danoDeAtaque(pokemonDummyAtacante) - __defensaTotal(pokemonDummyAtacado)
+            return pokemonDummyAtacado.deterioroRecibido == __danoDeAtaque(pokemonDummyAtacante) - __defensaTotal(pokemonDummyAtacado)
         }
         pokemonDummyAtacante.atacar(pokemonDummyAtacado, tipoDeAtaque)
         const valorEsperado = pokemonDeReferencia.resultadoDeAtaque(__danoDeAtaque(pokemonDummyAtacante),__defensaTotal(pokemonDummyAtacado)) 
-        const valorObtenido = pokemonDummyAtacado.dañoRecibido
+        const valorObtenido = pokemonDummyAtacado.deterioroRecibido
 
         return valorEsperado == valorObtenido
     }
@@ -81,11 +81,11 @@ class juezDeBatalla {
             return !condicionDeFiltro(unPokemon, ataqueDisponible)  
         })
     }
-    ataquesConDañoIncorrecto(unPokemon) {
-        const __haceEldañoEsperado = (unPokemon, tipoDeAtaque) => {
-            return this.haceElDañoEsperado(unPokemon, tipoDeAtaque)
+    ataquesConDeterioroIncorrecto(unPokemon) {
+        const __haceElDeterioroEsperado = (unPokemon, tipoDeAtaque) => {
+            return this.haceElDeterioroEsperado(unPokemon, tipoDeAtaque)
         } 
-        return this.filtrarAtaquesDisponiblesPor(unPokemon,__haceEldañoEsperado)
+        return this.filtrarAtaquesDisponiblesPor(unPokemon,__haceElDeterioroEsperado)
     }
     tipoDePokemon(unPokemon) {
         return _.find(tiposDePokemon, tipoDePokemon => {

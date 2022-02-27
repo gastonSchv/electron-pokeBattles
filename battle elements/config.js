@@ -21,7 +21,7 @@ class config {
             fuerza: 'number',
             defensa: 'number',
             velocidad: 'number',
-            dañoRecibido: 'number'
+            deterioroRecibido: 'number'
         }
         this.listaAtributosEstado = [
             'nombre',
@@ -31,7 +31,7 @@ class config {
             'fuerza',
             'defensa',
             'velocidad',
-            'dañoRecibido'
+            'deterioroRecibido'
         ];
         this.energiaDeDesmayo = 750;
         this.tiposDePokemonAceptados = ['agua','fuego','electricidad','planta'];

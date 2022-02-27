@@ -28,9 +28,9 @@ module.exports = [{
         mensajeResultadoIncorrecto: 'Tu pokemon No retorna el valor correcto al invocar su metodo miTipo()'        
     }, 
     {
-        id: 'dañoDeAtaquesDisponiblesCorrecto',
-        mensajeResultadoCorrecto: 'Tu pokemon genera el daño correcto en todos sus ataques disponibles',
-        mensajeResultadoIncorrecto: 'Tu pokemon No genera el daño correcto en todos sus ataques disponibles'        
+        id: 'deterioroDeAtaquesDisponiblesCorrecto',
+        mensajeResultadoCorrecto: 'Tu pokemon genera el deterioro correcto en todos sus ataques disponibles',
+        mensajeResultadoIncorrecto: 'Tu pokemon No genera el deterioro correcto en todos sus ataques disponibles'        
     },
     {
         id: 'energiaConsumidaPorAtaqueCorrecto',
