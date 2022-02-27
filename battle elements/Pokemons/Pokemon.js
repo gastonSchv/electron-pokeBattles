@@ -37,12 +37,6 @@ class Pokemon {
     resultadoDeAtaque(unDeterioroDeAtaque,defensaAnteAtaque){
         return _.max([unDeterioroDeAtaque*0.1,unDeterioroDeAtaque - defensaAnteAtaque])
     }
-    entrenarAtaqueFuerte() {
-        return 'Entrenamiento ataque fuerte completado'
-    }
-    entrenarAtaqueMaximo() {
-        return 'Entrenamiento ataque maximo completado'
-    }
     deTipo(propertyPath) {
         return _.get(this.tipoDePokemon, propertyPath)
     }

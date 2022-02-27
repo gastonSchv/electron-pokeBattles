@@ -12,15 +12,6 @@ class JuezDeEntrenamiento {
     constatarEntrenamiento(unPokemon, entrenamientoId) {
         return util.constatarAccion(unPokemon,entrenamientos,entrenamientoId)
     }
-    constatarEntrenamientoAtaques(unPokemon, ataqueExistente) {
-        if (ataqueExistente == 'fuerte') {
-            return unPokemon.entrenarAtaqueFuerte() == 'Entrenamiento ataque fuerte completado'
-        } else if (ataqueExistente == 'maximo') {
-            return unPokemon.entrenarAtaqueMaximo() == 'Entrenamiento ataque maximo completado'
-        } else {
-            throw { message: `Ataque ${ataqueExistente} desconocido` }
-        }
-    }
     tieneModificacionDeEstadisticas(unPokemon) {
         return _.some(this.entrenamientosRealizados(unPokemon), entrenamiento => _.isEqual(unPokemon.nombre, entrenamiento.nombrePokemon))
     }
