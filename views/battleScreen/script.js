@@ -5,7 +5,8 @@ const juezDeBatalla = require('../../evaluation management/juezDeBatalla')
 let largoInicialDeBarraEnergia = 150;
 let largoInicialDeBarraVitalidad = 150;
 let musicaDeBatallaPrendida = true;
-
+const $ = require('jquery')
+const config = require('../../battle elements/config')
 
 let personajeDerecho = require('../../battle elements/Pokemons/Pokemons enemigos/caterpie')
 util.modificarEstadisticasPorEntrenamiento(personajeDerecho)
@@ -22,7 +23,9 @@ const componentesHtmlDerecho = {
     valorVitalidad: 'valorVitalidadPersonajeDerecho',
     valorEnergia: 'valorEnergiaPersonajeDerecho',
     iconoDesmayo: 'iconoDesmayoDerecho',
-    sonidoAtaque: 'sonidoAtaqueDerecho'
+    sonidoAtaque: 'sonidoAtaqueDerecho',
+    energiaConsumida:"energiaConsumidaDerecho",
+    vidaConsumida:"vidaConsumidaDerecho"
 }
 
 const componentesHtmlIzquierdo = {
@@ -39,17 +42,21 @@ const componentesHtmlIzquierdo = {
     valorVitalidad: 'valorVitalidadPersonajeIzquierdo',
     valorEnergia: 'valorEnergiaPersonajeIzquierdo',
     iconoDesmayo: 'iconoDesmayoIzquierdo',
-    sonidoAtaque: 'sonidoAtaqueIzquierdo'
+    sonidoAtaque: 'sonidoAtaqueIzquierdo',
+    energiaConsumida:"energiaConsumidaIzquierdo",
+    vidaConsumida:"vidaConsumidaIzquierdo"
 }
 const componentesDefaultDerecho = {
     componentesHtml: { ...componentesHtmlDerecho },
     posicionInicial: 410,
-    posicionFinalDeEsquivo: 700
+    posicionFinalDeEsquivo: 700,
+    estrategiaDefensa: 'Baja'
 }
 const componentesDefaultIzquierdo = {
     componentesHtml: { ...componentesHtmlIzquierdo },
     posicionInicial: 200,
-    posicionFinalDeEsquivo:0
+    posicionFinalDeEsquivo:0,
+    estrategiaDefensa: 'Baja'
 }
 
 function asignarComponentesDefault(personaje, componentes) {
@@ -98,7 +105,7 @@ function funcionesDeInicio() {
     pedirPokemonEnemigo()
     util.crearBotonCerradoConEstilo(contenedor)
     prenderMusica()
-    seleccionarDefensa('Baja')
+    seleccionarDefensaPersonajeIzquierdo('Baja')
 }
 
 function cerrarPantalla() {
@@ -143,7 +150,7 @@ function efectosDesmayarse(personajeAtacante) {
     var sonidoDesmayo = document.getElementById("sonidoDesmayo")
     sonidoDesmayo.volume = 0.3
     sonidoDesmayo.play()
-    util.aparecerYDesvanecer(iconoDesmayo, 0.1)
+    util.aparecerYDesvanecer(iconoDesmayo, 10)
 }
 
 function desplazarse(enemyXPosition, personajeAtacanteImg) {
@@ -294,7 +301,7 @@ function recuperarEnergia(personajeRecuperado, otroPersonaje) {
 
     sonidoRecuperarEnergia.play()
     personajeRecuperado.recuperarEnergia(energiaLimite)
-    util.aparecerYDesvanecer(fotoEnergia, 0.2);
+    util.aparecerYDesvanecer(fotoEnergia, 5);
     actualizarValoresBarraEnergia()
     actualizarLargosBarrasDeEnergia()
     darTurnoAOponente(personajeRecuperado)
@@ -320,11 +327,34 @@ function cambioInformacionPokemonDerrotados(pokemonDerrotado) {
     juezDeBatalla.guardarPokemonDerrotado(pokemonDerrotado.nombre)
     notificarPokemonDerrotadoParaMarcarEnSelector(pokemonDerrotado.nombre)
 }
+function editarDefensaViablePersonajeAtacado(personajeAtacado){
+    const _energiaSuficiente = (consumo,personaje) =>  consumo <= _.get(personajeAtacado,'energia')
+    const _energiaSuficienteParaDefensaElegida = ({defensaSeleccionada,energia}) => {
+        return _.get(config.energiaPorDefensa,personajeAtacado.estrategiaDefensa) <= energia
+    }
 
+    const estrategiasAlternativas = _.filter(_.toPairs(config.energiaPorDefensa), ([tipo,consumo]) => {
+        return _energiaSuficiente(consumo,personajeAtacado) && tipo !== personajeAtacado.estrategiaDefensa
+    })
+    if(!_energiaSuficienteParaDefensaElegida(personajeAtacado)){
+        const estrategiaAlternativa = _.head(_.maxBy(estrategiasAlternativas, ([tipo,consumo]) => consumo))
+        personajeAtacado.estrategiaDefensa = estrategiaAlternativa
+        seleccionarDefensa(estrategiaAlternativa,personajeAtacado)
+    }
+}
+function editarEstadisticasPorDefensaElegida(personajeAtacado){
+    editarDefensaViablePersonajeAtacado(personajeAtacado)
+	personajeAtacado.defensa += config.defensaAdicionalPorEstrategia(personajeAtacado.estrategiaDefensa)
+	personajeAtacado.energia -= config.consumoEnergiaPorDefensa(personajeAtacado.estrategiaDefensa)
+}
+function restaurarEstadisticasPorDefensaElegida(personajeAtacado){
+	personajeAtacado.defensa -= config.defensaAdicionalPorEstrategia(personajeAtacado.estrategiaDefensa)
+}
 function atacar(personajeAtacado, personajeAtacante, tipoDeAtaque,personajeAtacanteImg) {
     const sonidoAtaque = document.getElementById(personajeAtacante.componentesHtml.sonidoAtaque)
-    
+    editarEstadisticasPorDefensaElegida(personajeAtacado)
     personajeAtacante.atacar(personajeAtacado, tipoDeAtaque);
+    restaurarEstadisticasPorDefensaElegida(personajeAtacado)
     efectosAtacar(personajeAtacado, personajeAtacanteImg, sonidoAtaque, personajeAtacante)
 }
 
@@ -361,7 +391,8 @@ function efectosEsquivarAtaque(personajeAtacado,personajeAtacanteImg,personajeAt
 function desencadenarAccionesAlAtacar(personajeAtacado, personajeAtacante, tipoDeAtaque) {
     var personajeAtacanteImg = document.getElementById(personajeAtacante.componentesHtml.personaje);
     var personajeAtacadoImg = document.getElementById(personajeAtacado.componentesHtml.personaje);
-    
+    const vitalidadInicial = personajeAtacado.vitalidad() ;
+    const energiaInicialPersonajeAtacante = personajeAtacante.energia;
     const _actualizarYcerrar = personajeAtacante => {
         darTurnoAOponente(personajeAtacante)
         actualizarElementosDeBatalla();
@@ -378,10 +409,20 @@ function desencadenarAccionesAlAtacar(personajeAtacado, personajeAtacante, tipoD
         return _actualizarYcerrar(personajeAtacante)
     }
     atacar(personajeAtacado, personajeAtacante, tipoDeAtaque,personajeAtacanteImg);
+    mostrarDeterioroRecibido(personajeAtacado,vitalidadInicial)
     actualizarElementosDeBatalla();
     verificarSiHayGanador(personajeAtacado, personajeAtacante, tipoDeAtaque);
 }
-
+function mostrarDeterioroRecibido(personajeAtacado,vitalidadInicial){
+	const vitalidadFinal = personajeAtacado.vitalidad()
+	mostrarCambioDeAtributos(personajeAtacado,vitalidadInicial,vitalidadFinal,"vidaConsumida")
+}
+function mostrarCambioDeAtributos(personajeAtacado,valorInicial,valorFinal,componente){
+	const nombreComponente = _.get(personajeAtacado.componentesHtml,componente)
+	const componenteHtml = document.getElementById(nombreComponente)
+    componenteHtml.innerHTML =  valorFinal - valorInicial
+	util.aparecerYDesvanecer(componenteHtml,10)	
+}
 function atacarAlDerecho(tipoDeAtaque) {
     desencadenarAccionesAlAtacar(personajeDerecho, personajeIzquierdo, tipoDeAtaque)
 }
@@ -401,15 +442,20 @@ function recuperarEnergiaDerecho() {
 function ejecutarEstrategiaBaja() {
     desencadenarAccionesAlAtacar(personajeIzquierdo, personajeDerecho, 'basico')
 }
-function seleccionarDefensa(tipoDeDefensa){
+function seleccionarDefensa(tipoDeDefensa,personaje){
     const tipoDeDefensas = ['Baja','Media','Alta']
     const defensaSeleccionada = _.filter(tipoDeDefensas, defensa => defensa == tipoDeDefensa)
     const defensasNoSeleccionadas = _.filter(tipoDeDefensas, defensa => defensa !== tipoDeDefensa)
     
+    personaje.estrategiaDefensa = tipoDeDefensa;
     _.forEach(defensaSeleccionada, defensa => {
         document.getElementById(`defensa${defensa}`).style.opacity = 1
     })
     _.forEach(defensasNoSeleccionadas, defensa => {
         document.getElementById(`defensa${defensa}`).style.opacity = 0.3
     })
+
+}
+function seleccionarDefensaPersonajeIzquierdo(tipoDeDefensa){
+	seleccionarDefensa(tipoDeDefensa,personajeIzquierdo)
 }
