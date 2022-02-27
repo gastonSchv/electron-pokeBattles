@@ -94,7 +94,7 @@ class juezDeBatalla {
     }
     consumoEnergeticoEsperado(unPokemon, tipoDeAtaque) {
         const tipoDePokemon = this.tipoDePokemon(unPokemon)
-        return _.get(tipoDePokemon.energiaParaAtaques, tipoDeAtaque)
+        return tipoDePokemon.energiaParaAtaque(tipoDeAtaque,unPokemon)
     }
     consumeLaEnergiaEsperada(unPokemon, tipoDeAtaque, tipoDePokemon) {
         const pokemonDummyAtacado = _.cloneDeep(unPokemon);

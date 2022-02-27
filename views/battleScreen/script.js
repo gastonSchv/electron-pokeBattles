@@ -37,6 +37,10 @@ const componentesHtmlIzquierdo = {
     botonAtacarMedio: 'botonIzquierdoAtacarmedio',
     botonAtacarFuerte: 'botonIzquierdoAtacarfuerte',
     botonAtacarMaximo: 'botonIzquierdoAtacarmaximo',
+    botonAtacarEspecial: 'botonIzquierdoAtacarespecial',
+    botonDefensaBaja: 'defensaBaja',
+    botonDefensaMedia: 'defensaMedia',
+    botonDefensaAlta: 'defensaAlta',
     botonRecuperarEnergia: 'botonIzquierdoRecuperar',
     bordeBarraVitalidad: 'bordeBarraVitalidadIzquierdo',
     valorVitalidad: 'valorVitalidadPersonajeIzquierdo',
@@ -188,7 +192,7 @@ function ambosPersonajes(func) {
 }
 
 function actualizarValorBarraVitalidad(personaje) {
-    editInnerHtml(personaje.componentesHtml.valorVitalidad, `${personaje.vitalidad()} / ${personaje.vida}`)
+    editInnerHtml(personaje.componentesHtml.valorVitalidad, `${_.round(personaje.vitalidad())} / ${personaje.vida}`)
 }
 
 function actualizarValoresBarraVitalidad() {
@@ -196,7 +200,7 @@ function actualizarValoresBarraVitalidad() {
 }
 
 function actualizarValorBarraEnergia(personaje) {
-    editInnerHtml(personaje.componentesHtml.valorEnergia, `${personaje.energia} / ${personaje.inicial.energia}`)
+    editInnerHtml(personaje.componentesHtml.valorEnergia, `${_.round(personaje.energia)} / ${personaje.inicial.energia}`)
 }
 
 function actualizarValoresBarraEnergia() {
@@ -233,7 +237,12 @@ function editarDeshabilitacionDeBotones(personaje, estado) {
     document.getElementById(personaje.componentesHtml.botonAtacarMedio).disabled = estado
     document.getElementById(personaje.componentesHtml.botonAtacarFuerte).disabled = estado
     document.getElementById(personaje.componentesHtml.botonAtacarMaximo).disabled = estado
+    document.getElementById(personaje.componentesHtml.botonAtacarEspecial).disabled = estado
     document.getElementById(personaje.componentesHtml.botonRecuperarEnergia).disabled = estado
+    document.getElementById(personaje.componentesHtml.botonDefensaBaja).disabled = estado
+    document.getElementById(personaje.componentesHtml.botonDefensaMedia).disabled = estado
+    document.getElementById(personaje.componentesHtml.botonDefensaAlta).disabled = estado
+
 }
 
 function armarCartelVictoria(cartelFinDeBatalla) {
@@ -353,12 +362,16 @@ function restaurarEstadisticasPorDefensaElegida(personajeAtacado){
 function atacar(personajeAtacado, personajeAtacante, tipoDeAtaque,personajeAtacanteImg) {
     const sonidoAtaque = document.getElementById(personajeAtacante.componentesHtml.sonidoAtaque)
     editarEstadisticasPorDefensaElegida(personajeAtacado)
-    personajeAtacante.atacar(personajeAtacado, tipoDeAtaque);
+    if(tipoDeAtaque == 'especial'){
+        personajeAtacante.atacarEspecial(personajeAtacado)
+    }else{
+        personajeAtacante.atacar(personajeAtacado, tipoDeAtaque);
+    }
     restaurarEstadisticasPorDefensaElegida(personajeAtacado)
     efectosAtacar(personajeAtacado, personajeAtacanteImg, sonidoAtaque, personajeAtacante)
 }
 
-function verificarSiHayGanador(personajeAtacado, personajeAtacante, tipoDeAtaque) {
+function verificarSiHayGanador(personajeAtacado, personajeAtacante) {
     const ganador = juezDeBatalla.definirGanador(personajeAtacante, personajeAtacado)
     if (ganador) {
         const ganoIzquierdo = ganador.nombre == personajeIzquierdo.nombre
@@ -411,7 +424,7 @@ function desencadenarAccionesAlAtacar(personajeAtacado, personajeAtacante, tipoD
     atacar(personajeAtacado, personajeAtacante, tipoDeAtaque,personajeAtacanteImg);
     mostrarDeterioroRecibido(personajeAtacado,vitalidadInicial)
     actualizarElementosDeBatalla();
-    verificarSiHayGanador(personajeAtacado, personajeAtacante, tipoDeAtaque);
+    verificarSiHayGanador(personajeAtacado, personajeAtacante);
 }
 function mostrarDeterioroRecibido(personajeAtacado,vitalidadInicial){
 	const vitalidadFinal = personajeAtacado.vitalidad()
@@ -420,7 +433,7 @@ function mostrarDeterioroRecibido(personajeAtacado,vitalidadInicial){
 function mostrarCambioDeAtributos(personajeAtacado,valorInicial,valorFinal,componente){
 	const nombreComponente = _.get(personajeAtacado.componentesHtml,componente)
 	const componenteHtml = document.getElementById(nombreComponente)
-    componenteHtml.innerHTML =  valorFinal - valorInicial
+    componenteHtml.innerHTML =  _.round(valorFinal - valorInicial)
 	util.aparecerYDesvanecer(componenteHtml,10)	
 }
 function atacarAlDerecho(tipoDeAtaque) {

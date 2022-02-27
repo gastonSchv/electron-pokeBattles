@@ -28,7 +28,7 @@ class Pokemon {
         return this.fuerza * config.multiplicadorDeAtaque(tipoDeAtaque) * this.factorDeEvolución()
     }
     energiaParaAtaque(tipoDeAtaque) {
-        return this.tipoDePokemon.energiaParaAtaque(tipoDeAtaque)
+        return this.tipoDePokemon.energiaParaAtaque(tipoDeAtaque,this)
     }
     atacar(unPokemon, tipoDeAtaque) {
         this.disminuirEnergia(tipoDeAtaque)
@@ -36,6 +36,9 @@ class Pokemon {
     }
     resultadoDeAtaque(unDeterioroDeAtaque,defensaAnteAtaque){
         return _.max([unDeterioroDeAtaque*0.1,unDeterioroDeAtaque - defensaAnteAtaque])
+    }
+    atacarEspecial(unPokemon){
+        this.tipoDePokemon.atacarEspecial(unPokemon,this)
     }
     deTipo(propertyPath) {
         return _.get(this.tipoDePokemon, propertyPath)
@@ -48,6 +51,7 @@ class Pokemon {
     }
     recibirDeterioro(unDeterioroDeAtaque) {
         this.deterioroRecibido += this.resultadoDeAtaque(unDeterioroDeAtaque,this.defensaAnteAtaque())
+
     }
     disminuirEnergia(tipoDeAtaque) {
         this.energia -= this.energiaParaAtaque(tipoDeAtaque)

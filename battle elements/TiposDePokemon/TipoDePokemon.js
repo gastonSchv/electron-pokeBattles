@@ -10,7 +10,13 @@ class TipoDePokemon {
 	multiplicadorDeAtributo(atributo){
 		return _.get(this.multiplicadoresDeAtributo,atributo)
 	}
-	energiaParaAtaque(tipoDeAtaque){
+	energiaParaAtaqueEspecial(pokemon){
+		return pokemon.energia	
+	}
+	energiaParaAtaque(tipoDeAtaque,pokemon){
+		if(tipoDeAtaque == 'especial'){
+			return this.energiaParaAtaqueEspecial(pokemon)
+		}
 		return _.get(this.energiaParaAtaques,tipoDeAtaque)
 	}
 }
