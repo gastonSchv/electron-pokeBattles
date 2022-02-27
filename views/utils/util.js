@@ -20,19 +20,19 @@ class Util {
         musicaDeBatalla.pause()
         musicaDeBatallaImg.src = "../../../assets/images/audio off.png"
     }
-    aparecerYDesvanecer(htmlComponent, pace = 0.2) {
-        var opacity = 0;
-        var variationOpacityPace = pace;
-        var counter = 1;
-        var intervalId = setInterval(function() {
-            if (counter / 2 == 1 / variationOpacityPace) {
+    aparecerYDesvanecer(htmlComponent, steps = 2) {
+        let opacity = 0;
+        let counter = 1;
+        let opacityPace = 1/steps;
+        let intervalId = setInterval(function() {
+            if (counter / 2 ==  steps) {
                 clearInterval(intervalId)
             }
-            if (counter > 1 / variationOpacityPace) {
-                opacity -= variationOpacityPace
+            if (counter > steps) {
+                opacity -= opacityPace
                 htmlComponent.style.opacity = opacity
             } else {
-                opacity += variationOpacityPace
+                opacity += opacityPace
                 htmlComponent.style.opacity = opacity
             }
             counter++;
