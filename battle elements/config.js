@@ -41,7 +41,7 @@ class config {
             Alta: 1000
         };
         this.energiaPorDefensa = {
-            Baja:200,
+            Baja:0,
             Media: 300,
             Alta: 500
         }
@@ -56,7 +56,6 @@ class config {
         return _.get(this.adicionalDeDefensa,tipoDeDefensa)
     }
     consumoEnergiaPorDefensa(tipoDeDefensa){
-        console.log(tipoDeDefensa)
         return _.get(this.energiaPorDefensa,tipoDeDefensa)
     }
 }
