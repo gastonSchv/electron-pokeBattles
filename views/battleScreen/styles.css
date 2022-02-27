@@ -94,7 +94,7 @@ body {
     z-index: 3;   
 }
 .botonesCartelFinDeBatalla button{
- /*   border:3px solid purple;*/
+    border:3px solid purple;
     border-radius: 15px; 
     background-color: white;
     height: 70px;
@@ -116,10 +116,11 @@ body {
 }
 
 .recuadroEstadisticasPersonajes {
-    border: 1px solid;
+    border: 10px solid;
     border-color: brown;
     background-color: white;
     position: absolute;
+    top:0px;
     width: 200px;
     height: 80px;
     z-index: -4;
@@ -141,6 +142,7 @@ body {
 }
 
 #personajeIzquierdo img {
+    border: 2px solid;
     height: 200px;
     position: absolute;
     bottom: 0px;
@@ -157,6 +159,7 @@ body {
 }
 
 #personajeDerecho img {
+    border: 2px solid;
     height: 200px;
     position: absolute;
     bottom: 0px;
@@ -419,4 +422,31 @@ body {
 }
 #defensaAlta img{
     height: 80px;
+}
+.recursoConsumido{
+    border:1px solid black;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 70px;
+    height: 23px;
+    border-radius: 5px;
+    font-weight: bold
+}
+.energiaConsumida{
+    background: grey;
+    margin-top: 10px;
+    margin-left:210px;
+}
+.vidaConsumida{
+    background: red;
+    margin-top: 20px;
+    margin-left:210px;   
+}
+#vidaConsumidaIzquierdo{
+    opacity: 0
+}
+#vidaConsumidaDerecho{
+    opacity: 0
 }
