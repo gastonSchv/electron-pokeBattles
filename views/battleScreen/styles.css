@@ -137,7 +137,7 @@ body {
     /*border: 1px solid;*/
     border-color: blue;
     position: absolute;
-    left: 25px;
+    left: 45px;
 
 }
 
@@ -155,7 +155,7 @@ body {
     border-color: red;
     position: absolute;
     bottom: 0px;
-    left: 665px;
+    left: 635px;
 }
 
 #personajeDerecho img {
@@ -246,64 +246,120 @@ body {
     left: -51px;
 }
 .botonera button{
-    color:black;
+    /*color:black;*/
     display: flex;
     align-items: center;
     justify-content: center;
 }
 #botoneraIzquierda {
     /*border: 1px solid;*/
+    background: url("../../../assets/images/pokedex.png");
     position: absolute;
-    height: 300px;
-    width: 210px;
-    top: 0px;
-    left: 10px;
+    border-radius: 10px;
+    height: 331px;
+    width: 230px;
+    top: -20px;
+    left: 5px;
 }
 #botoneraDeAtaques{
-    /*border: 1px solid;*/
-    border-color: silver;
-    display: grid;
-    height: 100px;
-    grid-template-columns: 45% 45%;
-    grid-column-gap: 3%;
-    grid-row-gap:1%;
-    align-items: center;
-    justify-content: center;
+    /*border: 1px solid white;*/
+    height: 180px;
+}
+#botonIzquierdoAtacarbasico{
+	/*border:2px solid green;*/
+    position: relative;
+	height: 42px;
+	width: 42px;
+	left: 25px;
+	top:71px;
+}
+#botonIzquierdoAtacarbasico img{
+	height: 42px;
+	width: 42px;
+}
+#botonIzquierdoAtacarfuerte{
+	/*border:2px solid green;*/
+	height: 45px;
+	width: 45px;
+	position: relative;
+	top:25px;
+	left: 75px;
+}
+#botonIzquierdoAtacarfuerte img{
+	height: 45px;
+	width: 45px;
+}
+#botonIzquierdoAtacarmaximo{
+	/*border:2px solid green;*/
+	height: 45px;
+	width: 45px;
+	position: relative;
+	top:-23px;
+	left:128px;
+}
+#botonIzquierdoAtacarmaximo img{
+	height: 48px;
+	width: 48px;
+}
+#botonIzquierdoAtacarespecial{
+	/*border:2px solid green;*/
+	height: 60px;
+	width: 60px;
+	position: relative;
+	left: 128px;
+	top: 58px;
+}
+#botonIzquierdoAtacarespecial:hover{
+    transform: scale(1.1)
+}
+#botonIzquierdoAtacarespecial img{
+	height: 60px;
+	width: 60px;
+}
+.botonesDeAtaque{
+    border-radius:50%;
 }
 #botoneraDeAtaques button{
     /*border: 1px solid black;*/
-    height: 40px
+    border:none;
+    background: none;
+    border-radius:15px;
 }
 #botoneraDeAtaques button:hover{
-    background-color: black;
-    color:white;
+    transform: scale(1.1)
 }
 #botoneraDeAtaques button:disabled{
-    background-color: grey;
-    color:white;
+    opacity: 0.5
 }
 #botoneraRecuperarEnergia{
-    /*border: 2px solid blue;*/
+    /*border: 2px solid */;
+
     height: 50px;
-    margin-top:4%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    margin-top:15%;
 }
-#botoneraRecuperarEnergia button{
+#botonIzquierdoRecuperar{
     /*border: 1px solid black;*/
-    height: 50px;
+    height: 40px;
+    width: 70px;
+    border-radius: 10px;
+    position: relative;
+    left: 66px;
+    top: -24px;
+    background:none;
+    border:none;
     display: flex;
     justify-content: center;
     align-items: center;
+}
+#botonIzquierdoRecuperar img{
+    height: 50px;
+    width: 87.5px;
 }
 #botoneraRecuperarEnergia button:hover{
-    background-color: black;
-    color:white;
+    transform: scale(1.1)
 }
 #botoneraRecuperarEnergia button:disabled{
-    background-color: grey;
-    color:white;
+    opacity: 0.5
 }
 .luzDeRecuperacionDeEnergia {
     border-color: black;
@@ -406,28 +462,50 @@ body {
     opacity: 1;
 }
 #botoneraDefensa{
-    /*border: 1px solid black;*/
-    margin-top: 4%;
-    display: grid;
-    grid-template-columns: 30% 30% 30%;
-    grid-column-gap: 3%;
-    grid-row-gap:1%;
-    align-items: center;
-    justify-content: center;   
+    /*border: 2px solid green;*/
+    margin-top: 3.5%;
+    height: 60px;
+    display: flex   
+}
+#botoneraDefensa button{
+	/*border:none;*/
+    background: none;
+}
+#botoneraDefensa button:hover{
+	transform: scale(1.1)
 }
 .defensa{
     border-radius: 10px;
-    height: 80px;
-    width: 60px;
+}
+#defensaBaja{
+	height: 42px;
+	width: 42px;
+	position: relative;
+	left: 25px;
+	top:9px;
 }
 #defensaBaja img{
-    height: 65px;
+    height: 42px;
+}
+#defensaMedia{
+	height: 43px;
+	width: 43px;
+	position: relative;
+	top:7px;
+	left: 35px;	
 }
 #defensaMedia img{
-    height: 70px;
+    height: 43px;
+}
+#defensaAlta{
+	height: 44px;
+	width: 44px;
+	position: relative;
+	top:5px;
+	left: 45px;
 }
 #defensaAlta img{
-    height: 80px;
+    height: 44px;
 }
 .recursoConsumido{
     /*border:1px solid black;*/
@@ -456,15 +534,11 @@ body {
 #vidaConsumidaDerecho{
     opacity: 0
 }
-#botonAtaqueEspecial{
+#botonAtaqueEspecialDiv{
+    /*border: 2px solid black;*/
+    height: 80px;
+    margin-top: 0%;
     display: flex;
     align-items: center;
     justify-content: center;
-}
-#botonAtaqueEspecial button{
-    width: 150px;
-    /*border: 1px solid black;*/
-    display: flex;
-    justify-content: center;
-    align-items: center;
 }
