@@ -2,11 +2,10 @@ const _ = require('lodash')
 
 class config {
     constructor() {
-        this.tiposDeAtaque = ['basico','medio','fuerte', 'maximo'];
-        this.ataquesVerificables = ['basico','medio','fuerte', 'maximo'];
+        this.tiposDeAtaque = ['basico','fuerte', 'maximo'];
+        this.ataquesVerificables = ['basico','fuerte', 'maximo'];
         this.multiplicadoresDeAtaque = {
             basico: 15,
-            medio: 16,
             fuerte: 23,
             maximo: 25
         };

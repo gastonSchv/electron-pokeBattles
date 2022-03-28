@@ -34,7 +34,6 @@ const componentesHtmlIzquierdo = {
     barraVitalidad: 'barraVitalidadPersonajeIzquierdo',
     personaje: 'personajeIzquierdo',
     botonAtacarBasico: 'botonIzquierdoAtacarbasico',
-    botonAtacarMedio: 'botonIzquierdoAtacarmedio',
     botonAtacarFuerte: 'botonIzquierdoAtacarfuerte',
     botonAtacarMaximo: 'botonIzquierdoAtacarmaximo',
     botonAtacarEspecial: 'botonIzquierdoAtacarespecial',
@@ -234,7 +233,6 @@ function actualizarElementosDeBatalla() {
 
 function editarDeshabilitacionDeBotones(personaje, estado) {
     document.getElementById(personaje.componentesHtml.botonAtacarBasico).disabled = estado
-    document.getElementById(personaje.componentesHtml.botonAtacarMedio).disabled = estado
     document.getElementById(personaje.componentesHtml.botonAtacarFuerte).disabled = estado
     document.getElementById(personaje.componentesHtml.botonAtacarMaximo).disabled = estado
     document.getElementById(personaje.componentesHtml.botonAtacarEspecial).disabled = estado

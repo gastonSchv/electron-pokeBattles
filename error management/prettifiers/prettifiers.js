@@ -149,7 +149,7 @@ module.exports = [
         messageAfterKeyWord: '',
         recommendations: [{
             titulo: "Al menos un ataque",
-            descripcion: "Verifica que tu pokemon cuente con al menos un ataque disponible. Recuerda que hay 4 tipos de ataque: basico, medio, fuerte y maximo"
+            descripcion: "Verifica que tu pokemon cuente con al menos un ataque disponible. Recuerda que hay 3 tipos de ataque: basico, fuerte y maximo"
         }, {
             titulo: "deterioro por ataque",
             descripcion: "Verifica que el calculo de deterioro de tu pokemon siga la formula deterioro(tipoDeAtaque) = fuerza X multiplicadorDeAtaque(tipoDeAtaque) X factorDeEvolucion"
@@ -167,7 +167,7 @@ module.exports = [
         messageAfterKeyWord: '',
         recommendations: [{
             titulo: "Al menos un ataque",
-            descripcion: "Verifica que tu pokemon cuente con al menos un ataque disponible. Recuerda que hay 4 tipos de ataque: basico, medio, fuerte y maximo"
+            descripcion: "Verifica que tu pokemon cuente con al menos un ataque disponible. Recuerda que hay 3 tipos de ataque: basico, fuerte y maximo"
         }, {
             titulo: "Disminución de energia",
             descripcion: "Verifica que estes disminuyendo la energia de tu pokemon al atacar"
