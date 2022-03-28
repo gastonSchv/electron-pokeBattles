@@ -39,7 +39,11 @@ class Util {
         }, 70)
     }
     largoDeBarra(largoInicial, cantidadInicial, cantidadFinal) {
-        return _.max([0, largoInicial * cantidadFinal / cantidadInicial])
+        const largoRegular = _.max([0, largoInicial * cantidadFinal / cantidadInicial]);
+        const caracteresStringCantidadFinal = _.toString(cantidadFinal).replace(".","").length;
+        const largoCaracteres = caracteresStringCantidadFinal * 10;
+
+        return largoRegular < largoCaracteres && cantidadFinal != 0 ? largoCaracteres: largoRegular 
     }
     valorModificacionAtributo = (atributoEvaluado, unPokemon) => {
 
