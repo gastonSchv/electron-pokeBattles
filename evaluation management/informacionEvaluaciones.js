@@ -10,7 +10,7 @@ module.exports = [{
     }, {
         id: 'puntoDeAtributosMaximoPermitido',
         mensajeResultadoCorrecto: 'Tu pokemon no excede el límite de puntos de atributos permitidos',
-        mensajeResultadoIncorrecto: 'Tu pokemon excede el límite de puntos de atributos permitidos'        
+        mensajeResultadoIncorrecto: 'Tu pokemon No verifica el límite de puntos de atributos permitidos'        
     },
     {
         id: 'metodosNecesarios',
