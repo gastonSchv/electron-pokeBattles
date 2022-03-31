@@ -13,14 +13,14 @@ class Util {
         }
     }
     prenderMusica(musicaDeBatalla, musicaDeBatallaImg) {
-        musicaDeBatalla.play()
+        //musicaDeBatalla.play()
         musicaDeBatallaImg.src = "../../../assets/images/audio on.png"
     }
     apagarMusica(musicaDeBatalla, musicaDeBatallaImg) {
         musicaDeBatalla.pause()
         musicaDeBatallaImg.src = "../../../assets/images/audio off.png"
     }
-    aparecerYDesvanecer(htmlComponent, steps = 2) {
+    aparecerYDesvanecer(htmlComponent, steps = 10) {
         let opacity = 0;
         let counter = 1;
         let opacityPace = 1/steps;

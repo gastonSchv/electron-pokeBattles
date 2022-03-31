@@ -9,7 +9,7 @@ function guardarRutaPokemon() {
     const valorInputRuta = inputRuta.files[0].path
 
     notificarAltaDeScreenHaciaMain({ruta:valorInputRuta})
-    util.aparecerYDesvanecer(tickGuardadoCorrecto, 0.1)
+    util.aparecerYDesvanecer(tickGuardadoCorrecto,10)
     colocarPlaceHolder()
     placeHolderLabel.style.color = 'black'
 }
