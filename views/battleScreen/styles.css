@@ -369,12 +369,13 @@ body {
 }
 
 #luzDeRecuperacionDeEnergiaIzquierda {
-    left: -50px
+    top:30px;
+    left: -85px
 }
 
 #luzDeRecuperacionDeEnergiaIzquierda img {
-    width: 300px;
-    height: 250px;
+    width: 400px;
+    height: 333px;
     z-index: 2
 }
 
