@@ -245,22 +245,19 @@ function editarDeshabilitacionDeBotones(personaje, estado) {
 
 function armarCartelVictoria(cartelFinDeBatalla) {
     cartelFinDeBatalla.innerHTML += `
-                <div id="ribbonDiv">
-                    <img src="../../../assets/images/ribbon verde.png">
-                    <h1 id="textoGanador">HAS GANADO!</h1>
-                </div>
-                <div id="imagenSuperiorCartelFinDeBatalla">
-                    <img src="../../../assets/images/victoria batalla 5 estrellas.png">
+                <div id="ribonVictoriaDiv">
+                    <img src="../../../assets/images/ribon victoria.png">
                 </div>
                 <div id="imagenPokemonCartelFinDeBatalla">
-                    <img src="../../../assets/images/victoria batalla squartle.png">
+                    <div id="imagenSquartleAnteojosDiv">
+                        <img src="../../../assets/images/victoria batalla squartle.png">
+                    </div>
                 </div>`
 }
-
 function armarCartelDerrota(cartelFinDeBatalla) {
     cartelFinDeBatalla.innerHTML += `
                 <div id="ribbonDiv">
-                    <img src="../../../assets/images/ribbon rojo.png">
+                    <img src="../../../assets/images/ribon derrota.png">
                     <h1 id="textoGanador">HAS PERDIDO</h1>
                 </div>
                 <div id="imagenSuperiorCartelFinDeBatalla">
@@ -273,9 +270,13 @@ function armarCartelDerrota(cartelFinDeBatalla) {
 
 function agregarBotonesCartelFinDeBatalla() {
     cartelFinDeBatalla.innerHTML += `
-                <div class="botonesCartelFinDeBatalla">
-                    <button onclick="restart()">RESTART</button>
-                    <button onclick="irHaciaSelector()">NUEVO ENEMIGO</button>
+                <div id="botonerCartelFinDeBatallaDiv" class="botonesCartelFinDeBatalla">
+                    <button id="botonRestart" onclick="restart()">
+                        RESTART!
+                    </button>
+                    <button id="botonNuevoEnemigo" onclick="irHaciaSelector()">
+                        NUEVO ENEMIGO
+                    </button>
                 </div>`
 }
 
@@ -295,9 +296,7 @@ function cambioCartelGanador(ganoIzquierdo) {
     cartelDesafio.style.opacity = 0;
     ganoIzquierdo ? armarCartelVictoria(cartelFinDeBatalla) : armarCartelDerrota(cartelFinDeBatalla);
     agregarBotonesCartelFinDeBatalla(cartelFinDeBatalla)
-    const textoGanador = document.getElementById('textoGanador')
     cartelFinDeBatalla.style.opacity = 1
-    textoGanador.style.opacity = 1
 }
 
 function recuperarEnergia(personajeRecuperado, otroPersonaje) {
