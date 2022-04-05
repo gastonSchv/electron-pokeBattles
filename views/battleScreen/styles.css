@@ -41,29 +41,17 @@ body {
 }
 
 #cartelFinDeBatalla {
-    /*border: 2px solid purple;*/
-    background: url("../../../assets/images/carta pokemon verde.png");
+    /*border: 2px solid purple;*/   
     height: 500px;
     width: 360px;
     top: 11.5%;
     left: 460px;
-    opacity: 0;
+    opacity: 1;
     z-index: 2;
     border-radius: 15px;
     position: absolute;
     margin-left: auto;
     margin-right: auto;
-}
-#ribbonDiv{
-    /*border: 2px solid pink;*/
-    margin-top: -50px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-#ribbonDiv img{
-    /*border:4px solid white;*/
-    height: 105px;
 }
 #imagenSuperiorCartelFinDeBatalla{
     /*border: 2px solid blue;*/
@@ -78,36 +66,36 @@ body {
 }
 #imagenPokemonCartelFinDeBatalla{
     /*border: 2px solid red;*/
-    margin-top: 0px;
+    margin-top: -5px;
     margin-left: 30px;
     height: 180px;
     width: 300px;
 }
-#imagenPokemonCartelFinDeBatalla img{
-    /*border:3px solid orange;*/
-    height: 120px;
-}
-#ribonVictoriaDiv{
+#ribbonDiv{
     /*border:3px solid orange;*/
     display: flex;
     margin-top: -30px;
     align-items: center;
     justify-content: center;    
 }
-#ribonVictoriaDiv img{
+#ribbonDiv img{
     width: 520px;
     height: 120px;
 }
-#imagenSquartleAnteojosDiv{
+#imagenPokemonCentralDiv{
     /*border: 2px solid brown;*/
     height: 170px;
     display: flex;
     align-items: center;
     justify-content: center;
 }
-#imagenSquartleAnteojosDiv img{
+#imagenSquartleAnteojos{
     width: 200px; 
     height: 155px;
+}
+#imagenPokemonDesmayado{
+    width: 160px; 
+    height: 160px;
 }
 .botonesCartelFinDeBatalla{
     /*border:3px solid orange;*/
@@ -140,7 +128,7 @@ body {
     background:url("../../../assets/images/boton cartel fin de batalla.png");
 }
 #botonNuevoEnemigo{
- background:url("../../../assets/images/boton cartel fin de batalla.png");
+    background:url("../../../assets/images/boton cartel fin de batalla.png");
 }
 #personajes {
     /*border: 1px solid;*/

@@ -244,27 +244,27 @@ function editarDeshabilitacionDeBotones(personaje, estado) {
 }
 
 function armarCartelVictoria(cartelFinDeBatalla) {
+    cartelFinDeBatalla.style.backgroundImage = 'url("../../../assets/images/carta pokemon verde.png")';
     cartelFinDeBatalla.innerHTML += `
-                <div id="ribonVictoriaDiv">
+                <div id="ribbonDiv">
                     <img src="../../../assets/images/ribon victoria.png">
                 </div>
                 <div id="imagenPokemonCartelFinDeBatalla">
-                    <div id="imagenSquartleAnteojosDiv">
-                        <img src="../../../assets/images/victoria batalla squartle.png">
+                    <div id="imagenPokemonCentralDiv">
+                        <img id="imagenSquartleAnteojos" src="../../../assets/images/victoria batalla squartle.png">
                     </div>
                 </div>`
 }
 function armarCartelDerrota(cartelFinDeBatalla) {
+    cartelFinDeBatalla.style.backgroundImage = 'url("../../../assets/images/carta pokemon rojo.png")'
     cartelFinDeBatalla.innerHTML += `
                 <div id="ribbonDiv">
                     <img src="../../../assets/images/ribon derrota.png">
-                    <h1 id="textoGanador">HAS PERDIDO</h1>
-                </div>
-                <div id="imagenSuperiorCartelFinDeBatalla">
-                    <img src="../../../assets/images/derrota batalla 5 calaveras.png">
                 </div>
                 <div id="imagenPokemonCartelFinDeBatalla">
-                    <img src="../../../assets/images/pokemon desmayado.png">
+                    <div id="imagenPokemonCentralDiv">
+                        <img id="imagenPokemonDesmayado" src="../../../assets/images/pokemon desmayado.png">
+                    </div>
                 </div>`
 }
 
