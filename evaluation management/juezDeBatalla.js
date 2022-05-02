@@ -7,7 +7,7 @@ const store = new Store()
 const util = require('../management utils/util')
 const evaluaciones = require('./evaluaciones')
 const tiposDePokemon = require('../battle elements/TiposDePokemon/todos')
-const pokemonDeReferencia  = require('../battle elements/Pokemons/pokemon de referencia.js')
+const pokemonDeReferencia = require('../battle elements/Pokemons/pokemon de referencia.js')
 
 class juezDeBatalla {
     constructor(nombre) {
@@ -19,19 +19,24 @@ class juezDeBatalla {
     obtenerEvaluaciones() {
         return evaluaciones
     }
-    pasaEvaluacion(unPokemon,evaluacionId){
-        return this.constatarEvaluacion(unPokemon,evaluacionId)
-        .then(() => true)
-        .catch(() => false)
+    pasaEvaluacion(unPokemon, evaluacionId) {
+        return this.constatarEvaluacion(unPokemon, evaluacionId)
+            .then(() => true)
+            .catch(() => false)
     }
-    pasaTodasLasEvaluaciones(unPokemon){
-        return Promise.map(evaluaciones, ({id}) => this.pasaEvaluacion(unPokemon,id))
-        .then(results => _.every(results, e=>e))
+    pasaTodasLasEvaluaciones(unPokemon) {
+        return Promise.map(evaluaciones, ({ id }) => this.pasaEvaluacion(unPokemon, id))
+            .then(results => _.every(results, e => e))
+    }
+    constatarTodasLasEvaluaciones(unPokemon) {
+        return Promise.map(this.obtenerEvaluaciones(), evaluacion => {
+            return this.constatarEvaluacion(unPokemon, evaluacion.id)
+        })
     }
     obtenerResultadoEvaluaciones(unPokemon) {
         return Promise.props({
-            evaluacionesCorrectas: Promise.filter(evaluaciones, evaluacion => this.pasaEvaluacion(unPokemon,evaluacion.id)) ,
-            evaluacionesIncorrectas: Promise.filter(evaluaciones, evaluacion => this.pasaEvaluacion(unPokemon,evaluacion.id).then(a=>!a))
+            evaluacionesCorrectas: Promise.filter(evaluaciones, evaluacion => this.pasaEvaluacion(unPokemon, evaluacion.id)),
+            evaluacionesIncorrectas: Promise.filter(evaluaciones, evaluacion => this.pasaEvaluacion(unPokemon, evaluacion.id).then(a => !a))
         })
     }
     existeAtaque(unPokemon, unAtaque) {
@@ -61,31 +66,31 @@ class juezDeBatalla {
         const factorDeEvolución = unPokemon => {
             return Math.sqrt(unPokemon.evolucion)
         }
-        const __danoDeAtaque = pokemonDummyAtacante => {
+        const __impactoDeAtaque = pokemonDummyAtacante => {
             return config.multiplicadorDeAtaque(tipoDeAtaque) * pokemonDummyAtacante.fuerza * factorDeEvolución(pokemonDummyAtacante)
         }
         const __defensaTotal = pokemonDummyAtacado => {
             return pokemonDummyAtacado.defensa * factorDeEvolución(pokemonDummyAtacado) * config.multiplicadorDeDefensa
         }
         const verificaDano = (pokemonDummyAtacante, pokemonDummyAtacado, tipoDeAtaque) => {
-            return pokemonDummyAtacado.deterioroRecibido == __danoDeAtaque(pokemonDummyAtacante) - __defensaTotal(pokemonDummyAtacado)
+            return pokemonDummyAtacado.deterioroRecibido == __impactoDeAtaque(pokemonDummyAtacante) - __defensaTotal(pokemonDummyAtacado)
         }
         pokemonDummyAtacante.atacar(pokemonDummyAtacado, tipoDeAtaque)
-        const valorEsperado = pokemonDeReferencia.resultadoDeAtaque(__danoDeAtaque(pokemonDummyAtacante),__defensaTotal(pokemonDummyAtacado)) 
+        const valorEsperado = pokemonDeReferencia.resultadoDeAtaque(__impactoDeAtaque(pokemonDummyAtacante), __defensaTotal(pokemonDummyAtacado))
         const valorObtenido = pokemonDummyAtacado.deterioroRecibido
 
         return valorEsperado == valorObtenido
     }
     filtrarAtaquesDisponiblesPor(unPokemon, condicionDeFiltro) {
         return _.filter(this.ataquesDisponibles(unPokemon), ataqueDisponible => {
-            return !condicionDeFiltro(unPokemon, ataqueDisponible)  
+            return !condicionDeFiltro(unPokemon, ataqueDisponible)
         })
     }
     ataquesConDeterioroIncorrecto(unPokemon) {
         const __haceElDeterioroEsperado = (unPokemon, tipoDeAtaque) => {
             return this.haceElDeterioroEsperado(unPokemon, tipoDeAtaque)
-        } 
-        return this.filtrarAtaquesDisponiblesPor(unPokemon,__haceElDeterioroEsperado)
+        }
+        return this.filtrarAtaquesDisponiblesPor(unPokemon, __haceElDeterioroEsperado)
     }
     tipoDePokemon(unPokemon) {
         return _.find(tiposDePokemon, tipoDePokemon => {
@@ -94,7 +99,7 @@ class juezDeBatalla {
     }
     consumoEnergeticoEsperado(unPokemon, tipoDeAtaque) {
         const tipoDePokemon = this.tipoDePokemon(unPokemon)
-        return tipoDePokemon.energiaParaAtaque(tipoDeAtaque,unPokemon)
+        return tipoDePokemon.energiaParaAtaque(tipoDeAtaque, unPokemon)
     }
     consumeLaEnergiaEsperada(unPokemon, tipoDeAtaque, tipoDePokemon) {
         const pokemonDummyAtacado = _.cloneDeep(unPokemon);
@@ -173,8 +178,8 @@ class juezDeBatalla {
     borrarTodosLosPokemonesDerrotados() {
         store.set('pokemonesDerrotados', [])
     }
-    ataqueEsquivado(personajeAtacado){       
-        return _.random(1,true) <= personajeAtacado.probabilidadDeEsquivarAtaque()
+    ataqueEsquivado(personajeAtacado) {
+        return _.random(1, true) <= personajeAtacado.probabilidadDeEsquivarAtaque()
     }
 }
 
