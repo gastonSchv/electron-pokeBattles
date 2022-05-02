@@ -70,10 +70,10 @@
             comparacionResultadosExitosaInicial: function(unPokemon) {
                 unPokemon.vitalidad();
                 unPokemon.recuperarEnergia();
-                unPokemon.atacar(unPokemon, 'basico');
                 unPokemon.recibirDeterioro(1000);
                 unPokemon.miTipo();
                 unPokemon.desmayarse();
+                unPokemon.atacar(unPokemon, 'basico');
                 return true
             },
             mensajeResultadoDesigualInicial: function(unPokemon) {
