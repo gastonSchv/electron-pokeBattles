@@ -116,6 +116,10 @@ app.on('ready', () => {
     ipcMain.on('reloadScreen:juezDeBatallaScreen', (event, data) => {
         juezDeBatallaScreen.reload()
     })
+    ipcMain.on("errorAlCrearVentanaJuezDeBatalla",(event,data) => {
+        juezDeBatallaScreen.close()
+        landingScreen.webContents.send("altaDeScreen:landingScreen",{err:data.err,isError:true})
+    })
     ipcMain.on('screens:battleScreen', (event, data) => {
         enemigoSeleccionado = data.enemigoSeleccionado
         newBattleScreen()
