@@ -44,7 +44,8 @@ class Relator {
         return informacionEvaluacion.mensajeResultadoIncorrecto
     }
     anunciarEntrenamientoDesigual(resultadoEsperado, resultadoObtenido) {
-        return `Resultado esperado: ${this.stringificarYSepararComas(resultadoEsperado)} | Resultado obtenido: ${resultadoObtenido}`
+        return "El resultado obtenido no coincide con el resultado esperado"
+        //`Resultado esperado: ${this.stringificarYSepararComas(resultadoEsperado)} | Resultado obtenido: ${resultadoObtenido}`
     }
     anunciarAtributosFaltantes(unPokemon, atributosFaltantes) {
         return `Tu pokemon no cuenta con los atributos requeridos, debe incorporar los siguientes: ${atributosFaltantes.join(', ')}`
