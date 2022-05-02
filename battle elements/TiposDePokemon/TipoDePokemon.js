@@ -19,7 +19,7 @@ class TipoDePokemon {
             return (1.15 + 1.03 * Math.log(miPokemon.energia / this.energiaParaAtaques.maximo)) * correctorPorEnergiaBaja
         }
         const _deterioroDeAtaqueEspecial = () => {
-            return _.round(_.max([0, miPokemon.danoDeAtaque('maximo') * _multiplicadorPorEnergia()]))
+            return _.round(_.max([0, miPokemon.impactoDeAtaque('maximo') * _multiplicadorPorEnergia()]))
         }
         pokemonEnemigo.recibirDeterioro(_deterioroDeAtaqueEspecial())
         miPokemon.disminuirEnergia('especial')
