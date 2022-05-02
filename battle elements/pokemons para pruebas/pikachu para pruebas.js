@@ -14,5 +14,9 @@ const pokemon = new Pokemon({
 
 pokemon.miNombre = () => pokemon.nombre
 pokemon.elPokemonMasFuerte = unosPokemones => _.maxBy(unosPokemones, pokemon => pokemon.fuerza)
+pokemon.encontrarAlDeFuego = unosPokemones => _.find(unosPokemones, unPokemon => unPokemon.miTipo() == "fuego")
 pokemon.obtenerAtributos = pokemon => asd
+pokemon.hallarLosDeAguaYFuego = unosPokemones => _.filter(unosPokemones, pokemon => pokemon.miTipo() == 'agua' || pokemon.miTipo() == 'asd' )
 module.exports = pokemon
+
+
