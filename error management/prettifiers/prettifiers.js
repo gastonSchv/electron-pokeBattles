@@ -68,7 +68,7 @@ module.exports = [
     }),
     new Prettifier({
         id: 'isNotEqual',
-        stringToIdentify: 'Resultado esperado:',
+        stringToIdentify: 'El resultado obtenido no coincide con el resultado esperado',
         keyWordLeftBound: 'asdasdas',
         keyWordRightBound: 'asdasdas',
         messageBeforeKeyWord: '',
@@ -206,6 +206,45 @@ module.exports = [
         }, {
             titulo: "Aumento de energia limitado",
             descripcion: "Verifica que estes limitando el aumento de energia de tu pokemon al valor inicial de la energia asignada de tu pokemon"
+        }]
+    }),
+    new Prettifier({
+        id: 'funcionSinNombre',
+        stringToIdentify: 'Function statements require a function name',
+        keyWordLeftBound: 'Function statements require a function name',
+        keyWordRightBound: 'asdasdasd',
+        messageBeforeKeyWord: 'Nombre de funcion no declarado',
+        messageAfterKeyWord: '',
+        recommendations: [{
+            titulo: "Colocar nombre a las funciones",
+            descripcion: "Verifica que todas las funciones declaradas en tu código tengan nombre"
+        }, {
+            titulo: "Verificar exportación",
+            descripcion: "Verifica que estes exportando correctamente tu pokemon"
+        }]
+    }),
+        new Prettifier({
+        id: 'sinArchivoPokemon',
+        stringToIdentify: 'The argument id must be a non-empty string. Received',
+        keyWordLeftBound: 'The argument id must be a non-empty string. Received',
+        keyWordRightBound: 'asdasdasd',
+        messageBeforeKeyWord: 'No se ha seleccionado ningún archivo pokemon',
+        messageAfterKeyWord: '',
+        recommendations: [{
+            titulo: "Para poder comenzar el juego es necesario seleccionar un archivo .js",
+            descripcion: "Selecciona el archivo .js en donde esté tu pokemon"
+        }]
+    }),
+        new Prettifier({
+        id: 'errorDesconocido',//siempre último
+        stringToIdentify: '',
+        keyWordLeftBound: '',
+        keyWordRightBound: '',
+        messageBeforeKeyWord: 'Error desconocido',
+        messageAfterKeyWord: '',
+        recommendations: [{
+            titulo: "Revisa tu pokemon",
+            descripcion: "Se ha producido un error que no hemos podido identificar, revisa tu pokemon para hallar errores en el código"
         }]
     })
 ]
