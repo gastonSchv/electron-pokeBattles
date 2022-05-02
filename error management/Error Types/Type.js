@@ -53,7 +53,7 @@ class Type {
 			const lineMessage =  linea? ` linea ${linea}`:"";
 			const fileMessage = this.errorRoute()? `en el archivo ${this.errorRoute()}`:"";
 			if(columnMessage||lineMessage||fileMessage){
-				const localizationString = `<>Localizacion del error*Revisa ${lineMessage} ${columnMessage}  ${fileMessage} , al parecer ahí está el problema`
+				const localizationString = `<>Localizacion del error*Revisa la ${lineMessage} ${columnMessage}  ${fileMessage} , al parecer ahí está el problema`
 				return this.isErrorInAppFiles()? "":localizationString
 			}
 			return ""
