@@ -60,5 +60,13 @@ module.exports = [
     },
     resultadoEvaluado: function(unPokemon,inputDeEvaluacion){return unPokemon.cuantoPesa(inputDeEvaluacion)}
 
+},
+{
+    id: 'soloAguaYFuego',
+    resultadoEsperado:function(unPokemon,inputDeEvaluacion){       
+        return _.filter(inputDeEvaluacion, pokemon => pokemon.miTipo() == 'agua' || pokemon.miTipo() == 'fuego')
+    },
+    resultadoEvaluado: function(unPokemon,inputDeEvaluacion){return unPokemon.hallarLosDeAguaYFuego(inputDeEvaluacion)}
+
 }
 ]
