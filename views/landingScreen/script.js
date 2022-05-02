@@ -64,39 +64,52 @@ function consultarRutaValida() {
 function abrirModalCentroDeEntrenamiento() {
     ipcRenderer.send('screens:centroDeEntrenamientoScreen', {})
 }
-function borrarBotonesDeError(){
+
+function borrarBotonesDeError() {
     const botonesDeError = document.getElementsByClassName("botonDetalleError")
     _.forEach(botonesDeError, botonDeError => {
         botonDeError.style.opacity = 0
         botonDeError.disabled = true
     })
 }
+
 function verificarPokemonAntesDeComenzar(data) {
     botonesDeJuego = [botonBatalla, botonJuezDeBatalla, botonMiPokemon, botonCentroDeEntrenamiento]
     botonesIniciales = [botonJuezDeBatalla]
+    const _doWithError = err => {
+        const systemError = new SystemError(err)
+
+        const botonConfiguracionDiv = document.getElementById("botonConfiguracionDiv")
+        util.deshabilitarBotones(botonesDeJuego)
+        util.habilitarDetalleResultadoFallido(botonConfiguracionDiv, "mainError", systemError)
+        util.colocarFotoMiniaturaMiPokemon(iconoPokemon, '')
+    }
+    if(data.isError){
+        _doWithError(data.err)
+    }
     if (data.ruta) {
         try {
-            const pokemon = require(data.ruta)
+            const pokemon = require(`${data.ruta}`)
             juezDeBatalla.pasaTodasLasEvaluaciones(pokemon)
-            .then(pasaTodasLasEvaluaciones => {
-                if(pasaTodasLasEvaluaciones){
-                    util.habilitarBotones(botonesDeJuego)
-                }
-                util.habilitarBotones(botonesIniciales)
-            })
-            util.colocarFotoMiniaturaMiPokemon(iconoPokemon, pokemon)
-            borrarBotonesDeError()
-        } catch (err) {
-            const systemError = new SystemError(err)
-            util.deshabilitarBotones(botonesDeJuego)
-            const botonConfiguracionDiv = document.getElementById("botonConfiguracionDiv")
-            util.habilitarDetalleResultadoFallido(botonConfiguracionDiv,"mainError",systemError)
-            util.colocarFotoMiniaturaMiPokemon(iconoPokemon, '')
+                .then(pasaTodasLasEvaluaciones => {
+                    if (pasaTodasLasEvaluaciones) {
+                        util.habilitarBotones(botonesDeJuego)
+                    }
+                    util.habilitarBotones(botonesIniciales)
+                    util.colocarFotoMiniaturaMiPokemon(iconoPokemon, pokemon)
+                    borrarBotonesDeError()
+                })
+                .catch(systemError => {
+                    _doWithError(systemError)
+                })
+        } catch (systemError) {
+            _doWithError(systemError)
         }
     }
 }
-function mostrarDetalleError(errMessage,recommendations,originalErrorMessage){//sumar localizacion
-    ipcRenderer.send('detalleDeError',{errMessage,recommendations,originalErrorMessage})
+
+function mostrarDetalleError(errMessage, recommendations, originalErrorMessage) { //sumar localizacion
+    ipcRenderer.send('detalleDeError', { errMessage, recommendations, originalErrorMessage })
 }
 ipcRenderer.on('altaDeScreen:landingScreen', (event, data) => {
     verificarPokemonAntesDeComenzar(data)
