@@ -74,14 +74,19 @@ function realizarEvaluacionesNecesarias(unPokemon) {
     })
 }
 ipcRenderer.on('config:pedidoRutaJuezDeBatallaScreen', (event, data) => {
+    try{
+
     const cuadro = document.getElementById('cuadroResumen')
     const unPokemon = require(`${data.ruta}`)
-    
+   
     cuadro?0:agregarCuadroResumen(unPokemon)
     deshabilitarBotonesDeJuego(false)
     eliminarEvaluaciones()
     realizarEvaluacionesNecesarias(unPokemon)
     window.visualViewport.width > 400 ? prenderPitidoArbitro() : ''
+    }catch(err){
+        ipcRenderer.send("errorAlCrearVentanaJuezDeBatalla",{err})
+    }
 })
 function evaluar(idEvaluacion, unPokemon, evaluacionDeJuez) {
 
