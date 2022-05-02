@@ -398,6 +398,10 @@ function efectosEsquivarAtaque(personajeAtacado,personajeAtacanteImg,personajeAt
     desplazarse(personajeAtacado.posicionFinalDeEsquivo, personajeAtacadoImg);
     sonidoEsquivo.play()
 }
+function redondearDeteriorosRecibidos(personajeAtacado,personajeAtacante){
+	personajeAtacado.deterioroRecibido = Math.round(personajeAtacado.deterioroRecibido);
+	personajeAtacante.deterioroRecibido = Math.round(personajeAtacante.deterioroRecibido)
+}
 function desencadenarAccionesAlAtacar(personajeAtacado, personajeAtacante, tipoDeAtaque) {
     var personajeAtacanteImg = document.getElementById(personajeAtacante.componentesHtml.personaje);
     var personajeAtacadoImg = document.getElementById(personajeAtacado.componentesHtml.personaje);
@@ -419,6 +423,7 @@ function desencadenarAccionesAlAtacar(personajeAtacado, personajeAtacante, tipoD
         return _actualizarYcerrar(personajeAtacante)
     }
     atacar(personajeAtacado, personajeAtacante, tipoDeAtaque,personajeAtacanteImg);
+    redondearDeteriorosRecibidos(personajeAtacado, personajeAtacante);
     mostrarDeterioroRecibido(personajeAtacado,vitalidadInicial)
     actualizarElementosDeBatalla();
     verificarSiHayGanador(personajeAtacado, personajeAtacante);
