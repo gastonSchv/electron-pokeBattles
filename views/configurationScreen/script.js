@@ -43,13 +43,12 @@ function accionesPostBusquedaDeArchivo(){
     verificarExtensionDeArchivo(extension)
 }
 function verificarExtensionDeArchivo(extension){
-    console.log(extension)
-    if(!_.includes(extension,".js")){
-        botonGuardarButton.disabled = true
-        agregarToolTipConMensajeEnBotonGuardar('La extension del archivo debe ser .js')
-    }else{
+    if(_.includes(extension,".js")&&!_.includes(extension,".json")){
     	botonGuardarButton.disabled = false
     	eliminarToolTipDeBotonGuardar()
+    }else{
+        botonGuardarButton.disabled = true
+        agregarToolTipConMensajeEnBotonGuardar('La extension del archivo debe ser .js')
     }
 }
 function agregarToolTipConMensajeEnBotonGuardar(unMensaje){
