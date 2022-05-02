@@ -14,7 +14,8 @@ class Prettifier {
         return _.last(errorMessage.split(this.keyWordLeftBound)).split(this.keyWordRightBound)[0]
     }
     prettify(errorMessage){
-    	return `${this.messageBeforeKeyWord} ${this.keyWord(errorMessage)} ${this.messageAfterKeyWord}`
+        const keyWord = this.stringToIdentify? this.keyWord(errorMessage):""; 
+    	return `${this.messageBeforeKeyWord} ${keyWord} ${this.messageAfterKeyWord}`
     }
     isSuitable(errorMessage) {
         return _.includes(errorMessage, this.stringToIdentify)
