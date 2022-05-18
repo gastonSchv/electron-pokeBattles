@@ -35,9 +35,9 @@ class config {
         this.energiaDeDesmayo = 750;
         this.tiposDePokemonAceptados = ['agua','fuego','electricidad','planta'];
         this.adicionalDeDefensa = {
-            Baja:500,
-            Media: 700,
-            Alta: 1000
+            Baja:1,
+            Media: 1.15,
+            Alta: 1.3
         };
         this.energiaPorDefensa = {
             Baja:0,
