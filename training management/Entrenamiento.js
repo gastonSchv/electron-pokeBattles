@@ -1,5 +1,6 @@
 const relator = require('../battle elements/relator')
 const Promise = require('bluebird')
+const _ = require('lodash')
 
 class Entrenamiento {
     constructor(id, titulo, premios, descripcion, inputs) {
