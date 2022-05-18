@@ -28,11 +28,11 @@ function viewsFolderName(){
 function pathFromViewsDir(pathName) {
     return path.join(__dirname, 'views', pathName)
 }
-if (process.env.NODE_ENV !== 'production') {
+/*if (process.env.NODE_ENV !== 'production') {
     reload(__dirname, {
         electron: path.join(__dirname, '../node-modules', '.bin', 'electron')
     })
-}
+}*/
 
 function newScreen(browserWindowSettings, pathName) {
     const screen = new BrowserWindow({
@@ -100,10 +100,8 @@ function getParentScreen(screenName){
 
 app.on('ready', () => {
 
-    landingScreen = newScreen({ frame: false }, 'landingScreen/index.html')
-    landingScreen.maximize()
+    landingScreen = newScreen({ frame: false, width: 1280, height: 680 }, 'landingScreen/index.html')
     landingScreen.once('ready-to-show', () => { landingScreen.show() })
-
     configurationScreen()
 
     ipcMain.on('altaDeScreen:landingScreen', (event, data) => {

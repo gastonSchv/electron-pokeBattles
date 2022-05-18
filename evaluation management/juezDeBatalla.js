@@ -60,9 +60,10 @@ class juezDeBatalla {
     }
     haceElDeterioroEsperado = (unPokemon, tipoDeAtaque) => {
         const pokemonDummyAtacado = _.cloneDeep(unPokemon);
-        const pokemonDummyAtacante = _.cloneDeep(unPokemon)
+        const pokemonDummyAtacante = _.cloneDeep(unPokemon);
         pokemonDummyAtacado.energia = 99999;
         pokemonDummyAtacante.energia = 99999;
+
         const factorDeEvolución = unPokemon => {
             return Math.sqrt(unPokemon.evolucion)
         }
@@ -75,7 +76,9 @@ class juezDeBatalla {
         const verificaDano = (pokemonDummyAtacante, pokemonDummyAtacado, tipoDeAtaque) => {
             return pokemonDummyAtacado.deterioroRecibido == __impactoDeAtaque(pokemonDummyAtacante) - __defensaTotal(pokemonDummyAtacado)
         }
+        
         pokemonDummyAtacante.atacar(pokemonDummyAtacado, tipoDeAtaque)
+        
         const valorEsperado = pokemonDeReferencia.resultadoDeAtaque(__impactoDeAtaque(pokemonDummyAtacante), __defensaTotal(pokemonDummyAtacado))
         const valorObtenido = pokemonDummyAtacado.deterioroRecibido
 
