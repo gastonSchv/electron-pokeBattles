@@ -118,6 +118,8 @@ ipcRenderer.on('bloqueoBotonesDeJuego', (event, data) => {
     botonesDeJuego = [botonBatalla, botonMiPokemon, botonCentroDeEntrenamiento]
     if (data.deshabilitarBotones) {
         util.deshabilitarBotones(botonesDeJuego)
+    }else{
+        util.habilitarBotones(botonesDeJuego)
     }
 })
 ipcRenderer.on('altaDeScreen:configuracion', (event, data) => {
