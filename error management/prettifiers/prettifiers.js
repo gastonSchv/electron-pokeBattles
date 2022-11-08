@@ -2,7 +2,8 @@ const Prettifier = require('./Prettifier')
 const config = require('../../battle elements/config')
 const _ = require('lodash')
 
-module.exports = [
+
+const prettifiers = [
     new Prettifier({
         id: 'isNotAFunction',
         stringToIdentify: 'is not a function',
@@ -235,7 +236,21 @@ module.exports = [
             descripcion: "Selecciona el archivo .js en donde esté tu pokemon"
         }]
     }),
-        new Prettifier({
+          new Prettifier({
+        id: 'noFuePosibleLeer',
+        stringToIdentify: 'Cannot read property',
+        keyWordLeftBound: 'Cannot read property',
+        keyWordRightBound: 'of undefined',
+        messageBeforeKeyWord: 'No fue posible leer la propiedad',
+        messageAfterKeyWord: 'de undefined',
+        recommendations: [{
+            titulo: "Revisa la propiedad",
+            descripcion: "Verifica en tu código en que lugar utilizas la propiedad que no ha podido ser leida y porque el valor a dado undefined"
+        }]
+    })
+]
+
+const errorDesconocido =  new Prettifier({
         id: 'errorDesconocido',//siempre último
         stringToIdentify: '',
         keyWordLeftBound: '',
@@ -247,4 +262,5 @@ module.exports = [
             descripcion: "Se ha producido un error que no hemos podido identificar, revisa tu pokemon para hallar errores en el código"
         }]
     })
-]
+
+module.exports = prettifiers.concat(errorDesconocido)
