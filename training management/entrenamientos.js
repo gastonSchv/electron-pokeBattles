@@ -10,7 +10,9 @@ module.exports = [
  entrenamientoBuilder('obtenSusAtributos'),
  entrenamientoBuilder('ordenalosPorVida'),
  entrenamientoBuilder('fusionDePokemones'),
- /*entrenamientoBuilder('dimeCuantoPesa')*/
  entrenamientoBuilder('soloAguaYFuego'),
+ entrenamientoBuilder('miEntrenador'),
+ entrenamientoBuilder('dimeCuantoPesa'),
+ //entrenamientoBuilder('armarCadenaDeEvoluciones')
 
 ]

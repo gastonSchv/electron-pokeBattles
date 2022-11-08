@@ -95,22 +95,7 @@ module.exports = [{
             }
         ],
         descripcion: 'Genera el metodo "encontrarAlDeFuego (unPokemon)" mediante el cual tu Pokemon reciba una lista de pokemones y retorne al primer pokemon de fuego que encuentre',
-        inputs: [_.sample(pokemones)]
-    },
-    {
-        id: 'dimeCuantoPesa',
-        titulo: 'DIME CUANTO PESA',
-        premios: [{
-                habilidad: 'vida',
-                valor: 25000
-            },
-            {
-                habilidad: 'defensa',
-                valor: 200
-            }
-        ],
-        descripcion: 'Genera el metodo "cuantoPesa (unPokemon)" mediante el cual tu Pokemon reciba el nombre de un pokemon, consulte la pokeapi y retorne el peso de dicho pokemon',
-        inputs: [_.sample(pokemones).nombre]
+        inputs: [...pokemones]
     },
     {
         id: 'soloAguaYFuego',
@@ -125,6 +110,51 @@ module.exports = [{
             }
         ],
         descripcion: 'Genera el metodo "hallarLosDeAguaYFuego (unoPokemones)" mediante el cual tu Pokemon reciba una lista de Pokemones y retorne solo aquello que son de tipo aguo o fuego',
+        inputs: [...pokemones]
+    },
+        {
+        id: 'miEntrenador',
+        titulo: 'MI ENTRENADOR',
+        premios: [{
+                habilidad: 'vida',
+                valor: 1500
+            },
+            {
+                habilidad: 'defensa',
+                valor: 20
+            }
+        ],
+        descripcion: 'Agrega el estado de tu pokemon una propiedad cuyo valor  contenga a un entrenador pokemon. Plantear al entrenador como un objeto que por el momento solo tendra la propiedad |nombre| en su estado',
+        inputs: [_.sample(pokemones).nombre]
+    },
+    {
+        id: 'dimeCuantoPesa',
+        titulo: 'DIME CUANTO PESA',
+        premios: [{
+                habilidad: 'vida',
+                valor: 15000
+            },
+            {
+                habilidad: 'defensa',
+                valor: 200
+            }
+        ],
+        descripcion: 'Genera el metodo "cuantoPesa (unPokemon)" mediante el cual tu Pokemon reciba el nombre de un pokemon, consulte la pokeapi y retorne el peso de dicho pokemon',
+        inputs: [_.sample(pokemones).nombre]
+    },
+    {
+        id: 'armarCadenaDeEvoluciones',
+        titulo: 'CADENA DE EVOLUCIONES',
+        premios: [{
+                habilidad: 'fuerza',
+                valor: 100
+            },
+            {
+                habilidad: 'defensa',
+                valor: 150
+            }
+        ],
+        descripcion: 'Genera el metodo "armarCadenaDeEvoluciones(listaDePokemones)" mediante el cual tu Pokemon reciba una lista de Pokemones y retorne solo aquello que son de tipo aguo o fuego',
         inputs: [...pokemones]
     }
 ]
