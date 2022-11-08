@@ -74,7 +74,8 @@ class juezDeBatalla {
             return pokemonDummyAtacado.defensa * factorDeEvolución(pokemonDummyAtacado) * config.multiplicadorDeDefensa
         }
         const verificaDano = (pokemonDummyAtacante, pokemonDummyAtacado, tipoDeAtaque) => {
-            return pokemonDummyAtacado.deterioroRecibido == __impactoDeAtaque(pokemonDummyAtacante) - __defensaTotal(pokemonDummyAtacado)
+            const deteriorioEsperado = _.max([__impactoDeAtaque(pokemonDummyAtacante)*0.1,__impactoDeAtaque(pokemonDummyAtacante) - __defensaTotal(pokemonDummyAtacado)])
+            return pokemonDummyAtacado.deterioroRecibido == deteriorioEsperado
         }
         
         pokemonDummyAtacante.atacar(pokemonDummyAtacado, tipoDeAtaque)

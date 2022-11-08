@@ -4,7 +4,8 @@
 
     function sumarPuntajes(unPokemon, tipoDePokemon) {
         return _.sumBy(config.atributosDePokemon, atributo => {
-            return _.divide(_.get(unPokemon,atributo)?_.get(unPokemon,atributo):0,tipoDePokemon.multiplicadoresDeAtributo[atributo])
+            const division = _.divide(_.get(unPokemon,atributo)?_.get(unPokemon,atributo):0,tipoDePokemon.multiplicadoresDeAtributo[atributo]);
+            return division
     })}
 
     function propertiesConTiposIncorrectos(unPokemon) {
