@@ -1,6 +1,7 @@
 const CreatedError = require('../error management/CreatedError')
 const SystemError = require('../error management/SystemError')
 const _ = require('lodash')
+const config = require('../battle elements/config')
 
 class ManagementUtil {
     constructor() {}
@@ -31,6 +32,10 @@ class ManagementUtil {
             return Promise.reject(new SystemError(err))
         }
     }
+    esTipoValido(unTipo){
+        return _.some(config.tiposDePokemonAceptados, tipoAceptado => tipoAceptado === unTipo)
+    }
+
 }
 
 module.exports = new ManagementUtil();
