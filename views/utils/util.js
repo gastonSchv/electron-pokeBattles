@@ -13,7 +13,7 @@ class Util {
         }
     }
     prenderMusica(musicaDeBatalla, musicaDeBatallaImg) {
-        //musicaDeBatalla.play()
+//        musicaDeBatalla.play()
         musicaDeBatallaImg.src = "../../../assets/images/audio on.png"
     }
     apagarMusica(musicaDeBatalla, musicaDeBatallaImg) {
@@ -109,9 +109,6 @@ class Util {
         .map(archivo => this.obtenerNombreDesdeNombreArchivo(archivo))
         .compact()
         .value()
-    }
-    esTipoAceptado(unTipo) {
-        return _.includes(config.tiposDePokemonAceptados, unTipo)
     }
     habilitarDetalleResultadoFallido(div, resourceId, err) { //agregar localizacion
         div.innerHTML += `
