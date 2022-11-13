@@ -1,8 +1,8 @@
 const BasicError = require('./BasicError')
 
 class CreatedError extends BasicError {
-	constructor(obj){
-		super(obj);
+	constructor(errorObj){
+		super(errorObj);
 		this.isCreatedError = true;
 	}
 }
