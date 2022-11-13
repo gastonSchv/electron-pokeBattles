@@ -1,6 +1,7 @@
     const config = require('../battle elements/config')
     const _ = require('lodash')
-    const util = require('../views/utils/util')
+    const managementUtil = require('../management utils/util')
+    const createdError = require('../error management/CreatedError')
 
     function sumarPuntajes(unPokemon, tipoDePokemon) {
         return _.sumBy(config.atributosDePokemon, atributo => {
@@ -58,6 +59,10 @@
         {
             id: 'puntoDeAtributosMaximoPermitido',
             comparacionResultadosExitosaInicial: function(unPokemon) {
+                if(!managementUtil.esTipoValido(unPokemon.miTipo())){
+                    throw createdError({message:`Tipo de Pokemon ${unPokemon.miTipo()}
+                    inválido. Los tipos válidos son: ${config.tiposDePokemonAceptados}`})    
+                }
                 const tipoDePokemon = require(`../battle elements/TiposDePokemon/Tipos/${unPokemon.miTipo()}`)
                 return sumarPuntajes(unPokemon, tipoDePokemon) <= config.puntajeMaximoPermitido()
             },
@@ -94,7 +99,7 @@
         {
             id: 'retornoMiTipoValido',
             comparacionResultadosExitosaInicial: function(unPokemon) {
-                return util.esTipoAceptado(unPokemon.miTipo())
+                return managementUtil.esTipoValido(unPokemon.miTipo())
 
             },
             mensajeResultadoDesigualInicial: function(unPokemon) {
