@@ -28,11 +28,11 @@ function viewsFolderName(){
 function pathFromViewsDir(pathName) {
     return path.join(__dirname, 'views', pathName)
 }
-/*if (process.env.NODE_ENV !== 'production') {
+if (process.env.NODE_ENV !== 'production') {
     reload(__dirname, {
         electron: path.join(__dirname, '../node-modules', '.bin', 'electron')
     })
-}*/
+}
 
 function newScreen(browserWindowSettings, pathName) {
     const screen = new BrowserWindow({
