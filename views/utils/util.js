@@ -79,6 +79,9 @@ class Util {
     substringSiHaceFalta(mensaje, numCaracteres) {
         return mensaje.length > numCaracteres ? `${mensaje.substring(0,numCaracteres)}...` : mensaje
     }
+    esTipoAceptado(tipoDePokemon){
+        return _.includes(config.tiposDePokemonAceptados,tipoDePokemon)
+    }
     colocarFotoMiPokemon(div, pokemon) {
         try{
             const tipoDePokemon = pokemon.miTipo().toLowerCase();
