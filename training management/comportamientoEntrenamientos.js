@@ -44,10 +44,46 @@ module.exports = [
     	_.forEach(config.atributosDePokemon.concat('nombre'), atributo => {
     		dummyObj[atributo] = unPokemon[atributo] + inputDeEvaluacion[atributo]
     	})
-        console.log("dummyObj",dummyObj)
+
     	return dummyObj 
     },
     resultadoEvaluado: function(unPokemon,inputDeEvaluacion){return unPokemon.fusionarConPokemon(inputDeEvaluacion)}
+},
+{
+    id: 'miEntrenador',
+    resultadoEsperado:function(unPokemon,inputDeEvaluacion){
+    	const entrenador = unPokemon.entrenador;	 
+    
+        if(!entrenador){
+            throw new CreatedError({
+                message:"No se ha encontrado al entrenador Pokemon",
+                stopPrettify:true,
+                recommendations:[
+                {
+                    titulo: "Campo faltante",
+                    descripcion: "Es necesario la propiedad entrenador forme parte del estado de tu Pokemon"
+                }
+            ]})
+        }
+    	if(_.isObject(entrenador) || !_.isString(entrenador.nombre)){
+    		throw new CreatedError({
+    			message:"No se ha encontrado un nombre de entrenador valido",
+    			stopPrettify:true,
+                recommendations:[
+    			{
+    				titulo: "Tipo de dato incorrecto en entrenador",
+    				descripcion: "Verifica que el entrenador sea un objeto"
+    			},
+                {
+                    titulo: "Tipo de dato incorrecto en nombre del entrenador",
+                    descripcion: "Verifica que el nombre del entrenador sea una string"
+                }
+    		]})
+    	}
+	
+    	return entrenador.nombre
+    },
+    resultadoEvaluado: function(unPokemon,inputDeEvaluacion){return unPokemon.entrenador.nombre}
 },
 {
     id: 'soloAguaYFuego',
@@ -56,26 +92,6 @@ module.exports = [
     },
     resultadoEvaluado: function(unPokemon,inputDeEvaluacion){return unPokemon.entrenador.hallarLosDeAguaYFuego(inputDeEvaluacion)}
 
-},
-{
-    id: 'miEntrenador',
-    resultadoEsperado:function(unPokemon,inputDeEvaluacion){
-    	const entrenador = unPokemon.entrenador.nombre;	
-    	console.log(entrenador)
-    	
-    	if(!_.isString(entrenador)){
-    		throw new CreatedError({
-    			message:"No se ha encontrado un nombre de entrenador valido",
-    			recommendations:[
-    			{
-    				titulo: "Tipo de dato incorrecto",
-    				descripcion: "El nombre del entrenador no es una string"
-    			}
-    		]})
-    	}	
-    	return unPokemon.entrenador.nombre
-    },
-    resultadoEvaluado: function(unPokemon,inputDeEvaluacion){return unPokemon.entrenador.nombre}
 },
 {
     id: 'dimeCuantoPesa',
