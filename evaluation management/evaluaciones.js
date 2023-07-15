@@ -10,5 +10,6 @@ module.exports = [
     evaluacionBuilder('deterioroDeAtaquesDisponiblesCorrecto'),
     evaluacionBuilder('energiaConsumidaPorAtaqueCorrecto'),
  	evaluacionBuilder('desmayarseCorrectamente'),
- 	evaluacionBuilder('recuperarEnergiaCorrectamente')
+ 	evaluacionBuilder('recuperarEnergiaCorrectamente'),
+    evaluacionBuilder('recibirDeterioroCorrecto')
 ]

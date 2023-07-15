@@ -161,5 +161,35 @@
             mensajeResultadoDesigualInicial: function(unPokemon) {
                 return relator.anunciarRecuperacionEnergiaIncorrecto(unPokemon)
             }
+        }, {
+            id: 'recibirDeterioroCorrecto',
+            comparacionResultadosExitosaInicial: function(unPokemon) {
+                const tipoDeAtaque = config.tiposDeAtaque[0]
+                const pokemonDummy = _.cloneDeep(unPokemon);
+                const otroPokemonDummy = _.cloneDeep(unPokemon);
+                const impactoDeAtaque = pokemonDummy.fuerza * config.multiplicadorDeAtaque(tipoDeAtaque)
+                const defensaDeAtaque = otroPokemonDummy.defensa * config.multiplicadorDeDefensa
+                
+                const resultadoDeAtaque = _.max([impactoDeAtaque*0.1,impactoDeAtaque - defensaDeAtaque])
+                let isEqual = true;
+                let index = 1;
+                let recibirDeterioroConEfecto = true;
+
+                while (otroPokemonDummy.vitalidad() - resultadoDeAtaque  > 0 && recibirDeterioroConEfecto && index < 100){
+                    const vitalidadAntes = otroPokemonDummy.vitalidad();
+                    otroPokemonDummy.recibirDeterioro(impactoDeAtaque);
+
+                    const vitalidadDespues = otroPokemonDummy.vitalidad();
+                    recibirDeterioroConEfecto = vitalidadAntes != vitalidadDespues;
+                    isEqual = otroPokemonDummy.deterioroRecibido == resultadoDeAtaque * index;
+
+                    index ++;
+                } 
+                
+                return isEqual
+            },
+            mensajeResultadoDesigualInicial: function(unPokemon) {
+                return relator.anunciarRecepcionDeDeterioroIncorrecta(unPokemon)
+            }
         }
     ]

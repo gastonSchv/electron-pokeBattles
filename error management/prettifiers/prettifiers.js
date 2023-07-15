@@ -175,8 +175,7 @@ const prettifiers = [
         }, {
             titulo: "Disminución adecuada por ataque",
             descripcion: "Verifica que la disminucion de energia de tu pokemon este siendo correcto para cada tipo de ataque"
-        }
-        ]
+        }]
     }),
     new Prettifier({
         id: 'desmayarseCorrectamente',
@@ -185,8 +184,7 @@ const prettifiers = [
         keyWordRightBound: 'asdasdasd',
         messageBeforeKeyWord: '',
         messageAfterKeyWord: '',
-        recommendations: [
-        {
+        recommendations: [{
             titulo: "Solo modificar energia",
             descripcion: "Verifica que no estes alterando ningun otro atributos de tu pokemon por fuera de su energia"
         }, {
@@ -196,7 +194,7 @@ const prettifiers = [
     }),
     new Prettifier({
         id: 'recuperarEnergiaCorrectamente',
-        stringToIdentify: 'Tu pokemon no recuperar energia',
+        stringToIdentify: 'Tu pokemon no recupera energia',
         keyWordLeftBound: 'asdasdas',
         keyWordRightBound: 'asdasdasd',
         messageBeforeKeyWord: '',
@@ -224,7 +222,7 @@ const prettifiers = [
             descripcion: "Verifica que estes exportando correctamente tu pokemon"
         }]
     }),
-        new Prettifier({
+    new Prettifier({
         id: 'sinArchivoPokemon',
         stringToIdentify: 'The argument id must be a non-empty string. Received',
         keyWordLeftBound: 'The argument id must be a non-empty string. Received',
@@ -236,7 +234,7 @@ const prettifiers = [
             descripcion: "Selecciona el archivo .js en donde esté tu pokemon"
         }]
     }),
-          new Prettifier({
+    new Prettifier({
         id: 'noFuePosibleLeer',
         stringToIdentify: 'Cannot read property',
         keyWordLeftBound: 'Cannot read property',
@@ -247,20 +245,32 @@ const prettifiers = [
             titulo: "Revisa la propiedad",
             descripcion: "Verifica en tu código en que lugar utilizas la propiedad que no ha podido ser leida y porque el valor a dado undefined"
         }]
+    }),
+    new Prettifier({
+        id: 'recibirDeterioroCorrecto',
+        stringToIdentify: 'Tu pokemon no recibe deterioro de manera correcta',
+        keyWordLeftBound: 'asdasda',
+        keyWordRightBound: 'asdasd',
+        messageBeforeKeyWord: '',
+        messageAfterKeyWord: '',
+        recommendations: [{
+            titulo: "Revisa el metodo recibirDeterioro(...)",
+            descripcion: "Verifica que tu código realice lo solicitado y que se reciba el deterioro correcto según las normas planteadas"
+        }]
     })
 ]
 
-const errorDesconocido =  new Prettifier({
-        id: 'errorDesconocido',//siempre último
-        stringToIdentify: '',
-        keyWordLeftBound: '',
-        keyWordRightBound: '',
-        messageBeforeKeyWord: 'Error desconocido',
-        messageAfterKeyWord: '',
-        recommendations: [{
-            titulo: "Revisa tu pokemon",
-            descripcion: "Se ha producido un error que no hemos podido identificar, revisa tu pokemon para hallar errores en el código"
-        }]
-    })
+const errorDesconocido = new Prettifier({
+    id: 'errorDesconocido', //siempre último
+    stringToIdentify: '',
+    keyWordLeftBound: '',
+    keyWordRightBound: '',
+    messageBeforeKeyWord: 'Error desconocido',
+    messageAfterKeyWord: '',
+    recommendations: [{
+        titulo: "Revisa tu pokemon",
+        descripcion: "Se ha producido un error que no hemos podido identificar, revisa tu pokemon para hallar errores en el código"
+    }]
+})
 
 module.exports = prettifiers.concat(errorDesconocido)

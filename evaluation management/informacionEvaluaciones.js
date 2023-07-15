@@ -46,5 +46,10 @@ module.exports = [{
         id: 'recuperarEnergiaCorrectamente',
         mensajeResultadoCorrecto: 'Tu pokemon recupera energia correctamente',
         mensajeResultadoIncorrecto: 'Tu pokemon No recupera energia correctamente'        
+    },
+       {
+        id: 'recibirDeterioroCorrecto',
+        mensajeResultadoCorrecto: 'Tu pokemon recibe deterioro correctamente',
+        mensajeResultadoIncorrecto: 'Tu pokemon no recibe deterioro correctamente'        
     }
 ]
