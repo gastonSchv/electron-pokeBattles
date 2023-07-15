@@ -18,14 +18,11 @@ class Pokemon {
     miTipo() {
         return this.tipoDePokemon.nombre
     }
-    factorDeEvolución() {
-        return Math.sqrt(this.evolucion)
-    }
     vitalidad() {
         return _.max([this.vida - this.deterioroRecibido, 0])
     }
     impactoDeAtaque(tipoDeAtaque) {
-        return this.fuerza * config.multiplicadorDeAtaque(tipoDeAtaque) * this.factorDeEvolución()
+        return this.fuerza * config.multiplicadorDeAtaque(tipoDeAtaque)
     }
     energiaParaAtaque(tipoDeAtaque) {
         return this.tipoDePokemon.energiaParaAtaque(tipoDeAtaque,this)
@@ -44,14 +41,13 @@ class Pokemon {
         return _.get(this.tipoDePokemon, propertyPath)
     }
     defensaAnteAtaque(){
-    	return this.defensa * this.factorDeEvolución() * config.multiplicadorDeDefensa
+    	return this.defensa * config.multiplicadorDeDefensa
     }
     probabilidadDeEsquivarAtaque(){
     	return _.max([0,(0.1639 * Math.log(this.velocidad) - 0.9925)])
     }
     recibirDeterioro(unDeterioroDeAtaque) {
         this.deterioroRecibido += this.resultadoDeAtaque(unDeterioroDeAtaque,this.defensaAnteAtaque())
-
     }
     disminuirEnergia(tipoDeAtaque) {
         this.energia -= this.energiaParaAtaque(tipoDeAtaque)
