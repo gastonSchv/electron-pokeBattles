@@ -71,6 +71,9 @@ class Relator {
     anunciarRecuperacionEnergiaIncorrecto(unPokemon) {
         return `Tu pokemon no recuperar energia de manera correcta`
     }
+    anunciarRecepcionDeDeterioroIncorrecta(unPokemon) {
+        return `Tu pokemon no recibe deterioro de manera correcta`
+    }
 }
 
 
