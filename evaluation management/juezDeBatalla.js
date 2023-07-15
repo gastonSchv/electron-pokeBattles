@@ -59,19 +59,16 @@ class juezDeBatalla {
             .value()
     }
     haceElDeterioroEsperado = (unPokemon, tipoDeAtaque) => {
-        const pokemonDummyAtacado = _.cloneDeep(unPokemon);
+        const pokemonDummyAtacado = _.cloneDeep(pokemonDeReferencia);
         const pokemonDummyAtacante = _.cloneDeep(unPokemon);
         pokemonDummyAtacado.energia = 99999;
         pokemonDummyAtacante.energia = 99999;
 
-        const factorDeEvolución = unPokemon => {
-            return Math.sqrt(unPokemon.evolucion)
-        }
         const __impactoDeAtaque = pokemonDummyAtacante => {
-            return config.multiplicadorDeAtaque(tipoDeAtaque) * pokemonDummyAtacante.fuerza * factorDeEvolución(pokemonDummyAtacante)
+            return config.multiplicadorDeAtaque(tipoDeAtaque) * pokemonDummyAtacante.fuerza 
         }
         const __defensaTotal = pokemonDummyAtacado => {
-            return pokemonDummyAtacado.defensa * factorDeEvolución(pokemonDummyAtacado) * config.multiplicadorDeDefensa
+            return pokemonDummyAtacado.defensa  * config.multiplicadorDeDefensa
         }
         const verificaDano = (pokemonDummyAtacante, pokemonDummyAtacado, tipoDeAtaque) => {
             const deteriorioEsperado = _.max([__impactoDeAtaque(pokemonDummyAtacante)*0.1,__impactoDeAtaque(pokemonDummyAtacante) - __defensaTotal(pokemonDummyAtacado)])
@@ -82,7 +79,6 @@ class juezDeBatalla {
         
         const valorEsperado = pokemonDeReferencia.resultadoDeAtaque(__impactoDeAtaque(pokemonDummyAtacante), __defensaTotal(pokemonDummyAtacado))
         const valorObtenido = pokemonDummyAtacado.deterioroRecibido
-
         return valorEsperado == valorObtenido
     }
     filtrarAtaquesDisponiblesPor(unPokemon, condicionDeFiltro) {
@@ -182,8 +178,11 @@ class juezDeBatalla {
     borrarTodosLosPokemonesDerrotados() {
         store.set('pokemonesDerrotados', [])
     }
+    probabilidadDeEsquivarAtaque(personajeAtacado){
+        return _.max([0,(0.1639 * Math.log(personajeAtacado.velocidad) - 0.9925)])
+    }
     ataqueEsquivado(personajeAtacado) {
-        return _.random(1, true) <= personajeAtacado.probabilidadDeEsquivarAtaque()
+        return _.random(1, true) <= this.probabilidadDeEsquivarAtaque(personajeAtacado)
     }
 }
 
