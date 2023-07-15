@@ -13,7 +13,7 @@ const prettifiers = [
         messageAfterKeyWord: 'no se ha encontrado',
         recommendations: [{
             titulo: "Declaracion de metodo",
-            descripcion: "Verifica, si se exige que tu pokemon tenga el método keyWord, que lo hayas declarado"
+            descripcion: "Verifica, si se exige que tu pokemon o tu entrenador tenga el método keyWord, que lo hayas declarado"
         }, {
             titulo: "Typo",
             descripcion: "Lee atentamente el mensaje de error para verificar que no haya habido ningún typo en la declaración del método keyWord"
