@@ -22,10 +22,7 @@ class BasicError {
         return `${originalError}${this.type.errorLocalization()}`
     }
     recommendations() {
-    	const recommendations = _.get(this.originalError,"recommendations")
-        if (this.isCreated && recommendations) {
-            return this.prettifier.stringifyRecommendations(recommendations)
-        } else if (this.prettifier) {
+        if (this.prettifier) {
             return `${this.prettifier.recommendationsString(this.message())}${this.generalRecommendations()}`
         }
         return this.generalRecommendations()
