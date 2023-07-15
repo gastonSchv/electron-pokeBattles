@@ -360,7 +360,7 @@ function atacar(personajeAtacado, personajeAtacante, tipoDeAtaque,personajeAtaca
     const sonidoAtaque = document.getElementById(personajeAtacante.componentesHtml.sonidoAtaque)
     editarEstadisticasPorDefensaElegida(personajeAtacado)
     if(tipoDeAtaque == 'especial'){
-        const tipoDeAtaqueGenerico = new TipoDePokemon() // acá ponemos un único tipoDePokemon, si hubiese distintos ataques según el tipo habría que armar la estrategia
+        const tipoDeAtaqueGenerico = new TipoDePokemon() // hay que colocar la info para instanciarlo
         tipoDeAtaqueGenerico.atacarEspecial(personajeAtacado,personajeAtacante) 
     }else{
         personajeAtacante.atacar(personajeAtacado, tipoDeAtaque);
