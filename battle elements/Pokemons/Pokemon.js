@@ -5,18 +5,19 @@ const relator = require('../relator')
 class Pokemon {
     constructor({ nombre, tipoDePokemon, evolucion, vida, energia, fuerza, defensa, velocidad,estrategia}) {
         this.nombre = nombre;
-        this.tipoDePokemon = require(`../TiposDePokemon/Tipos/${tipoDePokemon}`);
+        this.tipoDePokemon = tipoDePokemon;
+        this.tipoDePokemonInternalUse = require(`../TiposDePokemon/Tipos/${tipoDePokemon}`);
         this.evolucion = evolucion;
-        this.vida = vida * this.tipoDePokemon.multiplicadorDeAtributo('vida');
-        this.energia = energia * this.tipoDePokemon.multiplicadorDeAtributo('energia');
-        this.fuerza = fuerza * this.tipoDePokemon.multiplicadorDeAtributo('fuerza');
-        this.defensa = defensa * this.tipoDePokemon.multiplicadorDeAtributo('defensa');
-        this.velocidad = velocidad * this.tipoDePokemon.multiplicadorDeAtributo('velocidad');
+        this.vida = vida * this.tipoDePokemonInternalUse.multiplicadorDeAtributo('vida');
+        this.energia = energia * this.tipoDePokemonInternalUse.multiplicadorDeAtributo('energia');
+        this.fuerza = fuerza * this.tipoDePokemonInternalUse.multiplicadorDeAtributo('fuerza');
+        this.defensa = defensa * this.tipoDePokemonInternalUse.multiplicadorDeAtributo('defensa');
+        this.velocidad = velocidad * this.tipoDePokemonInternalUse.multiplicadorDeAtributo('velocidad');
         this.deterioroRecibido = 0;
         this.estrategia = estrategia || "bajaEstrategia"
     }
     miTipo() {
-        return this.tipoDePokemon.nombre
+        return this.tipoDePokemonInternalUse.nombre
     }
     vitalidad() {
         return _.max([this.vida - this.deterioroRecibido, 0])
@@ -25,7 +26,7 @@ class Pokemon {
         return this.fuerza * config.multiplicadorDeAtaque(tipoDeAtaque)
     }
     energiaParaAtaque(tipoDeAtaque) {
-        return this.tipoDePokemon.energiaParaAtaque(tipoDeAtaque,this)
+        return this.tipoDePokemonInternalUse.energiaParaAtaque(tipoDeAtaque,this)
     }
     atacar(unPokemon, tipoDeAtaque) {
         this.disminuirEnergia(tipoDeAtaque)
@@ -35,10 +36,10 @@ class Pokemon {
         return _.max([unDeterioroDeAtaque*0.1,unDeterioroDeAtaque - defensaAnteAtaque])
     }
     atacarEspecial(unPokemon){
-        this.tipoDePokemon.atacarEspecial(unPokemon,this)
+        this.tipoDePokemonInternalUse.atacarEspecial(unPokemon,this)
     }
     deTipo(propertyPath) {
-        return _.get(this.tipoDePokemon, propertyPath)
+        return _.get(this.tipoDePokemonInternalUse, propertyPath)
     }
     defensaAnteAtaque(){
     	return this.defensa * config.multiplicadorDeDefensa
@@ -56,7 +57,7 @@ class Pokemon {
         return _.random(0.7, 1, 0) * this.velocidad
     }
     recuperarEnergia(energiaLimite) { // raro que reciba el límite por parámetro   
-        this.energia = _.min([this.energia + this.tipoDePokemon.energiaDeRecuperacion, energiaLimite]);
+        this.energia = _.min([this.energia + this.tipoDePokemonInternalUse.energiaDeRecuperacion, energiaLimite]);
     }
     desmayarse(energiaLimite) { // raro que reciba el límite por parámetro
         this.energia = _.min([this.energia + config.energiaDeDesmayo, energiaLimite]);
