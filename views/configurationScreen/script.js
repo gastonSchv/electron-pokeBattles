@@ -52,7 +52,6 @@ function verificarExtensionDeArchivo(extension){
     }
 }
 function agregarToolTipConMensajeEnBotonGuardar(unMensaje){
-	console.log(unMensaje)
 	botonGuardar.title = unMensaje
 	new bootstrap.Tooltip(botonGuardar)
 }
