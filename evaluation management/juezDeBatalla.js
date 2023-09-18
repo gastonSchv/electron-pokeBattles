@@ -6,7 +6,7 @@ const Store = require('electron-store')
 const store = new Store()
 const util = require('../management utils/util')
 const evaluaciones = require('./evaluaciones')
-const tiposDePokemon = require('../battle elements/TiposDePokemon/todos')
+const {obtenerTodosLosTipos} = require('../battle elements/TiposDePokemon/utils')
 const pokemonDeReferencia = require('../battle elements/Pokemons/pokemon de referencia.js')
 
 class juezDeBatalla {
@@ -93,7 +93,7 @@ class juezDeBatalla {
         return this.filtrarAtaquesDisponiblesPor(unPokemon, __haceElDeterioroEsperado)
     }
     tipoDePokemon(unPokemon) {
-        return _.find(tiposDePokemon, tipoDePokemon => {
+        return _.find(obtenerTodosLosTipos(), tipoDePokemon => {
             return unPokemon.miTipo() == tipoDePokemon.nombre
         })
     }
