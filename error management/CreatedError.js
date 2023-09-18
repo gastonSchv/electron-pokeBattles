@@ -9,8 +9,7 @@ class CreatedError extends BasicError {
         return this.prettifier && !this.originalError.stopPrettify ? this.prettifier.prettify(this.message()) : this.message()
     }
     recommendations() {
-        const recommendations = _.get(this.originalError, "recommendations");
-        console.log(recommendations)
+        const recommendations = _.get(this.prettifier, "recommendations");
         if (recommendations) {
             return this.prettifier.stringifyRecommendations(recommendations)
         }

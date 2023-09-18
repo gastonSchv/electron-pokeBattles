@@ -153,7 +153,7 @@ const prettifiers = [
             descripcion: "Verifica que tu pokemon cuente con al menos un ataque disponible. Recuerda que hay 3 tipos de ataque: basico, fuerte y maximo"
         }, {
             titulo: "deterioro por ataque",
-            descripcion: "Verifica que el calculo de deterioro de tu pokemon siga la formula deterioro(tipoDeAtaque) = fuerza X multiplicadorDeAtaque(tipoDeAtaque) X factorDeEvolucion"
+            descripcion: "Verifica que el calculo de deterioro de tu pokemon siga la formula deterioro = fuerza X multiplicadorDeAtaque"
         }, {
             titulo: "Multiplicadores por tipo de pokemon",
             descripcion: "Verifica que tus multiplicadoresDeAtaque sean adecuados para el tipo de pokemon que tengas (planta, fuego, agua, electricidad, etc)"
