@@ -5,5 +5,11 @@ const obtenerTipo = nombreDeTipo => {
 	const tipoDePokemon = require(`./Tipos/${nombreDeTipo}`)
 	return tipoDePokemon
 }
+const obtenerTodosLosTipos = () => {
+	return _.map(util.obtenerNombresDeArchivos(`${__dirname}/Tipos`), obtenerTipo)
+}
 
-module.exports = _.map(util.obtenerNombresDeArchivos(`${__dirname}/Tipos`), obtenerTipo)
+module.exports = {
+		obtenerTipo,
+		obtenerTodosLosTipos
+}
