@@ -7,7 +7,7 @@ let largoInicialDeBarraVitalidad = 150;
 let musicaDeBatallaPrendida = true;
 const $ = require('jquery')
 const config = require('../../battle elements/config')
-const TipoDePokemon = require('../../battle elements/TiposDePokemon/TipoDePokemon')
+const {obtenerTipo} = require('../../battle elements/TiposDePokemon/utils')
 let personajeDerecho = require('../../battle elements/Pokemons/Pokemons enemigos/caterpie')
 util.modificarEstadisticasPorEntrenamiento(personajeDerecho)
 
@@ -360,8 +360,8 @@ function atacar(personajeAtacado, personajeAtacante, tipoDeAtaque,personajeAtaca
     const sonidoAtaque = document.getElementById(personajeAtacante.componentesHtml.sonidoAtaque)
     editarEstadisticasPorDefensaElegida(personajeAtacado)
     if(tipoDeAtaque == 'especial'){
-        const tipoDeAtaqueGenerico = new TipoDePokemon() // hay que colocar la info para instanciarlo
-        tipoDeAtaqueGenerico.atacarEspecial(personajeAtacado,personajeAtacante) 
+        const tipoDeAtaquePersonajeAtacante = obtenerTipo(personajeAtacante.tipoDePokemon)
+        tipoDeAtaquePersonajeAtacante.atacarEspecial(personajeAtacado,personajeAtacante) 
     }else{
         personajeAtacante.atacar(personajeAtacado, tipoDeAtaque);
     }
