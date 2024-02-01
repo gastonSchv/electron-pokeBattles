@@ -1,4 +1,4 @@
-const { app, BrowserWindow, Menu, ipcMain } = require('electron');
+const { app, BrowserWindow, Menu, ipcMain, dialog } = require('electron');
 const url = require('url')
 const path = require('path')
 const _ = require('lodash')
@@ -6,7 +6,11 @@ const reload = require('electron-reload')
 const Store = require('electron-store')
 const store = new Store()
 const util = require('./views/utils/util')
+const { autoUpdater, AppUpdater } = require('electron-updater')
 
+
+//autoUpdater.autoDownload = false;
+//autoUpdater.autoInstallOnAppQuit = true;
 let enemigoSeleccionado = '';
 let entrenamientosRealizados = [];
 let ruta = store.get('ruta')
@@ -21,7 +25,7 @@ const defaultBrowserWindowSetting = {
     icon: 'C:/Users/Producteca/Desktop/Gaston/Programming learning/Electron/electron-pokeBattles/assets/icons/win/Bolbasaur.ico'
 }
 
-function viewsFolderName(){
+function viewsFolderName() {
     return util.obtenerNombresDeArchivos(path.join(__dirname, 'views'))
 }
 
@@ -47,6 +51,7 @@ function newScreen(browserWindowSettings, pathName) {
 }
 
 function modalScreen(browserWindowSettings, pathName, parent = landingScreen) {
+    
     return newScreen({
             width: 820,
             height: 580,
@@ -89,17 +94,18 @@ function _getView(url) {
         return _.includes(url, folderName)
     })
 }
-function getParentScreen(screenName){
-	if(screenName == 'centroDeEntrenamientoScreen'){
-		return centroDeEntrenamientoScreen
-	}else if(screenName == 'juezDeBatallaScreen'){
-		return juezDeBatallaScreen
-	}
-	return landingScreen
+
+function getParentScreen(screenName) {
+    if (screenName == 'centroDeEntrenamientoScreen') {
+        return centroDeEntrenamientoScreen
+    } else if (screenName == 'juezDeBatallaScreen') {
+        return juezDeBatallaScreen
+    }
+    return landingScreen
 }
 
 app.on('ready', () => {
-
+    autoUpdater.checkForUpdates()
     landingScreen = newScreen({ frame: false, width: 1280, height: 680 }, 'landingScreen/index.html')
     landingScreen.once('ready-to-show', () => { landingScreen.show() })
     configurationScreen()
@@ -114,9 +120,9 @@ app.on('ready', () => {
     ipcMain.on('reloadScreen:juezDeBatallaScreen', (event, data) => {
         juezDeBatallaScreen.reload()
     })
-    ipcMain.on("errorAlCrearVentanaJuezDeBatalla",(event,data) => {
+    ipcMain.on("errorAlCrearVentanaJuezDeBatalla", (event, data) => {
         juezDeBatallaScreen.close()
-        landingScreen.webContents.send("altaDeScreen:landingScreen",{err:data.err,isError:true})
+        landingScreen.webContents.send("altaDeScreen:landingScreen", { err: data.err, isError: true })
     })
     ipcMain.on('screens:battleScreen', (event, data) => {
         enemigoSeleccionado = data.enemigoSeleccionado
@@ -186,11 +192,12 @@ app.on('ready', () => {
         setTimeout(() => selectorDeEnemigoScreen.webContents.send('renderizarBotonesEnemigos', { pokemonesDerrotados: store.get('pokemonesDerrotados') || [] }), 30)
     })
     ipcMain.on('detalleDeError', (event, data) => {
-    	const parentScreenName = _getView(event.sender._getURL())
+        console.log(data.parentFolder) // necesito saber quien mandó el evento para definir la url de la view
+        const parentScreenName = _getView(data.parentFolder)
         const parentScreen = getParentScreen(parentScreenName)
         const detalleDeErrorScreen = modalScreen({ height: 500, width: 600, frame: false }, 'detalleDeErrorScreen/index.html', parentScreen);
         const verticalPosition = parentScreenName == 'landingScreen' ? 440 : 550
-        const horizontalPosition = parentScreenName == 'landingScreen' ? 70 : 120 
+        const horizontalPosition = parentScreenName == 'landingScreen' ? 70 : 120
 
         detalleDeErrorScreen.setPosition(verticalPosition, horizontalPosition)
         setTimeout(() => detalleDeErrorScreen.webContents.send('detalleDeError', data), 500)
@@ -209,4 +216,17 @@ app.on('ready', () => {
         ruta = ""
     })
 
+})
+
+autoUpdater.on("update-available", (event, releaseNotes, releaseName) => {
+    dialog.showErrorBox('update-available', `${event} ||| ${releaseNotes} ||| ${releaseName}`)
+})
+autoUpdater.on("update-not-available", (event, releaseNotes, releaseName) => {
+    dialog.showErrorBox('update-not-available', `${JSON.stringify(event)} ||| ${releaseNotes} ||| ${releaseName}`)
+})
+autoUpdater.on("before-quit-for-update", (event, releaseNotes, releaseName) => {
+    dialog.showErrorBox('before-quit-for-update', `${event} ||| ${releaseNotes} ||| ${releaseName}`)
+})
+autoUpdater.on("error", (event, releaseNotes, releaseName) => {
+    dialog.showErrorBox('error', `${event} ||| ${releaseNotes} ||| ${releaseName}`)
 })
