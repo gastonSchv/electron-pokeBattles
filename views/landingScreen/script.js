@@ -15,6 +15,7 @@ function funcionesDeInicio() {
     musicaDeBatalla.loop = true
     util.crearBotonCerradoConEstilo(contenedor)
     prenderMusica()
+    console.log("actualizo")
 }
 
 function apagarMusica() {
@@ -109,7 +110,12 @@ function verificarPokemonAntesDeComenzar(data) {
 }
 
 function mostrarDetalleError(errMessage, recommendations, originalErrorMessage) { //sumar localizacion
-    ipcRenderer.send('detalleDeError', { errMessage, recommendations, originalErrorMessage })
+    ipcRenderer.send('detalleDeError', {
+        parentFolder:util.parentFolder(__dirname),
+        errMessage,
+        recommendations,
+        originalErrorMessage 
+    })
 }
 ipcRenderer.on('altaDeScreen:landingScreen', (event, data) => {
     verificarPokemonAntesDeComenzar(data)
