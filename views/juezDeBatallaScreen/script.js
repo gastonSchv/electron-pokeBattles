@@ -66,7 +66,12 @@ function realizarEvaluacion(unPokemon,idEvaluacion){
 	return evaluar(idEvaluacion, unPokemon, () => juezDeBatalla.constatarEvaluacion(unPokemon,idEvaluacion))	
 }
 function mostrarDetalleError(errMessage,recommendations,originalErrorMessage){//agregar localizacion
-    ipcRenderer.send('detalleDeError',{errMessage,recommendations,originalErrorMessage})
+    ipcRenderer.send('detalleDeError',{
+        parentFolder:util.parentFolder(__dirname),
+        errMessage,
+        recommendations,
+        originalErrorMessage
+    })
 }
 function realizarEvaluacionesNecesarias(unPokemon) {
     _.forEach(juezDeBatalla.obtenerEvaluaciones(), evaluacion => {
