@@ -120,6 +120,9 @@ class Util {
             detalle error
         </button>`
     }
+    parentFolder(dirname){
+        return _.last(dirname.split("\\"))
+    }
 }
 
 module.exports = new Util
