@@ -124,7 +124,12 @@ function habilitarDetalleResultadoFallido(entrenamientoId,err){//sumar localizac
     util.habilitarDetalleResultadoFallido(botonEntrenamientoDiv,entrenamientoId,err)
 }
 function mostrarDetalleError(errMessage,recommendations,originalErrorMessage){//sumar localizacion
-    ipcRenderer.send('detalleDeError',{errMessage,recommendations,originalErrorMessage})
+    ipcRenderer.send('detalleDeError',{
+        parentFolder:util.parentFolder(__dirname),
+        errMessage,
+        recommendations,
+        originalErrorMessage
+    })
 }
 function  constatarEntrenamiento(entrenamientoId) {
     const cartelEntrenamientoExitoso = document.getElementById(`cartelEntrenamientoExitoso${entrenamientoId}`)
